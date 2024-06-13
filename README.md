@@ -16,3 +16,5 @@ The project structure will evolve as needed, but let's start from something like
 Please do not check any data into git.
 
 Use the notebooks folder for exploratory stuff and reports (including figures, presentations, markdown).
+
+Spreadsheet with available datasets: [this Google Sheet](https://docs.google.com/spreadsheets/d/1pXnDFDvU572rrZSNdxGasZBxgMU1gO780_Ll7HFy_x8/edit?usp=sharing)
