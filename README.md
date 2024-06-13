@@ -8,8 +8,8 @@ The project structure will evolve as needed, but let's start from something like
 ├── data
 │   ├── processed   <-- data ready to be loaded/analyzed
 │   └── raw         <-- immutable unprocessed data
-├── notebooks       <-- use notebooks for 
-├── references      <-- data dictionaries, dataset docs,
+├── notebooks       <-- notebooks, figures, reports
+├── references      <-- data dictionaries, dataset docs, any other useful docs
 └── src             <-- code, tests, 
 ```
 
