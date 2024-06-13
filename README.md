@@ -1,3 +1,5 @@
+This is an extension of the [ADRD tool](https://github.com/vkola-lab/adrd_tool)
+
 The project structure will evolve as needed, but let's start from something like
 
 ```
