@@ -1,0 +1,810 @@
+id,form_id,variable_type_id,source,descriptor
+NACCID,U1,D,v1-3,Subject ID number
+NACCADC,U1,D,v1-3,ADC at which subject was seen
+PACKET,U1,O,v1-3,Packet code
+FORMVER,U1,O,v1-3,Form version number
+VISITMO,U1,O,v1-3,Form date - month
+VISITDAY,U1,O,v1-3,Form date - day
+VISITYR,U1,O,v1-3,Form date - year
+NACCVNUM,U1,D,v1-3,UDS visit number (order)
+NACCAVST,U1,D,v1-3,Total number of all UDS visits made
+NACCNVST,U1,D,v1-3,Total number of in-person UDS visits made
+NACCDAYS,U1,D,v1-3,Days from initial visit to most recent visit
+NACCFDYS,U1,D,v1-3,Days from initial visit to each follow-up visit
+NACCDIED,U2,D,v1-3,Subject is known to be deceased
+NACCMOD,U2,D,v1-3,Month of death
+NACCYOD,U2,D,v1-3,Year of death
+NACCACTV,U2,D,v1-3,Follow-up status at the Alzheimer's Disease Center (ADC)
+NACCNOVS,U2,D,v1-3,No longer followed annually in person or by telephone
+NACCDSMO,U2,D,v1-3,Month of discontinuation from annual follow-up
+NACCDSDY,U2,D,v1-3,Day of discontinuation from annual follow-up
+NACCDSYR,U2,D,v1-3,Year of discontinuation from annual follow-up
+NACCNURP,U2,D,v1-3,Permanently moved to a nursing home
+NACCNRMO,U2,D,v1-3,Month permanently moved to nursing home
+NACCNRDY,U2,D,v1-3,Day permanently moved to nursing home
+NACCNRYR,U2,D,v1-3,Year permanently moved to nursing home
+NACCMDSS,U2,D,v1-3,Subject's status in the Minimal Data Set (MDS) and Uniform Data Set (UDS)
+NACCPAFF,U2,D,v1-3,Previously affiliated subject
+TELCOV,T1,O,v3,Why is the UDS telephone follow-up protocol being used to obtain data about the subject? COVID pandemic precludes traditional in-person UDS visit.
+TELMOD,T1,O,v3,What modality of communication was used to collect this remote UDS packet?
+NACCREAS,A1,D,v1-3,Primary reason for coming to ADC
+NACCREFR,A1,D,v1-3,Principal referral source
+BIRTHMO,A1,O,v1-3,Subject's month of birth
+BIRTHYR,A1,O,v1-3,Subject's year of birth
+SEX,A1,O,v1-3,Subject's sex
+HISPANIC,A1,O,v1-3,Hispanic/Latino ethnicity
+HISPOR,A1,O,v1-3,Hispanic origins
+HISPORX,A1,O,v1-3,"Hispanic origins, other - specify"
+RACE,A1,O,v1-3,Race
+RACEX,A1,O,v1-3,"Race, other - specify"
+RACESEC,A1,O,v1-3,Second race
+RACESECX,A1,O,v1-3,"Second race, other - specify"
+RACETER,A1,O,v1-3,Third race
+RACETERX,A1,O,v1-3,"Third race, other - specify"
+PRIMLANG,A1,O,v1-3,Primary language
+PRIMLANX,A1,O,v1-3,"Primary language, other- specify"
+EDUC,A1,O,v1-3,Years of education
+MARISTAT,A1,O,v1-3,Marital status
+NACCLIVS,A1,D,v1-3,Living situation
+INDEPEND,A1,O,v1-3,Level of independence
+RESIDENC,A1,O,v1-3,Type of residence
+HANDED,A1,O,v1-3,Is the subject left- or right-handed?
+NACCAGE,A1,D,v1-3,Subject's age at visit
+NACCAGEB,A1,D,v1-3,Subject's age at initial visit
+NACCNIHR,A1,D,v1-3,Derived NIH race definitions
+INBIRMO,A2,O,v1-3,Co-participant's month of birth
+INBIRYR,A2,O,v1-3,Co-participant's year of birth
+INSEX,A2,O,v1-3,Co-participant's sex
+NEWINF,A2,O,v1-3,"Is this a new co-participant - i.e., one who was not a co-participant at any past UDS visit?"
+INHISP,A2,O,v1-3,Co-participant Hispanic/Latino ethnicity
+INHISPOR,A2,O,v1-3,Co-participant's Hispanic origins
+INHISPOX,A2,O,v1-3,"Co-participant of Hispanic origins, other (specify)"
+INRACE,A2,O,v1-3,Co-participant race
+INRACEX,A2,O,v1-3,"Co-participant race, other (specify)"
+INRASEC,A2,O,v1-3,Co-participant second race
+INRASECX,A2,O,v1-3,"Co-participant second race, other (specify)"
+INRATER,A2,O,v1-3,Co-participant third race
+INRATERX,A2,O,v1-3,"Co-participant third race, other (specify)"
+INEDUC,A2,O,v1-3,Co-participant's years of education
+INRELTO,A2,O,v1-3,Co-participant's relationship to subject
+INRELTOX,A2,O,v1-2,"Co-participant relationship, other (specify)"
+INKNOWN,A2,O,v3,How long has the co-participant known the subject?
+INLIVWTH,A2,O,v1-3,Does the co-participant live with the subject?
+INVISITS,A2,O,v1-3,"If no, approximate frequency of in-person visits?"
+INCALLS,A2,O,v1-3,"If no, approximate frequency of telephone contact?"
+INRELY,A2,O,v1-3,Is there a question about the co-participant's reliability?
+NACCNINR,A2,D,v1-3,Derived NIH race definitions
+NACCFAM,A3,D,v1-3,Indicator of first-degree family member with cognitive impairment
+NACCMOM,A3,D,v1-3,Indicator of mother with cognitive impairment
+NACCDAD,A3,D,v1-3,Indicator of father with cognitive impairment
+NACCFADM,A3,D,v3,"In this family, is there evidence of a dominantly inherited AD mutation?"
+NACCAM,A3,D,v3,"In this family, is there evidence for an AD mutation (from list of specific mutations)?"
+NACCAMX,A3,D,v3,"If yes, Other (specify)"
+NACCAMS,A3,D,v3,Source of evidence for AD mutation
+NACCAMSX,A3,D,v3,"If other, specify"
+NACCFFTD,A3,D,v3,"In this family, is there evidence for an FTLD mutation?"
+NACCFM,A3,D,v3,"In this family, is there evidence for an FTLD mutation (from list of specific mutations)?"
+NACCFMX,A3,D,v3,"If yes, Other (specify)"
+NACCFMS,A3,D,v3,Source of evidence for FTLD mutation
+NACCFMSX,A3,D,v3,"If other, specify"
+NACCOM,A3,D,v3,"In this family, is there evidence for a mutation other than an AD or FTLD mutation?"
+NACCOMX,A3,D,v3,Specified other mutation
+NACCOMS,A3,D,v3,Source of evidence for other mutation
+NACCOMSX,A3,D,v3,"If other, specify"
+ANYMEDS,A4,O,v1-3,Subject taking any medications
+DRUG1-DRUG40,A4,O,v1-3,Name of medications used within two weeks of UDS visit
+NACCAMD,A4,D,v1-3,Total number of medications reported at each visit
+NACCAHTN,A4,D,v1-3,Reported current use of any type of antihypertensive or blood pressure medication
+NACCHTNC,A4,D,v1-3,Reported current use of an antihypertensive combination therapy
+NACCACEI,A4,D,v1-3,Reported current use of an angiotensin converting enzyme (ACE) inhibitor
+NACCAAAS,A4,D,v1-3,Reported current use of an antiadrenergic agent
+NACCBETA,A4,D,v1-3,Reported current use of a beta-adrenergic blocking agent (beta-blocker)
+NACCCCBS,A4,D,v1-3,Reported current use of a calcium channel blocking agent
+NACCDIUR,A4,D,v1-3,Reported current use of a diuretic
+NACCVASD,A4,D,v1-3,Reported current use of a vasodilator
+NACCANGI,A4,D,v1-3,Reported current use of an angiotensin II inhibitor
+NACCLIPL,A4,D,v1-3,Reported current use of lipid lowering medication
+NACCNSD,A4,D,v1-3,Reported current use of nonsteroidal anti-inflammatory medication
+NACCAC,A4,D,v1-3,Reported current use of an anticoagulant or antiplatelet agent
+NACCADEP,A4,D,v1-3,Reported current use of an antidepressant
+NACCAPSY,A4,D,v1-3,Reported current use of an antipsychotic agent
+NACCAANX,A4,D,v1-3,"Reported current use of an anxiolytic, sedative, or hypnotic agent"
+NACCADMD,A4,D,v1-3,Reported current use of a FDA-approved medication for Alzheimer's disease symptoms
+NACCPDMD,A4,D,v1-3,Reported current use of an antiparkinson agent
+NACCEMD,A4,D,v1-3,Reported current use of estrogen hormone therapy
+NACCEPMD,A4,D,v1-3,Reported current use of estrogen + progestin hormone therapy
+NACCDBMD,A4,D,v1-3,Reported current use of a diabetes medication
+TOBAC30,A5,O,v1-3,Smoked cigarettes in last 30 days
+TOBAC100,A5,O,v1-3,Smoked more than 100 cigarettes in life
+SMOKYRS,A5,O,v1-3,Total years smoked cigarettes
+PACKSPER,A5,O,v1-3,Average number of packs smoked per day
+QUITSMOK,A5,O,v1-3,"If the subject quit smoking, age at which he/she last smoked (i.e., quit)"
+ALCOCCAS,A5,O,v3,"In the past three months, has the subject consumed any alcohol?"
+ALCFREQ,A5,O,v3,"During the past three months, how often did the subject have at least one drink of any alcoholic beverage such as wine, beer, malt liquor, or spirits?"
+CVHATT,A5,O,v1-3,Heart attack/cardiac arrest
+HATTMULT,A5,O,v3,More than one heart attack/cardiac arrest?
+HATTYEAR,A5,O,v3,Year of most recent heart attack
+CVAFIB,A5,O,v1-3,Atrial fibrillation
+CVANGIO,A5,O,v1-3,Angioplasty/endarterectomy/stent
+CVBYPASS,A5,O,v1-3,Cardiac bypass procedure
+CVPACDEF,A5,O,v3,Pacemaker and/or defibrillator
+CVPACE,A5,O,v1-2,Pacemaker
+CVCHF,A5,O,v1-3,Congestive heart failure
+CVANGINA,A5,O,v3,Angina
+CVHVALVE,A5,O,v3,Heart valve replacement or repair
+CVOTHR,A5,O,v1-3,Other cardiovascular disease
+CVOTHRX,A5,O,v3,Specification for other cardiovascular disease
+CBSTROKE,A5,O,v1-3,Stroke
+STROKMUL,A5,O,v3,More than one stroke reported as of the Initial Visit
+NACCSTYR,A5,D,v1-3,Most recently reported year of stroke as of the Initial Visit
+CBTIA,A5,O,v1-3,Transient ischemic attack (TIA)
+TIAMULT,A5,O,v3,More than one TIA reported as of the Initial Visit
+NACCTIYR,A5,D,v1-3,Most recently reported year of TIA as of the Initial Visit
+PD,A5,O,v1-3,Parkinson's disease (PD)
+PDYR,A5,O,v1-3,Year of PD diagnosis
+PDOTHR,A5,O,v1-3,Other parkinsonian disorder
+PDOTHRYR,A5,O,v1-3,Year of parkinsonian disorder diagnosis
+SEIZURES,A5,O,v1-3,Seizures
+TBI,A5,O,v3,Traumatic brain injury (TBI)
+TBIBRIEF,A5,O,v3,Traumatic brain injury (TBI) with brief loss of consciousness
+TRAUMBRF,A5,O,v1-2,brain trauma - brief unconsciousness
+TBIEXTEN,A5,O,v3,TBI with extended loss of consciousness - 5 minutes of longer
+TRAUMEXT,A5,O,v1-2,brain trauma - extended unconsciousness
+TBIWOLOS,A5,O,v3,TBI without loss of consciousness - as might result from military detonations or sports injury
+TRAUMCHR,A5,O,v1-2,brain trauma - chronic deficit
+TBIYEAR,A5,O,v3,Year of most recent TBI
+NCOTHR,A5,O,v1-2,Other neurological condition
+NCOTHRX,A5,O,v1-2,Other neurological condition (specify)
+DIABETES,A5,O,v1-3,Diabetes
+DIABTYPE,A5,O,v3,"If Recent/active or Remote/inactive diabetes, which type?"
+HYPERTEN,A5,O,v1-3,Hypertension
+HYPERCHO,A5,O,v1-3,Hypercholesterolemia
+B12DEF,A5,O,v1-3,Vitamin b12 deficiency
+THYROID,A5,O,v1-3,Thyroid disease
+ARTHRIT,A5,O,v3,Arthritis
+ARTHTYPE,A5,O,v3,Type of arthritis
+ARTHTYPX,A5,O,v3,Other arthritis (specify)
+ARTHUPEX,A5,O,v3,"Arthritis, region affected - upper extremity"
+ARTHLOEX,A5,O,v3,"Arthritis, region affected - lower extremity"
+ARTHSPIN,A5,O,v3,"Arthritis, region affected - spine"
+ARTHUNK,A5,O,v3,Region affected - unknown
+INCONTU,A5,O,v1-3,Incontinence - urinary
+INCONTF,A5,O,v1-3,Incontinence - bowel
+APNEA,A5,O,v3,Sleep apnea history reported at Initial Visit
+RBD,A5,O,v3,REM sleep behavior disorder (RbD) history reported at Initial Visit
+INSOMN,A5,O,v3,Hyposomnia/insomnia history reported at Initial Visit
+OTHSLEEP,A5,O,v3,Other sleep disorder history reported at Initial Visit
+OTHSLEEX,A5,O,v3,Other sleep disorder (specify)
+ALCOHOL,A5,O,v1-3,"Alcohol abuse - clinically significant occurring over a 12-month period manifested in one of the following areas: work, driving, legal, or social"
+ABUSOTHR,A5,O,v1-3,"Other abused substances - clinically significant impairment occurring over a 12-month period manifested in one of the following areas: work, driving, legal, or social"
+ABUSX,A5,O,v1-3,"If reported other abused substances, specify abused substance(s)"
+PTSD,A5,O,v3,Post-traumatic stress disorder (PTSD)
+BIPOLAR,A5,O,v3,bipolar disorder
+SCHIZ,A5,O,v3,Schizophrenia
+DEP2YRS,A5,O,v1-3,Active depression in the last two years
+DEPOTHR,A5,O,v1-3,Depression episodes more than two years ago
+ANXIETY,A5,O,v3,Anxiety
+OCD,A5,O,v3,Obsessive-compulsive disorder (OCD)
+NPSYDEV,A5,O,v3,"Developmental neuropsychiatric disorders (e.g., autism spectrum disorder [ASD], attention-deficit hyperactivity disorder [ADHD], dyslexia)"
+PSYCDIS,A5,O,v1-3,Other psychiatric disorder
+PSYCDISX,A5,O,v1-3,"If recent/active or remote/inactive psychiatric disorder, specify disorder"
+NACCTBI,A5,D,v1-3,History of traumatic brain injury (TBI)
+HEIGHT,B1,O,v1-3,Subject's height (inches)
+WEIGHT,B1,O,v1-3,Subject's weight (lbs)
+NACCBMI,B1,D,v1-3,body mass index (bMI)
+BPSYS,B1,O,v1-3,"Subject blood pressure (sitting), systolic"
+BPDIAS,B1,O,v1-3,"Subject blood pressure (sitting), diastolic"
+HRATE,B1,O,v1-3,Subject resting heart rate (pulse)
+VISION,B1,O,v1-3,"Without corrective lenses, is the subject's vision functionally normal?"
+VISCORR,B1,O,v1-3,Does the subject usually wear corrective lenses?
+VISWCORR,B1,O,v1-3,"If the subject usually wears corrective lenses, is the subject's vision functionally normal with corrective lenses?"
+HEARING,B1,O,v1-3,"Without a hearing aid(s), is the subject's hearing functionally normal?"
+HEARAID,B1,O,v1-3,Does the subject usually wear a hearing aid(s)?
+HEARWAID,B1,O,v1-3,"If the subject usually wears a hearing aid(s), is the subject's hearing functionally normal with a hearing aid(s)?"
+BPSYSL,B1a,O,v3,"Participant systolic blood pressure, left arm"
+BPDIASL,B1a,O,v3,"Participant diastolic blood pressure, left arm"
+BPSYSR,B1a,O,v3,"Participant systolic blood pressure, right arm"
+BPDIASR,B1a,O,v3,"Participant diastolic blood pressure, right arm"
+BPDEVICE,B1a,O,v3,Taken using an approved device or cuff?
+ABRUPT,B2,O,v1-2,Abrupt onset (re: cognitive status)
+STEPWISE,B2,O,v1-2,Stepwise deterioration (re: cognitive status)
+SOMATIC,B2,O,v1-2,Somatic complaints
+EMOT,B2,O,v1-2,Emotional incontinence
+HXHYPER,B2,O,v1-2,History or presence of hypertension
+HXSTROKE,B2,O,v1-2,History of stroke
+FOCLSYM,B2,O,v1-2,Focal neurological symptoms
+FOCLSIGN,B2,O,v1-2,Focal neurological signs
+HACHIN,B2,O,v1-2,Hachinski ischemic score
+CVDCOG,B2,O,v2,Cerebrovascular disease contributing to cognitive impairment
+STROKCOG,B2,O,v2,Relationship between stroke and cognitive impairment
+CVDIMAG,B2,O,v2,Imaging evidence
+CVDIMAG1,B2,O,v2,Single strategic infarct
+CVDIMAG2,B2,O,v2,Multiple infarcts
+CVDIMAG3,B2,O,v2,Extensive white matter hyperintensity
+CVDIMAG4,B2,O,v2,Other imaging evidence
+CVDIMAGX,B2,O,v2,Other imaging evidence - specify
+PDNORMAL,B3,O,v1-2,UPDRS normal
+SPEECH,B3,O,v1-2,Speech
+SPEECHX,B3,O,v2,Speech; untestable - specify reason
+FACEXP,B3,O,v1-2,Facial expression
+FACEXPX,B3,O,v2,Facial expression; untestable - specify reason
+TRESTFAC,B3,O,v1-2,"Tremor at rest - face, lips, chin"
+TRESTFAX,B3,O,v2,"Tremor at rest - face, lips, chin; untestable - specify reason"
+TRESTRHD,B3,O,v1-2,Tremor at rest - right hand
+TRESTRHX,B3,O,v2,Tremor at rest - right hand; untestable - specify reason
+TRESTLHD,B3,O,v1-2,Tremor at rest - left hand
+TRESTLHX,B3,O,v2,Tremor at rest - left hand; untestable - specify reason
+TRESTRFT,B3,O,v1-2,Tremor at rest - right foot
+TRESTRFX,B3,O,v2,Tremor at rest - right foot; untestable - specify reason
+TRESTLFT,B3,O,v1-2,Tremor at rest - left foot
+TRESTLFX,B3,O,v2,Tremor at rest - left foot; untestable - specify reason
+TRACTRHD,B3,O,v1-2,Action or postural tremor - right hand
+TRACTRHX,B3,O,v2,Action or postural tremor - right hand; untestable - specify reason
+TRACTLHD,B3,O,v1-2,Action or postural tremor - left hand
+TRACTLHX,B3,O,v2,Action or postural tremor - left hand; untestable - specify reason
+RIGDNECK,B3,O,v1-2,Rigidity - neck
+RIGDNEX,B3,O,v2,Rigidity - neck; untestable - specify reason
+RIGDUPRT,B3,O,v1-2,Rigidity - right upper extremity
+RIGDUPRX,B3,O,v2,Rigidity - right upper extremity; untestable - specify reason
+RIGDUPLF,B3,O,v1-2,Rigidity - left upper extremity
+RIGDUPLX,B3,O,v2,Rigidity - left upper extremity; untestable - specify reason
+RIGDLORT,B3,O,v1-2,Rigidity - right lower extremity
+RIGDLORX,B3,O,v2,Rigidity - right lower extremity; untestable - specify reason
+RIGDLOLF,B3,O,v1-2,Rigidity - left lower extremity
+RIGDLOLX,B3,O,v2,Rigidity - left lower extremity; untestable - specify reason
+TAPSRT,B3,O,v1-2,Finger taps - right hand
+TAPSRTX,B3,O,v1-2,Finger taps - right hand; untestable - specify reason
+TAPSLF,B3,O,v1-2,Finger taps - left hand
+TAPSLFX,B3,O,v1-2,Finger taps - left hand; untestable - specify reason
+HANDMOVR,B3,O,v1-2,Hand movements - right hand
+HANDMVRX,B3,O,v1-2,Hand movements - right hand; untestable - specify reason
+HANDMOVL,B3,O,v1-2,Hand movements - left hand
+HANDMVLX,B3,O,v1-2,Hand movements - left hand; untestable - specify reason
+HANDALTR,B3,O,v1-2,Alternating movement - right hand
+HANDATRX,B3,O,v1-2,Alternating movement - right hand; untestable - specify reason
+HANDALTL,B3,O,v1-2,Alternating movement - left hand
+HANDATLX,B3,O,v1-2,Alternating movement - left hand; untestable - specify reason
+LEGRT,B3,O,v1-2,Leg agility - right leg
+LEGRTX,B3,O,v1-2,Leg agility - right leg; untestable - specify reason
+LEGLF,B3,O,v1-2,Leg agility - left leg
+LEGLFX,B3,O,v1-2,Leg agility - left leg; untestable - specify reason
+ARISING,B3,O,v1-2,Arising from chair
+ARISINGX,B3,O,v1-2,Arising from chair; untestable - specify reason
+POSTURE,B3,O,v1-2,Posture
+POSTUREX,B3,O,v1-2,Posture; untestable - specify reason
+GAIT,B3,O,v1-2,Gait
+GAITX,B3,O,v1-2,Gait; untestable - specify reason
+POSSTAB,B3,O,v1-2,Posture stability
+POSSTABX,B3,O,v1-2,Posture stability; untestable - specify reason
+BRADYKIN,B3,O,v1-2,body bradykinesia and hypokinesia
+BRADYKIX,B3,O,v2,body bradykinesia and hypokinesia; untestable - specify reason
+MEMORY,B4,O,v1-3,Memory
+ORIENT,B4,O,v1-3,Orientation
+JUDGMENT,B4,O,v1-3,Judgment and problem-solving
+COMMUN,B4,O,v1-3,Community affairs
+HOMEHOBB,B4,O,v1-3,Home and hobbies
+PERSCARE,B4,O,v1-3,Personal care
+CDRSUM,B4,O,v1-3,CDR® sum of boxes
+CDRGLOB,B4,O,v1-3,Global CDR®
+COMPORT,B4,O,v2-3,"behavior, comportment, and personality"
+CDRLANG,B4,O,v2-3,Language
+NPIQINF,B5,O,v1-3,NPI-Q co-participant
+NPIQINFX,B5,O,v1-3,"NPI-Q co-participant, other - specify"
+DEL,B5,O,v1-3,Delusions in the last month
+DELSEV,B5,O,v1-3,Delusions severity
+HALL,B5,O,v1-3,Hallucinations in the last month
+HALLSEV,B5,O,v1-3,Hallucinations severity
+AGIT,B5,O,v1-3,Agitation or aggression in the last month
+AGITSEV,B5,O,v1-3,Agitation or aggression severity
+DEPD,B5,O,v1-3,Depression or dysphoria in the last month
+DEPDSEV,B5,O,v1-3,Depression or dysphoria severity
+ANX,B5,O,v1-3,Anxiety in the last month
+ANXSEV,B5,O,v1-3,Anxiety severity
+ELAT,B5,O,v1-3,Elation or euphoria in the last month
+ELATSEV,B5,O,v1-3,Elation or euphoria severity
+APA,B5,O,v1-3,Apathy or indifference in the last month
+APASEV,B5,O,v1-3,Apathy or indifference severity
+DISN,B5,O,v1-3,Disinhibition in the last month
+DISNSEV,B5,O,v1-3,Disinhibition severity
+IRR,B5,O,v1-3,Irritability or lability in the last month
+IRRSEV,B5,O,v1-3,Irritability or lability severity
+MOT,B5,O,v1-3,Motor disturbance in the last month
+MOTSEV,B5,O,v1-3,Motor disturbance severity
+NITE,B5,O,v1-3,Nighttime behaviors in the last month
+NITESEV,B5,O,v1-3,Nighttime behaviors severity
+APP,B5,O,v1-3,Appetite and eating problems in the last month
+APPSEV,B5,O,v1-3,Appetite and eating severity
+NOGDS,B6,O,v1-3,"Is the subject able to complete the GDS, based on the clinician's best judgment?"
+SATIS,B6,O,v1-3,Are you basically satisfied with your life?
+DROPACT,B6,O,v1-3,Have you dropped many of your activities and interests?
+EMPTY,B6,O,v1-3,Do you feel that your life is empty?
+BORED,B6,O,v1-3,Do you often get bored?
+SPIRITS,B6,O,v1-3,Are you in good spirits most of the time?
+AFRAID,B6,O,v1-3,Are you afraid that something bad is going to happen to you?
+HAPPY,B6,O,v1-3,Do you feel happy most of the time?
+HELPLESS,B6,O,v1-3,Do you often feel helpless?
+STAYHOME,B6,O,v1-3,"Do you prefer to stay at home, rather than going out and doing new things?"
+MEMPROB,B6,O,v1-3,Do you feel you have more problems with memory than most?
+WONDRFUL,B6,O,v1-3,Do you think it is wonderful to be alive now?
+WRTHLESS,B6,O,v1-3,Do you feel pretty worthless the way you are now?
+ENERGY,B6,O,v1-3,Do you feel full of energy?
+HOPELESS,B6,O,v1-3,Do you feel that your situation is hopeless?
+BETTER,B6,O,v1-3,Do you think that most people are better off than you are?
+NACCGDS,B6,D,v1-3,Total GDS Score
+BILLS,B7,O,v1-3,"In the past four weeks, did the subject have any difficulty or need help with: Writing checks, paying bills, or balancing a checkbook"
+TAXES,B7,O,v1-3,"In the past four weeks, did the subject have any difficulty or need help with: Assembling tax records, business affairs, or other paper"
+SHOPPING,B7,O,v1-3,"In the past four weeks, did the subject have any difficulty or need help with: Shopping alone for clothes, household necessities, or groceries"
+GAMES,B7,O,v1-3,"In the past four weeks, did the subject have any difficulty or need help with: Playing a game of skill such as bridge or chess, working on a hobby"
+STOVE,B7,O,v1-3,"In the past four weeks, did the subject have any difficulty or need help with: Heating water, making a cup of coffee, turning off the stove"
+MEALPREP,B7,O,v1-3,"In the past four weeks, did the subject have any difficulty or need help with: Preparing a balanced meal"
+EVENTS,B7,O,v1-3,"In the past four weeks, did the subject have any difficulty or need help with: Keeping track of current events"
+PAYATTN,B7,O,v1-3,"In the past four weeks, did the subject have any difficulty or need help with: Paying attention to and understanding a TV program, book, or magazine"
+REMDATES,B7,O,v1-3,"In the past four weeks, did the subject have any difficulty or need help with: Remembering appointments, family occasions, idays, medications"
+TRAVEL,B7,O,v1-3,"In the past four weeks, did the subject have any difficulty or need help with: Traveling out of the neighborhood, driving, or arranging to take public transportation"
+NACCNREX,B8,D,v1-3,Were all findings unremarkable?
+NORMEXAM,B8,O,v3,Were there abnormal neurological exam findings?
+FOCLDEF,B8,O,v1-2,Are focal deficits present indicative of central nervous system disorder?
+GAITDIS,B8,O,v1-2,Is gait disorder present indicative of central nervous system disorder?
+EYEMOVE,B8,O,v1-2,Are there eye movement abnormalities present indicative of central nervous system disorder?
+PARKSIGN,B8,O,v3,Parkinsonian signs
+RESTTRL,B8,O,v3,Resting tremor - left arm
+RESTTRR,B8,O,v3,Resting tremor - right arm
+SLOWINGL,B8,O,v3,Slowing of fine motor movements - left side
+SLOWINGR,B8,O,v3,Slowing of fine motor movements - right side
+RIGIDL,B8,O,v3,Rigidity - left arm
+RIGIDR,B8,O,v3,Rigidity - right arm
+BRADY,B8,O,v3,bradykinesia
+PARKGAIT,B8,O,v3,Parkinsonian gait disorder
+POSTINST,B8,O,v3,Postural instability
+CVDSIGNS,B8,O,v3,Neurological sign considered by examiner to be most likely consistent with cerebrovascular disease
+CORTDEF,B8,O,v3,"Cortical cognitive deficit (e.g., aphasia, apraxia, neglect)"
+SIVDFIND,B8,O,v3,Focal or other neurological findings consistent with SIVD (subcortical ischemic vascular dementia)
+CVDMOTL,B8,O,v3,"Motor (may include weakness of combination of face, arm, and leg; reflex changes, etc.) - left side"
+CVDMOTR,B8,O,v3,"Motor (may include weakness of combination of face, arm, and leg; reflex changes, etc.) - right side"
+CORTVISL,B8,O,v3,Cortical visual field loss - left side
+CORTVISR,B8,O,v3,Cortical visual field loss - right side
+SOMATL,B8,O,v3,Somatosensory loss - left side
+SOMATR,B8,O,v3,Somatosensory loss - right side
+POSTCORT,B8,O,v3,"Higher cortical visual problem suggesting posterior cortical atrophy (e.g., prosopagnosia, simultagnosia, balint's syndrome) or apraxia of gaze"
+PSPCBS,B8,O,v3,"Findings suggestive of progressive supranuclear palsy (PSP), corticobasal syndrome (CbS), or other related disorders"
+EYEPSP,B8,O,v3,Eye movement changes consistent with PSP
+DYSPSP,B8,O,v3,Dysarthria consistent with PSP
+AXIALPSP,B8,O,v3,Axial rigidity consistent with PSP
+GAITPSP,B8,O,v3,Gait disorder consistent with PSP
+APRAXSP,B8,O,v3,Apraxia of speech
+APRAXL,B8,O,v3,Apraxia consistent with CbS - left side
+APRAXR,B8,O,v3,Apraxia consistent with CbS - right side
+CORTSENL,B8,O,v3,Cortical sensory deficits consistent with CbS - left side
+CORTSENR,B8,O,v3,Cortical sensory deficits consistent with CbS - right side
+ATAXL,B8,O,v3,Ataxia consistent with CbS - left side
+ATAXR,B8,O,v3,Ataxia consistent with CbS - right side
+ALIENLML,B8,O,v3,Alien limb consistent with CbS - left side
+ALIENLMR,B8,O,v3,Alien limb consistent with CbS - right side
+DYSTONL,B8,O,v3,"Dystonia consistent with CbS, PSP, or related disorder - left side"
+DYSTONR,B8,O,v3,"Dystonia consistent with CbS, PSP, or related disorder - right side"
+MYOCLLT,B8,O,v3,Myoclonus consistent with CbS - left side
+MYOCLRT,B8,O,v3,Myoclonus consistent with CbS - right side
+ALSFIND,B8,O,v3,"Findings suggesting ALS (e.g., muscle wasting, fasciculations, upper motor and/or lower motor neuron signs)"
+GAITNPH,B8,O,v3,Normal pressure hydrocephalus - gait apraxia
+OTHNEUR,B8,O,v3,"Other findings (e.g., cerebella ataxia, chorea, myoclonus)"
+OTHNEURX,B8,O,v3,Other findings (specify)
+B9CHG,B9,O,v1,Indicate changes in information reported at previous visit
+DECSUB,B9,O,v1-3,Does the subject report a decline in memory (relative to previously attained abilities)?
+DECIN,B9,O,v1-3,Does the co-participant report a decline in subject's memory (relative to previously attained abilities)?
+DECCLIN,B9,O,v1-2,"Clinician believes there is a meaningful decline in memory, non-memory cognitive abilities, behavior, ability to manage his/her affairs, or there are motor/movement changes"
+DECCLCOG,B9,O,v3,"based on the clinician's judgment, is the subject currently experiencing meaningful impairment in cognition?"
+COGMEM,B9,O,v1-3,"Indicate whether the subject currently is meaningfully impaired, relative to previously attained abilities, in memory"
+COGORI,B9,O,v3,"Indicate whether the subject is meaningfully impaired, relative to previously attained abilities, in orientation"
+COGJUDG,B9,O,v1-3,"Indicate whether the subject currently is meaningfully impaired, relative to previously attained abilities, in executive function - judgment, planning, or problem-solving"
+COGLANG,B9,O,v1-3,"Indicate whether the subject currently is meaningfully impaired, relative to previously attained abilities, in language"
+COGVIS,B9,O,v1-3,"Indicate whether the subject currently is meaningfully impaired, relative to previously attained abilities, in visuospatial function"
+COGATTN,B9,O,v1-3,"Indicate whether the subject currently is meaningfully impaired, relative to previously attained abilities, in attention or concentration"
+COGFLUC,B9,O,v2-3,Indicate whether the subject currently has fluctuating cognition
+COGFLAGO,B9,O,v3,At what age did the fluctuating cognition begin?
+COGOTHR,B9,O,v1-3,"Indicate whether the subject currently is meaningfully impaired, relative to previously attained abilities, in other cognitive domains"
+COGOTHRX,B9,O,v1-3,Specification of other cognitive impairment
+NACCCOGF,B9,D,v1-3,Indicate the predominant symptom that was first recognized as a decline in the subject's cognition
+NACCCGFX,B9,D,v1-3,Specification for other predominant symptom first recognized as a decline in the subject's cognition
+COGMODE,B9,O,v1-3,Mode of onset of cognitive symptoms
+COGMODEX,B9,O,v1-3,Specification for other mode of onset of cognitive symptoms
+DECAGE,B9,O,v1-3,"based on clinician's assessment, at what age did the cognitive decline begin?"
+DECCLBE,B9,O,v3,"based on clinician's judgment, is the subject currently experiencing any kind of behavioral symptoms?"
+BEAPATHY,B9,O,v1-3,"Subject currently manifests meaningful change in behavior - Apathy, withdrawal"
+BEDEP,B9,O,v1-3,Subject currently manifests meaningful change in behavior - Depressed mood
+BEVHALL,B9,O,v1-3,Subject currently manifests meaningful change in behavior - Psychosis - Visual hallucinations
+BEVWELL,B9,O,v2-3,"If yes, are the hallucinations well-formed and detailed?"
+BEVHAGO,B9,O,v3,"If well-formed, clear-cut visual hallucinations, at what age did these hallucinations begin?"
+BEAHALL,B9,O,v1-3,Subject currently manifests meaningful change in behavior - Psychosis - Auditory hallucinations
+BEDEL,B9,O,v1-3,"Subject currently manifests meaningful change in behavior - Psychosis - Abnormal, false, or delusional beliefs"
+BEDISIN,B9,O,v1-3,Subject currently manifests meaningful change in behavior - Disinhibition
+BEIRRIT,B9,O,v1-3,Subject currently manifests meaningful change in behavior - Irritability
+BEAGIT,B9,O,v1-3,Subject currently manifests meaningful change in behavior - Agitation
+BEPERCH,B9,O,v1-3,Subject currently manifests meaningful change in behavior - Personality change
+BEREM,B9,O,v2-3,Subject currently manifests meaningful change in behavior - REM sleep behavior disorder
+BEREMAGO,B9,O,v3,"If yes, at what age did the REM sleep behavior disorder begin?"
+BEANX,B9,O,v3,Subject currently manifests meaningful change in behavior - Anxiety
+BEOTHR,B9,O,v1-3,Subject currently manifests meaningful change in behavior - Other
+BEOTHRX,B9,O,v1-3,"Subject currently manifests meaningful change in behavior - Other, specify"
+NACCBEHF,B9,D,v1-3,Indicate the predominant symptom that was first recognized as a decline in the subject's behavior
+NACCBEFX,B9,D,v1-3,Specification of other predominant symptom that was first recognized as a decline in the subject's behavior
+BEMODE,B9,O,v1-3,Mode of onset of behavioral symptoms
+BEMODEX,B9,O,v1-3,Specification of other mode of onset of behavioral symptoms
+BEAGE,B9,O,v3,"based on the clinician's assessment, at what age did the behavioral symptoms begin?"
+DECCLMOT,B9,O,v3,"based on the clinician's judgment, is the subject currently experiencing any motor symptoms?"
+MOGAIT,B9,O,v1-3,Indicate whether the subject currently has meaningful changes in motor function - Gait disorder
+MOFALLS,B9,O,v1-3,Indicate whether the subject currently has meaningful changes in motor function - Falls
+MOTREM,B9,O,v1-3,Indicate whether the subject currently has meaningful changes in motor function - Tremor
+MOSLOW,B9,O,v1-3,Indicate whether the subject currently has meaningful changes in motor function - Slowness
+NACCMOTF,B9,D,v1-3,Indicate the predominant symptom that was first recognized as a decline in the subject's motor function
+MOMODE,B9,O,v1-3,Mode of onset of motor symptoms
+MOMODEX,B9,O,v1-3,Specification for other mode of onset of motor symptoms
+MOMOPARK,B9,O,v2-3,Were changes in motor function suggestive of Parkinsonism?
+PARKAGE,B9,O,v3,"If yes, at what age did the motor symptoms suggestive of Parkinsonism begin?"
+MOMOALS,B9,O,v3,Were changes in motor function suggestive of amyotrophic lateral sclerosis?
+ALSAGE,B9,O,v3,"If yes, at what age did the motor symptoms suggestive of ALS begin?"
+MOAGE,B9,O,v3,"based on the clinician's assessment, at what age did the motor changes begin?"
+COURSE,B9,O,v1-3,Overall course of decline of cognitive/ behavioral/motor syndrome
+FRSTCHG,B9,O,v1-3,Indicate the predominant domain that was first recognized as changed in the subject
+LBDEVAL,B9,O,v3,Is the subject a potential candidate for further evaluation for Lewy body disease?
+FTLDEVAL,B9,O,v3,Is the subject a potential candidate for further evaluation for frontotemporal lobar degeneration?
+MMSECOMP,C1,O,v3,Was any part of the MMSE completed?
+MMSELOC,C1,O,v1-3,Administration of the MMSE was:
+MMSELAN,C1,O,v1-3,Language of MMSE administration
+MMSELANX,C1,O,v1-3,Language of MMSE administration - Other (specify)
+MMSEVIS,C1,O,v3,Subject was unable to complete one or more sections due to visual impairment
+MMSEHEAR,C1,O,v3,Subject was unable to complete one or more sections due to hearing impairment
+MMSEORDA,C1,O,v1-3,Orientation subscale score - Time
+MMSEORLO,C1,O,v1-3,Orientation subscale score - Place
+PENTAGON,C1,O,v2-3,Intersecting pentagon subscale score
+NACCMMSE,C1,D,v1-3,Total MMSE score (using D-L-R-O-W)
+NPSYCLOC,"C1, C2",O,v1-3,The remainder of the battery was administered:
+NPSYLAN,"C1, C2, C2T",O,v1-3,Language of test administration
+NPSYLANX,"C1, C2, C2T",O,v1-3,Language of test administration - Other (specify)
+LOGIMO,C1,O,v1-3,"If this test has been administered to the subject within the past 3 months, specify the date previously administered (month)"
+LOGIDAY,C1,O,v1-3,"If this test has been administered to the subject within the past 3 months, specify the date previously administered (day)"
+LOGIYR,C1,O,v1-3,"If this test has been administered to the subject within the past 3 months, specify the date previously administered (year)"
+LOGIPREV,C1,O,v1-3,Total score from the previous test administration
+LOGIMEM,C1,O,v1-3,Total number of story units recalled from this current test administration
+MEMUNITS,C1,O,v1-3,Logical Memory IIA - Delayed - Total number of story units recalled
+MEMTIME,C1,O,v1-3,Logical Memory IIA - Delayed - Time elapsed since Logical Memory IA - Immediate
+UDSBENTC,"C1, C2",O,v3,Total score for copy of benson figure
+UDSBENTD,"C1, C2",O,v3,Total score for 10- to 15-minute delayed drawing of benson figure
+UDSBENRS,"C1,C2",O,v3,Recognized original stimulus from among four options
+DIGIF,C1,O,v1-3,Digit span forward trials correct
+DIGIFLEN,C1,O,v1-3,Digit span forward length
+DIGIB,C1,O,v1-3,Digit span backward trials correct
+DIGIBLEN,C1,O,v1-3,Digit span backward length
+ANIMALS,"C1, C2, C2T",O,v1-3,Animals - Total number of animals named in 60 seconds
+VEG,"C1, C2, C2T",O,v1-3,Vegetable - Total number of vegetables named in 60 seconds
+TRAILA,"C1, C2",O,v1-3,Trail Making Test Part A - Total number of seconds to complete
+TRAILARR,"C1, C2",O,v2-3,Part A - Number of commission errors
+TRAILALI,"C1, C2",O,v2-3,Part A - Number of correct lines
+TRAILB,"C1, C2",O,v1-3,Trail Making Test Part b - Total number of seconds to complete
+TRAILBRR,"C1, C2",O,v2-3,Part b - Number of commission errors
+TRAILBLI,"C1, C2",O,v2-3,Part b - Number of correct lines
+WAIS,C1,O,v1-2,WAIS-R Digit Symbol
+BOSTON,C1,O,v1-3,boston Naming Test (30) - Total score
+UDSVERFC,"C1, C2, C2T",O,v3,Number of correct F-words generated in 1 minute
+UDSVERFN,"C1, C2, C2T",O,v3,Number of F-words repeated in 1 minute
+UDSVERNF,"C1, C2, C2T",O,v3,Number of non-F-words and rule violation errors in 1 minute
+UDSVERLC,"C1, C2, C2T",O,v3,Number of correct L-words generated in 1 minute
+UDSVERLR,"C1, C2, C2T",O,v3,Number of L-words repeated in 1 minute
+UDSVERLN,"C1, C2, C2T",O,v3,Number of non-L-words and rule violation errors in 1 minute
+UDSVERTN,"C1, C2, C2T",O,v3,Total number of correct F-words and L-words
+UDSVERTE,"C1, C2, C2T",O,v3,Total number of F-word and L-word repetition errors
+UDSVERTI,"C1, C2, C2T",O,v3,Total number of non-F/L-words and rule violation errors
+COGSTAT,"C1, C2, C2T",O,v1-3,"Per clinician, based on the neuropsychological examination, the subject's cognitive status is deemed"
+NACCC1,C1,D,v1-3,Form date discrepancy between UDS Form A1 and Form C1
+MOCACOMP,"C2, C2T",O,v3,Was any part of MoCA administered?
+MOCAREAS,"C2, C2T",O,v3,"If no part of MoCA administered, reason code"
+MOCALOC,C2,O,v3,Where was MoCA administered?
+MOCALAN,"C2, C2T",O,v3,Language of MoCA administration
+MOCALANX,"C2, C2T",O,v3,"Language of MoCA administration - Other, specify"
+MOCAVIS,C2,O,v3,Subject was unable to complete one or more sections due to visual impairment
+MOCAHEAR,"C2, C2T",O,v3,Subject was unable to complete one or more sections due to hearing impairment
+MOCATOTS,C2,O,v3,MoCA Total Raw Score - uncorrected
+NACCMOCA,C2,D,v3,MoCA Total Score - corrected for education
+MOCATRAI,C2,O,v3,MoCA: Visuospatial/executive - Trails
+MOCACUBE,C2,O,v3,MoCA: Visuospatial/executive - Cube
+MOCACLOC,C2,O,v3,MoCA: Visuospatial/executive - Clock contour
+MOCACLON,C2,O,v3,MoCA: Visuospatial/executive - Clock numbers
+MOCACLOH,C2,O,v3,MoCA: Visuospatial/executive - Clock hands
+MOCANAMI,C2,O,v3,MoCA: Language - Naming
+MOCAREGI,C2,O,v3,MoCA: Memory - Registration (two trials)
+MOCADIGI,"C2, C2T",O,v3,MoCA: Attention - Digits
+MOCALETT,"C2, C2T",O,v3,MoCA: Attention - Letter A
+MOCASER7,"C2, C2T",O,v3,MoCA: Attention - Serial 7s
+MOCAREPE,"C2, C2T",O,v3,MoCA: Language - Repetition
+MOCAFLUE,"C2, C2T",O,v3,MoCA: Language - Fluency
+MOCAABST,"C2, C2T",O,v3,MoCA: Abstraction
+MOCARECN,"C2, C2T",O,v3,MoCA: Delayed recall - No cue
+MOCARECC,"C2, C2T",O,v3,MoCA: Delayed recall - Category cue
+MOCARECR,"C2, C2T",O,v3,MoCA: Delayed recall - Recognition
+MOCAORDT,"C2, C2T",O,v3,MoCA: Orientation - Date
+MOCAORMO,"C2, C2T",O,v3,MoCA: Orientation - Month
+MOCAORYR,"C2, C2T",O,v3,MoCA: Orientation - Year
+MOCAORDY,"C2, C2T",O,v3,MoCA: Orientation - Day
+MOCAORPL,"C2, C2T",O,v3,MoCA: Orientation - Place
+MOCAORCT,"C2, C2T",O,v3,MoCA: Orientation - City
+CRAFTVRS,"C2, C2T",O,v3,"Craft Story 21 Recall (Immediate) - Total story units recalled, verbatim scoring"
+CRAFTURS,"C2, C2T",O,v3,"Craft Story 21 Recall (Immediate) - Total story units recalled, paraphrase scoring"
+DIGFORCT,"C2, C2T",O,v3,Number Span Test: Forward - Number of correct trials
+DIGFORSL,"C2, C2T",O,v3,Number Span Test: Forward - Longest span forward
+DIGBACCT,"C2, C2T",O,v3,Number Span Test: backward - Number of correct trials
+DIGBACLS,"C2, C2T",O,v3,Number Span Test: backward - Longest span backward
+CRAFTDVR,"C2, C2T",O,v3,"Craft Story 21 Recall (Delayed) - Total story units recalled, verbatim scoring"
+CRAFTDRE,"C2, C2T",O,v3,"Craft Story 21 Recall (Delayed) - Total story units recalled, paraphrase scoring"
+CRAFTDTI,"C2, C2T",O,v3,Craft Story 21 Recall (Delayed) - Delay time
+CRAFTCUE,"C2, C2T",O,v3,Craft Story 21 Recall (Delayed) - Cue (boy) needed
+MINTTOTS,C2,O,v3,Multilingual Naming Test (MINT) - Total score
+MINTTOTW,C2,O,v3,Multilingual Naming Test (MINT) - Total correct without semantic cue
+MINTSCNG,C2,O,v3,Multilingual Naming Test (MINT) - Semantic cues: Number given
+MINTSCNC,C2,O,v3,Multilingual Naming Test (MINT) - Semantic cues: Number correct with cue
+MINTPCNG,C2,O,v3,Multilingual Naming Test (MINT) - Phonemic cues: Number given
+MINTPCNC,C2,O,v3,Multilingual Naming Test (MINT) - Phonemic cues: Number correct with cue
+NACCC2,C2,D,v3,Form date discrepancy between UDS Form A1 and Form C2
+MODCOMM,C2T,O,v3,Modality of communication used to administer neuropsychological battery
+MOCBTOTS,C2T,O,v3,MoCA blind Total raw score - uncorrected
+NACCMOCB,C2T,D,v3,MoCA-blind Total Score - corrected for education
+REY1REC,C2T,O,v3,Rey Auditory Verbal Learning: Trial 1 total recall
+REY1INT,C2T,O,v3,Rey Auditory Verbal Learning: Trial 1 intrusions
+REY2REC,C2T,O,v3,Rey Auditory Verbal Learning: Trial 2 total recall
+REY2INT,C2T,O,v3,Rey Auditory Verbal Learning: Trial 2 intrusions
+REY3REC,C2T,O,v3,Rey Auditory Verbal Learning: Trial 3 total recall
+REY3INT,C2T,O,v3,Rey Auditory Verbal Learning: Trial 3 intrusions
+REY4REC,C2T,O,v3,Rey Auditory Verbal Learning: Trial 4 total recall
+REY4INT,C2T,O,v3,Rey Auditory Verbal Learning: Trial 4 intrusions
+REY5REC,C2T,O,v3,Rey Auditory Verbal Learning: Trial 5 total recall
+REY5INT,C2T,O,v3,Rey Auditory Verbal Learning: Trial 5 intrusions
+REY6REC,C2T,O,v3,Rey Auditory Verbal Learning: Trial 6 total recall
+REY6INT,C2T,O,v3,Rey Auditory Verbal Learning: Trial 6 intrusions
+OTRAILA,C2T,O,v3,Oral Trail Making Test - Part A: Total number of seconds to complete
+OTRLARR,C2T,O,v3,Oral Trail Making Test - Part A: Number of commission errors
+OTRLALI,C2T,O,v3,Oral Trail Making Test - Part A: Number of correct lines
+OTRAILB,C2T,O,v3,Oral Trail Making Test Part b: Total number of seconds to complete
+OTRLBRR,C2T,O,v3,Oral Trail Making Test Part b: Number of commission errors
+OTRLBLI,C2T,O,v3,Oral Trail Making Test Part b: Number of correct lines
+REYDREC,C2T,O,v3,Rey Auditory Verbal Learning: total delayed recall
+REYDINT,C2T,O,v3,Rey Auditory Verbal Learning: delayed intrusions
+REYTCOR,C2T,O,v3,Rey Auditory Verbal Learning: recognition total correct
+REYFPOS,C2T,O,v3,Rey Auditory Verbal Learning: recognition total false positives
+VNTTOTW,C2T,O,v3,Verbal naming test: total correct without a cue
+VNTPCNC,C2T,O,v3,Verbal naming test: total correct with a phonemic cue
+RESPVAL,C2T,O,v3,How valid do you think the participant's responses are?
+RESPHEAR,C2T,O,v3,What makes this participant's responses less valid? Hearing impairment
+RESPDIST,C2T,O,v3,What makes this participant's responses less valid? Distractions
+RESPINTR,C2T,O,v3,What makes this participant's responses less valid? Interruptions
+RESPDISN,C2T,O,v3,What makes this participant's responses less valid? Lack of effort or disinterest
+RESPFATG,C2T,O,v3,What makes this participant's responses less valid? Fatigue
+RESPEMOT,C2T,O,v3,What makes this participant's responses less valid? Emotional issues
+RESPASST,C2T,O,v3,What makes this participant's responses less valid? Unapproved assistance
+RESPOTH,C2T,O,v3,What makes this participant's responses less valid? Other
+RESPOTHX,C2T,O,v3,What makes this participant's responses less valid? Other (specify)
+WHODIDDX,D1,O,v1-2,Who did diagnosis
+DXMETHOD,D1,O,v3,Diagnosis method
+NORMCOG,D1,O,v1-3,Normal cognition and behavior
+DEMENTED,D1,O,v1-3,Met criteria for dementia
+NACCUDSD,D1,D,v1-3,Cognitive status at UDS visit
+AMNDEM,D1,O,v3,Dementia syndrome - Amnestic multidomain dementia syndrome
+PCA,D1,O,v3,Dementia syndrome - Posterior cortical atrophy syndrome (or primary visual presentation)
+NACCPPA,D1,D,v1-3,Primary progressive aphasia (PPA) with cognitive impairment
+NACCPPAG,D1,D,v3,Dementia syndrome - Primary progressive aphasia (PPA) subtype according to the criteria outlined by Gorno-Tempini et al. 2011
+NACCPPME,D1,D,v1-2,Primary progressive aphasia (PPA) subtype according to older criteria outlined by Mesulam et al (2001 and 2003)
+NACCBVFT,D1,D,v1-3,Dementia syndrome - behavioral variant FTD syndrome (bvFTD)
+NACCLBDS,D1,D,v1-3,Dementia syndrome - Lewy body dementia syndrome
+NAMNDEM,D1,O,v3,"Dementia syndrome - Non-amnestic multidomain dementia, not PCA, PPA, bvFTD, or DLB syndrome"
+NACCTMCI,D1,D,v1-3,Mild cognitive impairment (MCI) type
+NACCMCIL,D1,D,v1-3,MCI domain affected - language
+NACCMCIA,D1,D,v1-3,MCI domain affected - attention
+NACCMCIE,D1,D,v1-3,MCI domain affected - executive function
+NACCMCIV,D1,D,v1-3,MCI domain affected - visuospatial
+IMPNOMCI,D1,O,v1-3,"Cognitively impaired, not MCI"
+AMYLPET,D1,O,v3,Abnormally elevated amyloid on PET
+AMYLCSF,D1,O,v3,Abnormally low amyloid in CSF
+FDGAD,D1,O,v3,FDG-PET pattern of AD
+HIPPATR,D1,O,v3,Hippocampal atrophy
+TAUPETAD,D1,O,v3,Tau PET evidence for AD
+CSFTAU,D1,O,v3,Abnormally elevated CSF Tau or pTau
+FDGFTLD,D1,O,v3,FDG-PET evidence for frontal or anterior temporal hypometabolism for FTLD
+TPETFTLD,D1,O,v3,Tau PET evidence for FTLD
+MRFTLD,D1,O,v3,Structural MR evidence for frontal or anterior temporal atrophy for FTLD
+DATSCAN,D1,O,v3,Dopamine transporter scan (DATscan) evidence for Lewy body disease
+OTHBIOM,D1,O,v3,biomarker findings - Other
+OTHBIOMX,D1,O,v3,biomarker findings - Other (specify)
+IMAGLINF,D1,O,v3,Large vessel infarct(s)
+IMAGLAC,D1,O,v3,Lacunar infarct(s)
+IMAGMACH,D1,O,v3,Macrohemorrhage(s)
+IMAGMICH,D1,O,v3,Microhemorrhage(s)
+IMAGMWMH,D1,O,v3,Moderate white-matter hyperintensity (CHS score 5-6)
+IMAGEWMH,D1,O,v3,Extensive white-matter hyperintensity (CHS score 7-8)
+OTHMUT,D1,O,v3,Does the subject have a hereditary mutation other than an AD or FTLD mutation?
+OTHMUTX,D1,O,v3,"Other mutation, specify"
+NACCALZD,D1,D,v1-3,Presumptive etiologic diagnosis of the cognitive disorder - Alzheimer's disease
+NACCALZP,D1,D,v1-3,"Primary, contributing, or non-contributing cause of observed cognitive impairment - Alzheimer's disease (AD)"
+PROBAD,D1,O,v1-2,Presumptive etiologic diagnosis of the cognitive disorder - Probable Alzheimer's disease
+PROBADIF,D1,O,v1-2,"Primary, contributing, or non-contributing cause of cognitive impairment - Probable Alzheimer's disease"
+POSSAD,D1,O,v1-2,Presumptive etiologic diagnosis of the cognitive disorder - Possible Alzheimer's disease
+POSSADIF,D1,O,v1-2,"Primary, contributing, or non-contributing cause of cognitive impairment - Possible Alzheimer's disease"
+NACCLBDE,D1,D,v1-3,Presumptive etiologic diagnosis of the cognitive disorder - Lewy body disease
+NACCLBDP,D1,D,v1-3,"Primary, contributing, or non-contributing cause of cognitive impairment - Lewy body disease (LBD)"
+PARK,D1,O,v1-3,Parkinson's disease present
+MSA,D1,O,v3,Presumptive etiologic diagnosis of the cognitive disorder - Multiple system atrophy (MSA)
+MSAIF,D1,O,v3,"Primary, contributing, or non-contributing cause of cognitive impairment - Multiple system atrophy (MSA)"
+PSP,D1,O,v1-3,Presumptive etiologic diagnosis of the cognitive disorder - primary supranuclear palsy (PSP)
+PSPIF,D1,O,v1-3,"Primary, contributing, or non-contributing cause of cognitive impairment - Primary supranuclear palsy (PSP)"
+CORT,D1,O,v1-3,Presumptive etiologic diagnosis of the cognitive disorder - Corticobasal degeneration (CBD)
+CORTIF,D1,O,v1-3,"Primary, contributing, or non-contributing cause of cognitive impairment - Corticobasal degeneration (CBD)"
+FTLDMO,D1,O,v3,Presumptive etiologic diagnosis of the cognitive disorder - FTLD with motor neuron disease (MND)
+FTLDMOIF,D1,O,v3,"Primary, contributing, or non-contributing cause of cognitive impairment - FTLD with motor neuron disease (MND)"
+FTLDNOS,D1,O,v3,Presumptive etiologic diagnosis of the cognitive disorder - FTLD not otherwise specified (NOS)
+FTLDNOIF,D1,O,v3,"Primary, contributing, or non-contributing cause of cognitive impairment - FTLD not otherwise specified (NOS)"
+FTD,D1,O,v1-2,Presence of behavioral frontotemporal dementia (bvFTD)
+FTDIF,D1,O,v1-2,"Primary, contributing, or non-contributing cause of cognitive impairment - behavioral frontotemporal dementia (bvFTD)"
+PPAPH,D1,O,v1-2,Presumptive etiologic diagnosis of the cognitive disorder - Primary progressive aphasia (PPA)
+PPAPHIF,D1,O,v1-2,"Primary, contributing, or non-contributing cause of cognitive impairment - primary progressive aphasia (PPA)"
+FTLDSUBT,D1,O,v3,FTLD subtype
+FTLDSUBX,D1,O,v3,"Other FTLD subtype, specify"
+CVD,D1,O,v3,Presumptive etiologic diagnosis of the cognitive disorder - Vascular brain injury (VBI)
+CVDIF,D1,O,v3,"Primary, contributing, or non-contributing cause of cognitive impairment - vascular brain injury"
+PREVSTK,D1,O,v3,Previous symptomatic stroke
+STROKDEC,D1,O,v3,Temporal relationship between stroke and cognitive decline
+STKIMAG,D1,O,v3,Confirmation of stroke by neuroimaging
+INFNETW,D1,O,v3,Imaging evidence of cystic infarction in cognitive network(s)
+INFWMH,D1,O,v3,"Imaging evidence of cystic infarction, imaging evidence of extensive white matter hyperintensity (CHS grade 7-8+), and impairment in executive function"
+VASC,D1,O,v1-2,Presumptive etiologic diagnosis of the cognitive disorder - Probable vascular dementia (NINDS/AIREN criteria)
+VASCIF,D1,O,v1-2,"Primary, contributing, or non-contributing cause of cognitive impairment - Probable vascular dementia (NINDS/AIREN criteria)"
+VASCPS,D1,O,v2,Presumptive etiologic diagnosis of the cognitive disorder - Possible vascular dementia (NINDS/AIREN criteria)
+VASCPSIF,D1,O,v2,"Primary, contributing, or non-contributing cause of cognitive impairment - possible vascular dementia (NINDS/AIREN criteria)"
+STROKE,D1,O,v1-2,Presumptive etiologic diagnosis of the cognitive disorder - Stroke
+STROKIF,D1,O,v1-2,"Primary, contributing, or non-contributing cause of cognitive impairment - stroke"
+ESSTREM,D1,O,v3,Presumptive etiologic diagnosis of the cognitive disorder - Essential tremor
+ESSTREIF,D1,O,v3,"Primary, contributing, or non-contributing cause of cognitive impairment - Essential tremor"
+DOWNS,D1,O,v1-3,Presumptive etiologic diagnosis of the cognitive disorder - Down syndrome
+DOWNSIF,D1,O,v1-3,"Primary, contributing, or non-contributing cause of cognitive impairment - Down syndrome"
+HUNT,D1,O,v1-3,Presumptive etiologic diagnosis of the cognitive disorder - Huntington's disease
+HUNTIF,D1,O,v1-3,"Primary, contributing, or non-contributing cause of cognitive impairment - Huntington's disease"
+PRION,D1,O,v1-3,"Presumptive etiologic diagnosis of the cognitive disorder - Prion disease (CJD, other)"
+PRIONIF,D1,O,v1-3,"Primary, contributing, or non-contributing cause of cognitive impairment - Prion disease (CJD, other)"
+BRNINJ,D1,O,v1-3,Presumptive etiologic diagnosis of the cognitive disorder - Traumatic brain injury (TBI)
+BRNINJIF,D1,O,v1-3,"Primary, contributing, or non-contributing cause of cognitive impairment - Traumatic brain injury (TBI)"
+BRNINCTE,D1,O,v3,Symptoms consistent with chronic traumatic encephalopathy (CTE)
+HYCEPH,D1,O,v1-3,Presumptive etiologic diagnosis of the cognitive disorder - Normal-pressure hydrocephalus (NPH)
+HYCEPHIF,D1,O,v1-3,"Primary, contributing, or non-contributing cause of cognitive impairment - Normal-pressure hydrocephalus (NPH)"
+EPILEP,D1,O,v3,Presumptive etiologic diagnosis of the cognitive disorder - Epilepsy
+EPILEPIF,D1,O,v3,"Primary, contributing, or non-contributing cause of cognitive impairment - Epilepsy"
+NEOP,D1,O,v1-3,Presumptive etiologic diagnosis of the cognitive disorder - CNS neoplasm
+NEOPIF,D1,O,v1-3,"Primary, contributing, or non-contributing cause of cognitive impairment - CNS neoplasm"
+NEOPSTAT,D1,O,v3,CNS neoplasm - benign or malignant
+HIV,D1,O,v3,Presumptive etiologic diagnosis of the cognitive disorder - Human immunodeficiency virus (HIV)
+HIVIF,D1,O,v3,"Primary, contributing, or non-contributing cause of cognitive impairment - HIV"
+OTHCOG,D1,O,v3,"Presumptive etiologic diagnosis of the cognitive disorder - Other neurological, genetic, or infectious condition"
+OTHCOGIF,D1,O,v3,"Primary, contributing, or non-contributing cause of cognitive impairment - Other neurological, genetic, or infectious condition"
+OTHCOGX,D1,O,v3,"Presumptive etiologic diagnosis of the cognitive disorder - Other neurological, genetic, or infectious conditions (specify)"
+DEP,D1,O,v1-3,Presumptive etiologic diagnosis of the cognitive disorder - Depression
+DEPIF,D1,O,v1-3,"Primary, contributing, or non-contributing cause of cognitive impairment - Depression"
+DEPTREAT,D1,O,v3,Depression - Treated or untreated
+BIPOLDX,D1,O,v3,Presumptive etiologic diagnosis of the cognitive disorder - bipolar disorder
+BIPOLDIF,D1,O,v3,"Primary, contributing, or non-contributing cause of cognitive impairment - bipolar disorder"
+SCHIZOP,D1,O,v3,Presumptive etiologic diagnosis of the cognitive disorder - Schizophrenia or other psychosis
+SCHIZOIF,D1,O,v3,"Primary, contributing, or non-contributing cause of cognitive impairment - Schizophrenia or other psychosis"
+ANXIET,D1,O,v3,Presumptive etiologic diagnosis of the cognitive disorder - Anxiety
+ANXIETIF,D1,O,v3,"Primary, contributing, or non-contributing cause of cognitive impairment - Anxiety"
+DELIR,D1,O,v3,Presumptive etiologic diagnosis of the cognitive disorder - Delirium
+DELIRIF,D1,O,v3,"Primary, contributing, or non-contributing cause of cognitive impairment - Delirium"
+PTSDDX,D1,O,v3,Presumptive etiologic diagnosis of the cognitive disorder - Post-traumatic stress disorder (PTSD)
+PTSDDXIF,D1,O,v3,"Primary, contributing, or non-contributing cause of cognitive impairment - PTSD"
+OTHPSY,D1,O,v1-3,Presumptive etiologic diagnosis of the cognitive disorder - Other psychiatric disease
+OTHPSYIF,D1,O,v1-3,"Primary, contributing, or non-contributing cause of cognitive impairment - Other psychiatric disease"
+OTHPSYX,D1,O,v3,Presumptive etiologic diagnosis of the cognitive disorder - Other psychiatric disease (specify)
+ALCDEM,D1,O,v1-3,Presumptive etiologic diagnosis of the cognitive disorder - Cognitive impairment due to alcohol abuse
+ALCDEMIF,D1,O,v1-3,"Primary, contributing, or non-contributing cause of cognitive impairment - Alcohol abuse"
+ALCABUSE,D1,O,v3,Current alcohol abuse
+IMPSUB,D1,O,v3,Presumptive etiologic diagnosis of the cognitive disorder - Cognitive impairment due to other substance abuse
+IMPSUBIF,D1,O,v3,"Primary, contributing, or non-contributing cause of cognitive impairment - Other substance abuse"
+DYSILL,D1,O,v1-3,Presumptive etiologic diagnosis of the cognitive disorder - Cognitive impairment due to systemic disease/ medical illness
+DYSILLIF,D1,O,v1-3,"Primary, contributing, or non-contributing cause of cognitive impairment - systemic disease/ medical illness"
+MEDS,D1,O,v1-3,Presumptive etiologic diagnosis of the cognitive disorder - Cognitive impairment due to medications
+MEDSIF,D1,O,v1-3,"Primary, contributing, or non-contributing cause of cognitive impairment - medications"
+DEMUN,D1,O,v1-2,Presumptive etiologic diagnosis of the cognitive disorder - Undetermined etiology
+DEMUNIF,D1,O,v1-2,"Primary, contributing, or non-contributing cause of cognitive impairment - Undetermined etiology"
+COGOTH,D1,O,v1-3,Presumptive etiologic diagnosis of the cognitive disorder - Other 1 (specify)
+COGOTHIF,D1,O,v1-3,"Primary, contributing, or non-contributing cause of cognitive impairment - Other1 (specify)"
+COGOTHX,D1,O,v1-3,"Other presumptive etiologic diagnosis of the cognitive disorder 1, specify"
+COGOTH2,D1,O,v2-3,Presumptive etiologic diagnosis of the cognitive disorder - Other 2 (specify)
+COGOTH2F,D1,O,v2-3,"Primary, contributing, or non-contributing cause of cognitive impairment - Other 2 (specify)"
+COGOTH2X,D1,O,v2-3,"Other presumptive etiologic diagnosis of the cognitive disorder 2, specify"
+COGOTH3,D1,O,v2-3,Presumptive etiologic diagnosis of the cognitive disorder - Other 3 (specify)
+COGOTH3F,D1,O,v2-3,"Primary, contributing, or non-contributing cause of cognitive impairment - Other 3 (specify)"
+COGOTH3X,D1,O,v2-3,"Other presumptive etiologic diagnosis of the cognitive disorder 3, specify"
+NACCNORM,D1,D,v1-3,Normal cognition at all visits to date
+NACCIDEM,D1,D,v1-3,Incident dementia during UDS follow-up
+NACCMCII,D1,D,v1-3,Incident MCI during UDS follow-up
+NACCADMU,D1,D,v3,Does the subject have a dominantly inherited AD mutation?
+NACCFTDM,D1,D,v3,Does the subject have an hereditary FTLD mutation?
+NACCETPR,D1,D,v1-3,"Primary etiologic diagnosis (MCI); impaired, not MCI; or dementia"
+CANCER,D2,O,v3,"Cancer present in the last 12 months (excluding non-melanoma skin cancer), primary or metastatic"
+CANCSITE,D2,O,v3,Cancer primary site specification
+DIABET,D2,O,v3,Diabetes present at visit
+MYOINF,D2,O,v3,Myocardial infarct present within the past 12 months
+CONGHRT,D2,O,v3,Congestive heart failure present
+AFIBRILL,D2,O,v3,Atrial fibrillation present
+HYPERT,D2,O,v3,Hypertension present
+ANGINA,D2,O,v3,Angina present
+HYPCHOL,D2,O,v3,Hypercholesterolemia present
+VB12DEF,D2,O,v3,b12 deficiency present
+THYDIS,D2,O,v3,Thyroid disease present
+ARTH,D2,O,v3,Arthritis present
+ARTYPE,D2,O,v3,Arthritis type
+ARTYPEX,D2,O,v3,Other arthritis type specification
+ARTUPEX,D2,O,v3,Arthritis region affected - upper extremity
+ARTLOEX,D2,O,v3,Arthritis region affected - lower extremity
+ARTSPIN,D2,O,v3,Arthritis region affected - spine
+ARTUNKN,D2,O,v3,Arthritis region affected - unknown
+URINEINC,D2,O,v3,Incontinence present - urinary
+BOWLINC,D2,O,v3,Incontinence present - bowel
+SLEEPAP,D2,O,v3,Sleep apnea present
+REMDIS,D2,O,v3,REM sleep behavior disorder (RbD) present
+HYPOSOM,D2,O,v3,Hyposomnia/insomnia present
+SLEEPOTH,D2,O,v3,Other sleep disorder present
+SLEEPOTX,D2,O,v3,Other sleep disorder specification
+ANGIOCP,D2,O,v3,"Carotid procedure: angioplasty, endarterectomy, or stent within the past 12 months"
+ANGIOPCI,D2,O,v3,Percutaneous coronary intervention: angioplasty and/or stent within the past 12 months
+PACEMAKE,D2,O,v3,Procedure: pacemaker and/or defibrillator within the past 12 months
+HVALVE,D2,O,v3,Procedure: heart valve replacement or repair within the past 12 months
+ANTIENC,D2,O,v3,Antibody-mediated encephalopathy within the past 12 months
+ANTIENCX,D2,O,v3,"Antibody-mediated encephalopathy, specify"
+OTHCOND,D2,O,v3,Other medical conditions or procedures within the past 12 months not listed above
+OTHCONDX,D2,O,v3,Other medical conditions specification
+LANGA1,Z1X,O,v3,A1 Subject Demographics - language
+LANGA2,Z1X,O,v3,A2 Co-participant Demographics - language
+LANGA3,Z1X,O,v3,A3 Subject Family History - language
+LANGA4,Z1X,O,v3,A4 Subject Medications - language
+LANGA5,Z1X,O,v3,A5 Subject Health History - language
+LANGB1,Z1X,O,v3,B1 Evaluation Form: Physical - language
+LANGB4,Z1X,O,v3,B4 Global Staging - CDR: Standard and Supplemental - language
+LANGB5,Z1X,O,v3,B5 behavioral Assessment: NPI-Q - language
+LANGB6,Z1X,O,v3,B6 behavioral Assessment: GDS - language
+LANGB7,Z1X,O,v3,B7 Functional Assessment: FAS - language
+LANGB8,Z1X,O,v3,B8 Neurological Examination Findings - language
+LANGB9,Z1X,O,v3,B9 Clinician Judgment of Symptoms - language
+LANGC2,Z1X,O,v3,C2 Neuropsychological battery Scores - language
+LANGD1,Z1X,O,v3,D1 Clinician Diagnosis - language
+LANGD2,Z1X,O,v3,D2 Clinician-assessed Medical Conditions - language
+LANGB3F,Z1X,O,v3,B3F Supplemental UPDRS - language
+LANGB9F,Z1X,O,v3,B9F Clinical PPA and bvFTD Features - language
+LANGC1F,Z1X,O,v3,C1F Neuropsychological battery Summary Scores - language
+LANGC2F,Z1X,O,v3,C2F Social Norms Questionnaire - language
+LANGC3F,Z1X,O,v3,C3F Social behavior Observer Checklist - language
+LANGC4F,Z1X,O,v3,C4F behavioral Inhibition Scale - language
+LANGC5F,Z1X,O,v3,C5F Interpersonal Reactivity Index - language
+LANGC6F,Z1X,O,v3,C6F Revised Self-monitoring Scale - language
+LANGE2F,Z1X,O,v3,E2F Imaging Available - language
+LANGE3F,Z1X,O,v3,E3F Imaging in Diagnosis - language
+LANGCLS,Z1X,O,v3,CLS Subject Demographics - language
+CLSSUB,Z1X,O,v3,B3F Subject Demographics - language
+NACCSPNL,CLS,D,v3,Average Spanish level (average of Questions 6 - 9)
+NACCENGL,CLS,D,v3,Average English level (average of Questions 11 - 14)
+APREFLAN,CLS,O,v3,In what language do you prefer to be evaluated (English or Spanish)
+AYRSPAN,CLS,O,v3,How many years have you lived in an environment where people generally speak Spanish
+AYRENGL,CLS,O,v3,How many years have you lived in an environment where people generally speak English
+APCSPAN,CLS,O,v3,Please approximate the percentage of time during a normal/average day that you use Spanish
+APCENGL,CLS,O,v3,Please approximate the percentage of time during a normal/average day that you use English
+ASPKSPAN,CLS,O,v3,"In your opinion, what is your level of proficiency when you speak Spanish"
+AREASPAN,CLS,O,v3,"In your opinion, what is your level of proficiency when you read Spanish"
+AWRISPAN,CLS,O,v3,"In your opinion, what is your level of proficiency when you write in Spanish"
+AUNDSPAN,CLS,O,v3,"In your opinion, what is your level of proficiency for understanding spoken/ oral Spanish"
+ASPKENGL,CLS,O,v3,"In your opinion, what is your level of proficiency when you speak English"
+AREAENGL,CLS,O,v3,"In your opinion, what is your level of proficiency when you read English"
+AWRIENGL,CLS,O,v3,"In your opinion, what is your level of proficiency when you write in English"
+AUNDENGL,CLS,O,v3,"In your opinion, what is your level of proficiency for understanding spoken/ oral English"
+NACCFTD,U3,D,v3,One or more FTLD Module visits completed
+NACCLBDM,U3,D,v3,One or more LBD Module visits completed
+NACCNMRI,U3,D,v3,Total number of MRI sessions
+NACCMRSA,U3,D,v3,At least one MRI scan available
+NACCNAPA,U3,D,v3,Total number of amyloid PET scans available
+NACCAPSA,U3,D,v3,At least one amyloid PET scan available
+NACCACSF,U3,D,v3,One or more measures of Aβ1-42 reported
+NACCPCSF,U3,D,v3,One or more measures of P-tau181P reported
+NACCTCSF,U3,D,v3,One or more measures of T-tau reported
+NACCAUTP,U3,D,v3,Neuropathology data from an autopsy is available
+NACCNE4S,G1,D,,Number of APOE e4 alleles

@@ -1,0 +1,3319 @@
+variable_id,code_1,code_2,descriptor
+NACCID,<UND>,,Prefix NACC followed by 6 numerals
+NACCADC,100,9999,
+PACKET,I,,Initial Visit Packet
+,F,,Follow-up Visit Packet
+,IT,,Telephone Initial Visit Packet
+,T,,Telephone Visit Packet
+FORMVER,1,,
+,2,,
+,3,,
+,3.2,,
+VISITMO,1,12,
+VISITDAY,1,31,
+VISITYR,2005,<INF>,
+NACCVNUM,1,20,
+NACCAVST,1,20,
+NACCNVST,1,20,
+NACCDAYS,0,5000,
+NACCFDYS,0,5000,
+NACCDIED,0,,Not deceased/unknown
+,1,,Deceased
+NACCMOD,1,12,
+,88,,"Not applicable, subject not deceased"
+,99,,Unknown
+NACCYOD,1970,<INF>,
+,8888,,"Not applicable, subject not deceased"
+,9999,,Unknown
+NACCACTV,0,,"Died, discontinued, lost to follow-up"
+,1,,Annual follow-up (no discontinuation/loss to follow-up or minimal contact)
+,2,,"Minimal contact with Center, no annual follow-up"
+NACCNOVS,0,,Still receiving annual follow-up in person or by telephone
+,1,,No longer receiving annual follow-up in person or by telephone
+,8,,"Not applicable, enrolled for initial visit only"
+NACCDSMO,1,12,
+,88,,"Not applicable, still followed annually in person or by telephone"
+NACCDSDY,1,31,
+,88,,"Not applicable, still followed annually in person or by telephone"
+NACCDSYR,2005,<INF>,
+,8888,,"Not applicable, still followed annually in person or by telephone"
+NACCNURP,0,,Did not report permanent move to a nursing home
+,1,,Permanently moved to a nursing home
+NACCNRMO,1,12,
+,88,,"Not applicable, no permanent move to a nursing home"
+,99,,Unknown
+NACCNRDY,1,31,
+,88,,"Not applicable, no permanent move to a nursing home"
+,99,,Unknown
+NACCNRYR,2002,<INF>,
+,8888,,"Not applicable, no permanent move to a nursing home"
+,9999,,Unknown
+NACCMDSS,1,,In the UDS and MDS
+,2,,In the MDS only
+,3,,In the UDS only
+NACCPAFF,0,,Not previously affiliated subject
+,1,,Previously affiliated subject
+TELCOV,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TELMOD,1,,Telephone
+,2,,Video-assisted conference
+,3,,Some combination of the two
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NACCREAS,1,,To participate in a research study
+,2,,To have a clinical evaluation
+,7,,"Both to participate in a research study and to have a clinical evaluation, or another reason"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NACCREFR,1,,Non-professional contact: self/relative/friend
+,2,,"Professional contact: clinician, nurse, doctor, other health care provider, or other staff (ADC and non-ADC)"
+,8,,Other
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+BIRTHMO,1,12,
+BIRTHYR,1875,<INF>,
+SEX,1,,Male
+,2,,Female
+HISPANIC,0,,No
+,1,,Yes
+,9,,Unknown
+HISPOR,1,,"Mexican, Chicano, or Mexican-American"
+,2,,Puerto Rican
+,3,,Cuban
+,4,,Dominican
+,5,,Central American
+,6,,South American
+,50,,Other (specify)
+,88,,Not applicable; subject is not Hispanic
+,99,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HISPORX,<UND>,,Any text or numbers
+RACE,1,,White
+,2,,Black or African American
+,3,,American Indian or Alaska Native
+,4,,Native Hawaiian or Other Pacific Islander
+,5,,Asian
+,50,,Other (specify)
+,99,,Unknown
+RACEX,<UND>,,Any text or numbers
+RACESEC,1,,White
+,2,,Black or African American
+,3,,American Indian or Alaska Native
+,4,,Native Hawaiian or Other Pacific Islander
+,5,,Asian
+,50,,Other (specify)
+,88,,None reported
+,99,,Unknown
+RACESECX,<UND>,,Any text or numbers
+RACETER,1,,White
+,2,,Black or African American
+,3,,American Indian or Alaska Native
+,4,,Native Hawaiian or Other Pacific Islander
+,5,,Asian
+,50,,Other (specify)
+,88,,None reported
+,99,,Unknown
+RACETERX,<UND>,,Any text or numbers
+PRIMLANG,1,,English
+,2,,Spanish
+,3,,Mandarin
+,4,,Cantonese
+,5,,Russian
+,6,,Japanese
+,8,,Other primary language (specify)
+,9,,Unknown
+PRIMLANX,<UND>,,Any text or numbers
+EDUC,0,36,
+,99,,Unknown
+MARISTAT,1,,Married
+,2,,Widowed
+,3,,Divorced
+,4,,Separated
+,5,,Never married (or marriage was annulled)
+,6,,Living as married/domestic partner
+,9,,Other or unknown
+NACCLIVS,1,,Lives alone
+,2,,Lives with spouse or partner
+,3,,Lives with relative or friend
+,4,,Lives with group
+,5,,Other
+,9,,Unknown
+INDEPEND,1,,Able to live independently
+,2,,Requires some assistance with complex activities
+,3,,Requires some assistance with basic activities
+,4,,Completely dependent
+,9,,Unknown
+RESIDENC,1,,"Single- or multi-family private residence (apartment, condo, house)"
+,2,,Retirement community or independent group living
+,3,,"Assisted living, adult family home, or boarding home"
+,4,,"Skilled nursing facility, nursing home, hospital, or hospice"
+,9,,Other or unknown
+HANDED,1,,Left-handed
+,2,,Right-handed
+,3,,Ambidextrous
+,9,,Unknown
+NACCAGE,18,120,
+NACCAGEB,18,120,
+NACCNIHR,1,,White
+,2,,Black or African American
+,3,,American Indian or Alaska Native
+,4,,Native Hawaiian or Pacific Islander
+,5,,Asian
+,6,,Multiracial
+,9,,Unknown or ambiguous
+INBIRMO,1,12,
+,99,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+INBIRYR,1875,<INF>,
+,9999,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+INSEX,1,,Male
+,2,,Female
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NEWINF,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+INHISP,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+INHISPOR,1,,"Mexican, Chicano, or Mexican-American"
+,2,,Puerto Rican
+,3,,Cuban
+,4,,Dominican
+,5,,Central American
+,6,,South American
+,50,,Other (specify)
+,88,,"Not applicable, co-participant is not Hispanic"
+,99,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+INHISPOX,<UND>,,Any text or numbers
+INRACE,1,,White
+,2,,Black or African American
+,3,,American Indian or Alaska Native
+,4,,Native Hawaiian or Other Pacific Islander
+,5,,Asian
+,50,,Other (specify)
+,99,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+INRACEX,<UND>,,Any text or numbers
+INRASEC,1,,White
+,2,,Black or African American
+,3,,American Indian or Alaska Native
+,4,,Native Hawaiian or Other Pacific Islander
+,5,,Asian
+,50,,Other
+,88,,None reported
+,99,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+INRASECX,<UND>,,Any text or numbers
+INRATER,1,,White
+,2,,Black or African American
+,3,,American Indian or Alaska Native
+,4,,Native Hawaiian or Other Pacific Islander
+,5,,Asian
+,50,,Other
+,88,,None reported
+,99,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+INRATERX,<UND>,,Any text or numbers
+INEDUC,0,36,
+,99,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+INRELTO,1,,"Spouse, partner, or companion"
+,2,,Child
+,3,,Sibling
+,4,,Other relative
+,5,,"Friend, neighbor, or someone known through family, friends, work, or community"
+,6,,"Paid caregiver, health care provider, or clinician"
+,7,,Other
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+INRELTOX,<UND>,,Any text or numbers
+INKNOWN,0,120,
+,999,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+INLIVWTH,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+INVISITS,1,,Daily
+,2,,At least 3 times per week
+,3,,Weekly
+,4,,At least 3 times per month
+,5,,Monthly
+,6,,Less than once a month
+,8,,"Not applicable, co-participant lives with subject"
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+INCALLS,1,,Daily
+,2,,At least 3 times per week
+,3,,Weekly
+,4,,At least 3 times per month
+,5,,Monthly
+,6,,Less than once a month
+,8,,"Not applicable, co-participant lives with subject"
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+INRELY,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NACCNINR,1,,White
+,2,,Black or African American
+,3,,American Indian or Alaska Native
+,4,,Native Hawaiian or Other Pacific Islander
+,5,,Asian
+,6,,Multiracial
+,99,,Unknown or ambiguous
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NACCFAM,0,,No report of a first-degree family member with cognitive impairment
+,1,,Report of at least one first-degree family member with cognitive impairment
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NACCMOM,0,,No report of mother with cognitive impairment
+,1,,Mother was reported to have cognitive impairment
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NACCDAD,0,,No report of father with cognitive impairment
+,1,,Father was reported to have cognitive impairment
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NACCFADM,0,,No/unknown
+,1,,Yes
+NACCAM,0,,No
+,1,,"Yes, APP"
+,2,,"Yes, PS-1 (PSEN-1)"
+,3,,"Yes, PS-2 (PSEN-2)"
+,8,,"Yes, other (specify)"
+,9,,Unknown whether mutation exists
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NACCAMX,<UND>,,Any text or numbers
+NACCAMS,1,,Family report (no test documentation available)
+,2,,Commercial test documentation
+,3,,Research lab test documentation
+,8,,Other (specify)
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NACCAMSX,<UND>,,Any text or numbers
+NACCFFTD,0,,No/unknown
+,1,,Yes
+NACCFM,0,,No
+,1,,"Yes, MAPT"
+,2,,"Yes, PGRN"
+,3,,"Yes, C9orf72"
+,4,,"Yes, FUS"
+,8,,"Yes, Other (specify)"
+,9,,Unknown whether mutation exists
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NACCFMX,<UND>,,Any text or numbers
+NACCFMS,1,,Family report (no test documentation available)
+,2,,Commercial test documentation
+,3,,Research lab test documentation
+,8,,Other (specify)
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NACCFMSX,<UND>,,Any text or numbers
+NACCOM,0,,No
+,1,,Yes (specify)
+,9,,Unknown whether mutation exists
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NACCOMX,<UND>,,Any text or numbers
+NACCOMS,1,,Family report (no test documentation available)
+,2,,Commercial test documentation
+,3,,Research lab test documentation
+,8,,Other (specify)
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NACCOMSX,<UND>,,Any text or numbers
+ANYMEDS,0,,No
+,1,,Yes
+,-4,,Did not complete medications form
+DRUG1-DRUG40,<UND>,,Any text or numbers
+NACCAMD,0,40,
+,-4,,Did not complete medications form
+NACCAHTN,0,,Did not report use at visit
+,1,,Reported use at visit
+,-4,,Did not complete medications form
+NACCHTNC,0,,Did not report use at visit
+,1,,Reported use at visit
+,-4,,Did not complete medications form
+NACCACEI,0,,Did not report use at visit
+,1,,Reported use at visit
+,-4,,Did not complete medications form
+NACCAAAS,0,,Did not report use at visit
+,1,,Reported use at visit
+,-4,,Did not complete medications form
+NACCBETA,0,,Did not report use at visit
+,1,,Reported use at visit
+,-4,,Did not complete medications form
+NACCCCBS,0,,Did not report use at visit
+,1,,Reported use at visit
+,-4,,Did not complete medications form
+NACCDIUR,0,,Did not report use at visit
+,1,,Reported use at visit
+,-4,,Did not complete medications form
+NACCVASD,0,,Did not report use at visit
+,1,,Reported use at visit
+,-4,,Did not complete medications form
+NACCANGI,0,,Did not report use at visit
+,1,,Reported use at visit
+,-4,,Did not complete medications form
+NACCLIPL,0,,Did not report use at visit
+,1,,Reported use at visit
+,-4,,Did not complete medications form
+NACCNSD,0,,Did not report use at visit
+,1,,Reported use at visit
+,-4,,Did not complete medications form
+NACCAC,0,,Did not report use at visit
+,1,,Reported use at visit
+,-4,,Did not complete medications form
+NACCADEP,0,,Did not report use at visit
+,1,,Reported use at visit
+,-4,,Did not complete medications form
+NACCAPSY,0,,Did not report use at visit
+,1,,Reported use at visit
+,-4,,Did not complete medications form
+NACCAANX,0,,Did not report use at visit
+,1,,Reported use at visit
+,-4,,Did not complete medications form
+NACCADMD,0,,Did not report use at visit
+,1,,Reported use at visit
+,-4,,Did not complete medications form
+NACCPDMD,0,,Did not report use at visit
+,1,,Reported use at visit
+,-4,,Did not complete medications form
+NACCEMD,0,,Did not report use at visit
+,1,,Reported use at visit
+,-4,,Did not complete medications form
+NACCEPMD,0,,Did not report use at visit
+,1,,Reported use at visit
+,-4,,Did not complete medications form
+NACCDBMD,0,,Did not report use at visit
+,1,,Reported use at visit
+,-4,,Did not complete medications form
+TOBAC30,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TOBAC100,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+SMOKYRS,0,87,
+,88,,Not applicable
+,99,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+PACKSPER,0,,No reported cigarette use
+,1,,1 cigarette to less than 1/2 pack
+,2,,1/2 pack to less than 1 pack
+,3,,1 pack to 1 1/2 packs
+,4,,1 1/2 packs to 2 packs
+,5,,More than two packs
+,8,,Not applicable
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+QUITSMOK,7,110,
+,888,,"Not applicable, no significant smoking history"
+,999,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ALCOCCAS,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ALCFREQ,0,,Less than once a month
+,1,,About once a month
+,2,,About once a week
+,3,,A few times a week
+,4,,Daily or almost daily
+,8,,"Not applicable, no alcohol consumption in last three months"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CVHATT,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HATTMULT,0,,No
+,1,,Yes
+,8,,"Not applicable, no reported history of heart attack"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HATTYEAR,1900,<INF>,
+,8888,,"Not applicable, no reported history of heart attack"
+,9999,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CVAFIB,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CVANGIO,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CVBYPASS,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CVPACDEF,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CVPACE,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CVCHF,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CVANGINA,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CVHVALVE,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CVOTHR,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CVOTHRX,<UND>,,Any text or numbers
+CBSTROKE,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+STROKMUL,0,,No
+,1,,Yes
+,8,,"Not applicable, no reported history of stroke as of the Initial Visit"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NACCSTYR,1900,<INF>,
+,8888,,"Not applicable, no reported history of stroke at the Initial Visit"
+,9999,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CBTIA,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TIAMULT,0,,No
+,1,,Yes
+,8,,"Not applicable, no reported history of TIA as of the Initial Visit"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NACCTIYR,1900,<INF>,
+,8888,,"Not applicable, no reported history of TIA"
+,9999,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+PD,0,,Absent
+,1,,Recent/Active
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+PDYR,1900,<INF>,
+,8888,,"Not applicable, no reported PD"
+,9999,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+PDOTHR,0,,Absent
+,1,,Recent/Active
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+PDOTHRYR,1900,<INF>,
+,8888,,"Not applicable, other parkinsonian disorder not reported"
+,9999,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+SEIZURES,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TBI,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TBIBRIEF,0,,No
+,1,,Single
+,2,,Repeated/multiple
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TRAUMBRF,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TBIEXTEN,0,,No
+,1,,Single
+,2,,Repeated/multiple
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TRAUMEXT,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TBIWOLOS,0,,No
+,1,,Single
+,2,,Repeated/multiple
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TRAUMCHR,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TBIYEAR,1900,<INF>,
+,8888,,"Not applicable, no reported TBI"
+,9999,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NCOTHR,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NCOTHRX,<UND>,,Any text or numbers
+DIABETES,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DIABTYPE,1,,Type 1
+,2,,Type 2
+,3,,"Other type (diabetes insipidus, latent autoimmune diabetes/type 1.5, gestational diabetes)"
+,8,,"Not applicable, no diabetes reported"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HYPERTEN,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HYPERCHO,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+B12DEF,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+THYROID,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ARTHRIT,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ARTHTYPE,1,,Rheumatoid
+,2,,Osteoarthritis
+,3,,Other
+,8,,"Not applicable, no reported arthritis"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ARTHTYPX,<UND>,,Any text or numbers
+ARTHUPEX,0,,No
+,1,,Yes
+,8,,"Not applicable, no arthritis reported"
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ARTHLOEX,0,,No
+,1,,Yes
+,8,,"Not applicable, no arthritis reported"
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ARTHSPIN,0,,No
+,1,,Yes
+,8,,"Not applicable, no arthritis reported"
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ARTHUNK,0,,No
+,1,,Yes
+,8,,"Not applicable, no arthritis reported"
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+INCONTU,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+INCONTF,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+APNEA,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+RBD,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+INSOMN,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+OTHSLEEP,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+OTHSLEEX,<UND>,,Any text or numbers
+ALCOHOL,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ABUSOTHR,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ABUSX,<UND>,,Any text or numbers
+PTSD,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+BIPOLAR,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+SCHIZ,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DEP2YRS,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DEPOTHR,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ANXIETY,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+OCD,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NPSYDEV,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+PSYCDIS,0,,Absent
+,1,,Recent/Active
+,2,,Remote/Inactive
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+PSYCDISX,<UND>,,Any text or numbers
+NACCTBI,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HEIGHT,36,87.9,
+,88.8,,Unknown or not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+WEIGHT,50,400,
+,888,,Unknown or not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NACCBMI,10,100,
+,888.8,,Unknown or not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+BPSYS,70,230,
+,777,,Blood pressure addendum submitted
+,888,,Unknown or not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+BPDIAS,30,140,
+,777,,Blood pressure addendum submitted
+,888,,Unknown or not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+BPSYSL,70,230,
+,888,,Unknown or not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+BPSYSR,70,230,
+,888,,Unknown or not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+BPDIASL,30,140,
+,888,,Unknown or not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+BPDIASR,30,140,
+,888,,Unknown or not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+BPDEVICE,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HRATE,33,160,
+,888,,Unknown or not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+VISION,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+VISCORR,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+VISWCORR,0,,No
+,1,,Yes
+,8,,"Not applicable, does not wear corrective lenses"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HEARING,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HEARAID,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HEARWAID,0,,No
+,1,,Yes
+,8,,"Not applicable, does not wear hearing aid(s)"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ABRUPT,0,,Absent
+,2,,Present
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+STEPWISE,0,,Absent
+,1,,Present
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+SOMATIC,0,,Absent
+,1,,Present
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+EMOT,0,,Absent
+,1,,Present
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HXHYPER,0,,Absent
+,1,,Present
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HXSTROKE,0,,Absent
+,2,,Present
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+FOCLSYM,0,,Absent
+,2,,Present
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+FOCLSIGN,0,,Absent
+,2,,Present
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HACHIN,0,12,
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CVDCOG,0,,No
+,1,,Yes
+,8,,Not applicable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+STROKCOG,0,,No
+,1,,Yes
+,8,,Not applicable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CVDIMAG,0,,No
+,1,,Yes
+,8,,Not applicable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CVDIMAG1,0,,No
+,1,,Yes
+,8,,Not applicable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CVDIMAG2,0,,No
+,1,,Yes
+,8,,Not applicable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CVDIMAG3,0,,No
+,1,,Yes
+,8,,Not applicable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CVDIMAG4,0,,No
+,1,,Yes
+,8,,Not applicable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CVDIMAGX,<UND>,,Any text or numbers
+PDNORMAL,0,,"No, not normal"
+,1,,"Yes, normal"
+,8,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+SPEECH,0,,Normal
+,1,,"Slight loss of expression, diction, and/or volume"
+,2,,"Monotone, slurred but understandable; moderately impaired"
+,3,,"Marked impairment, difficult to understand"
+,4,,Unintelligible
+,8,,Untestable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+SPEECHX,<UND>,,Any text or numbers
+FACEXP,0,,Normal
+,1,,"Minimal hypomimia, could be normal “poker face”"
+,2,,Slight but definitely abnormal diminution of facial expression
+,3,,Moderate hypomimia; lips parted some of the time
+,4,,Masked or fixed facies with severe or complete loss of facial expression; lips parted one-quarter inch or more
+,8,,Untestable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+FACEXPX,<UND>,,Any text or numbers
+TRESTFAC,0,,Absent
+,1,,Slight and infrequently present
+,2,,"Mild in amplitude and persistent; or moderate in amplitude, but only intermittently present"
+,3,,Moderate in amplitude and present most of the time
+,4,,Marked in amplitude and present most of the time
+,8,,Untestable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TRESTFAX,<UND>,,Any text or numbers
+TRESTRHD,0,,Absent
+,1,,Slight and infrequently present
+,2,,"Mild in amplitude and persistent; or moderate in amplitude, but only intermittently present"
+,3,,Moderate in amplitude and present most of the time
+,4,,Marked in amplitude and present most of the time
+,8,,Untestable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TRESTRHX,<UND>,,Any text or numbers
+TRESTLHD,0,,Absent
+,1,,Slight and infrequently present
+,2,,"Mild in amplitude and persistent; or moderate in amplitude, but only intermittently present"
+,3,,Moderate in amplitude and present most of the time
+,4,,Marked in amplitude and present most of the time
+,8,,Untestable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TRESTLHX,<UND>,,Any text or numbers
+TRESTRFT,0,,Absent
+,1,,Slight and infrequently present
+,2,,"Mild in amplitude and persistent; or moderate in amplitude, but only intermittently present"
+,3,,Moderate in amplitude and present most of the time
+,4,,Marked in amplitude and present most of the time
+,8,,Untestable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TRESTRFX,<UND>,,Any text or numbers
+TRESTLFT,0,,Absent
+,1,,Slight and infrequently present
+,2,,"Mild in amplitude and persistent; or moderate in amplitude, but only intermittently present"
+,3,,Moderate in amplitude and present most of the time
+,4,,Marked in amplitude and present most of the time
+,8,,Untestable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TRESTLFX,<UND>,,Any text or numbers
+TRACTRHD,0,,Absent
+,1,,Slight; present with action
+,2,,"Moderate in amplitude, present with action"
+,3,,Moderate in amplitude with posture holding as well as action
+,4,,Marked in amplitude; interferes with feeding
+,8,,Untestable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TRACTRHX,<UND>,,Any text or numbers
+TRACTLHD,0,,Absent
+,1,,Slight; present with action
+,2,,"Moderate in amplitude, present with action"
+,3,,Moderate in amplitude with posture holding as well as action
+,4,,Marked in amplitude; interferes with feeding
+,8,,Untestable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TRACTLHX,<UND>,,Any text or numbers
+RIGDNECK,0,,Absent
+,1,,Slight or detectable only when activated by mirror or other movements
+,2,,Mild to moderate
+,3,,"Marked, but full range of motion easily achieved"
+,4,,Severe; range of motion achieved with difficulty
+,8,,Untestable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+RIGDNEX,<UND>,,Any text or numbers
+RIGDUPRT,0,,Absent
+,1,,Slight or detectable only when activated by mirror or other movements
+,2,,Mild to moderate
+,3,,"Marked, but full range of motion easily achieved"
+,4,,Severe; range of motion achieved with difficulty
+,8,,Untestable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+RIGDUPRX,<UND>,,Any text or numbers
+RIGDUPLF,0,,Absent
+,1,,Slight or detectable only when activated by mirror or other movements
+,2,,Mild to moderate
+,3,,"Marked, but full range of motion easily achieved"
+,4,,Severe; range of motion achieved with difficulty
+,8,,Untestable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+RIGDUPLX,<UND>,,Any text or numbers
+RIGDLORT,0,,Absent
+,1,,Slight or detectable only when activated by mirror or other movements
+,2,,Mild to moderate
+,3,,"Marked, but full range of motion easily achieved"
+,4,,Severe; range of motion achieved with difficulty
+,8,,Untestable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+RIGDLORX,<UND>,,Any text or numbers
+RIGDLOLF,0,,Absent
+,1,,Slight or detectable only when activated by mirror or other movements
+,2,,Mild to moderate
+,3,,"Marked, but full range of motion easily achieved"
+,4,,Severe; range of motion achieved with difficulty
+,8,,Untestable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+RIGDLOLX,<UND>,,Any text or numbers
+TAPSRT,0,,Normal
+,1,,Mild slowing and/or reduction in amplitude
+,2,,Moderately impaired; definite and early fatiguing; may have occasional arrests in movement
+,3,,Severely impaired; frequent hesitation in initiating movements or arrests in ongoing movement
+,4,,Can barely perform the task
+,8,,Untestable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TAPSRTX,<UND>,,Any text or numbers
+TAPSLF,0,,Normal
+,1,,Mild slowing and/or reduction in amplitude
+,2,,Moderately impaired; definite and early fatiguing; may have occasional arrests in movement
+,3,,Severely impaired; frequent hesitation in initiating movements or arrests in ongoing movement
+,4,,Can barely perform the task
+,8,,Untestable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TAPSLFX,<UND>,,Any text or numbers
+HANDMOVR,0,,Normal
+,1,,Mild slowing and/or reduction in amplitude
+,2,,Moderately impaired; definite and early fatiguing; may have occasional arrests in movement
+,3,,Severely impaired; frequent hesitation in initiating movements or arrests in ongoing movement
+,4,,Can barely perform the task
+,8,,Untestable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HANDMVRX,<UND>,,Any text or numbers
+HANDMOVL,0,,Normal
+,1,,Mild slowing and/or reduction in amplitude
+,2,,Moderately impaired; definite and early fatiguing; may have occasional arrests in movement
+,3,,Severely impaired; frequent hesitation in initiating movements or arrests in ongoing movement
+,4,,Can barely perform the task
+,8,,Untestable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HANDMVLX,<UND>,,Any text or numbers
+HANDALTR,0,,Normal
+,1,,Mild slowing and/or reduction in amplitude
+,2,,Moderately impaired; definite and early fatiguing; may have occasional arrests in movement
+,3,,Severely impaired; frequent hesitation in initiating movements or arrests in ongoing movement
+,4,,Can barely perform the task
+,8,,Untestable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HANDATRX,<UND>,,Any text or numbers
+HANDALTL,0,,Normal
+,1,,Mild slowing and/or reduction in amplitude
+,2,,Moderately impaired; definite and early fatiguing; may have occasional arrests in movement
+,3,,Severely impaired; frequent hesitation in initiating movements or arrests in ongoing movement
+,4,,Can barely perform the task
+,8,,Untestable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HANDATLX,<UND>,,Any text or numbers
+LEGRT,0,,Normal
+,1,,Mild slowing and/or reduction in amplitude
+,2,,Moderately impaired; definite and early fatiguing; may have occasional arrests in movement
+,3,,Severely impaired; frequent hesitation in initiating movements or arrests in ongoing movement
+,4,,Can barely perform the task
+,8,,Untestable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+LEGRTX,<UND>,,Any text or numbers
+LEGLF,0,,Normal
+,1,,Mild slowing and/or reduction in amplitude
+,2,,Moderately impaired; definite and early fatiguing; may have occasional arrests in movement
+,3,,Severely impaired; frequent hesitation in initiating movements or arrests in ongoing movement
+,4,,Can barely perform the task
+,8,,Untestable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+LEGLFX,<UND>,,Any text or numbers
+ARISING,0,,Normal
+,1,,Slow; or may need more than one attempt
+,2,,Pushes self up from arms of seat
+,3,,"Tends to fall back and may have to try more than one time, but can get up without help"
+,4,,Unable to arise without help
+,8,,Untestable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ARISINGX,<UND>,,Any text or numbers
+POSTURE,0,,Normal
+,1,,"Not quite erect, slightly stooped posture; could be normal for older person"
+,2,,"Moderately stooped posture, definitely abnormal; can be slightly leaning to one side"
+,3,,Severely stooped posture with kyphosis; can be moderately leaning to one side
+,4,,Marked flexion with extreme abnormality of posture
+,8,,Untestable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+POSTUREX,<UND>,,Any text or numbers
+GAIT,0,,Normal
+,1,,"Walks slowly; may shuffle with short steps, but no festination (hastening steps) or propulsion"
+,2,,"Walks with difficulty, but requires little or no assistance; may have some festination, short steps, or propulsion"
+,3,,Severe disturbance of gait requiring assistance
+,4,,"Cannot walk at all, even with assistance"
+,8,,Untestable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+GAITX,<UND>,,Any text or numbers
+POSSTAB,0,,Normal erect
+,1,,"Retropulsion, but recovers unaided"
+,2,,Absence of postural response; would fall if not caught by examiner
+,3,,"Very unstable, tends to lose balance spontaneously"
+,4,,Unable to stand without assistance
+,8,,Untestable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+POSSTABX,<UND>,,Any text or numbers
+BRADYKIN,0,,None
+,1,,"Minimal slowness, giving movement a deliberate character; could be normal for some persons; possibly reduced amplitude"
+,2,,"Mild degree of slowness and poverty of movement which is definitely abnormal. Alternatively, some reduced amplitude"
+,3,,"Moderate slowness, poverty or small amplitude of movement"
+,4,,"Marked slowness, poverty or small amplitude of movement"
+,8,,Untestable
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+BRADYKIX,<UND>,,Any text or numbers
+MEMORY,0,,No impairment
+,0.5,,Questionable impairment
+,1,,Mild impairment
+,2,,Moderate impairment
+,3,,Severe impairment
+ORIENT,0,,No impairment
+,0.5,,Questionable impairment
+,1,,Mild impairment
+,2,,Moderate impairment
+,3,,Severe impairment
+JUDGMENT,0,,No impairment
+,0.5,,Questionable impairment
+,1,,Mild impairment
+,2,,Moderate impairment
+,3,,Severe impairment
+COMMUN,0,,No impairment
+,0.5,,Questionable impairment
+,1,,Mild impairment
+,2,,Moderate impairment
+,3,,Severe impairment
+HOMEHOBB,0,,No impairment
+,0.5,,Questionable impairment
+,1,,Mild impairment
+,2,,Moderate impairment
+,3,,Severe impairment
+PERSCARE,0,,No impairment
+,1,,Mild impairment
+,2,,Moderate impairment
+,3,,Severe impairment
+CDRSUM,0,18,
+CDRGLOB,0,,No impairment
+,0.5,,Questionable impairment
+,1,,Mild impairment
+,2,,Moderate impairment
+,3,,Severe impairment
+COMPORT,0,,No impairment
+,0.5,,Questionable impairment
+,1,,Mild impairment
+,2,,Moderate impairment
+,3,,Severe impairment
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CDRLANG,0,,No impairment
+,0.5,,Questionable impairment
+,1,,Mild impairment
+,2,,Moderate impairment
+,3,,Severe impairment
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NPIQINF,1,,Spouse
+,2,,Child
+,3,,Other
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NPIQINFX,<UND>,,Any text or numbers
+DEL,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DELSEV,1,,"Mild (noticeable, but not a significant change)"
+,2,,"Moderate (significant, but not a dramatic change)"
+,3,,Severe (very marked or prominent; a dramatic change)
+,8,,"Not applicable, no delusions reported"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HALL,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HALLSEV,1,,"Mild (noticeable, but not a significant change)"
+,2,,"Moderate (significant, but not a dramatic change)"
+,3,,Severe (very marked or prominent; a dramatic change)
+,8,,"Not applicable, no hallucinations reported"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+AGIT,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+AGITSEV,1,,"Mild (noticeable, but not a significant change)"
+,2,,"Moderate (significant, but not a dramatic change)"
+,3,,Severe (very marked or prominent; a dramatic change)
+,8,,"Not applicable, no agitation or aggression reported"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DEPD,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DEPDSEV,1,,"Mild (noticeable, but not a significant change)"
+,2,,"Moderate (significant, but not a dramatic change)"
+,3,,Severe (very marked or prominent; a dramatic change)
+,8,,"Not applicable, no depression or dysphoria reported"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ANX,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ANXSEV,1,,"Mild (noticeable, but not a significant change)"
+,2,,"Moderate (significant, but not a dramatic change)"
+,3,,Severe (very marked or prominent; a dramatic change)
+,8,,"Not applicable, no anxiety reported"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ELAT,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ELATSEV,1,,"Mild (noticeable, but not a significant change)"
+,2,,"Moderate (significant, but not a dramatic change)"
+,3,,Severe (very marked or prominent; a dramatic change)
+,8,,"Not applicable, no elation or euphoria reported"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+APA,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+APASEV,1,,"Mild (noticeable, but not a significant change)"
+,2,,"Moderate (significant, but not a dramatic change)"
+,3,,Severe (very marked or prominent; a dramatic change)
+,8,,"Not applicable, no apathy or indifference reported"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DISN,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DISNSEV,1,,"Mild (noticeable, but not a significant change)"
+,2,,"Moderate (significant, but not a dramatic change)"
+,3,,Severe (very marked or prominent; a dramatic change)
+,8,,"Not applicable, no disinhibition reported"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+IRR,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+IRRSEV,1,,"Mild (noticeable, but not a significant change)"
+,2,,"Moderate (significant, but not a dramatic change)"
+,3,,Severe (very marked or prominent; a dramatic change)
+,8,,"Not applicable, no irritability or lability reported"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOT,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOTSEV,1,,"Mild (noticeable, but not a significant change)"
+,2,,"Moderate (significant, but not a dramatic change)"
+,3,,Severe (very marked or prominent; a dramatic change)
+,8,,"Not applicable, no motor disturbance reported"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NITE,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NITESEV,1,,"Mild (noticeable, but not a significant change)"
+,2,,"Moderate (significant, but not a dramatic change)"
+,3,,Severe (very marked or prominent; a dramatic change)
+,8,,"Not applicable, no nighttime behaviors reported"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+APP,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+APPSEV,1,,"Mild (noticeable, but not a significant change)"
+,2,,"Moderate (significant, but not a dramatic change)"
+,3,,Severe (very marked or prominent; a dramatic change)
+,8,,"Not applicable, no appetite or eating problems reported"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NOGDS,0,,Able to complete the GDS
+,1,,Not able to complete the GDS
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+SATIS,0,,Yes
+,1,,No
+,9,,Did not answer
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DROPACT,0,,No
+,1,,Yes
+,9,,Did not answer
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+EMPTY,0,,No
+,1,,Yes
+,9,,Did not answer
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+BORED,0,,No
+,1,,Yes
+,9,,Did not answer
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+SPIRITS,0,,Yes
+,1,,No
+,9,,Did not answer
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+AFRAID,0,,No
+,1,,Yes
+,9,,Did not answer
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HAPPY,0,,Yes
+,1,,No
+,9,,Did not answer
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HELPLESS,0,,No
+,1,,Yes
+,9,,Did not answer
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+STAYHOME,0,,No
+,1,,Yes
+,9,,Did not answer
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MEMPROB,0,,No
+,1,,Yes
+,9,,Did not answer
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+WONDRFUL,0,,Yes
+,1,,No
+,9,,Did not answer
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+WRTHLESS,0,,No
+,1,,Yes
+,9,,Did not answer
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ENERGY,0,,Yes
+,1,,No
+,9,,Did not answer
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HOPELESS,0,,No
+,1,,Yes
+,9,,Did not answer
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+BETTER,0,,No
+,1,,Yes
+,9,,Did not answer
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NACCGDS,0,15,
+,88,,Could not be calculated
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+BILLS,0,,Normal
+,1,,"Has difficulty, but does by self"
+,2,,Requires assistance
+,3,,Dependent
+,8,,"Not applicable (e.g., never did)"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TAXES,0,,Normal
+,1,,"Has difficulty, but does by self"
+,2,,Requires assistance
+,3,,Dependent
+,8,,"Not applicable (e.g., never did)"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+SHOPPING,0,,Normal
+,1,,"Has difficulty, but does by self"
+,2,,Requires assistance
+,3,,Dependent
+,8,,"Not applicable (e.g., never did)"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+GAMES,0,,Normal
+,1,,"Has difficulty, but does by self"
+,2,,Requires assistance
+,3,,Dependent
+,8,,"Not applicable (e.g., never did)"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+STOVE,0,,Normal
+,1,,"Has difficulty, but does by self"
+,2,,Requires assistance
+,3,,Dependent
+,8,,"Not applicable (e.g., never did)"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MEALPREP,0,,Normal
+,1,,"Has difficulty, but does by self"
+,2,,Requires assistance
+,3,,Dependent
+,8,,"Not applicable (e.g., never did)"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+EVENTS,0,,Normal
+,1,,"Has difficulty, but does by self"
+,2,,Requires assistance
+,3,,Dependent
+,8,,"Not applicable (e.g., never did)"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+PAYATTN,0,,Normal
+,1,,"Has difficulty, but does by self"
+,2,,Requires assistance
+,3,,Dependent
+,8,,"Not applicable (e.g., never did)"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+REMDATES,0,,Normal
+,1,,"Has difficulty, but does by self"
+,2,,Requires assistance
+,3,,Dependent
+,8,,"Not applicable (e.g., never did)"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TRAVEL,0,,Normal
+,1,,"Has difficulty, but does by self"
+,2,,Requires assistance
+,3,,Dependent
+,8,,"Not applicable (e.g., never did)"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NACCNREX,0,,Abnormal findings
+,1,,No abnormal findings or findings normal for age
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NORMEXAM,0,,No abnormal findings
+,1,,Yes - abnormal findings were consistent with syndromes listed in Questions 2-8
+,2,,"Yes - abnormal findings were consistent with age-associated changes or irrelevant to dementing disorders (e.g., Bell’s palsy)"
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+FOCLDEF,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+GAITDIS,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+EYEMOVE,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+PARKSIGN,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+RESTTRL,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+RESTTRR,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+SLOWINGL,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+SLOWINGR,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+RIGIDL,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+RIGIDR,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+BRADY,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+PARKGAIT,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+POSTINST,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CVDSIGNS,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CORTDEF,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+SIVDFIND,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CVDMOTL,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CVDMOTR,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CORTVISL,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CORTVISR,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+SOMATL,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+SOMATR,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+POSTCORT,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+PSPCBS,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+EYEPSP,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DYSPSP,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+AXIALPSP,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+GAITPSP,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+APRAXSP,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+APRAXL,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+APRAXR,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CORTSENL,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CORTSENR,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ATAXL,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ATAXR,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ALIENLML,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ALIENLMR,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DYSTONL,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DYSTONR,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MYOCLLT,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MYOCLRT,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ALSFIND,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+GAITNPH,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+OTHNEUR,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+OTHNEURX,<UND>,,Any text or numbers
+B9CHG,1,,"There have been no meaningful changes in the subject’s cognition, behavior, or motor function since the previous UDS visit"
+,2,,"At the previous UDS visit, the clinician DID NOT report a decline in the subject’s memory, non-memory cognitive abilities, behavior, or motor function. However, there have been meaningful changes since then"
+,3,,"At the previous UDS visit, the clinician DID report a decline in the subject’s memory, non-memory cognitive abilities, behavior, or motor function. Since then, there have been additional meaningful changes"
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DECSUB,0,,No
+,1,,Yes
+,8,,Could not be assessed/subject too impaired
+,9,,Unknown
+DECIN,0,,No
+,1,,Yes
+,8,,There is no co-participant
+,9,,Unknown
+DECCLIN,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DECCLCOG,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+COGMEM,0,,No
+,1,,Yes
+,9,,Unknown
+COGORI,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+COGJUDG,0,,No
+,1,,Yes
+,9,,Unknown
+COGLANG,0,,No
+,1,,Yes
+,9,,Unknown
+COGVIS,0,,No
+,1,,Yes
+,9,,Unknown
+COGATTN,0,,No
+,1,,Yes
+,9,,Unknown
+COGFLUC,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+COGFLAGO,15,110,
+,888,,"Not applicable, no or unknown fluctuating cognition"
+,999,,Age unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+COGOTHR,0,,No
+,1,,Yes
+,9,,Unknown
+COGOTHRX,<UND>,,Any text or numbers
+NACCCOGF,0,,No impairment in cognition
+,1,,Memory
+,2,,Orientation
+,3,,"Executive function - judgment, planning, problem-solving"
+,4,,Language
+,5,,Visuospatial function
+,6,,Attention/concentration
+,7,,Fluctuating cognition
+,8,,Other (specify)
+,99,,Unknown
+NACCCGFX,<UND>,,Any text or numbers
+COGMODE,0,,No impairment in cognition
+,1,,Gradual
+,2,,Subacute
+,3,,Abrupt
+,4,,Other (specify)
+,99,,Unknown
+COGMODEX,<UND>,,Any text or numbers
+DECAGE,15,110,
+,888,,No impairment in cognition
+,999,,Age unknown
+DECCLBE,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+BEAPATHY,0,,No
+,1,,Yes
+,9,,Unknown
+BEDEP,0,,No
+,1,,Yes
+,9,,Unknown
+BEVHALL,0,,No
+,1,,Yes
+,9,,Unknown
+BEVWELL,0,,No
+,1,,Yes
+,8,,"Not applicable, no visual hallucinations"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+BEVHAGO,15,110,
+,888,,"Not applicable, no well-formed visual hallucinations"
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+BEAHALL,0,,No
+,1,,Yes
+,9,,Unknown
+BEDEL,0,,No
+,1,,Yes
+,9,,Unknown
+BEDISIN,0,,No
+,1,,Yes
+,9,,Unknown
+BEIRRIT,0,,No
+,1,,Yes
+,9,,Unknown
+BEAGIT,0,,No
+,1,,Yes
+,9,,Unknown
+BEPERCH,0,,No
+,1,,Yes
+,9,,Unknown
+BEREM,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+BEREMAGO,15,110,
+,888,,"Not applicable, no REM sleep behavior disorder"
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+BEANX,0,,No
+,1,,Yes
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+BEOTHR,0,,No/unknown
+,1,,Yes
+BEOTHRX,<UND>,,Any text or numbers
+NACCBEHF,0,,No behavioral symptoms
+,1,,Apathy/withdrawal
+,2,,Depressed mood
+,3,,Psychosis
+,4,,Disinhibition
+,5,,Irritability
+,6,,Agitation
+,7,,Personality change
+,8,,REM sleep behavior disorder
+,9,,Anxiety
+,10,,Other (specify)
+,99,,Unknown
+NACCBEFX,<UND>,,Any text or numbers
+BEMODE,0,,No behavioral symptoms
+,1,,Gradual
+,2,,Subacute
+,3,,Abrupt
+,4,,Other (specify)
+,99,,Unknown
+BEMODEX,<UND>,,Any text or numbers
+BEAGE,15,110,
+,888,,"Not applicable, no behavioral symptoms"
+,999,,Age unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DECCLMOT,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOGAIT,0,,No
+,1,,Yes
+,9,,Unknown
+MOFALLS,0,,No
+,1,,Yes
+,9,,Unknown
+MOTREM,0,,No
+,1,,Yes
+,9,,Unknown
+MOSLOW,0,,No
+,1,,Yes
+,9,,Unknown
+NACCMOTF,0,,No motor symptoms
+,1,,Gait disorder
+,2,,Falls
+,3,,Tremor
+,4,,Slowness
+,99,,Unknown
+MOMODE,0,,No motor symptoms
+,1,,Gradual
+,2,,Subacute
+,3,,Abrupt
+,4,,Other
+,99,,Unknown
+MOMODEX,<UND>,,Any text or numbers
+MOMOPARK,0,,No
+,1,,Yes
+,8,,"Not applicable, no motor changes"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+PARKAGE,15,110,
+,888,,"Not applicable, no Parkinsonism"
+,999,,Age unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOMOALS,0,,No
+,1,,Yes
+,8,,"Not applicable, no motor function changes"
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ALSAGE,15,110,
+,888,,"Not applicable, No ALS"
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOAGE,9,110,
+,888,,No motor symptoms
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+COURSE,1,,Gradually progressive
+,2,,Stepwise
+,3,,Static
+,4,,Fluctuating
+,5,,Improved
+,8,,Not applicable
+,9,,Unknown
+FRSTCHG,1,,Cognition
+,2,,Behavior
+,3,,Motor function
+,8,,Not applicable
+,9,,Unknown
+LBDEVAL,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+FTLDEVAL,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MMSECOMP,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MMSELOC,1,,In ADC/clinic
+,2,,In home
+,3,,In person - other
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MMSELAN,1,,English
+,2,,Spanish
+,3,,Other
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MMSELANX,<UND>,,Any text or numbers
+MMSEVIS,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MMSEHEAR,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MMSEORDA,0,5,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MMSEORLO,0,5,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+PENTAGON,0,1,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NACCMMSE,0,30,
+,88,,Score not calculated; missing at least one MMSE item
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NPSYCLOC,1,,In ADC/clinic
+,2,,In home
+,3,,In person - other
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NPSYLAN,1,,English
+,2,,Spanish
+,3,,Other
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NPSYLANX,<UND>,,Any text or numbers
+LOGIMO,1,12,
+,88,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+LOGIDAY,1,31,
+,88,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+LOGIYR,1875,<INF>,
+,8888,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+LOGIPREV,0,25,
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+LOGIMEM,0,25,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MEMUNITS,0,25,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MEMTIME,0,85,
+,99,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+UDSBENTC,0,17,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+UDSBENTD,0,17,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+UDSBENRS,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DIGIF,0,12,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DIGIFLEN,0,8,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DIGIB,0,12,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DIGIBLEN,0,8,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ANIMALS,0,77,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+VEG,0,77,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TRAILA,0,150,
+,995,,Physical problem
+,996,,Cognitive/behavior problem
+,997,,Other problem
+,998,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TRAILARR,0,40,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TRAILALI,0,24,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TRAILB,0,300,
+,995,,Physical problem
+,996,,Cognitive/behavior problem
+,997,,Other problem
+,998,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TRAILBRR,0,40,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TRAILBLI,0,24,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+WAIS,0,93,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+BOSTON,0,30,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+UDSVERFC,0,40,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+UDSVERFN,0,15,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+UDSVERNF,0,15,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+UDSVERLC,0,40,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+UDSVERLR,0,15,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+UDSVERLN,0,15,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+UDSVERTN,0,80,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+UDSVERTE,0,30,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+UDSVERTI,0,30,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+COGSTAT,0,,Clinician unable to render opinion
+,1,,Better than normal for age
+,2,,Normal for age
+,3,,One or two test scores abnormal
+,4,,Three or more scores are abnormal or lower than expected
+,9,,Missing
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NACCC1,0,,UDS Form C1 completed within 90 days of Form A1
+,1,,UDS Form C1 completed >90 days before or after Form A1
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MODCOMM,1,,Telephone
+,2,,Video-assisted conference
+,3,,Some combination of the two
+MOCACOMP,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOCAREAS,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOCALOC,1,,In ADC/clinic
+,2,,In home
+,3,,In person - other
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOCALAN,1,,English
+,2,,Spanish
+,3,,Other
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOCALANX,<UND>,,Any text or numbers
+MOCAVIS,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOCAHEAR,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOCATOTS,0,30,
+,88,,Item(s) or whole test not administered
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NACCMOCA,0,30,
+,88,,Item(s) or whole test not administered
+,99,,Years of education missing/unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOCATRAI,0,1,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOCACUBE,0,1,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOCACLOC,0,1,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOCACLON,0,1,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOCACLOH,0,1,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOCANAMI,0,3,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOCAREGI,0,10,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOCADIGI,0,2,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOCALETT,0,1,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOCASER7,0,3,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOCAREPE,0,2,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOCAFLUE,0,1,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOCAABST,0,2,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOCARECN,0,5,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOCARECC,0,5,
+,88,,"Not applicable, category cue not given"
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOCARECR,0,5,
+,88,,"Not applicable, category cue not given"
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOCAORDT,0,1,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOCAORMO,0,1,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOCAORYR,0,1,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOCAORDY,0,1,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOCAORPL,0,1,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOCAORCT,0,1,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CRAFTVRS,0,44,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CRAFTURS,0,25,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DIGFORCT,0,14,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DIGFORSL,0,,
+,3,9,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DIGBACCT,0,14,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DIGBACLS,0,,
+,2,8,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CRAFTDVR,0,44,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CRAFTDRE,0,25,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CRAFTDTI,0,85,
+,99,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CRAFTCUE,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MINTTOTS,0,32,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MINTTOTW,0,32,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MINTSCNG,0,32,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MINTSCNC,0,32,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MINTPCNG,0,32,
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MINTPCNC,0,32,
+,88,,"Not applicable, no phonemic cues given"
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NACCC2,0,,UDS Form C2 completed within 90 days of Form A1
+,1,,UDS Form C2 completed >90 days before or after Form A1
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MOCBTOTS,0,22,
+,88,,Item(s) or whole test not administered
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NACCMOCB,0,22,
+,88,,Item(s) or whole test not administered
+,99,,Years of education missing/unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+REY1REC,0,15,
+,88,,"Not assessed, optional"
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+REY1INT,0,85,
+,88,,"Not assessed, optional"
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+REY2REC,0,15,
+,88,,"Not assessed, optional"
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+REY2INT,0,85,
+,88,,"Not assessed, optional"
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+REY3REC,0,15,
+,88,,"Not assessed, optional"
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+REY3INT,0,85,
+,88,,"Not assessed, optional"
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+REY4REC,0,15,
+,88,,"Not assessed, optional"
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+REY4INT,0,85,
+,88,,"Not assessed, optional"
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+REY5REC,0,15,
+,88,,"Not assessed, optional"
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+REY5INT,0,85,
+,88,,"Not assessed, optional"
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+REY6REC,0,15,
+,88,,"Not assessed, optional"
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+REY6INT,0,85,
+,88,,"Not assessed, optional"
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+OTRAILA,0,100,
+,888,,"Not assessed, optional"
+,995,,Physical problem
+,996,,Cognitive/behavior problem
+,997,,Other problem
+,998,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+OTRLARR,0,99,
+,888,,"Not assessed, optional"
+,995,,Physical problem
+,996,,Cognitive/behavior problem
+,997,,Other problem
+,998,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+OTRLALI,0,25,
+,888,,"Not assessed, optional"
+,995,,Physical problem
+,996,,Cognitive/behavior problem
+,997,,Other problem
+,998,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+OTRAILB,0,300,
+,888,,"Not assessed, optional"
+,995,,Physical problem
+,996,,Cognitive/behavior problem
+,997,,Other problem
+,998,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+OTRLBRR,0,99,
+,888,,"Not assessed, optional"
+,995,,Physical problem
+,996,,Cognitive/behavior problem
+,997,,Other problem
+,998,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+OTRLBLI,0,25,
+,888,,"Not assessed, optional"
+,995,,Physical problem
+,996,,Cognitive/behavior problem
+,997,,Other problem
+,998,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+REYDREC,0,15,
+,88,,"Not assessed, optional"
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+REYDINT,0,85,
+,88,,"Not assessed, optional"
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+REYTCOR,0,15,
+,88,,"Not assessed, optional"
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+REYFPOS,0,15,
+,88,,"Not assessed, optional"
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+VNTTOTW,0,50,
+,88,,"Not assessed, optional"
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+VNTPCNC,0,50,
+,88,,"Not assessed, optional"
+,95,,Physical problem
+,96,,Cognitive/behavior problem
+,97,,Other problem
+,98,,Verbal refusal
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+RESPVAL,1,,"Very valid, probably accurate indication of participant’s cognitive abilities"
+,2,,"Questionably valid, possibly inaccurate indication of participant’s cognitive abilities"
+,3,,"Invalid, probably inaccurate indication of participant’s cognitive abilities"
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+RESPHEAR,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+RESPDIST,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+RESPINTR,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+RESPDISN,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+RESPFATG,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+RESPEMOT,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+RESPASST,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+RESPOTH,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+RESPOTHX,<UND>,,Any text or numbers
+WHODIDDX,1,,A single clinician
+,2,,Consensus diagnosis
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DXMETHOD,1,,A single clinician
+,2,,A formal consensus panel
+,3,,"Other (e.g., two or more clinicians or other informal group)"
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NORMCOG,0,,No
+,1,,Yes
+DEMENTED,0,,No
+,1,,Yes
+NACCUDSD,1,,Normal cognition
+,2,,Impaired-not-MCI
+,3,,MCI
+,4,,Dementia
+AMNDEM,0,,No
+,1,,Yes
+,8,,No diagnosis of dementia
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+PCA,0,,No
+,1,,Yes
+,8,,No diagnosis of dementia
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NACCPPA,0,,No
+,1,,Yes
+,7,,Subject had Impaired-not-MCI or MCI but is missing information on presence/absence of PPA
+,8,,No cognitive impairment
+NACCPPAG,1,,Meets criteria for semantic PPA
+,2,,Meets criteria for logopenic PPA
+,3,,Meets criteria for nonfluent/agrammatic PPA
+,4,,PPA other/not otherwise specified
+,7,,Impaired but no PPA syndrome
+,8,,No cognitive impairment
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NACCPPME,1,,Meets criteria for progressive nonfluent PPA
+,2,,Meets criteria for semantic dementia - anomia plus word comprehension
+,3,,Meets criteria for semantic dementia - agnostic variant
+,4,,"PPA other/not otherwise specified (logopenic, anomic, transcortical, word deafness, syntactic comprehension, motor speech disorder)"
+,6,,Subject had MCI but missing information on presence / absence of PPA
+,7,,Subject was cognitively impaired but did not have PPA
+,8,,No cognitive impairment
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NACCBVFT,0,,No
+,1,,Yes
+,8,,No diagnosis of dementia
+NACCLBDS,0,,No
+,1,,Yes
+,8,,No diagnosis of dementia
+NAMNDEM,0,,No
+,1,,Yes
+,8,,No diagnosis of dementia
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NACCTMCI,1,,Amnestic MCI- single domain
+,2,,Amnestic MCI- multiple domain
+,3,,Non-amnestic MCI- single domain
+,4,,Non-amnestic MCI- multiple domain
+,8,,No diagnosis of MCI
+NACCMCIL,0,,No
+,1,,Yes
+,8,,Not diagnosed with MCI
+NACCMCIA,0,,No
+,1,,Yes
+,8,,Not diagnosed with MCI
+NACCMCIE,0,,No
+,1,,Yes
+,8,,Not diagnosed with MCI
+NACCMCIV,0,,No
+,1,,Yes
+,8,,Not diagnosed with MCI
+IMPNOMCI,0,,No
+,1,,Yes
+AMYLPET,0,,No
+,1,,Yes
+,8,,Unknown/not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+AMYLCSF,0,,No
+,1,,Yes
+,8,,Unknown/not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+FDGAD,0,,No
+,1,,Yes
+,8,,Unknown/not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HIPPATR,0,,No
+,1,,Yes
+,8,,Unknown/not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TAUPETAD,0,,No
+,1,,Yes
+,8,,Unknown/not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CSFTAU,0,,No
+,1,,Yes
+,8,,Unknown/not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+FDGFTLD,0,,No
+,1,,Yes
+,8,,Unknown/not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+TPETFTLD,0,,No
+,1,,Yes
+,8,,Unknown/not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MRFTLD,0,,No
+,1,,Yes
+,8,,Unknown/not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DATSCAN,0,,No
+,1,,Yes
+,8,,Unknown/not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+OTHBIOM,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+OTHBIOMX,<UND>,,Any text or numbers
+IMAGLINF,0,,No
+,1,,Yes
+,8,,Unknown/not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+IMAGLAC,0,,No
+,1,,Yes
+,8,,Unknown/not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+IMAGMACH,0,,No
+,1,,Yes
+,8,,Unknown/not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+IMAGMICH,0,,No
+,1,,Yes
+,8,,Unknown/not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+IMAGMWMH,0,,No
+,1,,Yes
+,8,,Unknown/not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+IMAGEWMH,0,,No
+,1,,Yes
+,8,,Unknown/not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+OTHMUT,0,,No
+,1,,Yes
+,9,,Unknown/not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+OTHMUTX,<UND>,,Any text or numbers
+NACCALZD,0,,No (assumed assessed and found not present)
+,1,,Yes
+,8,,No cognitive impairment
+NACCALZP,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but not AD diagnosis
+,8,,Diagnosis of normal cognition
+PROBAD,0,,No
+,1,,Yes
+,8,,No cognitive impairment
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+PROBADIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but not AD diagnosis
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+POSSAD,0,,No
+,1,,Yes
+,8,,No cognitive impairment
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+POSSADIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but not AD diagnosis
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NACCLBDE,0,,No (assumed assessed and found not present)
+,1,,Yes
+,8,,No cognitive impairment
+NACCLBDP,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but not LBD diagnosis
+,8,,Diagnosis of normal cognition
+PARK,0,,No (assumed assessed and found not present)
+,1,,Yes
+MSA,0,,No (assumed assessed and found not present)
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MSAIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but not MSA diagnosis
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+PSP,0,,No (assumed assessed and found not present)
+,1,,Yes
+PSPIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but not PSP diagnosis
+,8,,Diagnosis of normal cognition
+CORT,0,,No (assumed assessed and found not present)
+,1,,Yes
+CORTIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but not CBD diagnosis
+,8,,Diagnosis of normal cognition
+FTLDMO,0,,No (assumed assessed and found not present)
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+FTLDMOIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but not FTLD diagnosis
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+FTLDNOS,0,,No (assumed assessed and found not present)
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+FTLDNOIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but not FTLD NOS diagnosis
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+FTD,0,,Absent
+,1,,Present
+,8,,No cognitive impairment
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+FTDIF,1,,Primary
+,2,,Contributing
+,7,,Cognitively impaired but not bvFTD diagnosis
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+PPAPH,0,,No
+,1,,Yes
+,8,,No cognitive impairment
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+PPAPHIF,1,,Primary
+,2,,Contributing
+,7,,Cognitively impaired but not no PPA diagnosis
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+FTLDSUBT,1,,Tauopathy
+,2,,TDP-43 proteinopathy
+,3,,Other
+,7,,Cognitively impaired but no FTLD diagnosis
+,8,,Diagnosis of normal cognition
+,9,,Unknown subtype
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+FTLDSUBX,<UND>,,Any text or numbers
+CVD,0,,No (assumed assessed and found not present)
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CVDIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but no VBI diagnosis
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+PREVSTK,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+STROKDEC,0,,No
+,1,,Yes
+,8,,Subject did not have a previous symptomatic stroke
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+STKIMAG,0,,No
+,1,,Yes
+,8,,Subject did not have a previous symptomatic stroke
+,9,,"Unknown, no relevant imaging data available"
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+INFNETW,0,,No
+,1,,Yes
+,9,,"Unknown, no relevant imaging data available"
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+INFWMH,0,,No
+,1,,Yes
+,9,,"Unknown, no relevant imaging data available"
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+VASC,0,,No
+,1,,Yes
+,8,,"Not applicable, no cognitive impairment"
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+VASCIF,1,,Primary
+,2,,Contributing
+,7,,Cognitively impaired but no CVD diagnosis
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+VASCPS,0,,No
+,1,,Yes
+,8,,"Not applicable, no cognitive impairment"
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+VASCPSIF,1,,Primary
+,2,,Contributing
+,7,,Cognitively impaired but not diagnosed with primary possible vascular dementia
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+STROKE,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+STROKIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but no stroke diagnosis
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ESSTREM,0,,No (assumed assessed and found not present)
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ESSTREIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but no diagnosis of essential tremor
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DOWNS,0,,No (assumed assessed and found not present)
+,1,,Yes
+DOWNSIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but no Down syndrome diagnosis
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HUNT,0,,No (assumed assessed and found not present)
+,1,,Yes
+HUNTIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but no Huntington’s disease diagnosis
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+PRION,0,,No (assumed assessed and found not present)
+,1,,Yes
+PRIONIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but no Prion disease diagnosis
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+BRNINJ,0,,No (assumed assessed and found not present)
+,1,,Yes
+BRNINJIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but no diagnosis of TBI
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+BRNINCTE,0,,No
+,1,,Yes
+,8,,No TBI diagnosis
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HYCEPH,0,,No (assumed assessed and found not present)
+,1,,Yes
+HYCEPHIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but no hydrocephalus diagnosis
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+EPILEP,0,,No (assumed assessed and found not present)
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+EPILEPIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but no epilepsy diagnosis
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NEOP,0,,No (assumed assessed and found not present)
+,1,,Yes
+NEOPIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but no CNS neoplasm diagnosis
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+NEOPSTAT,1,,Benign
+,2,,Malignant
+,8,,No diagnosis of CNS neoplasm
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HIV,0,,No (assumed assessed and found not present)
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HIVIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but no HIV diagnosis
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+OTHCOG,0,,No (assumed assessed and found not present)
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+OTHCOGIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,"Cognitively impaired but no diagnosis of other neurological, genetic, or infectious condition"
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+OTHCOGX,<UND>,,Any text or numbers
+DEP,0,,No (assumed assessed and found not present)
+,1,,Yes
+DEPIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but no depression diagnosis
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DEPTREAT,0,,Untreated
+,1,,Treated
+,8,,No diagnosis of depression
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+BIPOLDX,0,,No (assumed assessed and found not present)
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+BIPOLDIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but no bipolar disorder diagnosis
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+SCHIZOP,0,,No (assumed assessed and found not present)
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+SCHIZOIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but no schizophrenia diagnosis
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ANXIET,0,,No (assumed assessed and found not present)
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ANXIETIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but no anxiety diagnosis
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DELIR,0,,No (assumed assessed and found not present)
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DELIRIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but no delirium diagnosis
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+PTSDDX,0,,No (assumed assessed and found not present)
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+PTSDDXIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but no PTSD diagnosis
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+OTHPSY,0,,No (assumed assessed and found not present)
+,1,,Yes
+OTHPSYIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but no diagnosis of other psychiatric disease
+,8,,Diagnosis of normal cognition
+OTHPSYX,<UND>,,Any text or numbers
+ALCDEM,0,,No (assumed assessed and found not present)
+,1,,Yes
+,8,,Diagnosis of normal cognition
+ALCDEMIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but no diagnosis of impairment due to alcohol abuse
+,8,,Diagnosis of normal cognition
+ALCABUSE,0,,No
+,1,,Yes
+,9,,Unknown
+,8,,No diagnosis of impairment due to alcohol abuse
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+IMPSUB,0,,No (assumed assessed and found not present)
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+IMPSUBIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but no diagnosis of impairment due to substance abuse
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DYSILL,0,,No (assumed assessed and found not present)
+,1,,Yes
+DYSILLIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but no diagnosis of impairment due to systemic disease/medical illness
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MEDS,0,,No (assumed assessed and found not present)
+,1,,Yes
+MEDSIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but no diagnosis of impairment due to medications
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DEMUN,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+DEMUNIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but no diagnosis of dementia due to undetermined etiology
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+COGOTH,0,,No
+,1,,Yes
+COGOTHIF,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but no other etiologic diagnosis
+,8,,Diagnosis of normal cognition
+COGOTHX,<UND>,,Any text or numbers
+COGOTH2,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+COGOTH2F,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but no other etiologic diagnosis
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+COGOTH2X,<UND>,,Any text or numbers
+COGOTH3,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+COGOTH3F,1,,Primary
+,2,,Contributing
+,3,,Non-contributing
+,7,,Cognitively impaired but no other etiologic diagnosis
+,8,,Diagnosis of normal cognition
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+COGOTH3X,<UND>,,Any text or numbers
+NACCNORM,0,,"Had a diagnosis other than normal cognition (impaired but not MCI, MCI, or dementia) for at least one UDS visit"
+,1,,Normal cognition at all UDS visits
+NACCIDEM,0,,Did not progress to dementia
+,1,,Progressed to dementia
+,8,,Initial visit only or diagnosed with dementia at initial visit
+NACCMCII,0,,Did not progress to MCI
+,1,,Progressed to MCI
+,8,,"Initial visit only, or had a diagnosis of MCI or dementia at initial UDS visit, or progressed directly to dementia"
+NACCADMU,0,,No/unknown
+,1,,Yes
+NACCFTDM,0,,No/unknown
+,1,,Yes
+NACCETPR,1,,Alzheimer’s disease (AD)
+,2,,Lewy body disease (LBD)
+,3,,Multiple system atrophy (MSA)
+,4,,Progressive supranuclear palsy (PSP)
+,5,,Corticobasal degeneration (CBD)
+,6,,"FTLD with motor neuron disease (e.g., ALS)"
+,7,,"FTLD, other"
+,8,,Vascular brain injury or vascular dementia including stroke
+,9,,Essential tremor
+,10,,Down syndrome
+,11,,Huntington’s disease
+,12,,"Prion disease (CJD, other)"
+,13,,Traumatic brain injury (TBI)
+,14,,Normal-pressure hydrocephalus (NPH)
+,15,,Epilepsy
+,16,,CNS neoplasm
+,17,,Human immunodeficiency virus (HIV)
+,18,,"Other neurologic, genetic, or infectious condition"
+,19,,Depression
+,20,,Bipolar disorder
+,21,,Schizophrenia or other psychosis
+,22,,Anxiety disorder
+,23,,Delirium
+,24,,Post-traumatic stress disorder (PTSD)
+,25,,Other psychiatric disease
+,26,,Cognitive impairment due to alcohol abuse
+,27,,Cognitive impairment due to other substance abuse
+,28,,Cognitive impairment due to systemic disease or medical illness
+,29,,Cognitive impairment due to medications
+,30,,"Cognitive impairment for other specified reasons (i.e., written-in values)"
+,88,,"Not applicable, not cognitively impaired"
+,99,,Missing/unknown
+CANCER,0,,No
+,1,,"Yes, primary/non-metastatic"
+,2,,"Yes, metastatic"
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CANCSITE,<UND>,,Any text or numbers
+DIABET,0,,No
+,1,,"Yes, Type I"
+,2,,"Yes, Type II"
+,3,,"Yes, other type"
+,9,,Not assessed or unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+MYOINF,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+CONGHRT,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+AFIBRILL,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HYPERT,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ANGINA,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HYPCHOL,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+VB12DEF,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+THYDIS,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ARTH,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ARTYPE,1,,Rheumatoid
+,2,,Osteoarthritis
+,3,,Other (specify)
+,8,,No arthritis reported
+,9,,Unknown
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ARTYPEX,<UND>,,Any text or numbers
+ARTUPEX,0,,No
+,1,,Yes
+,8,,No arthritis reported
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ARTLOEX,0,,No
+,1,,Yes
+,8,,No arthritis reported
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ARTSPIN,0,,No
+,1,,Yes
+,8,,No arthritis reported
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ARTUNKN,0,,No
+,1,,Yes
+,8,,No arthritis reported
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+URINEINC,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+BOWLINC,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+SLEEPAP,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+REMDIS,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HYPOSOM,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+SLEEPOTH,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+SLEEPOTX,<UND>,,Any text or numbers
+ANGIOCP,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ANGIOPCI,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+PACEMAKE,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+HVALVE,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ANTIENC,0,,No
+,1,,Yes
+,8,,Not assessed
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+ANTIENCX,<UND>,,Any text or numbers
+OTHCOND,0,,No
+,1,,Yes
+,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
+OTHCONDX,<UND>,,Any text or numbers
+LANGA1,1,,English
+,2,,Spanish
+LANGA2,1,,English
+,2,,Spanish
+LANGA3,1,,English
+,2,,Spanish
+LANGA4,1,,English
+,2,,Spanish
+LANGA5,1,,English
+,2,,Spanish
+LANGB1,1,,English
+,2,,Spanish
+LANGB4,1,,English
+,2,,Spanish
+LANGB5,1,,English
+,2,,Spanish
+LANGB6,1,,English
+,2,,Spanish
+LANGB7,1,,English
+,2,,Spanish
+LANGB8,1,,English
+,2,,Spanish
+LANGB9,1,,English
+,2,,Spanish
+LANGC2,1,,English
+,2,,Spanish
+LANGD1,1,,English
+,2,,Spanish
+LANGD2,1,,English
+,2,,Spanish
+LANGB3F,1,,English
+,2,,Spanish
+LANGB9F,1,,English
+,2,,Spanish
+LANGC1F,1,,English
+,2,,Spanish
+LANGC2F,1,,English
+,2,,Spanish
+LANGC3F,1,,English
+,2,,Spanish
+LANGC4F,1,,English
+,2,,Spanish
+LANGC5F,1,,English
+,2,,Spanish
+LANGC6F,1,,English
+,2,,Spanish
+LANGE2F,1,,English
+,2,,Spanish
+LANGE3F,1,,English
+,2,,Spanish
+LANGCLS,1,,English
+,2,,Spanish
+CLSSUB,0,,No
+,1,,Yes
+APREFLAN,1,,English
+,2,,Spanish
+AYRSPAN,0,110,
+AYRENGL,0,110,
+APCSPAN,0,100,
+APCENGL,0,100,
+ASPKSPAN,1,,Almost none
+,2,,Very poor
+,3,,Fair
+,4,,Functional
+,5,,Good
+,6,,Very good
+,7,,Like native speaker
+AREASPAN,1,,Almost none
+,2,,Very poor
+,3,,Fair
+,4,,Functional
+,5,,Good
+,6,,Very good
+,7,,Like native speaker
+AWRISPAN,1,,Almost none
+,2,,Very poor
+,3,,Fair
+,4,,Functional
+,5,,Good
+,6,,Very good
+,7,,Like native speaker
+AUNDSPAN,1,,Almost none
+,2,,Very poor
+,3,,Fair
+,4,,Functional
+,5,,Good
+,6,,Very good
+,7,,Like native speaker
+NACCSPNL,1,7,
+ASPKENGL,1,,Almost none
+,2,,Very poor
+,3,,Fair
+,4,,Functional
+,5,,Good
+,6,,Very good
+,7,,Like native speaker
+AREAENGL,1,,Almost none
+,2,,Very poor
+,3,,Fair
+,4,,Functional
+,5,,Good
+,6,,Very good
+,7,,Like native speaker
+AWRIENGL,1,,Almost none
+,2,,Very poor
+,3,,Fair
+,4,,Functional
+,5,,Good
+,6,,Very good
+,7,,Like native speaker
+AUNDENGL,1,,Almost none
+,2,,Very poor
+,3,,Fair
+,4,,Functional
+,5,,Good
+,6,,Very good
+,7,,Like native speaker
+NACCENGL,1,7,
+NACCFTD,0,,No FTLD Module visit
+,1,,At least one FTLD Module visit
+NACCLBDM,0,,No LBD Module visit
+,1,,At least one LBD Module
+NACCNMRI,1,20,
+,88,,Not applicable / no MRI available
+NACCMRSA,0,,No; does not have at least one MRI available at NACC
+,1,,Yes; has at least one MRI available at NACC
+NACCNAPA,1,20,
+,88,,Not applicable / no amyloid PET available
+NACCAPSA,0,,No; does not have any amyloid PET scans at NACC
+,1,,Yes; has at least one amyloid PET scan available at NACC
+NACCACSF,0,,No Aβ1–42 reported
+,1,,One or more measures of Aβ1–42 reported
+NACCPCSF,0,,No P-tau181P reported
+,1,,One or more measures of P-tau181P reported
+NACCTCSF,0,,No T-tau reported
+,1,,One or more measures of T-tau reported
+NACCAUTP,0,,No
+,1,,Yes
+,8,,"Not applicable, subject not deceased"
+NACCNE4S,0,,No e4 allele
+,1,,1 copy of e4 allele
+,2,,2 copies of e4 allele
+,9,,Unknown
