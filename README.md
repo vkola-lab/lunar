@@ -1,3 +1,13 @@
+# Best Practices
+
+> [!WARNING]  
+> When writing code **create your own branch**, then make a pull request when you're ready to merge to avoid merge conflcts.
+
+If you have questions, ideas, or problems you want to discuss please check out the issues and/or open a new one.
+
+Keep all the data in the `data` folder, do not upload any patient data to GitHub.
+
+# Repo Structure
 This is an extension of the [ADRD tool](https://github.com/vkola-lab/adrd_tool)
 
 The project structure will evolve as needed, but let's start from something like
