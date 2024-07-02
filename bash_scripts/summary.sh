@@ -12,7 +12,7 @@ conda activate adrd
 python -V
 export HF_HOME=/projectnb/vkolagrp/skowshik/.cache/
 
-# Login with Huggingface cli before ruuning this script "huggingface-cli login"
+# Login with using "huggingface-cli login" before running this script "huggingface-cli login"
 
 # Without DDP 
 # CUDA_LAUNCH_BLOCKING=1 python ./code/data_preperation/diagnostic_summary.py
