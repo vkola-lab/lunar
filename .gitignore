@@ -1,1 +1,3 @@
-data/nacc_diagnosis_text.json
+data/*.json
+nacc_with_summary.csv
+*.sh.*
