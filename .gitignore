@@ -2,3 +2,10 @@ data/*.json
 nacc_with_summary.csv
 *.sh.*
 check.ipynb
+investigator_ftldlbd_nacc65.csv
+wandb/
+results/
+save_folder/
+finetune1.py
+__pycache__/
+fine_tuned_*/

@@ -1,6 +1,6 @@
 variable_id,code_1,code_2,descriptor
 NACCID,<UND>,,Prefix NACC followed by 6 numerals
-NACCADC,100,9999,
+NACCADC,100,1000,
 PACKET,I,,Initial Visit Packet
 ,F,,Follow-up Visit Packet
 ,IT,,Telephone Initial Visit Packet
@@ -11,7 +11,7 @@ FORMVER,1,,
 ,3.2,,
 VISITMO,1,12,
 VISITDAY,1,31,
-VISITYR,2005,<INF>,
+VISITYR,2005,2024,
 NACCVNUM,1,20,
 NACCAVST,1,20,
 NACCNVST,1,20,
@@ -22,7 +22,7 @@ NACCDIED,0,,Not deceased/unknown
 NACCMOD,1,12,
 ,88,,"Not applicable, subject not deceased"
 ,99,,Unknown
-NACCYOD,1970,<INF>,
+NACCYOD,1970,2024,
 ,8888,,"Not applicable, subject not deceased"
 ,9999,,Unknown
 NACCACTV,0,,"Died, discontinued, lost to follow-up"
@@ -35,7 +35,7 @@ NACCDSMO,1,12,
 ,88,,"Not applicable, still followed annually in person or by telephone"
 NACCDSDY,1,31,
 ,88,,"Not applicable, still followed annually in person or by telephone"
-NACCDSYR,2005,<INF>,
+NACCDSYR,2005,2024,
 ,8888,,"Not applicable, still followed annually in person or by telephone"
 NACCNURP,0,,Did not report permanent move to a nursing home
 ,1,,Permanently moved to a nursing home
@@ -45,7 +45,7 @@ NACCNRMO,1,12,
 NACCNRDY,1,31,
 ,88,,"Not applicable, no permanent move to a nursing home"
 ,99,,Unknown
-NACCNRYR,2002,<INF>,
+NACCNRYR,2002,2024,
 ,8888,,"Not applicable, no permanent move to a nursing home"
 ,9999,,Unknown
 NACCMDSS,1,,In the UDS and MDS
@@ -71,7 +71,7 @@ NACCREFR,1,,Non-professional contact: self/relative/friend
 ,9,,Unknown
 ,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
 BIRTHMO,1,12,
-BIRTHYR,1875,<INF>,
+BIRTHYR,1875,2024,
 SEX,1,,Male
 ,2,,Female
 HISPANIC,0,,No
@@ -164,7 +164,7 @@ NACCNIHR,1,,White
 INBIRMO,1,12,
 ,99,,Unknown
 ,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
-INBIRYR,1875,<INF>,
+INBIRYR,1875,2024,
 ,9999,,Unknown
 ,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
 INSEX,1,,Male
@@ -434,7 +434,7 @@ HATTMULT,0,,No
 ,8,,"Not applicable, no reported history of heart attack"
 ,9,,Unknown
 ,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
-HATTYEAR,1900,<INF>,
+HATTYEAR,1900,2024,
 ,8888,,"Not applicable, no reported history of heart attack"
 ,9999,,Unknown
 ,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
@@ -494,7 +494,7 @@ STROKMUL,0,,No
 ,8,,"Not applicable, no reported history of stroke as of the Initial Visit"
 ,9,,Unknown
 ,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
-NACCSTYR,1900,<INF>,
+NACCSTYR,1900,2024,
 ,8888,,"Not applicable, no reported history of stroke at the Initial Visit"
 ,9999,,Unknown
 ,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
@@ -508,7 +508,7 @@ TIAMULT,0,,No
 ,8,,"Not applicable, no reported history of TIA as of the Initial Visit"
 ,9,,Unknown
 ,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
-NACCTIYR,1900,<INF>,
+NACCTIYR,1900,2024,
 ,8888,,"Not applicable, no reported history of TIA"
 ,9999,,Unknown
 ,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
@@ -516,7 +516,7 @@ PD,0,,Absent
 ,1,,Recent/Active
 ,9,,Unknown
 ,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
-PDYR,1900,<INF>,
+PDYR,1900,2024,
 ,8888,,"Not applicable, no reported PD"
 ,9999,,Unknown
 ,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
@@ -524,7 +524,7 @@ PDOTHR,0,,Absent
 ,1,,Recent/Active
 ,9,,Unknown
 ,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
-PDOTHRYR,1900,<INF>,
+PDOTHRYR,1900,2024,
 ,8888,,"Not applicable, other parkinsonian disorder not reported"
 ,9999,,Unknown
 ,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
@@ -568,7 +568,7 @@ TRAUMCHR,0,,Absent
 ,2,,Remote/Inactive
 ,9,,Unknown
 ,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
-TBIYEAR,1900,<INF>,
+TBIYEAR,1900,2024,
 ,8888,,"Not applicable, no reported TBI"
 ,9999,,Unknown
 ,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
@@ -1820,7 +1820,7 @@ LOGIMO,1,12,
 LOGIDAY,1,31,
 ,88,,Unknown
 ,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
-LOGIYR,1875,<INF>,
+LOGIYR,1875,2024,
 ,8888,,Unknown
 ,-4,,"Not available: UDS form submitted did not collect data in this way, or a skip pattern precludes response to this question"
 LOGIPREV,0,25,

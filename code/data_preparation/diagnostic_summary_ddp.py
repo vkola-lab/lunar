@@ -21,6 +21,7 @@ def get_parser():
     parser = argparse.ArgumentParser(description="Summary Generation")
     parser.add_argument("--max_new_tokens", default=512, type=int, help="maximum new tokens")
     parser.add_argument("--model_id", default="meta-llama/Meta-Llama-3-8B-Instruct", type=str, help="huggingface model name")
+    parser.add_argument("--batch_size", default=2, type=int, help="Specify the batch size")
     parser.add_argument("--distributed", action="store_true", help="Set True for Distributed Training")
 
     return parser
@@ -84,13 +85,15 @@ def init_distributed_mode(args):
 def cleanup():
     dist.destroy_process_group()
 
-def get_summary_llama(model, tokenizer, text, device, args):
+def get_summary_llama(model, tokenizer, input_texts, device, args, system_msg):
     messages = [
-        {"role": "system", "content": "For the given diagnostic information, your task is to act as a behavioral neurologist and summarize the diagnosis in 4 to 5 sentences using the 'present' tense. Focus on delivering a clear diagnostic summary based on the provided information, without mentioning the tests the subject underwent or the term 'UDS'. Ensure the diagnosis identifies the cognitive status, mentions any identified disorders, and specifies the primary etiological diagnosis."},
-        {"role": "user", "content": text},
+        [{"role": "system", "content": system_msg},
+        {"role": "user", "content": text}] for text in input_texts
     ]
     input_ids = tokenizer.apply_chat_template(
         messages,
+        padding=True, 
+        truncation=True,
         add_generation_prompt=True,
         return_tensors="pt"
     ).to(device)
@@ -106,7 +109,7 @@ def get_summary_llama(model, tokenizer, text, device, args):
             pad_token_id=tokenizer.pad_token_id,
             eos_token_id=terminators,
             do_sample=True,
-            temperature=0.6,
+            temperature=0.2,
             top_p=0.9,
         )
     else:
@@ -116,30 +119,44 @@ def get_summary_llama(model, tokenizer, text, device, args):
             pad_token_id=tokenizer.pad_token_id,
             eos_token_id=terminators,
             do_sample=True,
-            temperature=0.6,
+            temperature=0.2,
             top_p=0.9,
         )
-        
-    response = outputs[0][input_ids.shape[-1]:]
-    return tokenizer.decode(response, skip_special_tokens=True)
+    
+    responses = [tokenizer.decode(output[input_ids.shape[-1]:], skip_special_tokens=True) for output in outputs]
+    # response = outputs[0][input_ids.shape[-1]:]
+    return responses
 
+def create_batches(dataframe, batch_size):
+    """Yield successive n-sized batches from dataframe."""
+    for i in range(0, len(dataframe), batch_size):
+        yield dataframe.iloc[i:i + batch_size]
+        
+        
 def main(args):
-    # setup(rank, world_size)
+    print(args.rank, args.world_size)
     model_id = args.model_id
-    tokenizer = AutoTokenizer.from_pretrained(model_id)
+    tokenizer = AutoTokenizer.from_pretrained(model_id, padding_side='left')
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
 
     device = torch.device(f"cuda:{args.rank}" if args.distributed else f"cuda")
     model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.bfloat16).to(device)
     if args.distributed:
-        model = DDP(model, device_ids=[args.rank])
+        model = DDP(model, device_ids=[args.gpu])
 
     all_nacc = pd.read_csv(f"{PREFIX}/nacc_with_summary.csv")
     json_name = f"{PREFIX}/nacc_with_llama_summaries_{args.rank}.json" if args.distributed else f"{PREFIX}/nacc_with_llama_summaries.json"
     
+    diag_system_msg = "For the given diagnostic information, your task is to act as a behavioral neurologist and summarize the diagnosis in 4 to 5 sentences using the 'present' tense. Focus on delivering a clear diagnostic summary based on the provided information, without mentioning the tests the subject underwent or the term 'UDS'. Ensure your summary clearly identifies the patient's cognitive status and outlines the primary etiological diagnosis, if any cognitive disorders are detected."
+    
+    patient_system_msg = "Using the information provided, please generate a comprehensive patient summary as if you are a medical professional specializing in neurology. Summarize the findings in the present tense, focusing on clear and concise language. Avoid using technical jargon or abbreviations that are not explained. Ensure that the summary is factual and based on the provided data, and does not include speculative or unnecessary information. DO not mention the term 'UDS'"
+    
     with open(json_name, 'w', encoding='utf-8') as json_file:
-        for i, row in enumerate(tqdm(all_nacc.iterrows(), total=all_nacc.shape[0])):
+        for batch in tqdm(create_batches(all_nacc, args.batch_size)):
+            diag_texts = batch['diag_SUMMARY'].tolist()
+            patient_texts = batch['patient_SUMMARY'].tolist()
+            # print(len(diag_texts))
             if args.distributed:
                 if i % args.world_size == args.rank:
                     generate = True
@@ -149,27 +166,29 @@ def main(args):
                 generate = True
                 
             if generate:
-                summary = get_summary_llama(model, tokenizer, row[1]['diag_SUMMARY'], device, args)
-                # llama_summaries.append(summary)
+                diag_responses = get_summary_llama(model, tokenizer, diag_texts, device, args, diag_system_msg)
+                patient_responses = get_summary_llama(model, tokenizer, patient_texts, device, args, patient_system_msg)
                 
-                # Prepare data to be written as JSON
-                summary_data = {
-                    "index": row[0],
-                    "NACCID": row[1]["NACCID"],
-                    "NACCVNUM": row[1]["NACCVNUM"],
-                    "NACCNMRI": row[1]["NACCNMRI"],
-                    "NACCMRSA": row[1]["NACCMRSA"],
-                    "NACCADC": row[1]["NACCADC"],
-                    "VISITMO": row[1]["VISITMO"],
-                    "VISITDAY": row[1]["VISITDAY"],
-                    "VISITYR": row[1]["VISITYR"],
-                    "diag_SUMMARY": row[1]["diag_SUMMARY"],
-                    "diag_LLAMA_SUMMARY": summary,
-                }
-                
-                # Write to JSON file
-                json_file.write(json.dumps(summary_data, ensure_ascii=False) + "\n")  # Append each summary as a new line
-                json_file.flush()
+                for i, row in batch.iterrows():
+                    summary_data = {
+                        "index": row.name,
+                        "NACCID": row["NACCID"],
+                        "NACCVNUM": row["NACCVNUM"],
+                        "NACCNMRI": row["NACCNMRI"],
+                        "NACCMRSA": row["NACCMRSA"],
+                        "NACCADC": row["NACCADC"],
+                        "VISITMO": row["VISITMO"],
+                        "VISITDAY": row["VISITDAY"],
+                        "VISITYR": row["VISITYR"],
+                        "patient_SUMMARY": row["patient_SUMMARY"],
+                        "diag_SUMMARY": row["diag_SUMMARY"],
+                        "patient_LLAMA_SUMMARY": patient_responses[i - batch.first_valid_index()],
+                        "diag_LLAMA_SUMMARY": diag_responses[i - batch.first_valid_index()]
+                    }
+                    print(summary_data)
+                    # json_file.write(json.dumps(summary_data, ensure_ascii=False) + "\n")
+                    # json_file.flush()
+            raise ValueError
 
     if args.distributed:
         cleanup()

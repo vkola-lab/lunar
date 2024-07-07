@@ -171,7 +171,7 @@ ARTHUNK,A5,O,v3,Region affected - unknown
 INCONTU,A5,O,v1-3,Incontinence - urinary
 INCONTF,A5,O,v1-3,Incontinence - bowel
 APNEA,A5,O,v3,Sleep apnea history reported at Initial Visit
-RBD,A5,O,v3,REM sleep behavior disorder (RbD) history reported at Initial Visit
+RBD,A5,O,v3,REM sleep behavior disorder (RBD) history reported at Initial Visit
 INSOMN,A5,O,v3,Hyposomnia/insomnia history reported at Initial Visit
 OTHSLEEP,A5,O,v3,Other sleep disorder history reported at Initial Visit
 OTHSLEEX,A5,O,v3,Other sleep disorder (specify)
@@ -366,24 +366,24 @@ CORTVISR,B8,O,v3,Cortical visual field loss - right side
 SOMATL,B8,O,v3,Somatosensory loss - left side
 SOMATR,B8,O,v3,Somatosensory loss - right side
 POSTCORT,B8,O,v3,"Higher cortical visual problem suggesting posterior cortical atrophy (e.g., prosopagnosia, simultagnosia, balint's syndrome) or apraxia of gaze"
-PSPCBS,B8,O,v3,"Findings suggestive of progressive supranuclear palsy (PSP), corticobasal syndrome (CbS), or other related disorders"
+PSPCBS,B8,O,v3,"Findings suggestive of progressive supranuclear palsy (PSP), corticobasal syndrome (CBS), or other related disorders"
 EYEPSP,B8,O,v3,Eye movement changes consistent with PSP
 DYSPSP,B8,O,v3,Dysarthria consistent with PSP
 AXIALPSP,B8,O,v3,Axial rigidity consistent with PSP
 GAITPSP,B8,O,v3,Gait disorder consistent with PSP
 APRAXSP,B8,O,v3,Apraxia of speech
-APRAXL,B8,O,v3,Apraxia consistent with CbS - left side
-APRAXR,B8,O,v3,Apraxia consistent with CbS - right side
-CORTSENL,B8,O,v3,Cortical sensory deficits consistent with CbS - left side
-CORTSENR,B8,O,v3,Cortical sensory deficits consistent with CbS - right side
-ATAXL,B8,O,v3,Ataxia consistent with CbS - left side
-ATAXR,B8,O,v3,Ataxia consistent with CbS - right side
-ALIENLML,B8,O,v3,Alien limb consistent with CbS - left side
-ALIENLMR,B8,O,v3,Alien limb consistent with CbS - right side
-DYSTONL,B8,O,v3,"Dystonia consistent with CbS, PSP, or related disorder - left side"
-DYSTONR,B8,O,v3,"Dystonia consistent with CbS, PSP, or related disorder - right side"
-MYOCLLT,B8,O,v3,Myoclonus consistent with CbS - left side
-MYOCLRT,B8,O,v3,Myoclonus consistent with CbS - right side
+APRAXL,B8,O,v3,Apraxia consistent with CBS - left side
+APRAXR,B8,O,v3,Apraxia consistent with CBS - right side
+CORTSENL,B8,O,v3,Cortical sensory deficits consistent with CBS - left side
+CORTSENR,B8,O,v3,Cortical sensory deficits consistent with CBS - right side
+ATAXL,B8,O,v3,Ataxia consistent with CBS - left side
+ATAXR,B8,O,v3,Ataxia consistent with CBS - right side
+ALIENLML,B8,O,v3,Alien limb consistent with CBS - left side
+ALIENLMR,B8,O,v3,Alien limb consistent with CBS - right side
+DYSTONL,B8,O,v3,"Dystonia consistent with CBS, PSP, or related disorder - left side"
+DYSTONR,B8,O,v3,"Dystonia consistent with CBS, PSP, or related disorder - right side"
+MYOCLLT,B8,O,v3,Myoclonus consistent with CBS - left side
+MYOCLRT,B8,O,v3,Myoclonus consistent with CBS - right side
 ALSFIND,B8,O,v3,"Findings suggesting ALS (e.g., muscle wasting, fasciculations, upper motor and/or lower motor neuron signs)"
 GAITNPH,B8,O,v3,Normal pressure hydrocephalus - gait apraxia
 OTHNEUR,B8,O,v3,"Other findings (e.g., cerebella ataxia, chorea, myoclonus)"
@@ -743,7 +743,7 @@ ARTUNKN,D2,O,v3,Arthritis region affected - unknown
 URINEINC,D2,O,v3,Incontinence present - urinary
 BOWLINC,D2,O,v3,Incontinence present - bowel
 SLEEPAP,D2,O,v3,Sleep apnea present
-REMDIS,D2,O,v3,REM sleep behavior disorder (RbD) present
+REMDIS,D2,O,v3,REM sleep behavior disorder (RBD) present
 HYPOSOM,D2,O,v3,Hyposomnia/insomnia present
 SLEEPOTH,D2,O,v3,Other sleep disorder present
 SLEEPOTX,D2,O,v3,Other sleep disorder specification

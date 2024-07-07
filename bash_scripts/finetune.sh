@@ -14,11 +14,9 @@ export HF_HOME=/projectnb/vkolagrp/skowshik/.cache/
 
 # Login with using "huggingface-cli login" before running this script "huggingface-cli login"
 
-# Without Batch Processing 
-# CUDA_LAUNCH_BLOCKING=1 python ./code/data_preperation/diagnostic_summary_single.py
+# Without DDP 
+CUDA_LAUNCH_BLOCKING=1 python ./code/training/finetune.py --n 10000
 
-# With Batch Processing 
-CUDA_LAUNCH_BLOCKING=1 python ./code/data_preperation/diagnostic_summary_vllm.py --batch_size 4096
-
-# python -m torch.distributed.run --nproc_per_node=2 --nnodes=1 --master_port=29757 pretrain.py
+# With DDP (Doesn't work right now)
+# CUDA_LAUNCH_BLOCKING=1 python -m torch.distributed.run --nproc_per_node=2 --nnodes=1 --master_port=29757 ./code/training/finetune.py --distributed
 
