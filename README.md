@@ -3,12 +3,22 @@
 > [!WARNING]  
 > When writing code **create your own branch**, then make a pull request when you're ready to merge to avoid merge conflcts.
 
-If you have questions, ideas, or problems you want to discuss please check out the issues and/or open a new one.
+# Repo Structure 
+Code goes in your home folder (on the workstations, SCC, or your device), checked into git and GitHub. Data, checkpoints, intermediate files, and conda enviroments go on SCC.
 
-Keep all the data in the `data` folder, do not upload any patient data to GitHub.
+Basically anything you check into git (because it's small and handwritten) lives in your home folder, everything else is on SCC.
 
-# Repo Structure
-This is an extension of the [ADRD tool](https://github.com/vkola-lab/adrd_tool)
+For the SCC stuff, the main distinctions is:
+1. Datasets live in `/projectnb/vkolagrp/datasets/`
+2. Project-specific large files go in `/projectnb/vkolagrp/projects/adrd_foundation_model`:save models and checkpoints in `checkpoints`, conda environments in `envs` and large output files or processed data files in `intermediate_files`.
+
+There is already a conda env created by Sahana, you can either activate it by hand using 
+```
+module load miniconda
+
+conda activate /projectnb/vkolagrp/projects/adrd_foundation_model/envs/fmadrd
+```
+or run the `activate_env.sh` script, which is just those two lines.
 
 The project structure will evolve as needed, but let's start from something like
 
@@ -16,16 +26,10 @@ The project structure will evolve as needed, but let's start from something like
 .
 ├── README.md       
 ├── LICENSE
-├── checkpoints     <-- checkpoints and models
-├── data
-│   ├── processed   <-- data ready to be loaded/analyzed
-│   └── raw         <-- immutable unprocessed data
 ├── notebooks       <-- notebooks, figures, reports
 ├── references      <-- data dictionaries, dataset docs, any other useful docs
 └── src             <-- code, tests, 
 ```
-
-Please do not check any data into git.
 
 Use the notebooks folder for exploratory stuff and reports (including figures, presentations, markdown).
 
