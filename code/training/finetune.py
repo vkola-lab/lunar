@@ -35,6 +35,7 @@ import yaml
 import torch
 import json
 import pandas as pd
+import wandb
 import torch.distributed as dist
 from torch.nn.parallel import DistributedDataParallel as DDP
 from datetime import datetime, timedelta
@@ -48,7 +49,8 @@ from utils.utils import CustomStream, load_config
 def get_parser():
     parser = argparse.ArgumentParser(description="Finetuning")
     parser.add_argument("--distributed", action="store_true", help="Set True for Distributed Training")
-    parser.add_argument("--n", default=10000, type=int, required=False, help="Specify the dataset size")
+    parser.add_argument("--wandb", action="store_true", help="Set True to enable wandb")
+    parser.add_argument("--n", default=100000000, type=int, required=False, help="Specify the dataset size")
 
     return parser
 
@@ -111,26 +113,34 @@ def cleanup():
 
 def main(config, args):
     """Run the program"""
-    # print(args.rank, args.world_size)
+    if args.wandb:
+        wandb.init(
+            # set the wandb project where this run will be logged
+            project="FM_ADRD",
+            
+            # track hyperparameters and run metadata
+            config=config
+        )
+        wandb.run.log_code(".")
+    else:
+        wandb.init(mode="disabled")
+
+    if args.distributed:
+        print(args.rank, args.gpu, args.world_size)
     device_map = torch.device(f"cuda:{args.rank}" if args.distributed else f"cuda")
     # Retrieve the pathes of needed hyperparameters
     epochs = config.get("epochs")
-    dataset_path = config.get("dataset_path")
-    user = config.get("user")
-    assistant = config.get("assistant")
-    sysmsg = config.get("sysmsg")
 
     # Load the model and tokenizer
-    print("Start the Fine-training process......")
-    model, tokenizer = load_model(config)
+    print("Start the Fine-tuning process......")
+    model, tokenizer = load_model(config, load_from_adaptor=False, new_model='./ckpt/fine_tuned_v2/checkpoint-12000')
     
     # Load dataset
-    dataset = data_loader_from_json(dataset_path, user, assistant, sysmsg, tokenizer, n=args.n)
+    dataset = data_loader_from_json(config, tokenizer, n=args.n)
     
     # Load Trainer
     if args.distributed:
-        model.to(device_map)
-        model = DDP(model, device_ids=[args.gpu])
+        model = DDP(model, device_ids=[args.gpu], output_device=args.gpu)
         
         trainer = trainer_loader(
             config,
@@ -163,8 +173,11 @@ if __name__ == "__main__":
     result_dir = config.get("result_dir")
     hf_read_token = config.get("hf_read_token")
     
-    if args.distributed:
-        init_distributed_mode(args)
+    if torch.cuda.is_available():
+        torch.backends.cudnn.benchmark = True
+        torch.autograd.set_detect_anomaly(False)
+        if args.distributed:
+            init_distributed_mode(args)
 
     # get the current working directory
     cwd = os.getcwd()

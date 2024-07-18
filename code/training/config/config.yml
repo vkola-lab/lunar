@@ -1,17 +1,10 @@
 # Model info
-# C4AI Command-R 35B: CohereForAI/c4ai-command-r-v01
-# Mistral 8x7B MoE 46B: mistralai/Mixtral-8x7B-Instruct-v0.1
-# LLaMA 3 70B: meta-llama/Meta-Llama-3-70B-Instruct
-# C4AI Command R+ 104B: CohereForAI/c4ai-command-r-plus
-# Mistral 8x22B MoE 176B: mistralai/Mixtral-8x22B-Instruct-v0.1
+# LLaMA 3 8B: meta-llama/Meta-Llama-3-8B-Instruct
 model_name : "meta-llama/Meta-Llama-3-8B-Instruct"
 
 # Dataset info
-# English podcasts (7,359 episodes): shuyuej/English-Pretraining-Dataset
-# Spanish podcasts (1,283 episodes): shuyuej/Spanish-Pretraining-Dataset
-# French podcasts (569 episodes): shuyuej/French-Pretraining-Dataset
-# Multilingual podcasts: shuyuej/Multilingual-Pretraining-Dataset
-dataset_path : "./data/nacc_with_llama_summaries.json"
+dataset_path : "./data/nacc_unique_with_llama_summaries_3/nacc_unique_with_llama_summaries_3.json"
+cache_dir : '/projectnb/vkolagrp/skowshik/.cache/'
 
 # This is my Hugging Face `read` and `write` tokens. Please replace it to yours.
 # `read` token: for downloading models
@@ -22,28 +15,29 @@ hf_write_token : "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"  # Hugging Face `write`
 
 # LoRA
 # LoRA attention dimension
-lora_r : 16
+lora_r : 2
 # Alpha parameter for LoRA scaling
-lora_alpha : 32
+lora_alpha : 2
 # Dropout probability for LoRA layers
 lora_dropout : 0.1
 
 # Saving path
 result_dir : "./results"
-save_dir : "./fine_tuned_v3"
+save_dir : "./ckpt/fine_tuned_v4"
 data_save_dir : "./data"
 
 # user, system, assistant
 user : "patient_LLAMA_SUMMARY"
 assistant : "diag_LLAMA_SUMMARY"
-sysmsg : "Using the information provided, your task is to act as a behavioral neurologist and provide a diagnostic summary for the patient described. Ensure your summary clearly identifies the patient's cognitive status and outlines the primary etiological diagnosis, if any cognitive disorders are detected."
+sysmsg : "You are a behavioral neurologist AI assistant."
+usermsg_prefix : "Using the information provided, provide a cognitive diagnosis for a patient presenting with the following information."
 
 # Training length and number of the generated tokens
-train_max_len : 2048
-max_new_tokens : 1024
+train_max_len : 4096
+max_new_tokens : 4096
 
 # Batch size
-train_batch_size : 6
+train_batch_size : 2
 
 # Number of training epochs
 epochs : 5
@@ -68,7 +62,7 @@ weight_decay : 0.01
 # Save the model for a number of steps
 save_strategy : "steps"
 # Save the model and tokenizer every 100 steps
-save_steps : 500
+save_steps : 2000
 # Whether to save the optimizer and scheduler
 save_only_model : True
 # Number of total saved checkpoints
@@ -88,8 +82,8 @@ fp16 : False
 bf16 : True
 
 # Pack multiple short examples in the same input sequence to increase efficiency
-device_map : "auto"
+device_map : "cuda"
 # The number of GPUs for vLLM Engine
 # https://docs.vllm.ai/en/latest/serving/distributed_serving.html
-num_gpus_vllm : 4
-gpu_utilization_vllm : 0.95
+# num_gpus_vllm : 4
+# gpu_utilization_vllm : 0.95

@@ -115,7 +115,7 @@ NACCEMD,A4,D,v1-3,Reported current use of estrogen hormone therapy
 NACCEPMD,A4,D,v1-3,Reported current use of estrogen + progestin hormone therapy
 NACCDBMD,A4,D,v1-3,Reported current use of a diabetes medication
 TOBAC30,A5,O,v1-3,Smoked cigarettes in last 30 days
-TOBAC100,A5,O,v1-3,Smoked more than 100 cigarettes in life
+TOBAC00,A5,O,v1-3,Smoked more than 100 cigarettes in life
 SMOKYRS,A5,O,v1-3,Total years smoked cigarettes
 PACKSPER,A5,O,v1-3,Average number of packs smoked per day
 QUITSMOK,A5,O,v1-3,"If the subject quit smoking, age at which he/she last smoked (i.e., quit)"
@@ -191,7 +191,7 @@ PSYCDISX,A5,O,v1-3,"If recent/active or remote/inactive psychiatric disorder, sp
 NACCTBI,A5,D,v1-3,History of traumatic brain injury (TBI)
 HEIGHT,B1,O,v1-3,Subject's height (inches)
 WEIGHT,B1,O,v1-3,Subject's weight (lbs)
-NACCBMI,B1,D,v1-3,body mass index (bMI)
+NACCBMI,B1,D,v1-3,body mass index (BMI)
 BPSYS,B1,O,v1-3,"Subject blood pressure (sitting), systolic"
 BPDIAS,B1,O,v1-3,"Subject blood pressure (sitting), diastolic"
 HRATE,B1,O,v1-3,Subject resting heart rate (pulse)
@@ -201,11 +201,11 @@ VISWCORR,B1,O,v1-3,"If the subject usually wears corrective lenses, is the subje
 HEARING,B1,O,v1-3,"Without a hearing aid(s), is the subject's hearing functionally normal?"
 HEARAID,B1,O,v1-3,Does the subject usually wear a hearing aid(s)?
 HEARWAID,B1,O,v1-3,"If the subject usually wears a hearing aid(s), is the subject's hearing functionally normal with a hearing aid(s)?"
-BPSYSL,B1a,O,v3,"Participant systolic blood pressure, left arm"
-BPDIASL,B1a,O,v3,"Participant diastolic blood pressure, left arm"
-BPSYSR,B1a,O,v3,"Participant systolic blood pressure, right arm"
-BPDIASR,B1a,O,v3,"Participant diastolic blood pressure, right arm"
-BPDEVICE,B1a,O,v3,Taken using an approved device or cuff?
+BPSYSL,B1,O,v3,"Participant systolic blood pressure, left arm"
+BPDIASL,B1,O,v3,"Participant diastolic blood pressure, left arm"
+BPSYSR,B1,O,v3,"Participant systolic blood pressure, right arm"
+BPDIASR,B1,O,v3,"Participant diastolic blood pressure, right arm"
+BPDEVICE,B1,O,v3,Taken using an approved device or cuff?
 ABRUPT,B2,O,v1-2,Abrupt onset (re: cognitive status)
 STEPWISE,B2,O,v1-2,Stepwise deterioration (re: cognitive status)
 SOMATIC,B2,O,v1-2,Somatic complaints
@@ -447,139 +447,139 @@ COURSE,B9,O,v1-3,Overall course of decline of cognitive/ behavioral/motor syndro
 FRSTCHG,B9,O,v1-3,Indicate the predominant domain that was first recognized as changed in the subject
 LBDEVAL,B9,O,v3,Is the subject a potential candidate for further evaluation for Lewy body disease?
 FTLDEVAL,B9,O,v3,Is the subject a potential candidate for further evaluation for frontotemporal lobar degeneration?
-MMSECOMP,C1,O,v3,Was any part of the MMSE completed?
-MMSELOC,C1,O,v1-3,Administration of the MMSE was:
-MMSELAN,C1,O,v1-3,Language of MMSE administration
-MMSELANX,C1,O,v1-3,Language of MMSE administration - Other (specify)
-MMSEVIS,C1,O,v3,Subject was unable to complete one or more sections due to visual impairment
-MMSEHEAR,C1,O,v3,Subject was unable to complete one or more sections due to hearing impairment
-MMSEORDA,C1,O,v1-3,Orientation subscale score - Time
-MMSEORLO,C1,O,v1-3,Orientation subscale score - Place
-PENTAGON,C1,O,v2-3,Intersecting pentagon subscale score
-NACCMMSE,C1,D,v1-3,Total MMSE score (using D-L-R-O-W)
-NPSYCLOC,"C1, C2",O,v1-3,The remainder of the battery was administered:
-NPSYLAN,"C1, C2, C2T",O,v1-3,Language of test administration
-NPSYLANX,"C1, C2, C2T",O,v1-3,Language of test administration - Other (specify)
-LOGIMO,C1,O,v1-3,"If this test has been administered to the subject within the past 3 months, specify the date previously administered (month)"
-LOGIDAY,C1,O,v1-3,"If this test has been administered to the subject within the past 3 months, specify the date previously administered (day)"
-LOGIYR,C1,O,v1-3,"If this test has been administered to the subject within the past 3 months, specify the date previously administered (year)"
-LOGIPREV,C1,O,v1-3,Total score from the previous test administration
-LOGIMEM,C1,O,v1-3,Total number of story units recalled from this current test administration
-MEMUNITS,C1,O,v1-3,Logical Memory IIA - Delayed - Total number of story units recalled
-MEMTIME,C1,O,v1-3,Logical Memory IIA - Delayed - Time elapsed since Logical Memory IA - Immediate
-UDSBENTC,"C1, C2",O,v3,Total score for copy of benson figure
-UDSBENTD,"C1, C2",O,v3,Total score for 10- to 15-minute delayed drawing of benson figure
-UDSBENRS,"C1,C2",O,v3,Recognized original stimulus from among four options
-DIGIF,C1,O,v1-3,Digit span forward trials correct
-DIGIFLEN,C1,O,v1-3,Digit span forward length
-DIGIB,C1,O,v1-3,Digit span backward trials correct
-DIGIBLEN,C1,O,v1-3,Digit span backward length
-ANIMALS,"C1, C2, C2T",O,v1-3,Animals - Total number of animals named in 60 seconds
-VEG,"C1, C2, C2T",O,v1-3,Vegetable - Total number of vegetables named in 60 seconds
-TRAILA,"C1, C2",O,v1-3,Trail Making Test Part A - Total number of seconds to complete
-TRAILARR,"C1, C2",O,v2-3,Part A - Number of commission errors
-TRAILALI,"C1, C2",O,v2-3,Part A - Number of correct lines
-TRAILB,"C1, C2",O,v1-3,Trail Making Test Part b - Total number of seconds to complete
-TRAILBRR,"C1, C2",O,v2-3,Part b - Number of commission errors
-TRAILBLI,"C1, C2",O,v2-3,Part b - Number of correct lines
-WAIS,C1,O,v1-2,WAIS-R Digit Symbol
-BOSTON,C1,O,v1-3,boston Naming Test (30) - Total score
-UDSVERFC,"C1, C2, C2T",O,v3,Number of correct F-words generated in 1 minute
-UDSVERFN,"C1, C2, C2T",O,v3,Number of F-words repeated in 1 minute
-UDSVERNF,"C1, C2, C2T",O,v3,Number of non-F-words and rule violation errors in 1 minute
-UDSVERLC,"C1, C2, C2T",O,v3,Number of correct L-words generated in 1 minute
-UDSVERLR,"C1, C2, C2T",O,v3,Number of L-words repeated in 1 minute
-UDSVERLN,"C1, C2, C2T",O,v3,Number of non-L-words and rule violation errors in 1 minute
-UDSVERTN,"C1, C2, C2T",O,v3,Total number of correct F-words and L-words
-UDSVERTE,"C1, C2, C2T",O,v3,Total number of F-word and L-word repetition errors
-UDSVERTI,"C1, C2, C2T",O,v3,Total number of non-F/L-words and rule violation errors
-COGSTAT,"C1, C2, C2T",O,v1-3,"Per clinician, based on the neuropsychological examination, the subject's cognitive status is deemed"
-NACCC1,C1,D,v1-3,Form date discrepancy between UDS Form A1 and Form C1
-MOCACOMP,"C2, C2T",O,v3,Was any part of MoCA administered?
-MOCAREAS,"C2, C2T",O,v3,"If no part of MoCA administered, reason code"
-MOCALOC,C2,O,v3,Where was MoCA administered?
-MOCALAN,"C2, C2T",O,v3,Language of MoCA administration
-MOCALANX,"C2, C2T",O,v3,"Language of MoCA administration - Other, specify"
-MOCAVIS,C2,O,v3,Subject was unable to complete one or more sections due to visual impairment
-MOCAHEAR,"C2, C2T",O,v3,Subject was unable to complete one or more sections due to hearing impairment
-MOCATOTS,C2,O,v3,MoCA Total Raw Score - uncorrected
-NACCMOCA,C2,D,v3,MoCA Total Score - corrected for education
-MOCATRAI,C2,O,v3,MoCA: Visuospatial/executive - Trails
-MOCACUBE,C2,O,v3,MoCA: Visuospatial/executive - Cube
-MOCACLOC,C2,O,v3,MoCA: Visuospatial/executive - Clock contour
-MOCACLON,C2,O,v3,MoCA: Visuospatial/executive - Clock numbers
-MOCACLOH,C2,O,v3,MoCA: Visuospatial/executive - Clock hands
-MOCANAMI,C2,O,v3,MoCA: Language - Naming
-MOCAREGI,C2,O,v3,MoCA: Memory - Registration (two trials)
-MOCADIGI,"C2, C2T",O,v3,MoCA: Attention - Digits
-MOCALETT,"C2, C2T",O,v3,MoCA: Attention - Letter A
-MOCASER7,"C2, C2T",O,v3,MoCA: Attention - Serial 7s
-MOCAREPE,"C2, C2T",O,v3,MoCA: Language - Repetition
-MOCAFLUE,"C2, C2T",O,v3,MoCA: Language - Fluency
-MOCAABST,"C2, C2T",O,v3,MoCA: Abstraction
-MOCARECN,"C2, C2T",O,v3,MoCA: Delayed recall - No cue
-MOCARECC,"C2, C2T",O,v3,MoCA: Delayed recall - Category cue
-MOCARECR,"C2, C2T",O,v3,MoCA: Delayed recall - Recognition
-MOCAORDT,"C2, C2T",O,v3,MoCA: Orientation - Date
-MOCAORMO,"C2, C2T",O,v3,MoCA: Orientation - Month
-MOCAORYR,"C2, C2T",O,v3,MoCA: Orientation - Year
-MOCAORDY,"C2, C2T",O,v3,MoCA: Orientation - Day
-MOCAORPL,"C2, C2T",O,v3,MoCA: Orientation - Place
-MOCAORCT,"C2, C2T",O,v3,MoCA: Orientation - City
-CRAFTVRS,"C2, C2T",O,v3,"Craft Story 21 Recall (Immediate) - Total story units recalled, verbatim scoring"
-CRAFTURS,"C2, C2T",O,v3,"Craft Story 21 Recall (Immediate) - Total story units recalled, paraphrase scoring"
-DIGFORCT,"C2, C2T",O,v3,Number Span Test: Forward - Number of correct trials
-DIGFORSL,"C2, C2T",O,v3,Number Span Test: Forward - Longest span forward
-DIGBACCT,"C2, C2T",O,v3,Number Span Test: backward - Number of correct trials
-DIGBACLS,"C2, C2T",O,v3,Number Span Test: backward - Longest span backward
-CRAFTDVR,"C2, C2T",O,v3,"Craft Story 21 Recall (Delayed) - Total story units recalled, verbatim scoring"
-CRAFTDRE,"C2, C2T",O,v3,"Craft Story 21 Recall (Delayed) - Total story units recalled, paraphrase scoring"
-CRAFTDTI,"C2, C2T",O,v3,Craft Story 21 Recall (Delayed) - Delay time
-CRAFTCUE,"C2, C2T",O,v3,Craft Story 21 Recall (Delayed) - Cue (boy) needed
-MINTTOTS,C2,O,v3,Multilingual Naming Test (MINT) - Total score
-MINTTOTW,C2,O,v3,Multilingual Naming Test (MINT) - Total correct without semantic cue
-MINTSCNG,C2,O,v3,Multilingual Naming Test (MINT) - Semantic cues: Number given
-MINTSCNC,C2,O,v3,Multilingual Naming Test (MINT) - Semantic cues: Number correct with cue
-MINTPCNG,C2,O,v3,Multilingual Naming Test (MINT) - Phonemic cues: Number given
-MINTPCNC,C2,O,v3,Multilingual Naming Test (MINT) - Phonemic cues: Number correct with cue
-NACCC2,C2,D,v3,Form date discrepancy between UDS Form A1 and Form C2
-MODCOMM,C2T,O,v3,Modality of communication used to administer neuropsychological battery
-MOCBTOTS,C2T,O,v3,MoCA blind Total raw score - uncorrected
-NACCMOCB,C2T,D,v3,MoCA-blind Total Score - corrected for education
-REY1REC,C2T,O,v3,Rey Auditory Verbal Learning: Trial 1 total recall
-REY1INT,C2T,O,v3,Rey Auditory Verbal Learning: Trial 1 intrusions
-REY2REC,C2T,O,v3,Rey Auditory Verbal Learning: Trial 2 total recall
-REY2INT,C2T,O,v3,Rey Auditory Verbal Learning: Trial 2 intrusions
-REY3REC,C2T,O,v3,Rey Auditory Verbal Learning: Trial 3 total recall
-REY3INT,C2T,O,v3,Rey Auditory Verbal Learning: Trial 3 intrusions
-REY4REC,C2T,O,v3,Rey Auditory Verbal Learning: Trial 4 total recall
-REY4INT,C2T,O,v3,Rey Auditory Verbal Learning: Trial 4 intrusions
-REY5REC,C2T,O,v3,Rey Auditory Verbal Learning: Trial 5 total recall
-REY5INT,C2T,O,v3,Rey Auditory Verbal Learning: Trial 5 intrusions
-REY6REC,C2T,O,v3,Rey Auditory Verbal Learning: Trial 6 total recall
-REY6INT,C2T,O,v3,Rey Auditory Verbal Learning: Trial 6 intrusions
-OTRAILA,C2T,O,v3,Oral Trail Making Test - Part A: Total number of seconds to complete
-OTRLARR,C2T,O,v3,Oral Trail Making Test - Part A: Number of commission errors
-OTRLALI,C2T,O,v3,Oral Trail Making Test - Part A: Number of correct lines
-OTRAILB,C2T,O,v3,Oral Trail Making Test Part b: Total number of seconds to complete
-OTRLBRR,C2T,O,v3,Oral Trail Making Test Part b: Number of commission errors
-OTRLBLI,C2T,O,v3,Oral Trail Making Test Part b: Number of correct lines
-REYDREC,C2T,O,v3,Rey Auditory Verbal Learning: total delayed recall
-REYDINT,C2T,O,v3,Rey Auditory Verbal Learning: delayed intrusions
-REYTCOR,C2T,O,v3,Rey Auditory Verbal Learning: recognition total correct
-REYFPOS,C2T,O,v3,Rey Auditory Verbal Learning: recognition total false positives
-VNTTOTW,C2T,O,v3,Verbal naming test: total correct without a cue
-VNTPCNC,C2T,O,v3,Verbal naming test: total correct with a phonemic cue
-RESPVAL,C2T,O,v3,How valid do you think the participant's responses are?
-RESPHEAR,C2T,O,v3,What makes this participant's responses less valid? Hearing impairment
-RESPDIST,C2T,O,v3,What makes this participant's responses less valid? Distractions
-RESPINTR,C2T,O,v3,What makes this participant's responses less valid? Interruptions
-RESPDISN,C2T,O,v3,What makes this participant's responses less valid? Lack of effort or disinterest
-RESPFATG,C2T,O,v3,What makes this participant's responses less valid? Fatigue
-RESPEMOT,C2T,O,v3,What makes this participant's responses less valid? Emotional issues
-RESPASST,C2T,O,v3,What makes this participant's responses less valid? Unapproved assistance
-RESPOTH,C2T,O,v3,What makes this participant's responses less valid? Other
-RESPOTHX,C2T,O,v3,What makes this participant's responses less valid? Other (specify)
+MMSECOMP,C,O,v3,Was any part of the MMSE completed?
+MMSELOC,C,O,v1-3,Administration of the MMSE was:
+MMSELAN,C,O,v1-3,Language of MMSE administration
+MMSELANX,C,O,v1-3,Language of MMSE administration - Other (specify)
+MMSEVIS,C,O,v3,Subject was unable to complete one or more sections due to visual impairment
+MMSEHEAR,C,O,v3,Subject was unable to complete one or more sections due to hearing impairment
+MMSEORDA,C,O,v1-3,Orientation subscale score - Time
+MMSEORLO,C,O,v1-3,Orientation subscale score - Place
+PENTAGON,C,O,v2-3,Intersecting pentagon subscale score
+NACCMMSE,C,D,v1-3,Total MMSE score (using D-L-R-O-W)
+NPSYCLOC,C,O,v1-3,The remainder of the battery was administered:
+NPSYLAN,C,O,v1-3,Language of test administration
+NPSYLANX,C,O,v1-3,Language of test administration - Other (specify)
+LOGIMO,C,O,v1-3,"If this test has been administered to the subject within the past 3 months, specify the date previously administered (month)"
+LOGIDAY,C,O,v1-3,"If this test has been administered to the subject within the past 3 months, specify the date previously administered (day)"
+LOGIYR,C,O,v1-3,"If this test has been administered to the subject within the past 3 months, specify the date previously administered (year)"
+LOGIPREV,C,O,v1-3,Total score from the previous test administration
+LOGIMEM,C,O,v1-3,Total number of story units recalled from this current test administration
+MEMUNITS,C,O,v1-3,Logical Memory IIA - Delayed - Total number of story units recalled
+MEMTIME,C,O,v1-3,Logical Memory IIA - Delayed - Time elapsed since Logical Memory IA - Immediate
+UDSBENTC,C,O,v3,Total score for copy of benson figure
+UDSBENTD,C,O,v3,Total score for 10- to 15-minute delayed drawing of benson figure
+UDSBENRS,C,O,v3,Recognized original stimulus from among four options
+DIGIF,C,O,v1-3,Digit span forward trials correct
+DIGIFLEN,C,O,v1-3,Digit span forward length
+DIGIB,C,O,v1-3,Digit span backward trials correct
+DIGIBLEN,C,O,v1-3,Digit span backward length
+ANIMALS,C,O,v1-3,Animals - Total number of animals named in 60 seconds
+VEG,C,O,v1-3,Vegetable - Total number of vegetables named in 60 seconds
+TRAILA,C,O,v1-3,Trail Making Test Part A - Total number of seconds to complete
+TRAILARR,C,O,v2-3,Part A - Number of commission errors
+TRAILALI,C,O,v2-3,Part A - Number of correct lines
+TRAILB,C,O,v1-3,Trail Making Test Part b - Total number of seconds to complete
+TRAILBRR,C,O,v2-3,Part b - Number of commission errors
+TRAILBLI,C,O,v2-3,Part b - Number of correct lines
+WAIS,C,O,v1-2,WAIS-R Digit Symbol
+BOSTON,C,O,v1-3,boston Naming Test (30) - Total score
+UDSVERFC,C,O,v3,Number of correct F-words generated in 1 minute
+UDSVERFN,C,O,v3,Number of F-words repeated in 1 minute
+UDSVERNF,C,O,v3,Number of non-F-words and rule violation errors in 1 minute
+UDSVERLC,C,O,v3,Number of correct L-words generated in 1 minute
+UDSVERLR,C,O,v3,Number of L-words repeated in 1 minute
+UDSVERLN,C,O,v3,Number of non-L-words and rule violation errors in 1 minute
+UDSVERTN,C,O,v3,Total number of correct F-words and L-words
+UDSVERTE,C,O,v3,Total number of F-word and L-word repetition errors
+UDSVERTI,C,O,v3,Total number of non-F/L-words and rule violation errors
+COGSTAT,C,O,v1-3,"Per clinician, based on the neuropsychological examination, the subject's cognitive status is deemed"
+NACCC,C,D,v1-3,Form date discrepancy between UDS Form A1 and Form C
+MOCACOMP,C,O,v3,Was any part of MoCA administered?
+MOCAREAS,C,O,v3,"If no part of MoCA administered, reason code"
+MOCALOC,C,O,v3,Where was MoCA administered?
+MOCALAN,C,O,v3,Language of MoCA administration
+MOCALANX,C,O,v3,"Language of MoCA administration - Other, specify"
+MOCAVIS,C,O,v3,Subject was unable to complete one or more sections due to visual impairment
+MOCAHEAR,C,O,v3,Subject was unable to complete one or more sections due to hearing impairment
+MOCATOTS,C,O,v3,MoCA Total Raw Score - uncorrected
+NACCMOCA,C,D,v3,MoCA Total Score - corrected for education
+MOCATRAI,C,O,v3,MoCA: Visuospatial/executive - Trails
+MOCACUBE,C,O,v3,MoCA: Visuospatial/executive - Cube
+MOCACLOC,C,O,v3,MoCA: Visuospatial/executive - Clock contour
+MOCACLON,C,O,v3,MoCA: Visuospatial/executive - Clock numbers
+MOCACLOH,C,O,v3,MoCA: Visuospatial/executive - Clock hands
+MOCANAMI,C,O,v3,MoCA: Language - Naming
+MOCAREGI,C,O,v3,MoCA: Memory - Registration (two trials)
+MOCADIGI,C,O,v3,MoCA: Attention - Digits
+MOCALETT,C,O,v3,MoCA: Attention - Letter A
+MOCASER7,C,O,v3,MoCA: Attention - Serial 7s
+MOCAREPE,C,O,v3,MoCA: Language - Repetition
+MOCAFLUE,C,O,v3,MoCA: Language - Fluency
+MOCAABST,C,O,v3,MoCA: Abstraction
+MOCARECN,C,O,v3,MoCA: Delayed recall - No cue
+MOCARECC,C,O,v3,MoCA: Delayed recall - Category cue
+MOCARECR,C,O,v3,MoCA: Delayed recall - Recognition
+MOCAORDT,C,O,v3,MoCA: Orientation - Date
+MOCAORMO,C,O,v3,MoCA: Orientation - Month
+MOCAORYR,C,O,v3,MoCA: Orientation - Year
+MOCAORDY,C,O,v3,MoCA: Orientation - Day
+MOCAORPL,C,O,v3,MoCA: Orientation - Place
+MOCAORCT,C,O,v3,MoCA: Orientation - City
+CRAFTVRS,C,O,v3,"Craft Story 21 Recall (Immediate) - Total story units recalled, verbatim scoring"
+CRAFTURS,C,O,v3,"Craft Story 21 Recall (Immediate) - Total story units recalled, paraphrase scoring"
+DIGFORCT,C,O,v3,Number Span Test: Forward - Number of correct trials
+DIGFORSL,C,O,v3,Number Span Test: Forward - Longest span forward
+DIGBACCT,C,O,v3,Number Span Test: backward - Number of correct trials
+DIGBACLS,C,O,v3,Number Span Test: backward - Longest span backward
+CRAFTDVR,C,O,v3,"Craft Story 21 Recall (Delayed) - Total story units recalled, verbatim scoring"
+CRAFTDRE,C,O,v3,"Craft Story 21 Recall (Delayed) - Total story units recalled, paraphrase scoring"
+CRAFTDTI,C,O,v3,Craft Story 21 Recall (Delayed) - Delay time
+CRAFTCUE,C,O,v3,Craft Story 21 Recall (Delayed) - Cue (boy) needed
+MINTTOTS,C,O,v3,Multilingual Naming Test (MINT) - Total score
+MINTTOTW,C,O,v3,Multilingual Naming Test (MINT) - Total correct without semantic cue
+MINTSCNG,C,O,v3,Multilingual Naming Test (MINT) - Semantic cues: Number given
+MINTSCNC,C,O,v3,Multilingual Naming Test (MINT) - Semantic cues: Number correct with cue
+MINTPCNG,C,O,v3,Multilingual Naming Test (MINT) - Phonemic cues: Number given
+MINTPCNC,C,O,v3,Multilingual Naming Test (MINT) - Phonemic cues: Number correct with cue
+NACCC,C,D,v3,Form date discrepancy between UDS Form A1 and Form C
+MODCOMM,C,O,v3,Modality of communication used to administer neuropsychological battery
+MOCBTOTS,C,O,v3,MoCA blind Total raw score - uncorrected
+NACCMOCB,C,D,v3,MoCA-blind Total Score - corrected for education
+REY1REC,C,O,v3,Rey Auditory Verbal Learning: Trial 1 total recall
+REY1INT,C,O,v3,Rey Auditory Verbal Learning: Trial 1 intrusions
+REY2REC,C,O,v3,Rey Auditory Verbal Learning: Trial 2 total recall
+REY2INT,C,O,v3,Rey Auditory Verbal Learning: Trial 2 intrusions
+REY3REC,C,O,v3,Rey Auditory Verbal Learning: Trial 3 total recall
+REY3INT,C,O,v3,Rey Auditory Verbal Learning: Trial 3 intrusions
+REY4REC,C,O,v3,Rey Auditory Verbal Learning: Trial 4 total recall
+REY4INT,C,O,v3,Rey Auditory Verbal Learning: Trial 4 intrusions
+REY5REC,C,O,v3,Rey Auditory Verbal Learning: Trial 5 total recall
+REY5INT,C,O,v3,Rey Auditory Verbal Learning: Trial 5 intrusions
+REY6REC,C,O,v3,Rey Auditory Verbal Learning: Trial 6 total recall
+REY6INT,C,O,v3,Rey Auditory Verbal Learning: Trial 6 intrusions
+OTRAILA,C,O,v3,Oral Trail Making Test - Part A: Total number of seconds to complete
+OTRLARR,C,O,v3,Oral Trail Making Test - Part A: Number of commission errors
+OTRLALI,C,O,v3,Oral Trail Making Test - Part A: Number of correct lines
+OTRAILB,C,O,v3,Oral Trail Making Test Part b: Total number of seconds to complete
+OTRLBRR,C,O,v3,Oral Trail Making Test Part b: Number of commission errors
+OTRLBLI,C,O,v3,Oral Trail Making Test Part b: Number of correct lines
+REYDREC,C,O,v3,Rey Auditory Verbal Learning: total delayed recall
+REYDINT,C,O,v3,Rey Auditory Verbal Learning: delayed intrusions
+REYTCOR,C,O,v3,Rey Auditory Verbal Learning: recognition total correct
+REYFPOS,C,O,v3,Rey Auditory Verbal Learning: recognition total false positives
+VNTTOTW,C,O,v3,Verbal naming test: total correct without a cue
+VNTPCNC,C,O,v3,Verbal naming test: total correct with a phonemic cue
+RESPVAL,C,O,v3,How valid do you think the participant's responses are?
+RESPHEAR,C,O,v3,What makes this participant's responses less valid? Hearing impairment
+RESPDIST,C,O,v3,What makes this participant's responses less valid? Distractions
+RESPINTR,C,O,v3,What makes this participant's responses less valid? Interruptions
+RESPDISN,C,O,v3,What makes this participant's responses less valid? Lack of effort or disinterest
+RESPFATG,C,O,v3,What makes this participant's responses less valid? Fatigue
+RESPEMOT,C,O,v3,What makes this participant's responses less valid? Emotional issues
+RESPASST,C,O,v3,What makes this participant's responses less valid? Unapproved assistance
+RESPOTH,C,O,v3,What makes this participant's responses less valid? Other
+RESPOTHX,C,O,v3,What makes this participant's responses less valid? Other (specify)
 WHODIDDX,D1,O,v1-2,Who did diagnosis
 DXMETHOD,D1,O,v3,Diagnosis method
 NORMCOG,D1,O,v1-3,Normal cognition and behavior
@@ -767,13 +767,13 @@ LANGB6,Z1X,O,v3,B6 behavioral Assessment: GDS - language
 LANGB7,Z1X,O,v3,B7 Functional Assessment: FAS - language
 LANGB8,Z1X,O,v3,B8 Neurological Examination Findings - language
 LANGB9,Z1X,O,v3,B9 Clinician Judgment of Symptoms - language
-LANGC2,Z1X,O,v3,C2 Neuropsychological battery Scores - language
+LANGC,Z1X,O,v3,C Neuropsychological battery Scores - language
 LANGD1,Z1X,O,v3,D1 Clinician Diagnosis - language
 LANGD2,Z1X,O,v3,D2 Clinician-assessed Medical Conditions - language
 LANGB3F,Z1X,O,v3,B3F Supplemental UPDRS - language
 LANGB9F,Z1X,O,v3,B9F Clinical PPA and bvFTD Features - language
-LANGC1F,Z1X,O,v3,C1F Neuropsychological battery Summary Scores - language
-LANGC2F,Z1X,O,v3,C2F Social Norms Questionnaire - language
+LANGCF,Z1X,O,v3,CF Neuropsychological battery Summary Scores - language
+LANGCF,Z1X,O,v3,CF Social Norms Questionnaire - language
 LANGC3F,Z1X,O,v3,C3F Social behavior Observer Checklist - language
 LANGC4F,Z1X,O,v3,C4F behavioral Inhibition Scale - language
 LANGC5F,Z1X,O,v3,C5F Interpersonal Reactivity Index - language
@@ -807,4 +807,5 @@ NACCACSF,U3,D,v3,One or more measures of Aβ1-42 reported
 NACCPCSF,U3,D,v3,One or more measures of P-tau181P reported
 NACCTCSF,U3,D,v3,One or more measures of T-tau reported
 NACCAUTP,U3,D,v3,Neuropathology data from an autopsy is available
+NACCAPOE,G1,D,,APOE genotype
 NACCNE4S,G1,D,,Number of APOE e4 alleles

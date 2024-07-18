@@ -3313,6 +3313,13 @@ NACCTCSF,0,,No T-tau reported
 NACCAUTP,0,,No
 ,1,,Yes
 ,8,,"Not applicable, subject not deceased"
+NACCAPOE,1,,(e3 e3)
+,2,,(e3 e4)
+,3,,(e3 e2)
+,4,,(e4 e4)
+,5,,(e4 e2)
+,6,,(e2 e2)
+,9,,Unknown
 NACCNE4S,0,,No e4 allele
 ,1,,1 copy of e4 allele
 ,2,,2 copies of e4 allele

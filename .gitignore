@@ -1,11 +1,22 @@
+# Data files
 data/*.json
 nacc_with_summary.csv
+nacc_unique_with_summary.csv
+investigator_ftldlbd_nacc65.csv
+new_nacc_unique_type_3.csv
+nacc_unique_with_llama_summaries*/
+
+# Test scripts
 *.sh.*
 check.ipynb
-investigator_ftldlbd_nacc65.csv
+finetune1.py
+diagnostic_summary_test.ipynb
+
+# Intermediate folders
 wandb/
 results/
 save_folder/
-finetune1.py
 __pycache__/
-fine_tuned_*/
+
+# Checkpoint
+ckpt/
