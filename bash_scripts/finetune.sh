@@ -12,7 +12,7 @@ conda activate /projectnb/vkolagrp/projects/adrd_foundation_model/envs/fmadrd
 python -V
 export HF_HOME=/projectnb/vkolagrp/skowshik/.cache/
 
-# Login with using "huggingface-cli login" before running this script "huggingface-cli login"
+# Login using "huggingface-cli login" before running this script "huggingface-cli login"
 
 # Without DDP 
 # CUDA_LAUNCH_BLOCKING=1 python ./code/training/finetune.py --wandb
