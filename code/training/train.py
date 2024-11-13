@@ -36,80 +36,25 @@ import torch
 import json
 import pandas as pd
 import wandb
-import torch.distributed as dist
-from torch.nn.parallel import DistributedDataParallel as DDP
 from datetime import datetime, timedelta
 from huggingface_hub import login
 
-from lib.model_loader import load_model, trainer_loader
-from lib.data_loader import data_loader_from_json
+from lib.model_loader import load_model, load_model_quant, load_model_quant_gptq
+from lib.trainer_loader import load_trainer
+# from lib.model_loader_eval import load_model_with_llama_proj
+from lib.data_loader import data_loader_, load_coco_data
 from utils.utils import CustomStream, load_config
 
 
 def get_parser():
     parser = argparse.ArgumentParser(description="Finetuning")
-    parser.add_argument("--distributed", action="store_true", help="Set True for Distributed Training")
+    parser.add_argument("--mode", default=1, type=int, help="Set to 1: Train adapter, 2: Train image projection layer")
     parser.add_argument("--wandb", action="store_true", help="Set True to enable wandb")
-    parser.add_argument("--n", default=100000000, type=int, required=False, help="Specify the dataset size")
+    parser.add_argument("--n", default=10000000, type=int, required=False, help="Specify the dataset size")
+    parser.add_argument("--vision", action="store_true", help="Set True to load VisionModelForCausalLM")
+    parser.add_argument("--quant", action="store_true", help="Set True to load quantized model")
 
     return parser
-
-
-def setup_for_distributed(is_master):
-    """
-    This function disables printing when not in master process
-    """
-    import builtins as __builtin__
-    builtin_print = __builtin__.print
-
-    def print(*args, **kwargs):
-        force = kwargs.pop('force', False)
-        if is_master or force:
-            builtin_print(*args, **kwargs)
-
-    __builtin__.print = print
-    
-def init_distributed_mode(args):
-    args.dist_url = "env://"
-    # launched with torch.distributed.launch
-    if 'RANK' in os.environ and 'WORLD_SIZE' in os.environ:
-        args.rank = int(os.environ.get("RANK"))
-        args.world_size = int(os.environ['WORLD_SIZE'])
-        args.gpu = int(os.environ['LOCAL_RANK'])
-        
-    # launched with submitit on a slurm cluster
-    elif 'SLURM_PROCID' in os.environ:
-        args.rank = int(os.environ['SLURM_PROCID'])
-        args.gpu = args.rank % torch.cuda.device_count()
-        
-    # we manually add MASTER_ADDR and MASTER_PORT to env variables
-    elif torch.cuda.is_available():
-        print('Will run the code on one GPU.')
-        args.rank, args.gpu, args.world_size = 0, 0, 1
-        os.environ['MASTER_ADDR'] = '127.0.0.1'
-        os.environ['MASTER_PORT'] = '29501'
-        
-    else:
-        print('Does not support training without GPU.')
-        sys.exit(1)
-    
-    dist.init_process_group(
-        backend="nccl" if dist.is_nccl_available() else "gloo",
-        init_method=args.dist_url,
-        world_size=args.world_size,
-        rank=args.rank,
-        timeout=timedelta(seconds=2700),
-    )
-
-    torch.cuda.set_device(args.gpu) 
-    args.rank = args.gpu
-    print('| distributed init (rank {}): {}'.format(
-        args.rank, args.dist_url), flush=True)
-    dist.barrier()
-    setup_for_distributed(args.rank == 0)
-
-def cleanup():
-    dist.destroy_process_group()
 
 def main(config, args):
     """Run the program"""
@@ -125,41 +70,54 @@ def main(config, args):
     else:
         wandb.init(mode="disabled")
 
-    if args.distributed:
-        print(args.rank, args.gpu, args.world_size)
-    device_map = torch.device(f"cuda:{args.rank}" if args.distributed else f"cuda")
     # Retrieve the pathes of needed hyperparameters
     epochs = config.get("epochs")
 
     # Load the model and tokenizer
     print("Start the Fine-tuning process......")
-    model, tokenizer = load_model(config, load_from_adaptor=False, new_model='./ckpt/fine_tuned_v2/checkpoint-12000')
+    if args.quant:
+        print("Loading quantized model")
+        model, tokenizer = load_model_quant(config, vision=args.vision)
+    else:
+        print("Loading unquantized model")
+        model, tokenizer = load_model(config, vision=args.vision)
     
     # Load dataset
-    dataset = data_loader_from_json(config, tokenizer, n=args.n)
+    dataset = data_loader_(config, tokenizer, model, n=args.n, vision=args.vision)
+    
+    # print("Saving initial model weights")
+    # torch.save(model.get_input_embeddings().state_dict(), f'{config.get("save_dir")}/model_input_embeddings.pth')
+    # torch.save(model.get_output_embeddings().state_dict(), f'{config.get("save_dir")}/model_output_embeddings.pth')
+    
+    # load_model_with_llama_proj(config, tokenizer, lora_path=None, save_dir=config.get("save_dir"), torch_dtype=torch.bfloat16, push_to_hub=True)
     
     # Load Trainer
-    if args.distributed:
-        model = DDP(model, device_ids=[args.gpu], output_device=args.gpu)
-        
-        trainer = trainer_loader(
-            config,
-            model=model.module,
-            tokenizer=tokenizer,
-            dataset=dataset,
-            num_train_epochs=epochs
-        )
-    else:
-        trainer = trainer_loader(
-            config,
-            model=model,
-            tokenizer=tokenizer,
-            dataset=dataset,
-            num_train_epochs=epochs
-        )
+    trainer = load_trainer(
+        config,
+        model=model,
+        tokenizer=tokenizer,
+        dataset=dataset,
+        num_train_epochs=epochs
+    )
 
     # Start the training process
     trainer.train()
+    
+    # # save_merged_model
+    trainer.push_to_hub(config.get("hub_model_id"))
+    
+    # if args.vision:
+    #     # model.model.save_pretrained(config.get("save_dir"))
+    #     torch.save(model.get_input_embeddings().state_dict(), f'{config.get("save_dir")}/model_input_embeddings.pth')
+    #     torch.save(model.get_output_embeddings().state_dict(), f'{config.get("save_dir")}/model_output_embeddings.pth')
+    #     print(f"Saved input and output embedding layers to {config.get('save_dir')}")
+        
+    #     if hasattr(model.model, 'llama_proj'):
+    #         print(model.model.llama_proj)
+    #         torch.save(model.model.llama_proj.state_dict(), f'{config.get("save_dir")}/llama_proj.pth')
+    #         print(f"Saved project layer to {config.get('save_dir')}/llama_proj.pth")
+            
+    #     load_model_with_llama_proj(config, tokenizer, lora_path=config.get("hub_model_id"), save_dir=config.get("save_dir"), torch_dtype=torch.bfloat16, push_to_hub=True)
 
 
 if __name__ == "__main__":
@@ -169,15 +127,22 @@ if __name__ == "__main__":
     print(args.n)
     
     # Load the configuration
-    config = load_config(file_name="./code/training/config/config.yml")
+    if args.mode == 1:
+        print("Training adaptor")
+        if args.quant:
+            print("Loading quant config")
+            config = load_config(file_name="./code/training/config/config_quant.yml")
+        else:
+            print("Loading large config")
+            config = load_config(file_name="./code/training/config/config_large.yml")
+    elif args.mode == 2:
+        print("Training projection layer")
+        config = load_config(file_name="./code/training/config/config_imaging.yml")
+    else:
+        raise ValueError(f"Unknown mode argument {args.mode}. Please set mode to 1 or 2.")
+    
     result_dir = config.get("result_dir")
     hf_read_token = config.get("hf_read_token")
-    
-    if torch.cuda.is_available():
-        torch.backends.cudnn.benchmark = True
-        torch.autograd.set_detect_anomaly(False)
-        if args.distributed:
-            init_distributed_mode(args)
 
     # get the current working directory
     cwd = os.getcwd()

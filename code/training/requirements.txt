@@ -10,7 +10,7 @@ protobuf==3.20.1
 sentencepiece==0.2.0
 tensorboard
 torch
-vllm==v0.4.3
+vllm==0.4.3
 vllm-flash-attn
 nltk
 fraction

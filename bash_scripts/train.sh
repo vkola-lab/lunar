@@ -10,13 +10,10 @@
 module load miniconda/23.11.0
 conda activate /projectnb/vkolagrp/projects/adrd_foundation_model/envs/fmadrd
 python -V
-export HF_HOME=/projectnb/vkolagrp/skowshik/.cache/
+export HF_HOME=/projectnb/vkolagrp/skowshik/.cache/hub/
 
 # Login using "huggingface-cli login" before running this script "huggingface-cli login"
 
-# Without DDP 
-# CUDA_LAUNCH_BLOCKING=1 python ./code/training/finetune.py --wandb
 
-# With DDP
-CUDA_LAUNCH_BLOCKING=1 python -m torch.distributed.run --nproc_per_node=2 --nnodes=1 --master_port=29757 ./code/training/finetune.py --distributed --wandb 
+CUDA_LAUNCH_BLOCKING=1 python ./code/training/train.py --n 1000000000 --mode 1 --quant --wandb
 

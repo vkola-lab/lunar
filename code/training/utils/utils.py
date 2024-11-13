@@ -1,6 +1,25 @@
 # coding=utf-8
 
 import yaml
+import json
+import pandas as pd
+
+# templates
+MRI_TEMPLATE = """Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
+
+### Instruction:
+{instruction} The MRI images are provided between tokens <|start_of_mri|> and <|end_of_mri|>.
+
+### Input:
+{input}"""
+
+TEXT_TEMPLATE = """Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
+
+### Instruction:
+{instruction}
+
+### Input:
+{input}"""
 
 
 def stop_token_list():
@@ -27,6 +46,14 @@ def load_config(file_name):
     fopen.close()
 
     return config
+
+def load_csv(file_name):
+    """
+    Load the csv file
+    :param file_name: the name of the csv file
+    :return data: pandas dataframe
+    """
+    return pd.read_csv(file_name)
 
 def load_json(dataset_path):
     """
@@ -71,7 +98,18 @@ def print_parameters(model):
         f"All params: {all_param:,} | "
         f"Trainable%: {100 * trainable_params / all_param:.2f}%"
     )
-
+    
+def get_template(train_type):
+    if train_type == "mri":
+        template = MRI_TEMPLATE
+        
+    elif train_type == "text":
+        template = TEXT_TEMPLATE
+        
+    else:
+        raise ValueError(f"Invalid train_type {train_type}")
+    
+    return template
 
 class CustomStream:
     """

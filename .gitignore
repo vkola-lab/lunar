@@ -1,5 +1,5 @@
 # Data files
-data/*.json
+data/
 nacc_with_summary.csv
 nacc_unique_with_summary.csv
 investigator_ftldlbd_nacc65.csv
@@ -9,8 +9,12 @@ nacc_unique_with_llama_summaries*/
 # Test scripts
 *.sh.*
 check.ipynb
-finetune1.py
+check.txt
+finetune_ddp.py
 diagnostic_summary_test.ipynb
+mri_qc.ipynb
+get_progression_cases.ipynb
+llama32_test.ipynb
 
 # Intermediate folders
 wandb/
@@ -20,3 +24,4 @@ __pycache__/
 
 # Checkpoint
 ckpt/
+llama3-8b-adrd/

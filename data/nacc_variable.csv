@@ -115,7 +115,7 @@ NACCEMD,A4,D,v1-3,Reported current use of estrogen hormone therapy
 NACCEPMD,A4,D,v1-3,Reported current use of estrogen + progestin hormone therapy
 NACCDBMD,A4,D,v1-3,Reported current use of a diabetes medication
 TOBAC30,A5,O,v1-3,Smoked cigarettes in last 30 days
-TOBAC00,A5,O,v1-3,Smoked more than 100 cigarettes in life
+TOBAC100,A5,O,v1-3,Smoked more than 100 cigarettes in life
 SMOKYRS,A5,O,v1-3,Total years smoked cigarettes
 PACKSPER,A5,O,v1-3,Average number of packs smoked per day
 QUITSMOK,A5,O,v1-3,"If the subject quit smoking, age at which he/she last smoked (i.e., quit)"
@@ -314,7 +314,7 @@ NITE,B5,O,v1-3,Nighttime behaviors in the last month
 NITESEV,B5,O,v1-3,Nighttime behaviors severity
 APP,B5,O,v1-3,Appetite and eating problems in the last month
 APPSEV,B5,O,v1-3,Appetite and eating severity
-NOGDS,B6,O,v1-3,"Is the subject able to complete the GDS, based on the clinician's best judgment?"
+NOGDS,B6,O,v1-3,"Is the subject able to complete the GDS?"
 SATIS,B6,O,v1-3,Are you basically satisfied with your life?
 DROPACT,B6,O,v1-3,Have you dropped many of your activities and interests?
 EMPTY,B6,O,v1-3,Do you feel that your life is empty?
@@ -391,8 +391,8 @@ OTHNEURX,B8,O,v3,Other findings (specify)
 B9CHG,B9,O,v1,Indicate changes in information reported at previous visit
 DECSUB,B9,O,v1-3,Does the subject report a decline in memory (relative to previously attained abilities)?
 DECIN,B9,O,v1-3,Does the co-participant report a decline in subject's memory (relative to previously attained abilities)?
-DECCLIN,B9,O,v1-2,"Clinician believes there is a meaningful decline in memory, non-memory cognitive abilities, behavior, ability to manage his/her affairs, or there are motor/movement changes"
-DECCLCOG,B9,O,v3,"based on the clinician's judgment, is the subject currently experiencing meaningful impairment in cognition?"
+DECCLIN,B9,O,v1-2,"Is there a meaningful decline in memory, non-memory cognitive abilities, behavior, ability to manage his/her affairs, or there are motor/movement changes"
+DECCLCOG,B9,O,v3,"Is the subject currently experiencing meaningful impairment in cognition?"
 COGMEM,B9,O,v1-3,"Indicate whether the subject currently is meaningfully impaired, relative to previously attained abilities, in memory"
 COGORI,B9,O,v3,"Indicate whether the subject is meaningfully impaired, relative to previously attained abilities, in orientation"
 COGJUDG,B9,O,v1-3,"Indicate whether the subject currently is meaningfully impaired, relative to previously attained abilities, in executive function - judgment, planning, or problem-solving"
@@ -407,8 +407,8 @@ NACCCOGF,B9,D,v1-3,Indicate the predominant symptom that was first recognized as
 NACCCGFX,B9,D,v1-3,Specification for other predominant symptom first recognized as a decline in the subject's cognition
 COGMODE,B9,O,v1-3,Mode of onset of cognitive symptoms
 COGMODEX,B9,O,v1-3,Specification for other mode of onset of cognitive symptoms
-DECAGE,B9,O,v1-3,"based on clinician's assessment, at what age did the cognitive decline begin?"
-DECCLBE,B9,O,v3,"based on clinician's judgment, is the subject currently experiencing any kind of behavioral symptoms?"
+DECAGE,B9,O,v1-3,"At what age did the cognitive decline begin?"
+DECCLBE,B9,O,v3,"Is the subject currently experiencing any kind of behavioral symptoms?"
 BEAPATHY,B9,O,v1-3,"Subject currently manifests meaningful change in behavior - Apathy, withdrawal"
 BEDEP,B9,O,v1-3,Subject currently manifests meaningful change in behavior - Depressed mood
 BEVHALL,B9,O,v1-3,Subject currently manifests meaningful change in behavior - Psychosis - Visual hallucinations
@@ -429,8 +429,8 @@ NACCBEHF,B9,D,v1-3,Indicate the predominant symptom that was first recognized as
 NACCBEFX,B9,D,v1-3,Specification of other predominant symptom that was first recognized as a decline in the subject's behavior
 BEMODE,B9,O,v1-3,Mode of onset of behavioral symptoms
 BEMODEX,B9,O,v1-3,Specification of other mode of onset of behavioral symptoms
-BEAGE,B9,O,v3,"based on the clinician's assessment, at what age did the behavioral symptoms begin?"
-DECCLMOT,B9,O,v3,"based on the clinician's judgment, is the subject currently experiencing any motor symptoms?"
+BEAGE,B9,O,v3,"At what age did the behavioral symptoms begin?"
+DECCLMOT,B9,O,v3,"Is the subject currently experiencing any motor symptoms?"
 MOGAIT,B9,O,v1-3,Indicate whether the subject currently has meaningful changes in motor function - Gait disorder
 MOFALLS,B9,O,v1-3,Indicate whether the subject currently has meaningful changes in motor function - Falls
 MOTREM,B9,O,v1-3,Indicate whether the subject currently has meaningful changes in motor function - Tremor
@@ -442,7 +442,7 @@ MOMOPARK,B9,O,v2-3,Were changes in motor function suggestive of Parkinsonism?
 PARKAGE,B9,O,v3,"If yes, at what age did the motor symptoms suggestive of Parkinsonism begin?"
 MOMOALS,B9,O,v3,Were changes in motor function suggestive of amyotrophic lateral sclerosis?
 ALSAGE,B9,O,v3,"If yes, at what age did the motor symptoms suggestive of ALS begin?"
-MOAGE,B9,O,v3,"based on the clinician's assessment, at what age did the motor changes begin?"
+MOAGE,B9,O,v3,"At what age did the motor changes begin?"
 COURSE,B9,O,v1-3,Overall course of decline of cognitive/ behavioral/motor syndrome
 FRSTCHG,B9,O,v1-3,Indicate the predominant domain that was first recognized as changed in the subject
 LBDEVAL,B9,O,v3,Is the subject a potential candidate for further evaluation for Lewy body disease?
@@ -479,9 +479,9 @@ VEG,C,O,v1-3,Vegetable - Total number of vegetables named in 60 seconds
 TRAILA,C,O,v1-3,Trail Making Test Part A - Total number of seconds to complete
 TRAILARR,C,O,v2-3,Part A - Number of commission errors
 TRAILALI,C,O,v2-3,Part A - Number of correct lines
-TRAILB,C,O,v1-3,Trail Making Test Part b - Total number of seconds to complete
-TRAILBRR,C,O,v2-3,Part b - Number of commission errors
-TRAILBLI,C,O,v2-3,Part b - Number of correct lines
+TRAILB,C,O,v1-3,Trail Making Test part B - Total number of seconds to complete
+TRAILBRR,C,O,v2-3,part B - Number of commission errors
+TRAILBLI,C,O,v2-3,part B - Number of correct lines
 WAIS,C,O,v1-2,WAIS-R Digit Symbol
 BOSTON,C,O,v1-3,boston Naming Test (30) - Total score
 UDSVERFC,C,O,v3,Number of correct F-words generated in 1 minute
@@ -493,8 +493,8 @@ UDSVERLN,C,O,v3,Number of non-L-words and rule violation errors in 1 minute
 UDSVERTN,C,O,v3,Total number of correct F-words and L-words
 UDSVERTE,C,O,v3,Total number of F-word and L-word repetition errors
 UDSVERTI,C,O,v3,Total number of non-F/L-words and rule violation errors
-COGSTAT,C,O,v1-3,"Per clinician, based on the neuropsychological examination, the subject's cognitive status is deemed"
-NACCC,C,D,v1-3,Form date discrepancy between UDS Form A1 and Form C
+COGSTAT,C,O,v1-3,"Based on the neuropsychological examination, the subject's cognitive status is deemed"
+NACCC1,C,D,v1-3,Form date discrepancy between UDS Form A1 and Form C
 MOCACOMP,C,O,v3,Was any part of MoCA administered?
 MOCAREAS,C,O,v3,"If no part of MoCA administered, reason code"
 MOCALOC,C,O,v3,Where was MoCA administered?
@@ -542,7 +542,7 @@ MINTSCNG,C,O,v3,Multilingual Naming Test (MINT) - Semantic cues: Number given
 MINTSCNC,C,O,v3,Multilingual Naming Test (MINT) - Semantic cues: Number correct with cue
 MINTPCNG,C,O,v3,Multilingual Naming Test (MINT) - Phonemic cues: Number given
 MINTPCNC,C,O,v3,Multilingual Naming Test (MINT) - Phonemic cues: Number correct with cue
-NACCC,C,D,v3,Form date discrepancy between UDS Form A1 and Form C
+NACCC2,C,D,v3,Form date discrepancy between UDS Form A1 and Form C
 MODCOMM,C,O,v3,Modality of communication used to administer neuropsychological battery
 MOCBTOTS,C,O,v3,MoCA blind Total raw score - uncorrected
 NACCMOCB,C,D,v3,MoCA-blind Total Score - corrected for education
@@ -561,9 +561,9 @@ REY6INT,C,O,v3,Rey Auditory Verbal Learning: Trial 6 intrusions
 OTRAILA,C,O,v3,Oral Trail Making Test - Part A: Total number of seconds to complete
 OTRLARR,C,O,v3,Oral Trail Making Test - Part A: Number of commission errors
 OTRLALI,C,O,v3,Oral Trail Making Test - Part A: Number of correct lines
-OTRAILB,C,O,v3,Oral Trail Making Test Part b: Total number of seconds to complete
-OTRLBRR,C,O,v3,Oral Trail Making Test Part b: Number of commission errors
-OTRLBLI,C,O,v3,Oral Trail Making Test Part b: Number of correct lines
+OTRAILB,C,O,v3,Oral Trail Making Test part B: Total number of seconds to complete
+OTRLBRR,C,O,v3,Oral Trail Making Test part B: Number of commission errors
+OTRLBLI,C,O,v3,Oral Trail Making Test part B: Number of correct lines
 REYDREC,C,O,v3,Rey Auditory Verbal Learning: total delayed recall
 REYDINT,C,O,v3,Rey Auditory Verbal Learning: delayed intrusions
 REYTCOR,C,O,v3,Rey Auditory Verbal Learning: recognition total correct
@@ -767,13 +767,13 @@ LANGB6,Z1X,O,v3,B6 behavioral Assessment: GDS - language
 LANGB7,Z1X,O,v3,B7 Functional Assessment: FAS - language
 LANGB8,Z1X,O,v3,B8 Neurological Examination Findings - language
 LANGB9,Z1X,O,v3,B9 Clinician Judgment of Symptoms - language
-LANGC,Z1X,O,v3,C Neuropsychological battery Scores - language
+LANGC2,Z1X,O,v3,C Neuropsychological battery Scores - language
 LANGD1,Z1X,O,v3,D1 Clinician Diagnosis - language
 LANGD2,Z1X,O,v3,D2 Clinician-assessed Medical Conditions - language
 LANGB3F,Z1X,O,v3,B3F Supplemental UPDRS - language
 LANGB9F,Z1X,O,v3,B9F Clinical PPA and bvFTD Features - language
-LANGCF,Z1X,O,v3,CF Neuropsychological battery Summary Scores - language
-LANGCF,Z1X,O,v3,CF Social Norms Questionnaire - language
+LANGC1F,Z1X,O,v3,CF Neuropsychological battery Summary Scores - language
+LANGC2F,Z1X,O,v3,CF Social Norms Questionnaire - language
 LANGC3F,Z1X,O,v3,C3F Social behavior Observer Checklist - language
 LANGC4F,Z1X,O,v3,C4F behavioral Inhibition Scale - language
 LANGC5F,Z1X,O,v3,C5F Interpersonal Reactivity Index - language
