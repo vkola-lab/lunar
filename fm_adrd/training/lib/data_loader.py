@@ -6,16 +6,16 @@ import torch
 import numpy as np
 import pandas as pd
 import re
-import torchvision.models as models
+
 from PIL import Image
 from torch import nn
 from datasets import load_dataset
 from datasets import Dataset
 from sklearn.model_selection import train_test_split
-from utils.utils import load_json
-from torchvision import transforms
+# from torchvision import transforms
 from tokenizers import AddedToken
-from utils import utils
+# from utils.utils import load_json
+from training.utils import utils
 
 
 new_tokens = set()
@@ -42,26 +42,26 @@ def data_loader(hf_repo):
 
     return dataset
 
-def load_from_vgg16(path):
-    # Define transformation for the image
-    transform = transforms.Compose([
-        transforms.Resize((224, 224)),  # Resize the image to 224x224
-        transforms.ToTensor(),  # Convert image to tensor
-        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])  # Normalize with ImageNet mean and std
-    ])
+# def load_from_vgg16(path):
+#     # Define transformation for the image
+#     transform = transforms.Compose([
+#         transforms.Resize((224, 224)),  # Resize the image to 224x224
+#         transforms.ToTensor(),  # Convert image to tensor
+#         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])  # Normalize with ImageNet mean and std
+#     ])
 
-    # Load an image and transform
-    img = Image.open(path)
-    img_t = transform(img)
-    batch_t = torch.unsqueeze(img_t, 0)
-    # Set the model to evaluation mode
-    vgg16.eval()
+#     # Load an image and transform
+#     img = Image.open(path)
+#     img_t = transform(img)
+#     batch_t = torch.unsqueeze(img_t, 0)
+#     # Set the model to evaluation mode
+#     vgg16.eval()
 
-    # Extract features without gradient calculation
-    with torch.no_grad():
-        features = vgg16(batch_t)
+#     # Extract features without gradient calculation
+#     with torch.no_grad():
+#         features = vgg16(batch_t)
         
-    return features
+#     return features
 
 def process_user_message(user_msg, reserved_tokens, tokenizer, file_type):
     # Define the regular expression pattern for words ending with .nii
@@ -130,7 +130,7 @@ def data_loader_(config, tokenizer, model, n=10000000, split=False, vision=False
     train_type = config.get("train_type")
 
     if dataset_path.endswith("json"):
-        data = load_json(dataset_path)
+        data = utils.load_json(dataset_path)
         # data_df = pd.DataFrame(data)[:min(n, len(data))]
         data_df = pd.DataFrame.from_dict(data, orient='index')[:min(n, len(data))].reset_index()
         data_df = data_df.rename(columns={'level_0': 'ID'})

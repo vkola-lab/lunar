@@ -17,7 +17,7 @@ from transformers import (
 )
 from trl import SFTTrainer, setup_chat_format, DataCollatorForCompletionOnlyLM
 from trl.trainer import SFTConfig
-from utils.utils import print_parameters
+from training.utils.utils import print_parameters
 from huggingface_hub import login
 
 def load_trainer(config, model, tokenizer, dataset, num_train_epochs):

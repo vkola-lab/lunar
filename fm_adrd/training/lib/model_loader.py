@@ -17,12 +17,12 @@ from transformers import (
     BitsAndBytesConfig,
     GPTQConfig,
 )
-from lib.modeling_llama import LlamaVisionForCausalLM
 from peft import LoraConfig, TaskType, PeftModel, get_peft_model, prepare_model_for_kbit_training
 from huggingface_hub import login
-from utils.utils import print_parameters
 from auto_gptq import AutoGPTQForCausalLM, BaseQuantizeConfig, get_gptq_peft_model
 from auto_gptq.utils.peft_utils import GPTQLoraConfig
+from training.lib.modeling_llama import LlamaVisionForCausalLM
+from training.utils.utils import print_parameters
 
 
 def load_model(config, use_peft=True, new_model=None, torch_dtype=torch.bfloat16, vision=False):

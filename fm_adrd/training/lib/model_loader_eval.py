@@ -18,15 +18,15 @@ from transformers import (
     TrainingArguments,
     BitsAndBytesConfig,
 )
-from lib.modeling_llama import LlamaVisionForCausalLM
 from trl import setup_chat_format
 from peft import LoraConfig, TaskType, PeftModel, get_peft_model
-from utils.utils import print_parameters
 # from vllm import LLM, SamplingParams
 # from vllm.lora.request import LoRARequest
 from huggingface_hub import login
 from tokenizers import AddedToken
 from safetensors.torch import load_file
+from training.lib.modeling_llama import LlamaVisionForCausalLM
+from training.utils.utils import print_parameters
 
 
 def load_model_eval(config, base_model, lora_path=None, torch_dtype=torch.bfloat16, vision=False):
@@ -50,6 +50,8 @@ def load_model_eval(config, base_model, lora_path=None, torch_dtype=torch.bfloat
         padding_side="left",
         use_auth_token=hf_write_token,
     )
+    if "llama" in base_model.lower() or "mistralai" in base_model.lower():
+        tokenizer.pad_token = tokenizer.eos_token
     
     if not vision:
         print("Loading AutoModelForCausalLM")
@@ -102,8 +104,6 @@ def load_model_eval(config, base_model, lora_path=None, torch_dtype=torch.bfloat
     #     print(f"Copied model output embeddings from {save_dir}/model_output_embeddings.pth")
 
     # base_model_reload, tokenizer = setup_chat_format(base_model_reload, tokenizer)
-    if "llama" in base_model.lower() or "mistralai" in base_model.lower():
-        tokenizer.pad_token = tokenizer.eos_token
     
     if lora_path:
         # Merge adapter with base model
