@@ -1,1 +1,27 @@
-data/nacc_diagnosis_text.json
+# Data files
+data/
+nacc_with_summary.csv
+nacc_unique_with_summary.csv
+investigator_ftldlbd_nacc65.csv
+new_nacc_unique_type_3.csv
+nacc_unique_with_llama_summaries*/
+
+# Test scripts
+*.sh.*
+check.ipynb
+check.txt
+finetune_ddp.py
+diagnostic_summary_test.ipynb
+mri_qc.ipynb
+get_progression_cases.ipynb
+llama32_test.ipynb
+
+# Intermediate folders
+wandb/
+results/
+save_folder/
+__pycache__/
+
+# Checkpoint
+ckpt/
+llama3-8b-adrd/
