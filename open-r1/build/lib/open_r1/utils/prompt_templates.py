@@ -1,20 +1,3 @@
-# templates
-# MRI_TEMPLATE = """Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
-
-# ### Instruction:
-# {instruction} The MRI images are provided between tokens <|start_of_mri|> and <|end_of_mri|>.
-
-# ### Input:
-# {input}"""
-
-# TEXT_TEMPLATE = """Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
-
-# ### Instruction:
-# {instruction}
-
-# ### Input:
-# {input}"""
-
 # GRPO_TEMPLATE = """You are a highly skilled neurologist. You will receive a patient's case in the form of a JSON file between <patient data> and </patient data> tags. Your job is to analyise the patient data and answer the question provided between <question> and </question> tags by selecting the best option from the options provided between <options> and </options> tags following the template provided between <template> and </template> tags. Finally write your final answer between <final answer> and </final answer> tags. Follow these guidelines carefully:
     
 # <guidelines>
@@ -64,29 +47,33 @@
 # {options}
 # </options>"""
 
-GRPO_TEMPLATE = """<patient_data>
+# GRPO_TEMPLATE = """<patient_data>
+# {patient}
+# </patient_data>
+
+# <question>
+# {question}
+# </question>
+
+# <options>
+# {options}
+# </options>"""
+
+GRPO_TEMPLATE = """Below is the background of the patient.
+<patient_data>
 {patient}
 </patient_data>
 
+Below is the question and the corresponding answer options:
 <question>
 {question}
 </question>
 
 <options>
 {options}
-</options>"""
+</options>
 
-# SYSMSG = """Respond in the following format. Provide a detailed patient presentation between <patient presentation> and </patient presentation> tags and a medical reasoning between <medical reasoning> and </medical reasoning> tags. Directly answer the best option as A/B/C from the provided options between <answer> and </answer> tags:
-# <patient presentation>
-# ...
-# </patient presentation>
-# <medical reasoning>
-# ...
-# </medical reasoning>
-# <answer>
-# ...
-# </answer>
-# """
-
-# SYSMSG = """Think through the question step by step, enclose your reasoning process in <think>...</think> tags. Then provide the correct single-letter choice (A, B, C, D,...) inside <answer>...</answer> tags. No extra information or text outside of these tags."""
-
+Thinking steps: 
+FIRST, provide a comprehensive summary of the patient's presentation.
+SECOND, analyze each of the provided answer options through a structured differential diagnosis.
+FINALLY, provide your final answer on a new line as 'Answer: <option letter>' by selecting the best option from the provided options."""

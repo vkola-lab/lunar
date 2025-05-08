@@ -202,10 +202,10 @@ if __name__ == "__main__":
     # Destroying vllm instance
     destroy_model_parallel()
     destroy_distributed_environment()
-    del llm.llm_engine.model_executor
+    # del llm.llm_engine.model_executor
     del llm
-    with contextlib.suppress(AssertionError):
-        torch.distributed.destroy_process_group()
+    # with contextlib.suppress(AssertionError):
+    #     torch.distributed.destroy_process_group()
     gc.collect()
     torch.cuda.empty_cache()
     ray.shutdown()

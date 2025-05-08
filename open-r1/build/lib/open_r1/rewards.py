@@ -47,6 +47,35 @@ def extract_choice_description(choices_str: str, target_letter: str) -> str:
     return match.group(1).strip() if match else ""
 
 
+# def correctness_reward(completions, ground_truth, options, **kwargs) -> list[float]:
+#     """Reward function that checks if the completion has the answer."""
+    
+#     contents = [completion[0]["content"] for completion in completions]
+#     # Reward 1 if the content is the same as the ground truth, 0 otherwise
+
+#     rewards = []
+#     for i, (c, gt) in enumerate(zip(contents, ground_truth)):
+#         # gt_desc = extract_choice_description(options[i], gt)
+        
+#         answer_match = re.search(r"<answer>(.*?)</answer>", c, re.DOTALL)
+        
+#         if not answer_match:
+#             rewards.append(0.0)
+#             continue
+            
+#         # letter_match = re.search(r'Answer:\s*([A-Za-z])\s+', answer_match.group(1).strip())
+#         word_match = re.search(r'Answer:\s*([A-Za-z])', answer_match.group(1).strip())
+        
+#         if word_match and word_match.group(1).strip().lower() == gt.lower():
+#             rewards.append(1.0)
+#         # elif word_match and word_match.group(1).lower() == gt_desc.lower():
+#         #     rewards.append(0.5)
+#         else:
+#             rewards.append(0.0)
+
+        
+#     return rewards
+
 def correctness_reward(completions, ground_truth, options, **kwargs) -> list[float]:
     """Reward function that checks if the completion has the answer."""
     
@@ -55,38 +84,17 @@ def correctness_reward(completions, ground_truth, options, **kwargs) -> list[flo
 
     rewards = []
     for i, (c, gt) in enumerate(zip(contents, ground_truth)):
-        # gt_desc = extract_choice_description(options[i], gt)
-        
-        answer_match = re.search(r"<answer>(.*?)</answer>", c, re.DOTALL)
-        
-        if not answer_match:
-            rewards.append(0.0)
-            continue
             
         # letter_match = re.search(r'Answer:\s*([A-Za-z])\s+', answer_match.group(1).strip())
-        word_match = re.search(r'Answer:\s*([A-Za-z])', answer_match.group(1).strip())
+        word_match = re.search(r'Answer:\s*([A-Za-z])', c)
+        # print(c, gt, word_match)
+        # raise ValueError
         
         if word_match and word_match.group(1).strip().lower() == gt.lower():
             rewards.append(1.0)
-        # elif word_match and word_match.group(1).lower() == gt_desc.lower():
-        #     rewards.append(0.5)
         else:
             rewards.append(0.0)
             
-    
-    # contents = [completion[0]["content"] for completion in completions]
-    # # Reward 1 if the content is the same as the ground truth, 0 otherwise
-
-    # rewards = []
-    # for c, gt in zip(contents, ground_truth):
-    #     match = re.search(r'Answer:\s*([A-Za-z])', c)
-    #     if match:
-    #         if match.group(1).lower() == gt.lower():
-    #             rewards.append(1.0)
-    #         else:
-    #             rewards.append(0.0)
-    #     else:
-    #         rewards.append(0.0)
         
     return rewards
 

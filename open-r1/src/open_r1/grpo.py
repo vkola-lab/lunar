@@ -37,7 +37,7 @@ from trl import GRPOTrainer, ModelConfig, TrlParser, get_peft_config
 logger = logging.getLogger(__name__)
 
 
-def data_loader_grpo(dataset_path, system_prompt, n=10000000, split=False, vision=False):
+def data_loader_grpo(dataset_path, system_prompt, n=1000000000, split=False, vision=False):
     """
     Load the fine-tuning dataset from a json file and split into training and validation sets.
     :param config: the configurations
@@ -65,7 +65,7 @@ def data_loader_grpo(dataset_path, system_prompt, n=10000000, split=False, visio
 
     def format_chat_template(row):
         row_json = [
-            {"role": "system", "content": system_prompt},
+            # {"role": "system", "content": system_prompt},
             {"role": "user", "content": utils.get_template(train_type="grpo").format(patient=row["visit_summary"], question=row['question'], options=row['options'])}
         ]
         # text = tokenizer.apply_chat_template(
