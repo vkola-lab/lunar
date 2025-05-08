@@ -1,0 +1,96 @@
+# benchmarks results will be saved in this directory,
+# in a directory with a unique name. The output will be one JSONL file per
+# benchmark, with filename [benchmarkname]_output.jsonl
+results_dir: 'results'
+
+# Use guided decoding? If true, we expect an answer_schema.json file in the benchmark directory
+use_guided_decoding: false
+
+# how to do guided decoding, either 'xgrammar' or 'outlines'
+# has no effect if use_guided_decoding is false
+# xgrammar has some issues, sometimes it repeats the same token endlessly
+# so it's recommended to use outlines, even if it's slower
+guided_decoding_backend: 'outlines'
+
+# model name to be passed to vllm.LLM, it should be eithe a local path or a
+# huggingface path, make sure to set the environment variable HF_HOME to control
+# where the model weights will be stored 
+# model_name : "meta-llama/Meta-Llama-3.1-8B-Instruct"
+# model_name : "Qwen/Qwen2.5-3B-Instruct"
+# model_name : "Qwen/Qwen2.5-7B-Instruct"
+# model_name : "Qwen/Qwen2.5-14B-Instruct"
+# model_name : "Qwen/Qwen3-8B"
+# model_name: "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+# model_name: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen_3B_combined_test/checkpoint-900"
+
+# model_name: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen_3B_etpr_cog_mci_park_drgrpo/checkpoint-900"
+# model_name: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen_3B_etpr_cog_mci_park_drgrpo_summary_nocop/checkpoint-900"
+# model_name: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen_3B_etpr_cog_mci_park_drgrpo_summary_nocop/checkpoint-1416"
+model_name: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen_3B_etpr_cog_mci_park_drgrpo_summary_nocop_bs_16/checkpoint-900"
+
+# Number of GPUs used. Passed to vllm.LLM.tensor_parallel_size notice that SCC
+# will only give us single nodes with multiple GPUs, so we never need to do
+# multinode distributed inference
+n_gpus: 2
+
+# fraction of gpu memory reserved for model + attention.  higher values will
+# give higher throughput but risk giving out-of-memory errors when processing
+# large amounts of text
+gpu_memory_utilization: 0.9
+# max_model_len: 90000
+max_model_len: 5000
+
+# Memory amount to offload to cpu to simulate extra gpu memory. Slow but lets
+# you load models larger than your gpu
+cpu_offload_gb: 0
+
+# seed for random sampling during text generation
+llm_sampling_seed: 1
+
+# Enforce eager execution? With eager execution the CUDA graph is not built
+# beforehand, unclear which option has better performance
+enforce_eager: false
+
+# Chunked prefill improves inter-token latency and generation decode because #
+# decode requests are prioritized. It helps achieve better GPU utilization by
+# locating compute-bound (prefill) and memory-bound (decode) requests to the
+# same batch.
+enable_chunked_prefill: true
+
+# LoRA
+enable_lora: false
+# lora_path: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen_3B_combined_lora/checkpoint-900"
+# lora_path: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen_7B_combined_lora/checkpoint-900"
+# lora_path: "skowshik/qwen25-7B-pretraining-deepspeed-zero2-step1-nacc-lr-1e7-bs-4"
+# lora_path: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen_3B_etpr_cog_mci_park_lora_no_scale/checkpoint-500" # baseline qwen 3B instruct
+# lora_path: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen_3B_etpr_cog_mci_park_lora_half/checkpoint-500" # baseline qwen 3B instruct
+# lora_path: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen_7B_etpr_cog_mci_park_lora_half/checkpoint-500" # baseline qwen 3B instruct
+
+# system_prompt: "You are a helpful AI Assistant that provides well-reasoned and detailed responses. You first think about the reasoning process as an internal monologue and then provide the user with the answer. Respond in the following format: <think>\n...\n</think>\n<answer>\n...\n</answer>. Reply in English only, do not use other languages."
+system_prompt: "You are a helpful AI Assistant that provides well-reasoned and detailed responses. You first think about the reasoning process as an internal monologue and then provide the user with the answer. Respond in the following format: <think>\n...\n</think>\n<answer>\n...\n</answer>, i.e., the reasoning process is enclosed within <think> </think> and the answer is enclosed within <answer> </answer> tags, respectively. Reply in English only, do not use other languages."
+
+# sampling parameters
+temperature: 1.0
+min_p: 0 # minimum probability for a token to be considered, relative to most probable token. Set to 0 to disable
+top_p: 1.0 # consider candidate tokens until the cumulative sum of their probabilities is top_p
+# top_k: 50
+min_tokens: 0 # minimum number of tokens to generate
+max_new_tokens: 2048 # maximum number of tokens to generate
+repetition_penalty: 1.0 # values larger than 1 discourage the use of tokens that have been already generated
+
+# read at most this many questions from the benchmark, so it's easy to run a subset
+max_questions: 1000
+
+# number of sequences to generate per prompt
+n: 10
+
+# each item should be the path to a benchmark folder
+# a benchmark folder must contain an answer schema if running with guided decoding
+# the content of the benchmark should be in a JSONL file
+benchmarks:
+  # - 'benchmarks/adrd_cog_status'
+  # - 'benchmarks/adrd_neuropath'
+  - 'benchmarks/adrd_cog_status_summary'
+  # - 'benchmarks/adrd_neuropath_summary'
+  
+  # - 'benchmarks/train_data'
