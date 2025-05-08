@@ -5,6 +5,9 @@ nacc_unique_with_summary.csv
 investigator_ftldlbd_nacc65.csv
 new_nacc_unique_type_3.csv
 nacc_unique_with_llama_summaries*/
+benchmarks/
+data_preparation_old/
+other/
 
 # Test scripts
 *.sh.*
@@ -21,7 +24,12 @@ wandb/
 results/
 save_folder/
 __pycache__/
+logs/
+wandb/
 
 # Checkpoint
 ckpt/
 llama3-8b-adrd/
+*.pth
+results/
+
