@@ -8,6 +8,7 @@ nacc_unique_with_llama_summaries*/
 benchmarks/
 data_preparation_old/
 other/
+old_data/
 
 # Test scripts
 *.sh.*
@@ -33,3 +34,6 @@ llama3-8b-adrd/
 *.pth
 results/
 
+# old code
+fm_adrd/
+bash_scripts/
