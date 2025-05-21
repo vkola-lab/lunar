@@ -1,0 +1,29 @@
+llm:
+  # model_id: "Qwen/Qwen3-8B"
+  model_id: "Qwen/Qwen2.5-7B-Instruct"
+  n_devices: 1
+  max_model_len: 10000
+  max_new_tokens: 2048
+
+data:
+  test_data_path: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/data/nacc/training_data/testing_data_grpo/test_summary.csv"
+  test_data_summary_path: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/data/nacc/training_data/testing_data_grpo/test_np.csv"
+
+models:
+  qwen3b: "../results_2/test_np/2025-05-14T120903_66b9abb12f994a55/test_np_output.jsonl"
+  qwen7b: "../results_2/test_np/2025-05-14T190933_450d84c246d940ee/test_np_output.jsonl"
+  qwen14b: "../results_2/test_np/2025-05-16T085535_96319dfb64984083/test_np_output.jsonl"
+  qwen32b: "../results_2/test_np/2025-05-20T092347_8694a81cdd0a4829/test_np_output.jsonl"
+  qwen72b: "../results_2/test_np/2025-05-20T121013_87ae3c19f4344f39/test_np_output.jsonl"
+  qwen3b_drgrpo: "../results_2/test_np/2025-05-14T134203_7889dfbd9d2248b8/test_np_output.jsonl"
+  qwen3b_drgrpo_selected: "../results_2/test_np/2025-05-14T161034_e68454cb1ec14c7c/test_np_output.jsonl"
+  qwen3b_drgrpo_selected_cont: "../results_2/test_np/2025-05-14T173914_43e267892eff4a5a/test_np_output.jsonl"
+  qwen3b_drgrpo_selected_gp_16: "../results_2/test_np/2025-05-20T175351_8381d30a907f4d7c/test_np_output.jsonl"
+
+metrics:
+  k: 1
+
+output:
+  plot_path: "outputs/np.pdf"
+
+benchmark: "Neuropath"

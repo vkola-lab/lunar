@@ -6,15 +6,18 @@ import json
 import uuid
 
 
-def make_results_dir(config):
+def make_results_dir(config, benchmark, model_id):
     # make a directory for the run inside results_dir
     # inside the run directory make one dir per benchmark
 
     run_name = "_".join((datetime.now().strftime("%FT%H%M%S"), uuid.uuid4().hex[:16]))
 
-    run_path = Path(config.results_dir) / run_name
+    benchmark_path = Path(benchmark)
+    run_path = Path(config.results_dir) / benchmark_path.stem / run_name
 
     run_path.mkdir(parents=True, exist_ok=False)
+    
+    config["current_model"] = model_id
 
     # save a copy of the current config file in the run directory so it is easy to rerun later
     OmegaConf.save(config, run_path / "config.yml")

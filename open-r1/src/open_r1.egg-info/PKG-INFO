@@ -1,4 +1,4 @@
-Metadata-Version: 2.2
+Metadata-Version: 2.4
 Name: open-r1
 Version: 0.1.0.dev0
 Summary: Open R1
@@ -33,8 +33,8 @@ Requires-Dist: liger-kernel>=0.5.6
 Requires-Dist: packaging>=23.0
 Requires-Dist: safetensors>=0.3.3
 Requires-Dist: sentencepiece>=0.1.99
-Requires-Dist: transformers@ git+https://github.com/huggingface/transformers.git@acdbe627e323dbc822f21499fead789b439cf45b
-Requires-Dist: trl[vllm]@ git+https://github.com/huggingface/trl.git@1bca49515ecd5b85d16e68c42c76670e252e19f1
+Requires-Dist: transformers==4.51.3
+Requires-Dist: trl==0.18.0.dev0
 Requires-Dist: wandb>=0.19.1
 Provides-Extra: tests
 Requires-Dist: pytest; extra == "tests"
@@ -71,6 +71,7 @@ Dynamic: description-content-type
 Dynamic: home-page
 Dynamic: keywords
 Dynamic: license
+Dynamic: license-file
 Dynamic: provides-extra
 Dynamic: requires-dist
 Dynamic: requires-python

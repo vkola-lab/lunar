@@ -1,7 +1,7 @@
 # benchmarks results will be saved in this directory,
 # in a directory with a unique name. The output will be one JSONL file per
 # benchmark, with filename [benchmarkname]_output.jsonl
-results_dir: 'results_2'
+results_dir: 'train_results'
 
 # Use guided decoding? If true, we expect an answer_schema.json file in the benchmark directory
 use_guided_decoding: false
@@ -24,11 +24,12 @@ guided_decoding_backend: 'outlines'
 # model_name: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B/checkpoint-1600"
 
 model_name:
-  # - 'Qwen/Qwen2.5-3B-Instruct'
-  - 'Qwen/Qwen2.5-32B-Instruct'
-  - 'Qwen/Qwen2.5-72B-Instruct'
-  - '/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered_gp_16/checkpoint-4545'
-  - 'Qwen/Qwen3-30B-A3B'
+  - 'Qwen/Qwen2.5-3B-Instruct'
+  # - '/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B/checkpoint-3753'
+  # - '/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B/checkpoint-1900'
+  # - 'Qwen/Qwen3-4B'
+  # - '/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen3_4B_with_thinking/checkpoint-1900'
+  # - 'Qwen/Qwen2.5-7B-Instruct'
 
 
 # model_name: "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
@@ -41,7 +42,7 @@ model_name:
 # Number of GPUs used. Passed to vllm.LLM.tensor_parallel_size notice that SCC
 # will only give us single nodes with multiple GPUs, so we never need to do
 # multinode distributed inference
-n_gpus: 4
+n_gpus: 2
 
 # fraction of gpu memory reserved for model + attention.  higher values will
 # give higher throughput but risk giving out-of-memory errors when processing
@@ -96,10 +97,10 @@ max_new_tokens: 5000 # maximum number of tokens to generate
 # repetition_penalty: 1.0 # values larger than 1 discourage the use of tokens that have been already generated
 
 # read at most this many questions from the benchmark, so it's easy to run a subset
-max_questions: 10000000
+max_questions: 1000000000
 
 # number of sequences to generate per prompt
-n: 10
+n: 8
 
 # each item should be the path to a benchmark folder
 # a benchmark folder must contain an answer schema if running with guided decoding
@@ -111,6 +112,8 @@ benchmarks:
   # - 'benchmarks/adrd_neuropath_summary'
   
   # - 'benchmarks/nacc_test/test_cog'
-  - 'benchmarks/nacc_test/test_np'
+  # - 'benchmarks/nacc_test/test_np'
   # - 'benchmarks/nacc_test/test_etpr'
   # - 'benchmarks/nacc_test/test_mci'
+
+  - 'benchmarks/nacc_train/train_invalid'

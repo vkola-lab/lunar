@@ -37,3 +37,13 @@ results/
 # old code
 fm_adrd/
 bash_scripts/
+test.ipynb
+phi4.ipynb
+example_response.txt
+neurology_benchmark_prepare.ipynb
+
+# results
+results_1/
+results_2/
+extracted_results/
+train_results/

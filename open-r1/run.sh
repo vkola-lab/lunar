@@ -29,5 +29,5 @@ export WANDB_CACHE_DIR=/projectnb/vkolagrp/skowshik/.cache/
 
 CUDA_VISIBLE_DEVICES=0,1,2,3 ACCELERATE_LOG_LEVEL=info \
 accelerate launch --config_file recipes/accelerate_configs/zero2.yaml --num_processes 4 \
-src/open_r1/grpo.py --config recipes/Qwen2.5-7B-Instruct/grpo/config_demo.yaml > /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/logs/qwen7B_summary_drgrpo_summary.log
+src/open_r1/grpo.py --config recipes/Qwen2.5-7B-Instruct/grpo/config_demo.yaml > /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/logs/qwen25_7B_filtered.log
 

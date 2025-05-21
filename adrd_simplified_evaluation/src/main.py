@@ -1,6 +1,15 @@
 from omegaconf import OmegaConf
 import utils
 import model
+import torch
+import gc
+import contextlib
+import ray
+
+from vllm.distributed.parallel_state import (
+    destroy_model_parallel,
+    destroy_distributed_environment,
+)
 
 # We assume the user is logged in to HF
 
@@ -20,14 +29,33 @@ if __name__ == "__main__":
 
     print(f"Benchmarks to run: {config.benchmarks}")
 
-    print("Making directory for results... ", end="")
-    run_path = utils.make_results_dir(config)
-    print(run_path)
 
-    llm = model.load_model(config)
+    for model_id in config.model_name:
+        
+        print(f"Running benchmarks for {model_id}")
+        
+        llm = model.load_model(config, model_id)
 
-    for benchmark in config.benchmarks:
+        for benchmark in config.benchmarks:
+            
+            print("Making directory for results... ", end="")
+            run_path = utils.make_results_dir(config, benchmark, model_id)
+            
+            print(run_path)
 
-        problems, outputs = model.run_benchmark(llm, benchmark, config)
+            problems, outputs = model.run_benchmark(llm, benchmark, config, model_id)
 
-        utils.save_results(run_path, benchmark, problems, outputs)
+            utils.save_results(run_path, benchmark, problems, outputs)
+            
+        # model.destroy_instance(llm)
+        
+        destroy_model_parallel()
+        destroy_distributed_environment()
+        del llm.llm_engine.model_executor
+        del llm
+        with contextlib.suppress(AssertionError):
+            torch.distributed.destroy_process_group()
+        gc.collect()
+        torch.cuda.empty_cache()
+        ray.shutdown()
+        print("Successfully delete the llm pipeline and free the GPU memory.\n\n\n\n")
