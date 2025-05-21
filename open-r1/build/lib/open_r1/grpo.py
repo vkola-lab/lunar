@@ -31,7 +31,8 @@ from open_r1.utils import get_tokenizer
 from open_r1.utils.callbacks import get_callbacks
 from open_r1.utils.wandb_logging import init_wandb_training
 from open_r1.utils import utils
-from trl import GRPOTrainer, ModelConfig, TrlParser, get_peft_config
+from trl import ModelConfig, TrlParser, get_peft_config #, GRPOTrainer
+from grpo_trainer import GRPOTrainer
 
 
 logger = logging.getLogger(__name__)
@@ -65,15 +66,19 @@ def data_loader_grpo(dataset_path, system_prompt, n=1000000000, split=False, vis
 
     def format_chat_template(row):
         row_json = [
-            # {"role": "system", "content": system_prompt},
-            {"role": "user", "content": utils.get_template(train_type="grpo").format(patient=row["visit_summary"], question=row['question'], options=row['options'])}
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": utils.get_template(train_type="grpo").format(patient=row["visit_summary"], question=row['question'], options=row['options'])},
+            # {"role": "assistant", "content": "<think>\nOkay"}
         ]
         # text = tokenizer.apply_chat_template(
         #     row_json,
         #     tokenize=False,
-        #     add_generation_prompt=True,
-        #     enable_thinking=True # Switches between thinking and non-thinking modes. Default is True.
+        #     add_generation_prompt=False,
+        #     # enable_thinking=True # Switches between thinking and non-thinking modes. Default is True.
         # )
+        
+        # print(text)
+        # raise ValueError
         
         # row["prompt"] = text
         row["prompt"] = row_json

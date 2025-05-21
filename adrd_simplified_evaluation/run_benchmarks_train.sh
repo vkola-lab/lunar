@@ -39,29 +39,4 @@ python -V
 # done
 # done
 
-# while nvidia-smi | grep -q 'python'; do
-#     echo "GPU still in use. Checking again in 20 minutes..."
-#     sleep 1200  # wait 20 minutes
-# done
-
-# python src/main.py config_file=config.yml
-
-while true; do
-    count=$(nvidia-smi | grep -c python)
-    if [ "$count" -lt 4 ]; then
-        echo "GPU is idle with $count Python processes. Starting next script..."
-        pids=$(nvidia-smi | grep python | awk '{print $5}')
-        for pid in $pids; do
-            echo "Killing process with PID $pid"
-            kill -9 "$pid"
-        done
-
-        # Now start your script
-        echo "Starting benchmark evaluation script..."
-        python src/main.py config_file=config.yml
-        break
-    else
-        echo "GPU still busy with $count Python processes. Checking again in 20 minutes..."
-        sleep 1200
-    fi
-done
+python src/main.py config_file=config_train.yml

@@ -74,6 +74,6 @@ Below is the question and the corresponding answer options:
 </options>
 
 Thinking steps: 
-FIRST, provide a comprehensive summary of the patient's presentation.
-SECOND, analyze each of the provided answer options through a structured differential diagnosis.
-FINALLY, provide your final answer on a new line as 'Answer: <option letter>' by selecting the best option from the provided options."""
+Provide a comprehensive summary of the patient's presentation.
+Analyze each of the provided answer options through a structured differential diagnosis.
+Provide your final answer on a new line as 'Answer: <option letter>' by selecting the best option from the provided options."""

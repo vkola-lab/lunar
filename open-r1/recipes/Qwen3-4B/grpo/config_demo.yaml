@@ -40,8 +40,8 @@ num_train_epochs: 1
 output_dir: data/Qwen2.5-3B-etpr-cog-mci-park-Open-R1-GRPO
 overwrite_output_dir: true
 # per_device_eval_batch_size: 4
-per_device_train_batch_size: 4
-push_to_hub: true
+per_device_train_batch_size: 6
+push_to_hub: false
 hub_private_repo: true
 report_to:
 - wandb
@@ -58,10 +58,13 @@ save_total_limit: 100
 save_steps : 100
 output_dir : "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen3_4B_with_thinking"
 seed: 42
-temperature: 0.6
-top_p: 0.95
-top_k: 20
-min_p: 0
+# temperature: 0.6
+# top_p: 0.95
+# top_k: 20
+# min_p: 0
+
+temperature: 1.0
+top_p: 1.0
 warmup_ratio: 0.1
 scale_rewards: false
 loss_type: dr_grpo
