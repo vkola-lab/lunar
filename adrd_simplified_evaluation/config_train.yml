@@ -12,32 +12,11 @@ use_guided_decoding: false
 # so it's recommended to use outlines, even if it's slower
 guided_decoding_backend: 'outlines'
 
-# model name to be passed to vllm.LLM, it should be eithe a local path or a
-# huggingface path, make sure to set the environment variable HF_HOME to control
-# where the model weights will be stored 
-# model_name : "meta-llama/Meta-Llama-3.1-8B-Instruct"
-# model_name : "Qwen/Qwen2.5-3B-Instruct"
-# model_name : "Qwen/Qwen2.5-7B-Instruct"
-# model_name : "Qwen/Qwen2.5-14B-Instruct"
-# model_name : "Qwen/Qwen3-4B"
-# model_name: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen3_4B_with_thinking/checkpoint-1600"
-# model_name: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B/checkpoint-1600"
+# model name to be passed to vllm.LLM, it should be eithe a local path or a huggingface path, make sure to set the environment variable HF_HOME to control where the model weights will be stored 
 
 model_name:
   - 'Qwen/Qwen2.5-3B-Instruct'
-  # - '/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B/checkpoint-3753'
-  # - '/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B/checkpoint-1900'
-  # - 'Qwen/Qwen3-4B'
-  # - '/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen3_4B_with_thinking/checkpoint-1900'
-  # - 'Qwen/Qwen2.5-7B-Instruct'
 
-
-# model_name: "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
-# model_name: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen_3B_combined_test/checkpoint-900"
-# model_name: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen_3B_etpr_cog_mci_park_drgrpo/checkpoint-900"
-# model_name: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen_3B_etpr_cog_mci_park_drgrpo_summary_nocop/checkpoint-900"
-# model_name: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen_3B_etpr_cog_mci_park_drgrpo_summary_nocop/checkpoint-1416"
-# model_name: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen_3B_etpr_cog_mci_park_drgrpo_summary_nocop_bs_16/checkpoint-900"
 
 # Number of GPUs used. Passed to vllm.LLM.tensor_parallel_size notice that SCC
 # will only give us single nodes with multiple GPUs, so we never need to do
@@ -71,29 +50,16 @@ enable_chunked_prefill: true
 # LoRA
 enable_lora: false
 
-# system_prompt: "You are a helpful AI Assistant that provides well-reasoned and detailed responses. You first think about the reasoning process as an internal monologue and then provide the user with the answer. Respond in the following format: <think>\n...\n</think>\n<answer>\n...\n</answer>. Reply in English only, do not use other languages."
-# system_prompt: "You are a helpful AI Assistant that provides well-reasoned and detailed responses. You first think about the reasoning process as an internal monologue and then provide the user with the answer. Respond in the following format: <think>\n...\n</think>\n<answer>\n...\n</answer>, i.e., the reasoning process is enclosed within <think> </think> and the answer is enclosed within <answer> </answer> tags, respectively. Reply in English only, do not use other languages."
-# system_prompt: "You are Qwen, created by Alibaba Cloud. You are a helpful assistant."
 system_prompt: "You are a helpful AI assistant that provides well-reasoned and detailed responses. First, think through the reasoning process as an internal monologue, and then provide the user with the final answer. Respond using the following format: <think>\n...\n</think>\n<answer>\n...\n</answer>, i.e., the reasoning process should be enclosed within <think>...</think> tags, and the final answer within <answer>...</answer> tags. Reply in English only, do not use other languages."
 
 # sampling parameters
-# temperature: 0.6
-# min_p: 0 # minimum probability for a token to be considered, relative to most probable token. Set to 0 to disable
-# top_p: 0.95 # consider candidate tokens until the cumulative sum of their probabilities is top_p
-# top_k: 20
-
-# temperature: 0.7
-# min_p: 0 # minimum probability for a token to be considered, relative to most probable token. Set to 0 to disable
-# top_p: 0.8 # consider candidate tokens until the cumulative sum of their probabilities is top_p
-# top_k: 20
-
 temperature: 1.0
 min_p: 0 # minimum probability for a token to be considered, relative to most probable token. Set to 0 to disable
 top_p: 1.0 # consider candidate tokens until the cumulative sum of their probabilities is top_p
 # top_k: 20
 
 min_tokens: 0 # minimum number of tokens to generate
-max_new_tokens: 5000 # maximum number of tokens to generate
+max_new_tokens: 10000 # maximum number of tokens to generate
 # repetition_penalty: 1.0 # values larger than 1 discourage the use of tokens that have been already generated
 
 # read at most this many questions from the benchmark, so it's easy to run a subset
@@ -106,14 +72,4 @@ n: 8
 # a benchmark folder must contain an answer schema if running with guided decoding
 # the content of the benchmark should be in a JSONL file
 benchmarks:
-  # - 'benchmarks/adrd_cog_status'
-  # - 'benchmarks/adrd_neuropath'
-  # - 'benchmarks/adrd_cog_status_summary'
-  # - 'benchmarks/adrd_neuropath_summary'
-  
-  # - 'benchmarks/nacc_test/test_cog'
-  # - 'benchmarks/nacc_test/test_np'
-  # - 'benchmarks/nacc_test/test_etpr'
-  # - 'benchmarks/nacc_test/test_mci'
-
-  - 'benchmarks/nacc_train/train_invalid'
+  - 'benchmarks/nacc_train_new'

@@ -845,7 +845,7 @@ class GRPOTrainer(Trainer):
     @profiling_decorator
     def _get_per_token_logps(self, model, input_ids, attention_mask, logits_to_keep, batch_size=None) -> torch.Tensor:
         batch_size = batch_size or input_ids.size(0)  # Chunk inputs into smaller batches to reduce memory peak
-        all_logps = []
+        all_logps, all_logits = [], []
         for i in range(0, input_ids.size(0), batch_size):
             input_ids_batch = input_ids[i : i + batch_size]
             attention_mask_batch = attention_mask[i : i + batch_size]
@@ -864,7 +864,38 @@ class GRPOTrainer(Trainer):
             logits = logits / self.temperature
             logps = selective_log_softmax(logits, input_ids_batch)  # compute logprobs for the input tokens
             all_logps.append(logps)
-        return torch.cat(all_logps, dim=0)
+            all_logits.append(logits)
+        
+        return torch.cat(all_logps, dim=0), torch.cat(all_logits, dim=0)
+    
+    # @profiling_decorator
+    # def _get_completion_logits(
+    #         self,
+    #         model,
+    #         input_ids,
+    #         attention_mask,
+    #         logits_to_keep,
+    #         batch_size=None,
+    # ):
+    #     """Return the temperature-scaled logits for the last `logits_to_keep`
+    #     positions (i.e. the completion tokens).  Shape: (B, Lc, V)."""
+    #     batch_size = batch_size or input_ids.size(0)
+    #     out = []
+    #     for i in range(0, input_ids.size(0), batch_size):
+    #         ids_b   = input_ids[i : i + batch_size]
+    #         mask_b  = attention_mask[i : i + batch_size]
+
+    #         logits  = model(
+    #             input_ids=ids_b,
+    #             attention_mask=mask_b,
+    #             logits_to_keep=logits_to_keep + 1,   # keep one extra; drop it below
+    #         ).logits
+    #         logits  = logits[:, :-1, :]             # drop next-token slot
+    #         logits  = logits[:, -logits_to_keep:]   # keep only completion span
+    #         logits  = logits / self.temperature     # temperature scaling
+    #         out.append(logits)
+
+    #     return torch.cat(out, dim=0)
 
     def _sync_fsdp_params_to_vllm(self, module: nn.Module, prefix: str = "", visited=None):
         """Memory-efficient post-order traversal of FSDP modules to extract full parameters and sync with vLLM."""
@@ -1199,7 +1230,7 @@ class GRPOTrainer(Trainer):
             # When using num_iterations == 1, old_per_token_logps == per_token_logps, so we can skip its
             # computation here, and use per_token_logps.detach() instead.
             if self.num_iterations > 1:
-                old_per_token_logps = self._get_per_token_logps(
+                old_per_token_logps, _ = self._get_per_token_logps(
                     self.model, prompt_completion_ids, attention_mask, logits_to_keep, batch_size
                 )
             else:
@@ -1340,12 +1371,12 @@ class GRPOTrainer(Trainer):
         if self.beta != 0.0:
             with torch.no_grad():
                 if self.ref_model is not None:
-                    ref_per_token_logps = self._get_per_token_logps(
+                    ref_per_token_logps, _ = self._get_per_token_logps(
                         self.ref_model, input_ids, attention_mask, logits_to_keep
                     )
                 else:
                     with self.accelerator.unwrap_model(self.model).disable_adapter():
-                        ref_per_token_logps = self._get_per_token_logps(
+                        ref_per_token_logps, _ = self._get_per_token_logps(
                             self.model, input_ids, attention_mask, logits_to_keep
                         )
 
@@ -1373,6 +1404,9 @@ class GRPOTrainer(Trainer):
             self._metrics[mode]["kl"].append(self.accelerator.gather_for_metrics(mean_kl).mean().item())
         self._metrics[mode]["clip_ratio"].append(self.accelerator.gather_for_metrics(clip_ratio).mean().item())
         return loss
+    
+    
+
 
     @profiling_decorator
     def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
@@ -1393,18 +1427,18 @@ class GRPOTrainer(Trainer):
         attention_mask = torch.cat([prompt_mask, completion_mask], dim=1)
         logits_to_keep = completion_ids.size(1)  # we only need to compute the logits for the completion tokens
 
-        per_token_logps = self._get_per_token_logps(model, input_ids, attention_mask, logits_to_keep)
+        per_token_logps, completion_logits = self._get_per_token_logps(model, input_ids, attention_mask, logits_to_keep)
 
         # Compute the KL divergence between the model and the reference model
         if self.beta != 0.0:
             with torch.no_grad():
                 if self.ref_model is not None:
-                    ref_per_token_logps = self._get_per_token_logps(
+                    ref_per_token_logps, _ = self._get_per_token_logps(
                         self.ref_model, input_ids, attention_mask, logits_to_keep
                     )
                 else:
                     with self.accelerator.unwrap_model(self.model).disable_adapter():
-                        ref_per_token_logps = self._get_per_token_logps(
+                        ref_per_token_logps, _ = self._get_per_token_logps(
                             self.model, input_ids, attention_mask, logits_to_keep
                         )
             per_token_kl = (
@@ -1425,13 +1459,46 @@ class GRPOTrainer(Trainer):
             per_token_loss = per_token_loss + self.beta * per_token_kl
 
         if self.loss_type == "grpo":
-            loss = ((per_token_loss * completion_mask).sum(-1) / completion_mask.sum(-1).clamp(min=1.0)).mean()
+            pg_loss = ((per_token_loss * completion_mask).sum(-1) / completion_mask.sum(-1).clamp(min=1.0)).mean()
         elif self.loss_type == "bnpo":
-            loss = (per_token_loss * completion_mask).sum() / completion_mask.sum().clamp(min=1.0)
+            pg_loss = (per_token_loss * completion_mask).sum() / completion_mask.sum().clamp(min=1.0)
         elif self.loss_type == "dr_grpo":
-            loss = (per_token_loss * completion_mask).sum() / (per_token_loss.size(0) * self.max_completion_length)
+            pg_loss = (per_token_loss * completion_mask).sum() / (per_token_loss.size(0) * self.max_completion_length)
         else:
             raise ValueError(f"Unknown loss type: {self.loss_type}")
+        
+        if self.args.entropy_coeff != 0.0:
+            # ── 1. get full logits for the completion span ────────────────────────────
+            # logits = self._get_completion_logits(
+            #     model,                     # same model already used above
+            #     input_ids,
+            #     attention_mask,
+            #     logits_to_keep,
+            # )                              # (B, Lc, V)
+
+            # ── 2. full softmax  →  entropy  H_t = -∑ p log p ─────────────────────────
+            log_probs = torch.nn.functional.log_softmax(completion_logits, dim=-1)   # (B, Lc, V)
+            probs     = log_probs.exp()
+            per_tok_entropy = -(probs * log_probs).sum(-1)                # (B, Lc)
+
+            # ── 3. mask & average exactly as before ───────────────────────────────────
+            token_entropy = (
+                (per_tok_entropy * completion_mask).sum(-1)
+                / completion_mask.sum(-1).clamp(min=1.0)                  # (B,)
+            )
+
+            entropy_loss = -self.args.entropy_coeff * token_entropy.mean()
+
+            mode = "train" if self.model.training else "eval"
+            self._metrics[mode]["entropy"].append(
+                self.accelerator.gather_for_metrics(token_entropy.mean()).nanmean().item()
+            )
+        else:
+            entropy_loss = 0.0
+
+
+        # ------------------------------------------------------------------
+        loss = pg_loss + entropy_loss
 
         # Log the metrics
         mode = "train" if self.model.training else "eval"
@@ -1506,7 +1573,7 @@ class GRPOTrainer(Trainer):
                 if self.wandb_log_unique_prompts:
                     df = df.drop_duplicates(subset=["prompt"])
                 wandb.log({"completions": wandb.Table(dataframe=df)})
-                path = "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/logs/qwen25_3B_filtered_gp_16.csv"
+                path = "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/logs/qwen25_3B_filtered_corrected_entropy.csv"
                 write_header = not os.path.exists(path)
                 df.to_csv(path, mode='a', header=write_header, index=False)
         else:
@@ -1519,7 +1586,7 @@ class GRPOTrainer(Trainer):
                 **self._textual_logs["rewards"],
             }
             df = pd.DataFrame(table)
-            path = "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/logs/qwen25_3B_filtered_gp_16.csv"
+            path = "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/logs/qwen25_3B_filtered_corrected_entropy.csv"
             write_header = not os.path.exists(path)
             df.to_csv(path, mode='a', header=write_header, index=False)
 
@@ -1564,7 +1631,7 @@ class GRPOTrainer(Trainer):
                 eprint       = {arXiv:2402.03300},
             }
             """
-        )
+        ) 
 
         model_card = generate_model_card(
             base_model=base_model,

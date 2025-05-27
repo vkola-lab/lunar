@@ -15,21 +15,17 @@ llm_answer_extractor/
 ├── utils/                      # Utilities: config, data, prompts
 │   ├── config_loader.py
 │   ├── data_utils.py
-│   ├── prompts.py
-│   └── __init__.py
+│   └── prompts.py
 │
 ├── models/                     # LLM model interface + answer extractor
 │   ├── llm_interface.py
-│   ├── answer_extractor.py
-│   └── __init__.py
+│   └── answer_extractor.py
 │
 ├── pipeline/                   # Evaluation metrics and scoring
-│   ├── evaluator.py
-│   └── __init__.py
+│   └── evaluator.py
 │
 ├── plots/                      # Seaborn/Matplotlib visualization
-│   ├── plot_results.py
-│   └── __init__.py
+│   └── plot_results.py
 │
 └── outputs/
     └── np.pdf                  # Output plot comparing models

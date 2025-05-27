@@ -2,6 +2,15 @@
 
 from vllm import LLM, SamplingParams
 from transformers import AutoTokenizer
+import torch
+import gc
+import contextlib
+import ray
+
+from vllm.distributed.parallel_state import (
+    destroy_model_parallel,
+    destroy_distributed_environment,
+)
 
 
 class LLMWrapper:
@@ -39,3 +48,16 @@ class LLMWrapper:
             max_tokens=self.max_new_tokens,
         )
         return self.llm.generate(prompts=prompts, sampling_params=sampling_params)
+    
+    def destroy_instance(self):
+        # Delete LLM instance
+        destroy_model_parallel()
+        destroy_distributed_environment()
+        del self.llm.llm_engine.model_executor
+        del self.llm
+        with contextlib.suppress(AssertionError):
+            torch.distributed.destroy_process_group()
+        gc.collect()
+        torch.cuda.empty_cache()
+        ray.shutdown()
+        print("Successfully delete the llm pipeline and free the GPU memory.\n\n\n\n")

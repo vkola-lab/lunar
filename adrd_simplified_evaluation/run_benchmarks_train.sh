@@ -3,7 +3,7 @@
 # This script is set up so that you can either qsub it or run it interactively
 
 #$ -P vkolagrp
-#$ -l h_rt=48:00:00
+#$ -l h_rt=72:00:00
 #$ -pe omp 8
 #$ -l mem_per_core=2G
 #$ -l gpus=2
@@ -39,4 +39,24 @@ python -V
 # done
 # done
 
-python src/main.py config_file=config_train.yml
+
+
+while true; do
+    count=$(nvidia-smi | grep -c python)
+    if [ "$count" -lt 4 ]; then
+        echo "GPU is idle with $count Python processes. Starting next script..."
+        pids=$(nvidia-smi | grep python | awk '{print $5}')
+        for pid in $pids; do
+            echo "Killing process with PID $pid"
+            kill -9 "$pid"
+        done
+
+        # Now start your script
+        echo "Starting benchmark evaluation script..."
+        python src/main.py config_file=config_train.yml
+        break
+    else
+        echo "GPU still busy with $count Python processes. Checking again in 20 minutes..."
+        sleep 1200
+    fi
+done

@@ -27,6 +27,7 @@ from math_verify import LatexExtractionConfig, parse, verify
 
 from .utils import is_e2b_available
 from .utils.ioi import SubtaskResult, add_includes, get_piston_client_from_env, score_subtask
+from collections import Counter
 
 
 if is_e2b_available():
@@ -45,6 +46,32 @@ def extract_choice_description(choices_str: str, target_letter: str) -> str:
     pattern = rf"{target_letter.upper()}:\s*(.*?)(?=\n[A-Z]:|\Z)"
     match = re.search(pattern, choices_str, re.DOTALL)
     return match.group(1).strip() if match else ""
+
+def majority_voting_reward(completions, **kwargs) -> list[float]:
+    """Reward function that checks if the completion has the answer."""
+    
+    def extract_answer(text):
+        answer_match = re.search(r"<answer>(.*?)</answer>", text, re.DOTALL)
+        if not answer_match:
+            return None
+        word_match = re.search(r'Answer:\s*([A-Za-z])', answer_match.group(1).strip())
+        if not word_match:
+           return None
+        return word_match.group(1).strip().lower()
+    
+    contents = [completion[0]["content"] for completion in completions]
+    answers = [extract_answer(content) for content in contents]
+    
+    # Find the majority answer
+    counts = Counter(answers)
+    
+    majority_answer, _ = counts.most_common(1)[0]
+    
+    # Assign rewards : 1 if matches majority , else 0
+    rewards = [1.0 if ans == majority_answer else 0.0 for ans in answers]
+
+        
+    return rewards
 
 
 def correctness_reward(completions, ground_truth, options, **kwargs) -> list[float]:

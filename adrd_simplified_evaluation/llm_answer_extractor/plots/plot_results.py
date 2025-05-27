@@ -25,7 +25,8 @@ def plot_comparison(df_scores, out_path="np.pdf", benchmark="Neuropath"):
     ], ignore_index=True)
 
     # Palette setup
-    key_models = ['qwen3b', 'qwen7b', 'qwen14b', 'qwen32b', 'qwen72b']
+    # key_models = ['qwen3b', 'qwen7b', 'qwen14b', 'qwen32b', 'qwen72b'] 
+    key_models = [model for model in df_sorted['model'].unique() if "drgrpo" not in model]
     palette = {}
     yellow_shades = sns.color_palette("Reds", len(key_models))
     for model, color in zip(key_models, yellow_shades):
@@ -41,7 +42,7 @@ def plot_comparison(df_scores, out_path="np.pdf", benchmark="Neuropath"):
     ax = sns.barplot(data=df_sorted[df_sorted['model'] != 'clinician'],
                      x='metric', y='score', hue='model', palette=palette)
 
-    if benchmark == "Neuropath":
+    if 'neuropath' in benchmark.lower():
         # Clinician line
         clinician_df = df_sorted[df_sorted['model'] == 'clinician']
         for metric in clinician_df['metric'].unique():
@@ -49,12 +50,12 @@ def plot_comparison(df_scores, out_path="np.pdf", benchmark="Neuropath"):
             ax.axhline(y=clinician_score, linestyle='--', color='red', alpha=0.7, label='Clinician')
             break
 
-        for container in ax.containers:
-            ax.bar_label(container, fmt='%.3f', label_type='edge', fontsize=9)
+    for container in ax.containers:
+        ax.bar_label(container, fmt='%.3f', label_type='edge', fontsize=9)
 
     plt.ylim(0, 1.05)
     plt.ylabel("Score", fontsize=14)
-    plt.title("Model Comparison on Neuropath", fontsize=16)
+    plt.title(f"Model Comparison on {benchmark}", fontsize=16)
     plt.xlabel("Metric", fontsize=14)
     plt.xticks(fontsize=14)
     plt.yticks(fontsize=12)

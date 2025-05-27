@@ -17,11 +17,12 @@ from dataclasses import dataclass, field
 from typing import Optional
 
 import trl
+import grpo_config
 
 
 # TODO: add the shared options with a mixin to reduce code duplication
 @dataclass
-class GRPOConfig(trl.GRPOConfig):
+class GRPOConfig(grpo_config.GRPOConfig):
     """
     args for callbacks, benchmarks etc
     """

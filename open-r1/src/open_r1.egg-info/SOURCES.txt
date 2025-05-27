@@ -7,6 +7,7 @@ src/open_r1/configs.py
 src/open_r1/evaluate.py
 src/open_r1/generate.py
 src/open_r1/grpo.py
+src/open_r1/grpo_config.py
 src/open_r1/grpo_trainer.py
 src/open_r1/rewards.py
 src/open_r1/sft.py

@@ -1,29 +1,75 @@
 llm:
   # model_id: "Qwen/Qwen3-8B"
-  model_id: "Qwen/Qwen2.5-7B-Instruct"
+  model_id: "Qwen/Qwen2.5-14B-Instruct"
   n_devices: 1
   max_model_len: 10000
   max_new_tokens: 2048
 
 data:
   test_data_path: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/data/nacc/training_data/testing_data_grpo/test_summary.csv"
-  test_data_summary_path: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/data/nacc/training_data/testing_data_grpo/test_np.csv"
+  test_data_summary_path: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/data/nacc/training_data/testing_data_grpo/with_summary/test_np.csv"
 
+# OLD NEUROPATH
+# models:
+  # qwen3b: "../results_2/test_np/2025-05-14T120903_66b9abb12f994a55/test_np_output.jsonl"
+  # qwen7b: "../results_2/test_np/2025-05-14T190933_450d84c246d940ee/test_np_output.jsonl"
+  # qwen14b: "../results_2/test_np/2025-05-16T085535_96319dfb64984083/test_np_output.jsonl"
+  # qwen32b: "../results_2/test_np/2025-05-20T092347_8694a81cdd0a4829/test_np_output.jsonl"
+  # qwen72b: "../results_2/test_np/2025-05-20T121013_87ae3c19f4344f39/test_np_output.jsonl"
+  # qwen3b_drgrpo: "../results_2/test_np/2025-05-14T134203_7889dfbd9d2248b8/test_np_output.jsonl"
+  # qwen3b_drgrpo_selected: "../results_2/test_np/2025-05-14T161034_e68454cb1ec14c7c/test_np_output.jsonl"
+  # qwen3b_drgrpo_selected_cont: "../results_2/test_np/2025-05-14T173914_43e267892eff4a5a/test_np_output.jsonl"
+  # qwen3b_drgrpo_selected_gp_16: "../results_2/test_np/2025-05-20T175351_8381d30a907f4d7c/test_np_output.jsonl"
+  # qwen3b_drgrpo_selected_gp_16_cont: "../results_2/test_np/2025-05-21T090136_1c471526615f4b14/test_np_output.jsonl"
+  # qwen3b: "../train_results/nacc_train/2025-05-22T162006_b3c51b34bc944b06/nacc_train_output.jsonl"
+
+# NEUROPATH
 models:
-  qwen3b: "../results_2/test_np/2025-05-14T120903_66b9abb12f994a55/test_np_output.jsonl"
-  qwen7b: "../results_2/test_np/2025-05-14T190933_450d84c246d940ee/test_np_output.jsonl"
-  qwen14b: "../results_2/test_np/2025-05-16T085535_96319dfb64984083/test_np_output.jsonl"
-  qwen32b: "../results_2/test_np/2025-05-20T092347_8694a81cdd0a4829/test_np_output.jsonl"
-  qwen72b: "../results_2/test_np/2025-05-20T121013_87ae3c19f4344f39/test_np_output.jsonl"
-  qwen3b_drgrpo: "../results_2/test_np/2025-05-14T134203_7889dfbd9d2248b8/test_np_output.jsonl"
-  qwen3b_drgrpo_selected: "../results_2/test_np/2025-05-14T161034_e68454cb1ec14c7c/test_np_output.jsonl"
-  qwen3b_drgrpo_selected_cont: "../results_2/test_np/2025-05-14T173914_43e267892eff4a5a/test_np_output.jsonl"
-  qwen3b_drgrpo_selected_gp_16: "../results_2/test_np/2025-05-20T175351_8381d30a907f4d7c/test_np_output.jsonl"
+  qwen3b: "../results_3/test_np/2025-05-22T102606_e437f90d9d214379/test_np_output.jsonl"
+  qwen7b: "../results_3/test_np/2025-05-22T110515_2b125570ef924c24/test_np_output.jsonl"
+  qwen14b: "../results_3/test_np/2025-05-22T120010_dfcb71f07a7648bc/test_np_output.jsonl"
+  qwen32b: "../results_3/test_np/2025-05-22T140149_1e61b6d673c74246/test_np_output.jsonl"
+  qwen72b: "../results_3/test_np/2025-05-25T032216_477269aa42c94ed5/test_np_output.jsonl"
+  qwen3_4b: "../results_3/test_np/2025-05-22T192348_e628c7b6bf504593/test_np_output.jsonl"
+  qwen3_14b: "../results_3/test_np/2025-05-26T014758_0f6a1548a4a04c1f/test_np_output.jsonl"
+  qwen3_32b: "../results_3/test_np/2025-05-26T031125_7a5dc431d6ba4702/test_np_output.jsonl"
+  llama31_8b: "../results_3/test_np/2025-05-22T212141_45631bdbbb6748ab/test_np_output.jsonl"
+  # qwen3b_drgrpo: "../results_3/test_np/2025-05-23T153554_1c71e5f6fc5947d6/test_np_output.jsonl"
+  # qwen3b_drgrpo_filtered: "../results_3/test_np/2025-05-24T092028_943ef9ef6ff24e27/test_np_output.jsonl"
+  # qwen3b_drgrpo_filtered_cont: "../results_3/test_np/2025-05-24T154151_78ef39d9bf044af9/test_np_output.jsonl"
+  # qwen3b_drgrpo_no_KL: "../results_3/test_np/2025-05-26T013154_fadcfac71d954c1b/test_np_output.jsonl"
+  qwen3b_drgrpo_filtered_no_KL: "../results_3/test_np/2025-05-25T021511_e0c51e9a14254415/test_np_output.jsonl"
+  # qwen3b_drgrpo_filtered_cont_no_KL: "../results_3/test_np/2025-05-25T175332_be67acfaa528479a/test_np_output.jsonl"
+  qwen3b_drgrpo_filtered_entropy: "../results_3/test_np/2025-05-26T205405_f55530e4fc6b4248/test_np_output.jsonl"
+
+# models:
+#   qwen3b: "../results_4/test_np/2025-05-26T112515_6434787c338d4ab9/test_np_output.jsonl"
+#   qwen7b: "../results_4/test_np/2025-05-26T120253_542aeaf61f2a46da/test_np_output.jsonl"
+#   qwen3b_drgrpo_filtered: "../results_4/test_np/2025-05-26T125647_07f8b561d1a94c49/test_np_output.jsonl"
+#   qwen3b_drgrpo_filtered_no_KL: "../results_4/test_np/2025-05-26T133305_1def6aa64dff4d7a/test_np_output.jsonl"
+
+# ETPR
+# models:
+#   qwen3b: "../results_3/test_etpr/2025-05-24T164900_b271d4612335408d/test_etpr_output.jsonl"
+#   qwen7b: "../results_3/test_etpr/2025-05-24T183519_a68ed6568f5b471d/test_etpr_output.jsonl"
+#   qwen14b: "../results_3/test_etpr/2025-05-24T210316_2a2cc297abce4b37/test_etpr_output.jsonl"
+#   qwen32b: "../results_3/test_etpr/2025-05-25T020718_9cf8d9eab3704d51/test_etpr_output.jsonl"
+#   # qwen72b: "../results_3/test_etpr/2025-05-25T032216_477269aa42c94ed5/test_etpr_output.jsonl"
+#   qwen3_4b: "../results_3/test_etpr/2025-05-25T095718_4e93b4dff6a849f2/test_etpr_output.jsonl"
+#   # llama31_8b: "../results_3/test_etpr/2025-05-22T212141_45631bdbbb6748ab/test_etpr_output.jsonl"
+#   qwen3b_drgrpo: "../results_3/test_etpr/2025-05-25T135202_c7c79b179a8d4e7f/test_etpr_output.jsonl"
+#   qwen3b_drgrpo_filtered: "../results_3/test_etpr/2025-05-25T153833_5ca260c9137a4858/test_etpr_output.jsonl"
+#   qwen3b_drgrpo_filtered_cont: "../results_3/test_etpr/2025-05-25T174046_e52d4f40411c4c9c/test_etpr_output.jsonl"
+#   qwen3b_drgrpo_no_KL: "../results_3/test_etpr/2025-05-26T060336_6638b4bed3ac4647/test_etpr_output.jsonl"
+#   qwen3b_drgrpo_filtered_no_KL: "../results_3/test_etpr/2025-05-25T022525_bd4c951319ec41e1/test_etpr_output.jsonl"
+#   qwen3b_drgrpo_filtered_cont_no_KL: "../results_3/test_etpr/2025-05-26T053409_45d5a955c0f24e35/test_etpr_output.jsonl"
 
 metrics:
   k: 1
 
 output:
-  plot_path: "outputs/np.pdf"
+  plot_path: "outputs/np_corrected.pdf"
+  # plot_path: "outputs/etpr_corrected.pdf"
 
 benchmark: "Neuropath"
+# benchmark: "ETPR"

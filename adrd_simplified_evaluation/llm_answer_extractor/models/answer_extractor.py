@@ -26,15 +26,28 @@ class AnswerExtractor:
     def extract_with_tag(self, text):
         match = re.search(r'<answer>\n(Answer: )([a-zA-Z])\n</answer>', text, re.DOTALL)
         return match.group(2).strip().upper() if match else 'invalid'
+    
+    def extract_with_tag_qwen3(self, text):
+        match = re.search(r'</think>.*\s*(Answer: )([a-zA-Z]).*\s*', text, re.DOTALL)
+        return match.group(2).strip().upper() if match else 'invalid'
 
-    def generate_answer(self, answer_dicts):
-        messages = [
-            [
-                {"role": "system", "content": "You are Qwen, created by Alibaba Cloud. You are a helpful assistant."},
-                {"role": "user", "content": EXTRACT_ANSWER_PROMPT.format(
-                answer=d['answer'], question=d['question'], option=d['option'])}]
-            for d in answer_dicts
-        ]
+    def generate_answer(self, answer_dicts, name):
+        if 'qwen3' in name.lower() or 'llama' in name.lower():
+            messages = [
+                [
+                    # {"role": "system", "content": "You are Qwen, created by Alibaba Cloud. You are a helpful assistant."},
+                    {"role": "user", "content": EXTRACT_ANSWER_PROMPT.format(
+                    answer=d['answer'], question=d['question'], option=d['option'])}]
+                for d in answer_dicts
+            ]
+        else:
+            messages = [
+                [
+                    {"role": "system", "content": "You are Qwen, created by Alibaba Cloud. You are a helpful assistant."},
+                    {"role": "user", "content": EXTRACT_ANSWER_PROMPT.format(
+                    answer=d['answer'], question=d['question'], option=d['option'])}]
+                for d in answer_dicts
+            ]
         prompts = [
             self.tokenizer.apply_chat_template(
                 msg, add_generation_prompt=True, tokenize=False,
@@ -45,7 +58,7 @@ class AnswerExtractor:
         return [c.outputs[0].text for c in completions]
 
     def run(self, df, name, benchmark):
-        result_path = f"./extracted_results/{name}_{benchmark}.csv"
+        result_path = f"./extracted_results/{benchmark}/{name}_{benchmark}.csv"
         if os.path.exists(result_path):
             print(f"Results file exists. Loading from {result_path}")
             combined_df = pd.read_csv(result_path)
@@ -53,7 +66,10 @@ class AnswerExtractor:
             return combined_df
         
         print(f"Processing {name}")
-        df['prediction'] = df['generated_text'].apply(self.extract_with_tag)
+        if "qwen3" in name.lower():
+            df['prediction'] = df['generated_text'].apply(self.extract_with_tag_qwen3)
+        else:
+            df['prediction'] = df['generated_text'].apply(self.extract_with_tag)
         invalid_df = df[
             (df['prediction'] == 'invalid') | (~df['prediction'].isin(self.option_keys))
         ].copy().reset_index(drop=True)
@@ -68,7 +84,7 @@ class AnswerExtractor:
             } for _, row in invalid_df.iterrows()
         ]
 
-        extracted = self.generate_answer(answer_dicts)
+        extracted = self.generate_answer(answer_dicts, name)
         invalid_df['prediction'] = [self.extract_letter(x) for x in extracted]
 
         combined_df = pd.concat([valid_df, invalid_df], axis=0).sort_values(by='ID').reset_index(drop=True)
