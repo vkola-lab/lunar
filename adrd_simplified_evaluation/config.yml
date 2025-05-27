@@ -1,7 +1,8 @@
 # benchmarks results will be saved in this directory,
 # in a directory with a unique name. The output will be one JSONL file per
 # benchmark, with filename [benchmarkname]_output.jsonl
-results_dir: 'results_2'
+results_dir: 'results_3'
+# results_dir: 'keep_busy'
 
 # Use guided decoding? If true, we expect an answer_schema.json file in the benchmark directory
 use_guided_decoding: false
@@ -15,28 +16,22 @@ guided_decoding_backend: 'outlines'
 # model name to be passed to vllm.LLM, it should be eithe a local path or a
 # huggingface path, make sure to set the environment variable HF_HOME to control
 # where the model weights will be stored 
-# model_name : "meta-llama/Meta-Llama-3.1-8B-Instruct"
-# model_name : "Qwen/Qwen2.5-3B-Instruct"
-# model_name : "Qwen/Qwen2.5-7B-Instruct"
-# model_name : "Qwen/Qwen2.5-14B-Instruct"
-# model_name : "Qwen/Qwen3-4B"
-# model_name: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen3_4B_with_thinking/checkpoint-1600"
-# model_name: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B/checkpoint-1600"
-
 model_name:
+  - '/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered_corrected_entropy/checkpoint-5202'
   # - 'Qwen/Qwen2.5-3B-Instruct'
-  - 'Qwen/Qwen2.5-32B-Instruct'
-  - 'Qwen/Qwen2.5-72B-Instruct'
-  - '/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered_gp_16/checkpoint-4545'
-  - 'Qwen/Qwen3-30B-A3B'
-
-
-# model_name: "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
-# model_name: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen_3B_combined_test/checkpoint-900"
-# model_name: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen_3B_etpr_cog_mci_park_drgrpo/checkpoint-900"
-# model_name: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen_3B_etpr_cog_mci_park_drgrpo_summary_nocop/checkpoint-900"
-# model_name: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen_3B_etpr_cog_mci_park_drgrpo_summary_nocop/checkpoint-1416"
-# model_name: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen_3B_etpr_cog_mci_park_drgrpo_summary_nocop_bs_16/checkpoint-900"
+  # - 'Qwen/Qwen2.5-7B-Instruct'
+  # - 'Qwen/Qwen2.5-14B-Instruct'
+  # - 'Qwen/Qwen2.5-32B-Instruct'
+  # - 'Qwen/Qwen2.5-72B-Instruct'
+  # - 'Qwen/Qwen3-14B'
+  # - 'Qwen/Qwen3-32B'
+  # - 'meta-llama/Meta-Llama-3.1-8B-Instruct'
+  # - '/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_corrected/checkpoint-3711'
+  # - '/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered_corrected/checkpoint-2601'
+  # - '/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered_cont_corrected/checkpoint-791'
+  # - '/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered_no_kl_corrected/checkpoint-2601'
+  # - '/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered_cont_no_kl_corrected/checkpoint-791'
+  # - '/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_no_kl_corrected/checkpoint-3711'
 
 # Number of GPUs used. Passed to vllm.LLM.tensor_parallel_size notice that SCC
 # will only give us single nodes with multiple GPUs, so we never need to do
@@ -73,7 +68,7 @@ enable_lora: false
 # system_prompt: "You are a helpful AI Assistant that provides well-reasoned and detailed responses. You first think about the reasoning process as an internal monologue and then provide the user with the answer. Respond in the following format: <think>\n...\n</think>\n<answer>\n...\n</answer>. Reply in English only, do not use other languages."
 # system_prompt: "You are a helpful AI Assistant that provides well-reasoned and detailed responses. You first think about the reasoning process as an internal monologue and then provide the user with the answer. Respond in the following format: <think>\n...\n</think>\n<answer>\n...\n</answer>, i.e., the reasoning process is enclosed within <think> </think> and the answer is enclosed within <answer> </answer> tags, respectively. Reply in English only, do not use other languages."
 # system_prompt: "You are Qwen, created by Alibaba Cloud. You are a helpful assistant."
-system_prompt: "You are a helpful AI assistant that provides well-reasoned and detailed responses. First, think through the reasoning process as an internal monologue, and then provide the user with the final answer. Respond using the following format: <think>\n...\n</think>\n<answer>\n...\n</answer>, i.e., the reasoning process should be enclosed within <think>...</think> tags, and the final answer within <answer>...</answer> tags. Reply in English only, do not use other languages."
+system_prompt: "You are a helpful AI assistant that provides well-reasoned and detailed responses. First, think step by step through the reasoning process as an internal monologue, and then provide the user with the final answer. Respond using the following format: <think>\n...\n</think>\n<answer>\n...\n</answer>, i.e., the reasoning process should be enclosed within <think>...</think> tags, and the final answer within <answer>...</answer> tags. Reply in English only, do not use other languages."
 
 # sampling parameters
 # temperature: 0.6
@@ -105,12 +100,7 @@ n: 10
 # a benchmark folder must contain an answer schema if running with guided decoding
 # the content of the benchmark should be in a JSONL file
 benchmarks:
-  # - 'benchmarks/adrd_cog_status'
-  # - 'benchmarks/adrd_neuropath'
-  # - 'benchmarks/adrd_cog_status_summary'
-  # - 'benchmarks/adrd_neuropath_summary'
-  
-  # - 'benchmarks/nacc_test/test_cog'
   - 'benchmarks/nacc_test/test_np'
-  # - 'benchmarks/nacc_test/test_etpr'
+  - 'benchmarks/nacc_test/test_etpr'
+  # - 'benchmarks/nacc_test/test_cog'
   # - 'benchmarks/nacc_test/test_mci'

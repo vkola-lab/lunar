@@ -9,7 +9,7 @@ class Evaluator:
         self.model_dfs = model_dfs
         self.k = k
         self.modified = {name: self._modify(df) for name, df in model_dfs.items()}
-        self.n = len(self.modified['clinician'])
+        self.n = len(self.modified['qwen3b']['ID'].unique())
 
     def _modify(self, df):
         df_mod = df[['prediction', 'ground_truth', 'ID']].copy()
@@ -39,5 +39,6 @@ class Evaluator:
         final_dict = {'metric': ['pass@1', 'cons@k']}
         for name, df in self.modified.items():
             p = len(df) // self.n
+            print(p)
             final_dict[name] = [self._pass_at_k(df, p, self.k), self._cons_at_k(df)]
         return pd.DataFrame(final_dict)

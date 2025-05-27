@@ -1,26 +1,20 @@
 # Model arguments
-# model_name_or_path: Qwen/Qwen2.5-3B-Instruct
-model_name_or_path: /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered_gp_16/checkpoint-4545
-# model_name_or_path: /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_with_wait/checkpoint-2272
-# model_name_or_path: /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered/checkpoint-2272
-# model_name_or_path: /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_with_wait_okay/checkpoint-2272
+model_name_or_path: Qwen/Qwen2.5-3B-Instruct
+# model_name_or_path: /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered_corrected/checkpoint-2601
+# model_name_or_path: /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered_no_kl_corrected/checkpoint-2601
 model_revision: main
 torch_dtype: bfloat16
 attn_implementation: flash_attention_2
 
 # Data training arguments
 # We edit the DeepSeek chat template to ensure (a) the reasoning block within <think> and </think> is included in the completion and (b) the <think> tag is not part of the prefill so that the format reward works
-# dataset_name: /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/data/grpo/test_data_combined.csv
-# dataset_name: /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/data/final/nacc/train_with_summary/qwen3_14B_etpr_cog_mci_park_nocop_corrected.csv
 # dataset_name: /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/data/nacc/training_data/training_data_grpo/train_summary.csv
-# dataset_name: /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/data/nacc/training_data/select_train_cases/train_selected.csv
-dataset_name: /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/data/nacc/training_data/select_train_cases/all_incorrect.csv
+dataset_name: /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/data/nacc/training_data/select_train_cases/train_selected.csv
+# dataset_name: /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/data/nacc/training_data/select_train_cases/all_incorrect.csv
 
 # system_prompt: "You are a helpful AI Assistant that provides well-reasoned and detailed responses. You first think about the reasoning process as an internal monologue and then provide the user with the answer. Respond in the following format: <think>\n...\n</think>\n<answer>\n...\n</answer>, i.e., the reasoning process is enclosed within <think> </think> and the answer is enclosed within <answer> </answer> tags, respectively. Reply in English only, do not use other languages."
 
-system_prompt: "You are a helpful AI assistant that provides well-reasoned and detailed responses. First, think through the reasoning process as an internal monologue, and then provide the user with the final answer. Respond using the following format: <think>\n...\n</think>\n<answer>\n...\n</answer>, i.e., the reasoning process should be enclosed within <think>...</think> tags, and the final answer within <answer>...</answer> tags. Reply in English only, do not use other languages."
-
-# system_prompt: "You are a helpful AI assistant that provides well-reasoned and detailed responses. First, think step by step through the reasoning process as an internal monologue, and then provide the user with the final answer. Respond using the following format: <think>\n...\n</think>\n<answer>\n...\n</answer>, i.e., the reasoning process should be enclosed within <think>...</think> tags, and the final answer within <answer>...</answer> tags. Reply in English only, do not use other languages."
+system_prompt: "You are a helpful AI assistant that provides well-reasoned and detailed responses. First, think step by step through the reasoning process as an internal monologue, and then provide the user with the final answer. Respond using the following format: <think>\n...\n</think>\n<answer>\n...\n</answer>, i.e., the reasoning process should be enclosed within <think>...</think> tags, and the final answer within <answer>...</answer> tags. Reply in English only, do not use other languages."
 
 # GRPO trainer config
 bf16: true
@@ -35,7 +29,9 @@ use_reentrant: false
 hub_model_id: Qwen25-3B-filtered-Open-R1-GRPO
 hub_strategy: every_save
 learning_rate: 1.0e-06
-# beta: 0.0
+beta: 0.001
+entropy_coeff: 0.00001
+weight_decay: 0.01
 log_completions: false
 log_level: info
 logging_first_step: true
@@ -44,16 +40,16 @@ logging_strategy: steps
 # wandb_log_unique_prompts: true
 optim : "adamw_torch"
 lr_scheduler_type : "cosine"
-max_prompt_length: 2000
-max_completion_length: 3000
+max_prompt_length: 2500
+max_completion_length: 6000
 # max_completion_length: 8192
 max_steps: -1
-num_generations: 16
+num_generations: 8
 num_train_epochs: 1
 output_dir: data/Qwen2.5-3B-filtered-Open-R1-GRPO
 overwrite_output_dir: true
 # per_device_eval_batch_size: 4
-per_device_train_batch_size: 8
+per_device_train_batch_size: 4
 push_to_hub: false
 hub_private_repo: true
 report_to:
@@ -69,9 +65,7 @@ reward_weights:
 save_strategy: "steps"
 save_total_limit: 100
 save_steps : 100
-output_dir : "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered_gp_16_continued"
-# output_dir: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_only_incorrect"
-# output_dir: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_with_wait_okay_continued"
+output_dir : "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered_corrected_entropy"
 seed: 42
 # temperature: 0.7
 # top_p: 0.8

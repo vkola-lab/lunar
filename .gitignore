@@ -47,3 +47,5 @@ results_1/
 results_2/
 extracted_results/
 train_results/
+*results*/
+np_corrected_1.pdf

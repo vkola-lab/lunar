@@ -16,6 +16,6 @@ cd /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1
 export HF_HOME=/projectnb/vkolagrp/skowshik/.cache/
 export WANDB_CACHE_DIR=/projectnb/vkolagrp/skowshik/.cache/
 
-# CUDA_VISIBLE_DEVICES=0 trl vllm-serve --model Qwen/Qwen2.5-3B-Instruct
-CUDA_VISIBLE_DEVICES=0 trl vllm-serve --model /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered_gp_16/checkpoint-4545
-# CUDA_VISIBLE_DEVICES=0 trl vllm-serve --model Qwen/Qwen2.5-7B-Instruct
+CUDA_VISIBLE_DEVICES=0 trl vllm-serve --model Qwen/Qwen2.5-3B-Instruct
+# CUDA_VISIBLE_DEVICES=0 trl vllm-serve --model /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered_no_kl_corrected/checkpoint-2601 
+# CUDA_VISIBLE_DEVICES=0 trl vllm-serve --model /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered_corrected/checkpoint-2601

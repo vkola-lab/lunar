@@ -3,10 +3,10 @@
 # This script is set up so that you can either qsub it or run it interactively
 
 #$ -P vkolagrp
-#$ -l h_rt=48:00:00
+#$ -l h_rt=4:00:00
 #$ -pe omp 8
 #$ -l mem_per_core=2G
-#$ -l gpus=2
+#$ -l gpus=1
 # GPU capability, must be at least 8 for this project
 #$ -l gpu_c=8
 # We can in theory request a minimum amount of GPU memory, but setting
