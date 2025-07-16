@@ -19,13 +19,12 @@ def plot_comparison(df_scores, out_path="np.pdf", benchmark="Neuropath"):
     df_sorted = pd.concat([
         pd.concat([
             df_long[(df_long["model"] == model) & (df_long["metric"] == "pass@1")],
-            df_long[(df_long["model"] == model) & (df_long["metric"] == "cons@k")]
+            # df_long[(df_long["model"] == model) & (df_long["metric"] == "cons@k")]
         ])
         for model in sorted_models
     ], ignore_index=True)
 
     # Palette setup
-    # key_models = ['qwen3b', 'qwen7b', 'qwen14b', 'qwen32b', 'qwen72b'] 
     key_models = [model for model in df_sorted['model'].unique() if "drgrpo" not in model]
     palette = {}
     yellow_shades = sns.color_palette("Reds", len(key_models))
@@ -51,15 +50,15 @@ def plot_comparison(df_scores, out_path="np.pdf", benchmark="Neuropath"):
             break
 
     for container in ax.containers:
-        ax.bar_label(container, fmt='%.3f', label_type='edge', fontsize=9)
+        ax.bar_label(container, fmt='%.3f', label_type='edge', fontsize=10)
 
     plt.ylim(0, 1.05)
-    plt.ylabel("Score", fontsize=14)
-    plt.title(f"Model Comparison on {benchmark}", fontsize=16)
-    plt.xlabel("Metric", fontsize=14)
-    plt.xticks(fontsize=14)
-    plt.yticks(fontsize=12)
-    plt.legend(title='Model', loc='upper left', bbox_to_anchor=(-0.4, 1.15), frameon=False, fontsize=12, title_fontsize=13)
+    plt.ylabel("Score", fontsize=18)
+    plt.title(f"Model Comparison on {benchmark}", fontsize=20)
+    plt.xlabel("Metric", fontsize=18)
+    plt.xticks(fontsize=18)
+    plt.yticks(fontsize=18)
+    plt.legend(title='Model', loc='upper left', bbox_to_anchor=(-0.4, 1.15), frameon=False, fontsize=14, title_fontsize=16)
     plt.grid(axis='y', linestyle='--', alpha=0.6)
     plt.tight_layout()
     plt.savefig(out_path, format='pdf', bbox_inches='tight', dpi=300)

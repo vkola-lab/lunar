@@ -25,11 +25,11 @@ wandb/
 results/
 save_folder/
 __pycache__/
-logs/
+*logs*/
 wandb/
 
 # Checkpoint
-ckpt/
+*ckpt*/
 llama3-8b-adrd/
 *.pth
 results/
@@ -41,6 +41,17 @@ test.ipynb
 phi4.ipynb
 example_response.txt
 neurology_benchmark_prepare.ipynb
+create_grpo_training_data_without_shuffle.ipynb
+create_grpo_training_data_to_correct.ipynb
+create_grpo_rare_np_testing_data.ipynb
+nacc_qc_without_shuffle.ipynb
+grpo_config_old.py
+grpo_trainer_old.py
+correct_ftd.ipynb
+old_scripts/
+*old*/
+process_ppmi_data.ipynb
+prepare_ppmi_shreyas.ipynb
 
 # results
 results_1/
@@ -49,3 +60,9 @@ extracted_results/
 train_results/
 *results*/
 np_corrected_1.pdf
+
+# other
+verl/
+generate_patient_summary_ray.py
+check_ray.ipynb
+check_tensor.ipynb

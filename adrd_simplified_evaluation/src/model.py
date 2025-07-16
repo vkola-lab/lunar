@@ -12,7 +12,6 @@ from vllm.lora.request import LoRARequest
 from vllm import LLM, SamplingParams
 from pathlib import Path
 from tqdm import tqdm
-from transformers import AutoTokenizer
 from vllm.distributed.parallel_state import (
     destroy_model_parallel,
     destroy_distributed_environment,
@@ -86,65 +85,32 @@ def make_prompts_from_template(problems, config, model_id):
     # problems is a list of dicts, one dict per problem
     # we expect them to have at least the 'question' and 'options' keys
 
-    prompts = []
+    messages = []
 
     print("Generating prompts:")
-
-    tokenizer = AutoTokenizer.from_pretrained(model_id)
 
     for problem in tqdm(problems):
         
         # print(problem)
-
-        # prompt = prompt_template.TEMPLATE.format(patient_summary=problem["patient_summary"], question=problem["question"], options=problem['options'])
-        
-        prompt = prompt_template.TEMPLATE.format(patient=problem["visit_summary"], question=problem["question"], options=problem['options'])
-        # prompt = prompt_template.TEMPLATE.format(patient_summary=problem["visit_summary"], question=problem["question"])
-
-        # for key in problem: # replace all placeholders
-        #     print(key)
-        #     if f"{{{key}}}" in prompt:
-        #         prompt = prompt.format(key=key)
-        #     print(prompt)
-
-        # turn options from a dictionary into a bullet list
-        # options_list = "\n".join(
-        #     ["- " + k + ": " + v for k, v in problem["options"].items()]
-        # )
-        # prompt = prompt.replace("{{options}}", options_list)
+        if 'sft' in model_id.lower():
+            prompt = prompt_template.SFT_TEMPLATE.format(patient=problem["visit_summary"], question=problem["question"], options=problem['options'])
+        else:
+            prompt = prompt_template.TEMPLATE.format(patient=problem["visit_summary"], question=problem["question"], options=problem['options'])
         
         
-        if 'qwen3' in model_id.lower():
+        if 'qwen3' in model_id.lower() or 'sft' in model_id.lower():
             message = [
                 {"role": "user", "content": prompt}
             ]
-            text = tokenizer.apply_chat_template(
-                message,
-                tokenize=False,
-                add_generation_prompt=True,
-                enable_lora=config.enable_lora,
-                enable_thinking=True
-            )
         else:
             message = [
                 {"role": "system", "content": config.system_prompt},
                 {"role": "user", "content": prompt},
-                # {"role": "assistant", "content": "<think>\nOkay"},
             ]
-
-            text = tokenizer.apply_chat_template(
-                message,
-                tokenize=False,
-                add_generation_prompt=True,
-                enable_lora=config.enable_lora,
-                # continue_final_message=True,
-            )
-        # print(text)
-        # raise ValueError
         
-        prompts.append(text)
+        messages.append(message)
     
-    return prompts
+    return messages
 
 
 def run_benchmark(llm, benchmark_path, config, model_id):
@@ -163,10 +129,7 @@ def run_benchmark(llm, benchmark_path, config, model_id):
     # we expect each problem to have a a 'question', 'options', and 'answer' keys, should that be configurable?
     problems = load_problems(benchmark_path, config)
 
-    # with open(benchmark_path / "prompt_template.txt") as f:
-    #     prompt_template = f.read()
-
-    prompts = make_prompts_from_template(problems, config, model_id)
+    messages = make_prompts_from_template(problems, config, model_id)
 
     if config.enable_lora:
         lora_request = LoRARequest("adapter", 1, config.lora_path)
@@ -174,11 +137,12 @@ def run_benchmark(llm, benchmark_path, config, model_id):
         lora_request = None
 
     print("Processing prompts... ")
-    outputs = llm.generate(
-        prompts, sampling_params, lora_request=lora_request
+    outputs = llm.chat(
+        messages, 
+        sampling_params,
+        lora_request=lora_request,
+        # chat_template_kwargs={"enable_thinking": False},  # Set to False to strictly disable thinking
     )
-    # print(outputs)
-    # problems = [p for problem in problems for p in [problem] * config.n]
 
     return problems, outputs
 

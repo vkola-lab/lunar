@@ -3,10 +3,10 @@
 # This script is set up so that you can either qsub it or run it interactively
 
 #$ -P vkolagrp
-#$ -l h_rt=4:00:00
+#$ -l h_rt=8:00:00
 #$ -pe omp 8
 #$ -l mem_per_core=2G
-#$ -l gpus=1
+#$ -l gpus=2
 # GPU capability, must be at least 8 for this project
 #$ -l gpu_c=8
 # We can in theory request a minimum amount of GPU memory, but setting
@@ -27,7 +27,8 @@ export VLLM_SKIP_P2P_CHECK=1
 # export CUDA_LAUNCH_BLOCKING=1 
 
 cd /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/adrd_simplified_evaluation
-conda activate /projectnb/vkolagrp/projects/adrd_foundation_model/envs/fmadrd
+# conda activate /projectnb/vkolagrp/projects/adrd_foundation_model/envs/fmadrd
+conda activate /projectnb/vkolagrp/skowshik/conda_envs/vllm_env
 
 # source venv/bin/activate
 
@@ -57,11 +58,25 @@ while true; do
         done
 
         # Now start your script
-        echo "Starting benchmark evaluation script..."
-        python src/main.py config_file=config.yml
+        # echo "Starting benchmark evaluation script..."
+        # python src/main.py config_file=config.yml
+
+        python src/main.py config_file=config.yml  \
+        model_name='["/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt_sft/qwen25_3B_sft_with_eval"]' \
+        benchmarks='["benchmarks/nacc_test/test_cog", "benchmarks/nacc_test/test_mci"]'
+
+        # python src/main.py config_file=config.yml  \
+        # model_name='["Qwen/Qwen2.5-14B-Instruct"]' \
+        # benchmarks='["benchmarks/nacc_test/test_np", "benchmarks/nacc_test/test_etpr", "benchmarks/nacc_test/test_cog", "benchmarks/nacc_test/test_mci"]'
+
         break
     else
         echo "GPU still busy with $count Python processes. Checking again in 20 minutes..."
         sleep 1200
     fi
 done
+
+
+# echo "Starting benchmark evaluation script..."
+# python src/main.py config_file=config.yml
+

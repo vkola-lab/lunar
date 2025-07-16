@@ -89,11 +89,8 @@ def print_parameters(model):
     )
     
 def get_template(train_type):
-    if train_type == "mri":
-        template = MRI_TEMPLATE
-        
-    elif train_type == "text":
-        template = TEXT_TEMPLATE
+    if train_type == "sft":
+        template = SFT_TEMPLATE
     
     elif train_type == "grpo":
         template = GRPO_TEMPLATE

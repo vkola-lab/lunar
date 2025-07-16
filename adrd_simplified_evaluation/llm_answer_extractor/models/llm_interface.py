@@ -40,20 +40,26 @@ class LLMWrapper:
             tokenizer.pad_token = tokenizer.eos_token
         return tokenizer
 
-    def generate(self, prompts, temperature=0.7, top_p=0.8, top_k=20):
+    def generate(self, messages, temperature=0.7, top_p=0.8, top_k=20):
         sampling_params = SamplingParams(
             temperature=temperature,
             top_p=top_p,
             top_k=top_k,
             max_tokens=self.max_new_tokens,
         )
-        return self.llm.generate(prompts=prompts, sampling_params=sampling_params)
+        
+        completions = self.llm.chat(
+            messages, 
+            sampling_params,
+            chat_template_kwargs={"enable_thinking": False},  # Set to False to strictly disable thinking
+        )
+        return completions
     
     def destroy_instance(self):
         # Delete LLM instance
         destroy_model_parallel()
         destroy_distributed_environment()
-        del self.llm.llm_engine.model_executor
+        # del self.llm.llm_engine.model_executor
         del self.llm
         with contextlib.suppress(AssertionError):
             torch.distributed.destroy_process_group()

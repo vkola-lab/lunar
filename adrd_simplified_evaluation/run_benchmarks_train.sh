@@ -3,7 +3,7 @@
 # This script is set up so that you can either qsub it or run it interactively
 
 #$ -P vkolagrp
-#$ -l h_rt=72:00:00
+#$ -l h_rt=24:00:00
 #$ -pe omp 8
 #$ -l mem_per_core=2G
 #$ -l gpus=2
@@ -27,7 +27,7 @@ export VLLM_SKIP_P2P_CHECK=1
 # export CUDA_LAUNCH_BLOCKING=1 
 
 cd /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/adrd_simplified_evaluation
-conda activate /projectnb/vkolagrp/projects/adrd_foundation_model/envs/fmadrd
+conda activate /projectnb/vkolagrp/skowshik/conda_envs/vllm_env
 
 # source venv/bin/activate
 
@@ -60,3 +60,6 @@ while true; do
         sleep 1200
     fi
 done
+
+# echo "Starting benchmark evaluation script..."
+# python src/main.py config_file=config_train.yml

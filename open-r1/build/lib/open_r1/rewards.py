@@ -21,13 +21,14 @@ import math
 import re
 from functools import partial, update_wrapper
 from typing import Callable, Dict
+import random
 
 from latex2sympy2_extended import NormalizationConfig
 from math_verify import LatexExtractionConfig, parse, verify
 
 from .utils import is_e2b_available
 from .utils.ioi import SubtaskResult, add_includes, get_piston_client_from_env, score_subtask
-from collections import Counter
+from collections import Counter, defaultdict
 
 
 if is_e2b_available():
@@ -47,61 +48,268 @@ def extract_choice_description(choices_str: str, target_letter: str) -> str:
     match = re.search(pattern, choices_str, re.DOTALL)
     return match.group(1).strip() if match else ""
 
-def majority_voting_reward(completions, **kwargs) -> list[float]:
+
+# def correctness_reward(completions, ground_truth, options, ID, return_answers=False, **kwargs) -> list[float]:
+#     """Reward function that checks if the completion has the answer."""
+    
+#     def extract_answer(text):
+#         answer_match = re.search(r'<answer>\n(Answer:\s*)([a-zA-Z])\n</answer>', text, re.DOTALL)
+#         if not answer_match:
+#             return None
+#         return answer_match.group(2).strip().lower()
+
+#     # Extract answers
+#     contents = [completion[0]["content"] for completion in completions]
+#     answers = [extract_answer(content) for content in contents]
+    
+#     rewards = [
+#         1.0 if ans == gt.lower() else 0.0 
+#         for ans, gt in zip(answers, ground_truth)
+#     ]
+    
+#     if return_answers:
+#         return rewards, answers
+        
+#     return rewards
+
+def correctness_reward(completions, ground_truth, return_answers=False, **kwargs) -> list[float]:
     """Reward function that checks if the completion has the answer."""
     
     def extract_answer(text):
-        answer_match = re.search(r"<answer>(.*?)</answer>", text, re.DOTALL)
-        if not answer_match:
+        boxed_match = re.search(r'<answer>.*\\boxed{(.*?)}.*</answer>', text, re.DOTALL)
+        if not boxed_match:
             return None
-        word_match = re.search(r'Answer:\s*([A-Za-z])', answer_match.group(1).strip())
-        if not word_match:
-           return None
-        return word_match.group(1).strip().lower()
-    
+        return boxed_match.group(1).strip().lower()
+
+    # Extract answers
     contents = [completion[0]["content"] for completion in completions]
     answers = [extract_answer(content) for content in contents]
     
-    # Find the majority answer
-    counts = Counter(answers)
+    rewards = [
+        1.0 if ans == gt.lower() else 0.0 
+        for ans, gt in zip(answers, ground_truth)
+    ]
     
-    majority_answer, _ = counts.most_common(1)[0]
-    
-    # Assign rewards : 1 if matches majority , else 0
-    rewards = [1.0 if ans == majority_answer else 0.0 for ans in answers]
-
+    if return_answers:
+        return rewards, answers
         
     return rewards
 
 
-def correctness_reward(completions, ground_truth, options, **kwargs) -> list[float]:
-    """Reward function that checks if the completion has the answer."""
-    
-    contents = [completion[0]["content"] for completion in completions]
-    # Reward 1 if the content is the same as the ground truth, 0 otherwise
+def majority_voting_reward(completions, ID, **kwargs) -> list[float]:
+    """Reward function that checks if each completion has the majority-voted answer in its own ID group."""
 
-    rewards = []
-    for i, (c, gt) in enumerate(zip(contents, ground_truth)):
-        # gt_desc = extract_choice_description(options[i], gt)
-        
-        answer_match = re.search(r"<answer>(.*?)</answer>", c, re.DOTALL)
-        
+    def extract_answer(text):
+        answer_match = re.search(r'<answer>\n(Answer:\s*)([a-zA-Z])\n</answer>', text, re.DOTALL)
         if not answer_match:
-            rewards.append(0.0)
-            continue
-            
-        # letter_match = re.search(r'Answer:\s*([A-Za-z])\s+', answer_match.group(1).strip())
-        word_match = re.search(r'Answer:\s*([A-Za-z])', answer_match.group(1).strip())
+            return None
+        return answer_match.group(2).strip().lower()
+
+    # Extract answers
+    contents = [completion[0]["content"] for completion in completions]
+    answers = [extract_answer(content) for content in contents]
+
+    # Group answers by ID
+    id_to_answers = defaultdict(list)
+    for idx, id_val in enumerate(ID):
+        id_to_answers[id_val].append(answers[idx])
         
-        if word_match and word_match.group(1).strip().lower() == gt.lower():
-            rewards.append(1.0)
-        # elif word_match and word_match.group(1).lower() == gt_desc.lower():
-        #     rewards.append(0.5)
-        else:
-            rewards.append(0.0)
+    print(id_to_answers)
+
+    # Compute majority answer per ID
+    id_to_majority = {}
+    for id_val, group_answers in id_to_answers.items():
+        filtered_group_answers = [ans for ans in group_answers if ans is not None]
+        counts = Counter(filtered_group_answers)
+        majority_answer, _ = counts.most_common(1)[0]
+        id_to_majority[id_val] = majority_answer
+        
+    print(id_to_majority)
+
+    # Assign rewards based on each completion's ID group majority
+    rewards = [
+        1.0 if ans == id_to_majority[id_val].lower() else 0.0
+        for ans, id_val in zip(answers, ID)
+    ]
+    
+    return rewards
+
+def hybrid_reward(completions, ground_truth, options, ID, **kwargs) -> list[float]:
+    """Hybrid reward: if all answers for an ID are wrong, pick one randomly to have reward 1; else use correctness."""
+    
+    # Compute correctness rewards
+    correctness_rewards, extracted_answers = correctness_reward(completions, ground_truth, options, ID, return_answers=True)
+
+    # Group correctness rewards by ID
+    id_to_correctness = defaultdict(list)
+    id_to_answers = defaultdict(list)
+    id_to_indices = defaultdict(list)
+    for idx, (reward, answer, id_val) in enumerate(zip(correctness_rewards, extracted_answers, ID)):
+        id_to_correctness[id_val].append(reward)
+        id_to_answers[id_val].append(answer)
+        id_to_indices[id_val].append(idx)
+
+    # Decide per ID
+    rewards = correctness_rewards.copy()  # start with correctness rewards
+    for id_val, group_rewards in id_to_correctness.items():
+        if all(r == 0.0 for r in group_rewards) and not any(ans is None for ans in id_to_answers[id_val]): # all rewards are zero and no None in the extracted answers - this makes sure that random index gets flipped only when all the answers are wrong
+            print(f"Flipped random index for ID: {id_val}")
+            # print(f"Before: {correctness_rewards}")
+            # pick one random index for this ID
+            indices = id_to_indices[id_val]
+            chosen_idx = random.choice(indices)
+            rewards[chosen_idx] = 1.0  # set reward 1 for this one
+            # print(f"After: {rewards}")
+
+    # Debug prints
+    print(id_to_answers)
+    print(id_to_correctness)
+    id_to_correctness_after = defaultdict(list)
+    for idx, (reward, id_val) in enumerate(zip(rewards, ID)):
+        id_to_correctness_after[id_val].append(reward)
+        
+    print(id_to_correctness_after)
+    return rewards
+
+# https://github.com/knoveleng/open-rs/blob/main/src/open_r1/rewards.py
+def english_reward(completions, **kwargs):
+    """Reward function that checks if the reasoning process is in English."""
+    import unicodedata
+    from langdetect import detect, LangDetectException
+
+    def is_non_english(text):
+        """
+        Checks if the given text contains languages other than English.
+        Ignores LaTeX notation.
+        
+        Args:
+            text (str): The text to analyze
+            
+        Returns:
+            bool: False if the text is in English (with LaTeX allowed),
+                True if it contains non-English languages
+        """
+        # Skip if empty
+        if not text or text.strip() == "":
+            return False
+        
+        # First, remove LaTeX notation to avoid false positives
+        # This pattern matches typical LaTeX structures like $...$ or \begin{...}...\end{...}
+        # latex_pattern = r'\$[^$]*\$|\\\(.*?\\\)|\\\[.*?\\\]|\\begin\{.*?\}.*?\\end\{.*?\}'
+        # text_without_latex = re.sub(latex_pattern, '', text, flags=re.DOTALL)
+        
+        # # Also remove common LaTeX commands
+        # latex_commands = r'\\[a-zA-Z]+((\{[^{}]*\})?|(\[[^\[\]]*\])?)+'
+        # text_without_latex = re.sub(latex_commands, '', text_without_latex)
+        
+        # Check if we have non-ASCII characters that are not typical in English text
+        # First, normalize unicode characters
+        normalized_text = unicodedata.normalize('NFKD', text)
+        
+        # Common non-English character sets (excluding common punctuation and symbols)
+        non_english_patterns = [
+            # Cyrillic characters
+            r'[\u0400-\u04FF]',
+            # Chinese/Japanese/Korean characters
+            r'[\u3040-\u30FF\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]',
+            # Arabic characters
+            r'[\u0600-\u06FF]',
+            # Hebrew characters
+            r'[\u0590-\u05FF]',
+            # Thai characters
+            r'[\u0E00-\u0E7F]',
+            # Greek characters
+            # r'[\u0370-\u03FF]',
+        ]
+        
+        for pattern in non_english_patterns:
+            if re.search(pattern, normalized_text):
+                return True
+        
+        # If no obvious non-English characters found, try language detection
+        # Clean text further - remove URLs, numbers, punctuation
+        cleaned_text = re.sub(r'http\S+|www\S+|\d+|[^\w\s]', ' ', text)
+        cleaned_text = ' '.join(cleaned_text.split())
+        
+        # Only perform language detection if we have enough text
+        if len(cleaned_text.split()) >= 5:
+            try:
+                detected_lang = detect(cleaned_text)
+                return detected_lang != 'en'
+            except LangDetectException:
+                # If detection fails, rely on character-based detection above
+                pass
+        
+        # Default to assuming it's English
+        return False
+
+    contents = [completion[0]["content"] for completion in completions]
+    return [0 if has_non_english(content) else 1 for content in contents]
+
+# def hybrid_reward(completions, ground_truth, options, ID, **kwargs) -> list[float]:
+#     """Hybrid reward: if all answers for an ID are wrong, use majority voting; else use correctness."""
+    
+#     # Compute both rewards
+#     majority_rewards = majority_voting_reward(completions, ID)
+#     correctness_rewards = correctness_reward(completions, ground_truth, options, ID)
+
+#     # Group correctness rewards by ID
+#     id_to_correctness = defaultdict(list)
+#     for reward, id_val in zip(correctness_rewards, ID):
+#         id_to_correctness[id_val].append(reward)
+
+#     # Decide per ID
+#     id_to_decision = {}
+#     for id_val, group_rewards in id_to_correctness.items():
+#         if all(r == 0.0 for r in group_rewards):
+#             id_to_decision[id_val] = "majority"
+#         else:
+#             id_to_decision[id_val] = "gt"
+
+#     # Final rewards: choose per ID
+#     rewards = [
+#         majority_rewards[idx] if id_to_decision[id_val] == "majority" else correctness_rewards[idx]
+#         for idx, id_val in enumerate(ID)
+#     ]
+#     print(id_to_correctness)
+#     print(id_to_decision)
+#     print(rewards)
+#     # raise ValueError
+
+#     return rewards
+
+
+
+# def correctness_reward(completions, ground_truth, options, **kwargs) -> list[float]:
+#     """Reward function that checks if the completion has the answer."""
+    
+#     contents = [completion[0]["content"] for completion in completions]
+#     # Reward 1 if the content is the same as the ground truth, 0 otherwise
+
+#     rewards = []
+#     for i, (c, gt) in enumerate(zip(contents, ground_truth)):
+#         # gt_desc = extract_choice_description(options[i], gt)
+        
+#         answer_match = re.search(r"<answer>(.*?)</answer>", c, re.DOTALL)
+        
+#         if not answer_match:
+#             rewards.append(0.0)
+#             continue
+            
+#         # letter_match = re.search(r'Answer:\s*([A-Za-z])\s+', answer_match.group(1).strip())
+#         word_match = re.search(r'Answer:\s*([A-Za-z])', answer_match.group(1).strip())
+        
+#         if word_match and word_match.group(1).strip().lower() == gt.lower():
+#             rewards.append(1.0)
+#         # elif word_match and word_match.group(1).lower() == gt_desc.lower():
+#         #     rewards.append(0.5)
+#         else:
+#             rewards.append(0.0)
 
         
-    return rewards
+#     return rewards
+
+
 
 # def correctness_reward(completions, ground_truth, options, **kwargs) -> list[float]:
 #     """Reward function that checks if the completion has the answer."""
@@ -627,9 +835,13 @@ async def run_script(script: str, language: str, semaphore: asyncio.Semaphore) -
 
 def get_reward_funcs(script_args) -> list[Callable]:
     REWARD_FUNCS_REGISTRY = {
-        "accuracy": accuracy_reward,
         "correctness": correctness_reward,
         "format": format_reward,
+        "tag_count": tag_count_reward,
+        "majority_voting": majority_voting_reward,
+        "hybrid": hybrid_reward,
+        "english": english_reward,
+        "accuracy": accuracy_reward,
         "reasoning_steps": reasoning_steps_reward,
         "cosine": get_cosine_scaled_reward(
             min_value_wrong=script_args.cosine_min_value_wrong,
@@ -652,8 +864,7 @@ def get_reward_funcs(script_args) -> list[Callable]:
         "ioi_code": update_wrapper(
             partial(ioi_code_reward, test_batch_size=script_args.code_eval_test_batch_size), ioi_code_reward
         ),
-        "code_format": get_code_format_reward(language=script_args.code_language),
-        "tag_count": tag_count_reward,
+        "code_format": get_code_format_reward(language=script_args.code_language)
     }
     reward_funcs = [REWARD_FUNCS_REGISTRY[func] for func in script_args.reward_funcs]
 

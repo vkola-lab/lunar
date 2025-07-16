@@ -16,18 +16,17 @@ cd /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1
 export HF_HOME=/projectnb/vkolagrp/skowshik/.cache/
 export WANDB_CACHE_DIR=/projectnb/vkolagrp/skowshik/.cache/
 
-# CUDA_VISIBLE_DEVICES=0 trl vllm-serve --model Qwen/Qwen2.5-3B-Instruct
-
-# CUDA_VISIBLE_DEVICES=0,1,2,3 ACCELERATE_LOG_LEVEL=info \
-# accelerate launch --config_file recipes/accelerate_configs/zero2.yaml --num_processes 4 \
-# src/open_r1/grpo.py --config recipes/Qwen2.5-3B-Instruct/grpo/config_demo.yaml > /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/logs/qwen3B_summary_drgrpo.log
-
-# CUDA_VISIBLE_DEVICES=1,2,3 ACCELERATE_LOG_LEVEL=info \
-# accelerate launch --config_file recipes/accelerate_configs/zero2.yaml --num_processes 3 \
-# src/open_r1/grpo.py --config recipes/Qwen2.5-3B-Instruct/grpo/config_demo.yaml > /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/logs/qwen3B_summary_drgrpo.log
-
+pip install .
 
 CUDA_VISIBLE_DEVICES=0,1,2,3 ACCELERATE_LOG_LEVEL=info \
 accelerate launch --config_file recipes/accelerate_configs/zero2.yaml --num_processes 4 \
-src/open_r1/grpo.py --config recipes/Qwen2.5-7B-Instruct/grpo/config_demo.yaml > /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/logs/qwen25_7B_filtered.log
+src/open_r1/grpo.py --config recipes/Qwen2.5-3B-Instruct/grpo/config_demo.yaml > /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/logs/log_files/qwen25_3B_drgrpo_gp32.log
+
+# CUDA_VISIBLE_DEVICES=0,3 ACCELERATE_LOG_LEVEL=info \
+# accelerate launch --config_file recipes/accelerate_configs/zero2.yaml --num_processes 2 \
+# src/open_r1/grpo.py --config recipes/Qwen2.5-3B-Instruct/grpo/config_demo_1.yaml > /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/logs/log_files/qwen25_3B_filtered_dapo.log
+
+# CUDA_VISIBLE_DEVICES=0,3 ACCELERATE_LOG_LEVEL=info \
+# accelerate launch --config_file recipes/accelerate_configs/zero2.yaml --num_processes 2 \
+# src/open_r1/grpo.py --config recipes/Qwen2.5-1.5B-Instruct/grpo/config_demo.yaml > /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/logs/log_files/qwen25_15B_filtered_mu_2.log
 
