@@ -70,7 +70,7 @@ _deps = [
     # "trl[vllm] @ git+https://github.com/huggingface/trl.git@1bca49515ecd5b85d16e68c42c76670e252e19f1",  # Fix DeepSpeed x vLLM conflict: https://github.com/huggingface/trl/pull/3351
     "wandb>=0.19.1",
     "transformers==4.51.3",
-    "trl==0.18.0.dev0",
+    "trl==0.19.0",
     # "trl[vllm]==0.18.0"
 ]
 
@@ -120,7 +120,7 @@ setup(
     name="open-r1",
     version="0.1.0.dev0",  # expected format is one of x.y.z.dev0, or x.y.z.rc1 or x.y.z (no to dashes, yes to dots)
     author="The Hugging Face team (past and future)",
-    author_email="lewis@huggingface.co",
+    author_email="skowshik@bu.edu",
     description="Open R1",
     long_description=open("README.md", "r", encoding="utf-8").read(),
     long_description_content_type="text/markdown",

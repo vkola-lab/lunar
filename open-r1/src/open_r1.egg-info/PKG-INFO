@@ -4,7 +4,7 @@ Version: 0.1.0.dev0
 Summary: Open R1
 Home-page: https://github.com/huggingface/open-r1
 Author: The Hugging Face team (past and future)
-Author-email: lewis@huggingface.co
+Author-email: skowshik@bu.edu
 License: Apache
 Keywords: llm inference-time compute reasoning
 Classifier: Development Status :: 3 - Alpha
@@ -34,7 +34,7 @@ Requires-Dist: packaging>=23.0
 Requires-Dist: safetensors>=0.3.3
 Requires-Dist: sentencepiece>=0.1.99
 Requires-Dist: transformers==4.51.3
-Requires-Dist: trl==0.18.0.dev0
+Requires-Dist: trl==0.19.0
 Requires-Dist: wandb>=0.19.1
 Provides-Extra: tests
 Requires-Dist: pytest; extra == "tests"

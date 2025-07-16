@@ -9,7 +9,7 @@ class Evaluator:
         self.model_dfs = model_dfs
         self.k = k
         self.modified = {name: self._modify(df) for name, df in model_dfs.items()}
-        self.n = len(self.modified['qwen3b']['ID'].unique())
+        self.n = len(self.modified[list(self.modified.keys())[0]]['ID'].unique())
 
     def _modify(self, df):
         df_mod = df[['prediction', 'ground_truth', 'ID']].copy()
@@ -26,14 +26,14 @@ class Evaluator:
                 vals.append(1.0)
             else:
                 vals.append(1.0 - np.prod(1.0 - k / np.arange(n - c + 1, n + 1)))
-        return np.mean(vals)
+        return round(np.mean(vals), 3)
 
     def _cons_at_k(self, df):
-        return (
+        return round((
             df.groupby('problem')['prediction']
             .apply(lambda x: x.mode()[0]) ==
             df[['problem', 'ground_truth']].drop_duplicates('problem')['ground_truth'].reset_index(drop=True)
-        ).sum() / self.n
+        ).sum() / self.n, 3)
 
     def evaluate(self):
         final_dict = {'metric': ['pass@1', 'cons@k']}

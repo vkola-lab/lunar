@@ -1,5 +1,6 @@
+from .data import get_dataset
 from .import_utils import is_e2b_available
-from .model_utils import get_tokenizer
+from .model_utils import get_model, get_tokenizer
 
 
-__all__ = ["get_tokenizer", "is_e2b_available"]
+__all__ = ["get_tokenizer", "is_e2b_available", "get_model", "get_dataset"]
