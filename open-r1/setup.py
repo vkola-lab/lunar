@@ -112,7 +112,7 @@ install_requires = [
     deps["safetensors"],
     deps["sentencepiece"],
     deps["transformers"],
-    deps["trl"],
+    # deps["trl"],
     deps["wandb"],
 ]
 

@@ -1,13 +1,8 @@
-llm:
-  # model_id: "Qwen/Qwen3-8B"
-  model_id: "Qwen/Qwen3-32B"
-  n_devices: 2
-  max_model_len: 10000
-  max_new_tokens: 100
+
 
 data:
   test_data_path: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/data/nacc/training_data/testing_data_grpo/test_summary.csv"
-  test_data_summary_path: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/data/nacc/training_data/testing_data_grpo/with_summary/test_np.csv"
+  test_data_summary_path: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/data/nacc/training_data/testing_data_grpo/with_summary/test_mci.csv"
 
 
 # # MCI
@@ -33,19 +28,34 @@ data:
 #   qwen25_3B_drgrpo_filtered_option_shuffling_gp_32: "../results_4/test_mci/2025-06-30T105127_201db0f1b3974f68/test_mci_output.jsonl"
 
 # MCI
+# models:
+#   qwen25_3b: "../results/test_mci/2025_07_11T084038_Qwen2.5_3B_Instruct/test_mci_output.jsonl"
+#   qwen25_7b: "../results/test_mci/2025_07_12T090745_Qwen2.5_7B_Instruct/test_mci_output.jsonl"
+#   qwen25_14b: "../results/test_mci/2025_07_12T230758_Qwen2.5_14B_Instruct/test_mci_output.jsonl"
+#   qwen25_3B_drgrpo_gp16: "../results/test_mci/2025_07_12T151453_qwen25_3B_drgrpo_gp16/test_mci_output.jsonl"
+#   qwen25_3B_drgrpo_gp32: "../results/test_mci/2025_07_15T141033_qwen25_3B_drgrpo_gp32/test_mci_output.jsonl"
+#   qwen25_3B_sft: "../results/test_mci/2025_07_15T215529_qwen25_3B_sft_with_eval/test_mci_output.jsonl"
+#   qwen25_3B_drgrpo_gp16_stage_wise: "../results/test_mci/2025_07_18T132304_qwen25_3B_drgrpo_gp16_stage_wise/test_mci_output.jsonl"
+#   qwen25_3B_drgrpo_gp16_stage_wise_rewards: "../results/test_mci/2025_07_19T105751_qwen25_3B_drgrpo_gp16_stage_wise_rewards/test_mci_output.jsonl"
+#   qwen25_3B_drgrpo_gp16_stages234_epoch2: "../results/test_mci/2025_07_21T133254_qwen25_3B_drgrpo_gp16_stages234_epoch2/test_mci_output.jsonl" 
+#   qwen25_3B_drgrpo_gp16_filtered_step_1500: "../results/test_mci/2025_07_25T094642_qwen25_3B_drgrpo_gp16_filtered/test_mci_output.jsonl" 
+
 models:
-  qwen25_3b: "../results/test_mci/2025_07_11T084038_Qwen2.5_3B_Instruct/test_mci_output.jsonl"
-  qwen25_7b: "../results/test_mci/2025_07_12T090745_Qwen2.5_7B_Instruct/test_mci_output.jsonl"
-  qwen25_14b: "../results/test_mci/2025_07_12T230758_Qwen2.5_14B_Instruct/test_mci_output.jsonl"
-  qwen25_3B_drgrpo_gp16: "../results/test_mci/2025_07_12T151453_qwen25_3B_drgrpo_gp16/test_mci_output.jsonl"
-  qwen25_3B_drgrpo_gp32: "../results/test_mci/2025_07_15T141033_qwen25_3B_drgrpo_gp32/test_mci_output.jsonl"
-  qwen25_3B_sft: "../results/test_mci/2025_07_15T215529_qwen25_3B_sft_with_eval/test_mci_output.jsonl"
+  qwen25_3B_old_prompt: "../results_sub/test_mci/2025_07_28T014352_Qwen2.5_3B_Instruct_old_prompt/test_mci_output.jsonl"
+  qwen25_3B_drgrpo_gp16_all_train_sub_old_prompt: "../results_sub/test_mci/2025_07_28T022312_qwen25_3B_drgrpo_gp8_all_train_sub_old_prompt/test_mci_output.jsonl"
+  qwen25_3B: "../results_sub/test_mci/2025_07_28T001626_Qwen2.5_3B_Instruct/test_mci_output.jsonl"
+  qwen25_3B_drgrpo_gp16_all_train_sub: "../results_sub/test_mci/2025_07_28T010225_qwen25_3B_drgrpo_gp8_all_train_sub/test_mci_output.jsonl"
+  qwen25_3B_drgrpo_gp16_all_train_sub_no_KL: "../results_sub/test_mci/2025_07_28T134458_qwen25_3B_drgrpo_gp8_all_train_sub_no_KL/test_mci_output.jsonl"
+  qwen25_3B_drgrpo_gp16_train_filtered_sub: "../results_sub/test_mci/2025_08_04T114625_qwen25_3B_drgrpo_gp8_train_filtered_sub/test_mci_output.jsonl"
+  qwen25_3B_drgrpo_gp16_train_filtered_sub_no_KL: "../results_sub/test_mci/2025_08_04T152855_qwen25_3B_drgrpo_gp8_train_filtered_sub_no_KL/test_mci_output.jsonl"
+  qwen25_3B_drgrpo_gp16_stage_wise_sub: "../results_sub/test_mci/2025_08_04T114718_qwen25_3B_drgrpo_gp8_stage_wise_sub/test_mci_output.jsonl"
+  qwen25_3B_drgrpo_gp16_stage_wise_sub_no_KL: "../results_sub/test_mci/2025_08_04T151132_qwen25_3B_drgrpo_gp8_stage_wise_sub_no_KL/test_mci_output.jsonl"
 
 metrics:
   k: 1
 
 output:
-  result_dir: extracted_results
-  plot_path: "outputs/full/mci.pdf"
+  result_dir: extracted_results_sub
+  plot_path: "outputs_sub/full/mci.pdf"
 
 benchmark: "MCI"

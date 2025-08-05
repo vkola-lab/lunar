@@ -27,8 +27,13 @@ class AnswerExtractor:
     
     def extract_boxed(self, text):
         # match = re.search(r'<answer>\n(Answer: )([a-zA-Z])\n</answer>', text, re.DOTALL)
-        match = re.search(r'.*\\boxed{(.*?)}.*', text, re.DOTALL)
-        return match.group(1).strip().upper() if match else 'invalid'
+        # match = re.search(r'.*\\boxed{(.*?)}.*', text, re.DOTALL)
+        all_matches = re.findall(r'\\boxed{([A-Z])(?:\.\s*[^}]*)?}', text)
+        if len(all_matches) == 0 or len(all_matches) > 1:
+            return 'invalid'
+        return all_matches[0].strip().upper()
+        # match = re.search(r'\\boxed{([A-Z])(?:\.\s*[^}]*)?}', text, re.DOTALL)
+        # return match.group(1).strip().upper() if match else 'invalid'
     
     # def extract_answer_letter_sft(self, text):
     #     match = re.search(r'The answer is\s+([A-Za-z]):', text)

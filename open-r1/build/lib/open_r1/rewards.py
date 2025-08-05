@@ -48,47 +48,116 @@ def extract_choice_description(choices_str: str, target_letter: str) -> str:
     match = re.search(pattern, choices_str, re.DOTALL)
     return match.group(1).strip() if match else ""
 
+def format_reward(completions, **kwargs):
+    """Reward function that checks if the reasoning process is enclosed within <think> and </think> tags, while the final answer is enclosed within <answer> and </answer> tags."""
+    # pattern = r"^<think>\n.*?\n</think>\n<answer>\n.*?\n</answer>$"
+    pattern = r"^\s*<think>.*?</think>\s*<answer>.*?</answer>\s*\Z"
+    completion_contents = [completion[0]["content"] for completion in completions]
+    matches = [re.match(pattern, content, re.DOTALL | re.MULTILINE) for content in completion_contents]
+    return [1.0 if match else 0.0 for match in matches]
 
-# def correctness_reward(completions, ground_truth, options, ID, return_answers=False, **kwargs) -> list[float]:
-#     """Reward function that checks if the completion has the answer."""
-    
-#     def extract_answer(text):
-#         answer_match = re.search(r'<answer>\n(Answer:\s*)([a-zA-Z])\n</answer>', text, re.DOTALL)
-#         if not answer_match:
-#             return None
-#         return answer_match.group(2).strip().lower()
 
-#     # Extract answers
-#     contents = [completion[0]["content"] for completion in completions]
-#     answers = [extract_answer(content) for content in contents]
-    
-#     rewards = [
-#         1.0 if ans == gt.lower() else 0.0 
-#         for ans, gt in zip(answers, ground_truth)
-#     ]
-    
-#     if return_answers:
-#         return rewards, answers
-        
-#     return rewards
+def tag_count_reward(completions, **kwargs) -> list[float]:
+    """Reward function that checks if we produce the desired number of think and answer tags associated with `format_reward()`.
 
-def correctness_reward(completions, ground_truth, return_answers=False, **kwargs) -> list[float]:
+    Adapted from: https://gist.github.com/willccbb/4676755236bb08cab5f4e54a0475d6fb#file-grpo_demo-py-L90
+    """
+
+    def count_tags(text: str) -> float:
+        count = 0.0
+        if text.count("<think>") == 1:
+            count += 0.25
+        if text.count("</think>") == 1:
+            count += 0.25
+        if text.count("<answer>") == 1:
+            count += 0.25
+        if text.count("</answer>") == 1:
+            count += 0.25
+        return count
+
+    contents = [completion[0]["content"] for completion in completions]
+    return [count_tags(c) for c in contents]
+
+
+def correctness_within_answer_reward(completions, ground_truth, STAGE=None, return_answers=False, **kwargs) -> list[float]:
     """Reward function that checks if the completion has the answer."""
     
+    # epsilon = 0.1
     def extract_answer(text):
-        boxed_match = re.search(r'<answer>.*\\boxed{(.*?)}.*</answer>', text, re.DOTALL)
-        if not boxed_match:
+        # boxed_match = re.search(r'<answer>.*\\boxed{(.*?)}.*</answer>', text, re.DOTALL)
+        # # boxed_match = re.search(r'.*\\boxed{(.*?)}.*', text, re.DOTALL)
+        # if not boxed_match:
+        #     return None
+        # return boxed_match.group(1).strip().lower()
+        
+        answer_blocks = re.findall(r'<answer>(.*?)</answer>', text, re.DOTALL)
+
+        boxed_letters = []
+        for block in answer_blocks:
+            boxed_letters.extend(re.findall(r'\\boxed{([A-Z])(?:\.\s*[^}]*)?}', block))
+            
+        if len(boxed_letters) == 0: # or len(boxed_letters) > 1:
             return None
-        return boxed_match.group(1).strip().lower()
+        
+        return boxed_letters[-1].strip().lower()
 
     # Extract answers
     contents = [completion[0]["content"] for completion in completions]
     answers = [extract_answer(content) for content in contents]
     
+    print("NOT using stage wise rewards")
     rewards = [
         1.0 if ans == gt.lower() else 0.0 
         for ans, gt in zip(answers, ground_truth)
     ]
+        
+    print(rewards)
+    
+    if return_answers:
+        return rewards, answers
+        
+    return rewards
+
+def correctness_reward(completions, ground_truth, STAGE=None, return_answers=False, **kwargs) -> list[float]:
+    """Reward function that checks if the completion has the answer."""
+    
+    # epsilon = 0.1
+    def extract_answer(text):
+        # boxed_match = re.search(r'<answer>.*\\boxed{(.*?)}.*</answer>', text, re.DOTALL)
+        # boxed_match = re.search(r'.*\\boxed{(.*?)}.*', text, re.DOTALL)
+        # boxed_match = re.search(r'\\boxed{([A-Z])(?:\.\s*[^}]*)?}', text, re.DOTALL)
+        # if not boxed_match:
+        #     return None
+        # return boxed_match.group(1).strip().lower()
+    
+        boxed_match = re.findall(r'\\boxed{([A-Z])(?:\.\s*[^}]*)?}', text, re.DOTALL)
+        if len(boxed_match) == 0:
+            return None
+        return boxed_match[-1].strip().lower()
+
+    # Extract answers
+    contents = [completion[0]["content"] for completion in completions]
+    answers = [extract_answer(content) for content in contents]
+    
+    # if STAGE:
+    #     print("Using stage wise rewards")
+    #     rewards = [
+    #         1.0 + epsilon * stage if ans == gt.lower() else 0.0 - epsilon * stage
+    #         for ans, gt, stage in zip(answers, ground_truth, STAGE)
+    #     ]
+    # else:
+    #     print("NOT using stage wise rewards")
+    #     rewards = [
+    #         1.0 if ans == gt.lower() else 0.0 
+    #         for ans, gt in zip(answers, ground_truth)
+    #     ]
+    print("NOT using stage wise rewards")
+    rewards = [
+        1.0 if ans == gt.lower() else 0.0 
+        for ans, gt in zip(answers, ground_truth)
+    ]
+        
+    print(rewards)
     
     if return_answers:
         return rewards, answers
@@ -246,92 +315,6 @@ def english_reward(completions, **kwargs):
     contents = [completion[0]["content"] for completion in completions]
     return [0 if has_non_english(content) else 1 for content in contents]
 
-# def hybrid_reward(completions, ground_truth, options, ID, **kwargs) -> list[float]:
-#     """Hybrid reward: if all answers for an ID are wrong, use majority voting; else use correctness."""
-    
-#     # Compute both rewards
-#     majority_rewards = majority_voting_reward(completions, ID)
-#     correctness_rewards = correctness_reward(completions, ground_truth, options, ID)
-
-#     # Group correctness rewards by ID
-#     id_to_correctness = defaultdict(list)
-#     for reward, id_val in zip(correctness_rewards, ID):
-#         id_to_correctness[id_val].append(reward)
-
-#     # Decide per ID
-#     id_to_decision = {}
-#     for id_val, group_rewards in id_to_correctness.items():
-#         if all(r == 0.0 for r in group_rewards):
-#             id_to_decision[id_val] = "majority"
-#         else:
-#             id_to_decision[id_val] = "gt"
-
-#     # Final rewards: choose per ID
-#     rewards = [
-#         majority_rewards[idx] if id_to_decision[id_val] == "majority" else correctness_rewards[idx]
-#         for idx, id_val in enumerate(ID)
-#     ]
-#     print(id_to_correctness)
-#     print(id_to_decision)
-#     print(rewards)
-#     # raise ValueError
-
-#     return rewards
-
-
-
-# def correctness_reward(completions, ground_truth, options, **kwargs) -> list[float]:
-#     """Reward function that checks if the completion has the answer."""
-    
-#     contents = [completion[0]["content"] for completion in completions]
-#     # Reward 1 if the content is the same as the ground truth, 0 otherwise
-
-#     rewards = []
-#     for i, (c, gt) in enumerate(zip(contents, ground_truth)):
-#         # gt_desc = extract_choice_description(options[i], gt)
-        
-#         answer_match = re.search(r"<answer>(.*?)</answer>", c, re.DOTALL)
-        
-#         if not answer_match:
-#             rewards.append(0.0)
-#             continue
-            
-#         # letter_match = re.search(r'Answer:\s*([A-Za-z])\s+', answer_match.group(1).strip())
-#         word_match = re.search(r'Answer:\s*([A-Za-z])', answer_match.group(1).strip())
-        
-#         if word_match and word_match.group(1).strip().lower() == gt.lower():
-#             rewards.append(1.0)
-#         # elif word_match and word_match.group(1).lower() == gt_desc.lower():
-#         #     rewards.append(0.5)
-#         else:
-#             rewards.append(0.0)
-
-        
-#     return rewards
-
-
-
-# def correctness_reward(completions, ground_truth, options, **kwargs) -> list[float]:
-#     """Reward function that checks if the completion has the answer."""
-    
-#     contents = [completion[0]["content"] for completion in completions]
-#     # Reward 1 if the content is the same as the ground truth, 0 otherwise
-
-#     rewards = []
-#     for i, (c, gt) in enumerate(zip(contents, ground_truth)):
-            
-#         # letter_match = re.search(r'Answer:\s*([A-Za-z])\s+', answer_match.group(1).strip())
-#         word_match = re.search(r'Answer:\s*([A-Za-z])', c)
-#         # print(c, gt, word_match)
-#         # raise ValueError
-        
-#         if word_match and word_match.group(1).strip().lower() == gt.lower():
-#             rewards.append(1.0)
-#         else:
-#             rewards.append(0.0)
-            
-        
-#     return rewards
 
 
 def accuracy_reward(completions, solution, **kwargs):
@@ -380,35 +363,7 @@ def accuracy_reward(completions, solution, **kwargs):
     return rewards
 
 
-def format_reward(completions, **kwargs):
-    """Reward function that checks if the reasoning process is enclosed within <think> and </think> tags, while the final answer is enclosed within <answer> and </answer> tags."""
-    # pattern = r"^<think>\n.*?\n</think>\n<answer>\n.*?\n</answer>$"
-    pattern = r"^\s*<think>\n.*?\n</think>\n<answer>\n.*?\n</answer>\s*\Z"
-    completion_contents = [completion[0]["content"] for completion in completions]
-    matches = [re.match(pattern, content, re.DOTALL | re.MULTILINE) for content in completion_contents]
-    return [1.0 if match else 0.0 for match in matches]
 
-
-def tag_count_reward(completions, **kwargs) -> list[float]:
-    """Reward function that checks if we produce the desired number of think and answer tags associated with `format_reward()`.
-
-    Adapted from: https://gist.github.com/willccbb/4676755236bb08cab5f4e54a0475d6fb#file-grpo_demo-py-L90
-    """
-
-    def count_tags(text: str) -> float:
-        count = 0.0
-        if text.count("<think>") == 1:
-            count += 0.25
-        if text.count("</think>") == 1:
-            count += 0.25
-        if text.count("<answer>") == 1:
-            count += 0.25
-        if text.count("</answer>") == 1:
-            count += 0.25
-        return count
-
-    contents = [completion[0]["content"] for completion in completions]
-    return [count_tags(c) for c in contents]
 
 
 def reasoning_steps_reward(completions, **kwargs):
@@ -836,6 +791,7 @@ async def run_script(script: str, language: str, semaphore: asyncio.Semaphore) -
 def get_reward_funcs(script_args) -> list[Callable]:
     REWARD_FUNCS_REGISTRY = {
         "correctness": correctness_reward,
+        "correctness_within_answer": correctness_within_answer_reward,
         "format": format_reward,
         "tag_count": tag_count_reward,
         "majority_voting": majority_voting_reward,

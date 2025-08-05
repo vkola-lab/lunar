@@ -87,7 +87,7 @@ def make_prompts_from_template(problems, config, model_id):
 
     messages = []
 
-    print("Generating prompts:")
+    print(f"Generating prompts using template style {config.template_style}:")
 
     for problem in tqdm(problems):
         
@@ -95,8 +95,17 @@ def make_prompts_from_template(problems, config, model_id):
         if 'sft' in model_id.lower():
             prompt = prompt_template.SFT_TEMPLATE.format(patient=problem["visit_summary"], question=problem["question"], options=problem['options'])
         else:
-            prompt = prompt_template.TEMPLATE.format(patient=problem["visit_summary"], question=problem["question"], options=problem['options'])
-        
+            if config.template_style == "new_boxed":
+                prompt = prompt_template.TEMPLATE.format(patient=problem["visit_summary"], question=problem["question"], options=problem['options'])
+                
+            elif config.template_style == "boxed":
+                prompt = prompt_template.TEMPLATE_BOXED.format(patient=problem["visit_summary"], question=problem["question"], options=problem['options'])
+                
+            elif config.template_style == "answer":
+                prompt = prompt_template.TEMPLATE_ANSWER.format(patient=problem["visit_summary"], question=problem["question"], options=problem['options'])
+                
+            else:
+                raise ValueError(f"Invalid template style: {config.template_style}")
         
         if 'qwen3' in model_id.lower() or 'sft' in model_id.lower():
             message = [

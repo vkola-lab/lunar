@@ -3,7 +3,7 @@
 import yaml
 import json
 import pandas as pd
-from open_r1.utils.prompt_templates import *
+from open_r1.utils.prompt_template import *
 
 def stop_token_list():
     """
@@ -91,6 +91,9 @@ def print_parameters(model):
 def get_template(train_type):
     if train_type == "sft":
         template = SFT_TEMPLATE
+    
+    elif train_type == "grpo_think":
+        template = GRPO_TEMPLATE_THINK
     
     elif train_type == "grpo":
         template = GRPO_TEMPLATE

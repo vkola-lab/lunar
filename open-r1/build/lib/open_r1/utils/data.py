@@ -1,7 +1,7 @@
 import logging
 import pandas as pd
 import datasets
-from datasets import DatasetDict, concatenate_datasets, Dataset
+from datasets import DatasetDict, concatenate_datasets, Dataset, load_dataset
 
 from open_r1.configs import ScriptArguments
 from open_r1.utils import utils
@@ -91,25 +91,34 @@ def get_dataset(args: ScriptArguments, training_args):
             # if training_args.shuffle_dataset:
             #     sub_data_df = sub_data_df.sample(frac=1, random_state=0).reset_index(drop=True)  
             
+        # elif "/" in dataset:  # likely a Hugging Face Hub name
+        #     hf_data = load_dataset(dataset)
+        #     if 'train' not in hf_data:
+        #         raise ValueError(f"Hugging Face dataset {dataset} must have a 'train' split.")
+        #     sub_data_df = hf_data['train'].to_pandas()
+            
         else:
             raise ValueError(f"Invalid input file format {dataset}. Please use a `json` or a `csv` file.")
+        
+        print(f"Loaded {len(sub_data_df)} cases for {dataset}")
         
         data_df = pd.concat([data_df, sub_data_df], axis=0).reset_index(drop=True)
         
     if training_args.shuffle_dataset:
+        print("Shuffling dataset")
         data_df = data_df.sample(frac=1, random_state=0).reset_index(drop=True)  
         
     dataset = {}
 
     def format_chat_template(row):
-        if args.train_type == "grpo":
+        if "grpo" in args.train_type.lower():
             row_json = [
                 {"role": "system", "content": training_args.system_prompt},
                 {"role": "user", "content": utils.get_template(train_type=args.train_type).format(patient=row["visit_summary"], question=row['question'], options=row['options'])},
             ]
             row["prompt"] = row_json
             
-        elif args.train_type == "sft":
+        elif "sft" in args.train_type.lower():
             row["prompt"] = [
                 {"role": "user", "content": utils.get_template(train_type=args.train_type).format(patient=row["visit_summary"], question=row['question'], options=row['options'])},
             ]

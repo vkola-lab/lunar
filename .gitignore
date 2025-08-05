@@ -66,3 +66,6 @@ verl/
 generate_patient_summary_ray.py
 check_ray.ipynb
 check_tensor.ipynb
+run_benchmarks_1.sh
+grpo_trainer_with_dynamic_sampling.py
+swift_grpo_trainer.py
