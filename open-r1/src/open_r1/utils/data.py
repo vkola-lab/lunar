@@ -91,11 +91,15 @@ def get_dataset(args: ScriptArguments, training_args):
             # if training_args.shuffle_dataset:
             #     sub_data_df = sub_data_df.sample(frac=1, random_state=0).reset_index(drop=True)  
             
+        elif dataset.endswith("jsonl"):
+            sub_data_df = pd.read_json(dataset, lines=True).reset_index(drop=True)
+            
         # elif "/" in dataset:  # likely a Hugging Face Hub name
         #     hf_data = load_dataset(dataset)
         #     if 'train' not in hf_data:
         #         raise ValueError(f"Hugging Face dataset {dataset} must have a 'train' split.")
         #     sub_data_df = hf_data['train'].to_pandas()
+        
             
         else:
             raise ValueError(f"Invalid input file format {dataset}. Please use a `json` or a `csv` file.")
@@ -111,16 +115,21 @@ def get_dataset(args: ScriptArguments, training_args):
     dataset = {}
 
     def format_chat_template(row):
+        if "visit_summary" in row:
+            question = f'{row["visit_summary"]}\n\n{row["question"]}'
+        else:
+            question = row["question"]
+            
         if "grpo" in args.train_type.lower():
             row_json = [
                 {"role": "system", "content": training_args.system_prompt},
-                {"role": "user", "content": utils.get_template(train_type=args.train_type).format(patient=row["visit_summary"], question=row['question'], options=row['options'])},
+                {"role": "user", "content": utils.get_template(train_type=args.train_type).format(question=question, options=row['options'])},
             ]
             row["prompt"] = row_json
             
         elif "sft" in args.train_type.lower():
             row["prompt"] = [
-                {"role": "user", "content": utils.get_template(train_type=args.train_type).format(patient=row["visit_summary"], question=row['question'], options=row['options'])},
+                {"role": "user", "content": utils.get_template(train_type=args.train_type).format(question=question, options=row['options'])},
             ]
             row["completion"] = [
                 {"role": "assistant", "content": row["sft_answer"]},

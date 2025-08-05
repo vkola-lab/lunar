@@ -62,7 +62,7 @@ enable_lora: false
 # NEW
 system_prompt: "Please reason step by step, and put your final answer within \\boxed{}."
 
-template_style: new_boxed
+template_style: grpo
 
 # sampling parameters
 

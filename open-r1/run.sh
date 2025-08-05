@@ -21,24 +21,27 @@ pip install .
 
 CUDA_VISIBLE_DEVICES=0,1,2,3 ACCELERATE_LOG_LEVEL=info \
 accelerate launch --config_file recipes/accelerate_configs/zero2.yaml --num_processes 4 \
-src/open_r1/grpo.py --config recipes/Qwen2.5-3B-Instruct/grpo/config_demo.yaml > logs_using_subset/log_files/qwen25_3B_drgrpo_gp8_train_filtered_sub.log
+src/open_r1/grpo.py --config recipes/Qwen2.5-3B-Instruct/grpo/config_demo.yaml > logs_using_subset/log_files/qwen25_3B_drgrpo_gp8_medqa_train_filtered_sub.log
 
-sleep 60
+# sleep 60
 
-CUDA_VISIBLE_DEVICES=0,1,2,3 ACCELERATE_LOG_LEVEL=info \
-accelerate launch --config_file recipes/accelerate_configs/zero2.yaml --num_processes 4 \
-src/open_r1/grpo.py --config recipes/Qwen2.5-3B-Instruct/grpo/config_demo_1.yaml > logs_using_subset/log_files/qwen25_3B_drgrpo_gp8_train_filtered_sub_no_KL.log
+# CUDA_VISIBLE_DEVICES=0,1,2,3 ACCELERATE_LOG_LEVEL=info \
+# accelerate launch --config_file recipes/accelerate_configs/zero2.yaml --num_processes 4 \
+# src/open_r1/grpo.py --config recipes/Qwen2.5-3B-Instruct/grpo/config_demo_1.yaml > logs_using_subset/log_files/qwen25_3B_drgrpo_gp8_train_filtered_sub_no_KL.log
 
-sleep 60
+# sleep 60
 
-CUDA_VISIBLE_DEVICES=0,1,2,3 ACCELERATE_LOG_LEVEL=info \
-accelerate launch --config_file recipes/accelerate_configs/zero2.yaml --num_processes 4 \
-src/open_r1/grpo.py --config recipes/Qwen2.5-3B-Instruct/grpo/config_demo_2.yaml > logs_using_subset/log_files/qwen25_3B_drgrpo_gp8_stage_wise_sub.log
+# CUDA_VISIBLE_DEVICES=0,1,2,3 ACCELERATE_LOG_LEVEL=info \
+# accelerate launch --config_file recipes/accelerate_configs/zero2.yaml --num_processes 4 \
+# src/open_r1/grpo.py --config recipes/Qwen2.5-3B-Instruct/grpo/config_demo_2.yaml > logs_using_subset/log_files/qwen25_3B_drgrpo_gp8_stage_wise_sub.log
 
-sleep 60
+# sleep 60
 
-CUDA_VISIBLE_DEVICES=0,1,2,3 ACCELERATE_LOG_LEVEL=info \
-accelerate launch --config_file recipes/accelerate_configs/zero2.yaml --num_processes 4 \
-src/open_r1/grpo.py --config recipes/Qwen2.5-3B-Instruct/grpo/config_demo_3.yaml > logs_using_subset/log_files/qwen25_3B_drgrpo_gp8_stage_wise_sub_no_KL.log
+# CUDA_VISIBLE_DEVICES=0,1,2,3 ACCELERATE_LOG_LEVEL=info \
+# accelerate launch --config_file recipes/accelerate_configs/zero2.yaml --num_processes 4 \
+# src/open_r1/grpo.py --config recipes/Qwen2.5-3B-Instruct/grpo/config_demo_3.yaml > logs_using_subset/log_files/qwen25_3B_drgrpo_gp8_stage_wise_sub_no_KL.log
 
 
+# CUDA_VISIBLE_DEVICES=0,1,2,3 ACCELERATE_LOG_LEVEL=info \
+# accelerate launch --config_file recipes/accelerate_configs/zero2.yaml --num_processes 4 \
+# src/open_r1/grpo.py --config recipes/Qwen2.5-7B-Instruct/grpo/config_demo.yaml > logs_using_subset/log_files/qwen25_7B_drgrpo_gp8_train_filtered_sub.log
