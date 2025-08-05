@@ -9,6 +9,7 @@
 #$ -l gpus=2
 # GPU capability, must be at least 8 for this project
 #$ -l gpu_c=8
+#$ -m bea
 # We can in theory request a minimum amount of GPU memory, but setting
 # capability to 8 means that whatever GPU we get it will definitely have enough
 # memory for our purposes
@@ -33,33 +34,26 @@ conda activate /projectnb/vkolagrp/skowshik/conda_envs/vllm_env
 
 python -V
 
-# for STEPS in 600 1000 2400 3000; do
-# for SEED in 6 7 8 9 10; do
-    # python src/main.py config_file=config.yml llm_sampling_seed=$SEED lora_path="/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/fm_adrd/ckpt/llama31_8B_pretraining_deepspeed_cleaned_lr_5e7_bs_4/checkpoint-$STEPS" 
+
+# while true; do
+#     count=$(nvidia-smi | grep -c python)
+#     if [ "$count" -lt 4 ]; then
+#         echo "GPU is idle with $count Python processes. Starting next script..."
+#         pids=$(nvidia-smi | grep python | awk '{print $5}')
+#         for pid in $pids; do
+#             echo "Killing process with PID $pid"
+#             kill -9 "$pid"
+#         done
+
+#         # Now start your script
+#         echo "Starting benchmark evaluation script..."
+#         python src/main.py config_file=config_train.yml
+#         break
+#     else
+#         echo "GPU still busy with $count Python processes. Checking again in 20 minutes..."
+#         sleep 1200
+#     fi
 # done
-# done
 
-
-
-while true; do
-    count=$(nvidia-smi | grep -c python)
-    if [ "$count" -lt 4 ]; then
-        echo "GPU is idle with $count Python processes. Starting next script..."
-        pids=$(nvidia-smi | grep python | awk '{print $5}')
-        for pid in $pids; do
-            echo "Killing process with PID $pid"
-            kill -9 "$pid"
-        done
-
-        # Now start your script
-        echo "Starting benchmark evaluation script..."
-        python src/main.py config_file=config_train.yml
-        break
-    else
-        echo "GPU still busy with $count Python processes. Checking again in 20 minutes..."
-        sleep 1200
-    fi
-done
-
-# echo "Starting benchmark evaluation script..."
-# python src/main.py config_file=config_train.yml
+echo "Starting benchmark evaluation script..."
+python src/main.py config_file=config_train.yml

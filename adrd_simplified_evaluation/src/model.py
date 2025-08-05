@@ -91,21 +91,20 @@ def make_prompts_from_template(problems, config, model_id):
 
     for problem in tqdm(problems):
         
-        # print(problem)
-        if 'sft' in model_id.lower():
-            prompt = prompt_template.SFT_TEMPLATE.format(patient=problem["visit_summary"], question=problem["question"], options=problem['options'])
+        if "visit_summary" in problem:
+            question = f'{problem["visit_summary"]}\n\n{problem["question"]}'
         else:
-            if config.template_style == "new_boxed":
-                prompt = prompt_template.TEMPLATE.format(patient=problem["visit_summary"], question=problem["question"], options=problem['options'])
-                
-            elif config.template_style == "boxed":
-                prompt = prompt_template.TEMPLATE_BOXED.format(patient=problem["visit_summary"], question=problem["question"], options=problem['options'])
-                
-            elif config.template_style == "answer":
-                prompt = prompt_template.TEMPLATE_ANSWER.format(patient=problem["visit_summary"], question=problem["question"], options=problem['options'])
-                
-            else:
-                raise ValueError(f"Invalid template style: {config.template_style}")
+            question = problem["question"]
+            
+        if config.template_style in ["grpo", "sft"]:
+            prompt = prompt_template.TEMPLATE.format(question=question, options=problem['options'])
+            
+        elif config.template_style == "grpo_think":
+            prompt = prompt_template.TEMPLATE_THINK.format(question=question, options=problem['options'])
+            
+        else:
+            raise ValueError(f"Invalid template style: {config.template_style}")
+        
         
         if 'qwen3' in model_id.lower() or 'sft' in model_id.lower():
             message = [

@@ -47,21 +47,19 @@ while true; do
         # Now start your script
         # echo "Starting benchmark evaluation script..."
 
-        python src/main.py config_file=config.yml
+        # python src/main.py config_file=config.yml
 
-        # python src/main.py config_file=config.yml  \
-        # model_name='["/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt_using_subset/qwen25_3B_drgrpo_gp8_train_filtered_sub", "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt_using_subset/qwen25_3B_drgrpo_gp8_train_filtered_sub_no_KL"]' \
-        # benchmarks='["benchmarks/nacc_test/test_np", "benchmarks/nacc_test/test_mci", "benchmarks/nacc_test/test_cog"]' \
-        # template_style="new_boxed" \
-        # system_prompt="Please reason step by step, and put your final answer within \\boxed{}."
-
+        python src/main.py config_file=config.yml  \
+        model_name='["/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt_using_subset/qwen25_3B_drgrpo_gp8_train_filtered_sub", "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt_using_subset/qwen25_3B_drgrpo_gp8_train_filtered_sub_no_KL"]' \
+        benchmarks='["benchmarks/nacc_test/test_np", "benchmarks/nacc_test/test_mci", "benchmarks/nacc_test/test_cog"]' \
+        template_style="grpo" \
+        system_prompt="Please reason step by step, and put your final answer within \\boxed{}."
 
         # python src/main.py config_file=config.yml  \
         # model_name='["Qwen/Qwen2.5-3B-Instruct", "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt_using_subset/qwen25_3B_drgrpo_gp8_all_train_sub_old_prompt"]' \
         # benchmarks='["benchmarks/nacc_test/test_cog"]' \
-        # template_style="boxed" \
+        # template_style="grpo_think" \
         # system_prompt="Please reason step by step, and put your final answer within \\boxed{}. The reasoning process should be enclosed within <think> </think> and the answer within <answer> </answer> tags, respectively, i.e., <think> reasoning process here </think> <answer> answer here </answer>. Reply in English only, do not use other languages."
-
 
         break
     else
@@ -69,14 +67,4 @@ while true; do
         sleep 1200
     fi
 done
-
-
-# echo "Starting benchmark evaluation script..."
-# python src/main.py config_file=config.yml
-
-# python src/main.py config_file=config.yml \
-# model_name='["/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt_using_subset/qwen25_3B_drgrpo_gp8_train_filtered_sub", "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt_using_subset/qwen25_3B_drgrpo_gp8_train_filtered_sub_no_KL", "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt_using_subset/qwen25_3B_drgrpo_gp8_stage_wise_sub", "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt_using_subset/qwen25_3B_drgrpo_gp8_stage_wise_sub_no_KL"]' \
-# benchmarks='["benchmarks/nacc_test/test_np", "benchmarks/nacc_test/test_mci", "benchmarks/nacc_test/test_cog"]' \
-# template_style="new_boxed" \
-# system_prompt="Please reason step by step, and put your final answer within \\boxed{}."
 
