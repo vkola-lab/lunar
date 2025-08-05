@@ -3,7 +3,7 @@
 # This script is set up so that you can either qsub it or run it interactively
 
 #$ -P vkolagrp
-#$ -l h_rt=24:00:00
+#$ -l h_rt=32:00:00
 #$ -pe omp 8
 #$ -l mem_per_core=2G
 #$ -l gpus=2

@@ -17,7 +17,7 @@ from dataclasses import dataclass, field
 from typing import Any, Literal, Optional
 
 import trl
-import grpo_config
+import open_r1.grpo_config
 
 
 @dataclass
@@ -139,7 +139,7 @@ class ScriptArguments(trl.ScriptArguments):
 
 # TODO: add the shared options with a mixin to reduce code duplication
 @dataclass
-class GRPOConfig(grpo_config.GRPOConfig):
+class GRPOConfig(open_r1.grpo_config.GRPOConfig):
     """
     args for callbacks, benchmarks etc
     """
@@ -181,6 +181,37 @@ class GRPOConfig(grpo_config.GRPOConfig):
         default=None,
         metadata={"help": ("The group to store runs under.")},
     )
+    
+    # --------------------------------------------------------------------------------
+    # NEW ARGUMENTS
+    
+    log_path: Optional[str] = field(
+        default="log.csv",
+        metadata={
+            "help": "Completion logging path."
+        },
+    )
+    
+    log_completions_local: bool = field(
+        default=True,
+        metadata={
+            "help": ("Whether to log completions to a file")
+        },
+    )
+    
+    over_generation_factor: int = field(
+        default=1,
+        metadata={"help": "Multiplication factor for oversampling. The rollout is set to num_generations * over_generation_factor."},
+    )
+    
+    entropy_coeff: float = field(
+        default=0.0,
+        metadata={
+            "help": "Weight for the entropy regulariser that is *subtracted* from"
+            "the GRPO objective.  Typical values: 1e-4 … 1e-3.."
+        },
+    )
+    # --------------------------------------------------------------------------------
 
 
 @dataclass

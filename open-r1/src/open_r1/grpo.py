@@ -28,7 +28,7 @@ from open_r1.utils import get_dataset, get_model, get_tokenizer
 from open_r1.utils.callbacks import get_callbacks
 from open_r1.utils.wandb_logging import init_wandb_training
 from trl import ModelConfig, TrlParser, get_peft_config #, GRPOTrainer
-from grpo_trainer import GRPOTrainer
+from open_r1.grpo_trainer import GRPOTrainer
 
 
 logger = logging.getLogger(__name__)
@@ -182,7 +182,7 @@ if __name__ == "__main__":
     script_args, training_args, model_args = parser.parse_args_and_config()
     wandb.init(
         # set the wandb project where this run will be logged
-        project="open_r1_2",
+        project="open_r1_sub",
         
         # track hyperparameters and run metadata
         # config=training_args

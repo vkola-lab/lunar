@@ -20,10 +20,6 @@ pip install .
 
 CUDA_VISIBLE_DEVICES=1,2,3 ACCELERATE_LOG_LEVEL=info \
 accelerate launch --config_file recipes/accelerate_configs/zero2.yaml --num_processes 3 \
-src/open_r1/grpo.py --config recipes/Qwen2.5-3B-Instruct/grpo/config_demo.yaml > /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/logs/log_files/temp.log
-
-# CUDA_VISIBLE_DEVICES=1,2,3 ACCELERATE_LOG_LEVEL=info \
-# accelerate launch --config_file recipes/accelerate_configs/zero2.yaml --num_processes 3 \
-# src/open_r1/grpo.py --config recipes/Qwen2.5-7B-Instruct/grpo/config_demo.yaml > /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/logs/qwen25_7B_filtered.log
+src/open_r1/grpo.py --config recipes/Qwen2.5-3B-Instruct/grpo/config_demo.yaml > /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/logs/log_files/qwen25_3B_drgrpo_gp16_filtered.log
 
 

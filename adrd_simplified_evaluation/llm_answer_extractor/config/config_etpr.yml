@@ -38,9 +38,13 @@ models:
   qwen25_3b: "../results/test_etpr/2025_07_10T155348_Qwen2.5_3B_Instruct/test_etpr_output.jsonl"
   qwen25_7b: "../results/test_etpr/2025_07_11T091118_Qwen2.5_7B_Instruct/test_etpr_output.jsonl"
   qwen25_14b: "../results/test_etpr/2025_07_12T155708_Qwen2.5_14B_Instruct/test_etpr_output.jsonl"
+  qwen25_32b: "../results/test_etpr/2025_07_17T005505_Qwen2.5_32B_Instruct/test_etpr_output.jsonl"
   qwen25_3B_drgrpo_gp16: "../results/test_etpr/2025_07_12T114509_qwen25_3B_drgrpo_gp16/test_etpr_output.jsonl"
   qwen25_3B_drgrpo_gp32: "../results/test_etpr/2025_07_15T103022_qwen25_3B_drgrpo_gp32/test_etpr_output.jsonl"
   qwen25_3B_sft: "../results/test_etpr/2025_07_15T203013_qwen25_3B_sft_with_eval/test_etpr_output.jsonl"
+  qwen25_3B_drgrpo_gp16_stage_wise: "../results/test_etpr/2025_07_18T100715_qwen25_3B_drgrpo_gp16_stage_wise/test_etpr_output.jsonl"
+  qwen25_3B_drgrpo_gp16_stage_wise_rewards: "../results/test_etpr/2025_07_19T080638_qwen25_3B_drgrpo_gp16_stage_wise_rewards/test_etpr_output.jsonl"
+  qwen25_3B_drgrpo_gp16_stages234_epoch2: "../results/test_etpr/2025_07_21T084311_qwen25_3B_drgrpo_gp16_stages234_epoch2/test_etpr_output.jsonl" 
 
 
 metrics:

@@ -92,6 +92,9 @@ def get_template(train_type):
     if train_type == "sft":
         template = SFT_TEMPLATE
     
+    elif train_type == "grpo_think":
+        template = GRPO_TEMPLATE_THINK
+    
     elif train_type == "grpo":
         template = GRPO_TEMPLATE
         

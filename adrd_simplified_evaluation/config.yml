@@ -1,7 +1,7 @@
 # benchmarks results will be saved in this directory,
 # in a directory with a unique name. The output will be one JSONL file per
 # benchmark, with filename [benchmarkname]_output.jsonl
-results_dir: 'results'
+results_dir: 'results_sub'
 # results_dir: 'keep_busy'
 
 # Use guided decoding? If true, we expect an answer_schema.json file in the benchmark directory
@@ -18,35 +18,16 @@ guided_decoding_backend: 'outlines'
 # where the model weights will be stored 
 model_name:
   - 'Qwen/Qwen2.5-3B-Instruct'
-  - 'Qwen/Qwen2.5-7B-Instruct'
+  # - 'Qwen/Qwen2.5-7B-Instruct'
   # - 'Qwen/Qwen2.5-14B-Instruct'
   # - 'Qwen/Qwen2.5-32B-Instruct'
   # - 'Qwen/Qwen2.5-72B-Instruct'
   # - 'Qwen/Qwen3-4B'
-  # - '/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered/checkpoint-2272'
-  # - '/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered_no_KL/checkpoint-2272'
-  # # - '/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered_entropy/checkpoint-1500'
-  # # - /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered_no_KL_hybrid/checkpoint-2272
-  # # - /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered_mu_2/checkpoint-1000
-  # # - /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered_hybrid/checkpoint-2272
-  # # - /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered_cont/checkpoint-715
-  # # - /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered_cont_with_no_KL/checkpoint-715
-  # # - /projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered_hybrid_random_flip_all_0/checkpoint-2272
-  # - '/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered_oversample_3x/checkpoint-2272'
-  # - '/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered_2_grad_updates/checkpoint-3000'
-  # - '/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt_sft/qwen25_3B_sft/checkpoint-319'
-  # - '/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered_option_shuffling/checkpoint-2199'
-  # - '/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt_sft/qwen25_3B_sft_with_eval'
-  # - 'Qwen/Qwen3-14B'
-  # - 'Qwen/Qwen3-32B'
-  # - 'meta-llama/Meta-Llama-3.1-8B-Instruct'
-  # - '/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered_option_shuffling_gp_16'
-  # - '/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/qwen25_3B_filtered_option_shuffling_gp_32/checkpoint-1000'
 
 # Number of GPUs used. Passed to vllm.LLM.tensor_parallel_size notice that SCC
 # will only give us single nodes with multiple GPUs, so we never need to do
 # multinode distributed inference
-n_gpus: 4
+n_gpus: 2
 
 # fraction of gpu memory reserved for model + attention.  higher values will
 # give higher throughput but risk giving out-of-memory errors when processing
@@ -75,22 +56,15 @@ enable_chunked_prefill: true
 # LoRA
 enable_lora: false
 
-# system_prompt: "You are a helpful AI assistant that provides well-reasoned and detailed responses. First, think step by step through the reasoning process as an internal monologue, and then provide the user with the final answer within \\boxed{}. Respond using the following format: <think>\n...\n</think>\n<answer>\n...\n</answer>, i.e., the reasoning process should be enclosed within <think>...</think> tags, and the final answer within <answer>...</answer> tags. Reply in English only, do not use other languages."
+# OLD
+# system_prompt: "Please reason step by step, and put your final answer within \\boxed{}. The reasoning process should be enclosed within <think> </think> and the answer within <answer> </answer> tags, respectively, i.e., <think> reasoning process here </think> <answer> answer here </answer>. Reply in English only, do not use other languages."
 
-# system_prompt: "Please reason step by step, and put your final answer within \\boxed{}. Respond using the following format: <think>\n...\n</think>\n<answer>\n...\n</answer>, i.e., the reasoning process should be enclosed within <think>...</think> tags, and the final answer within <answer>...</answer> tags. Reply in English only, do not use other languages."
+# NEW
+system_prompt: "Please reason step by step, and put your final answer within \\boxed{}."
 
-system_prompt: "Please reason step by step, and put your final answer within \\boxed{}. The reasoning process should be enclosed within <think> </think> and the answer within <answer> </answer> tags, respectively, i.e., <think> reasoning process here </think> <answer> answer here </answer>. Reply in English only, do not use other languages."
+template_style: new_boxed
 
 # sampling parameters
-# temperature: 0.6
-# min_p: 0 # minimum probability for a token to be considered, relative to most probable token. Set to 0 to disable
-# top_p: 0.95 # consider candidate tokens until the cumulative sum of their probabilities is top_p
-# top_k: 20
-
-# temperature: 0.7
-# min_p: 0 # minimum probability for a token to be considered, relative to most probable token. Set to 0 to disable
-# top_p: 0.8 # consider candidate tokens until the cumulative sum of their probabilities is top_p
-# top_k: 20
 
 temperature: 1.0
 min_p: 0 # minimum probability for a token to be considered, relative to most probable token. Set to 0 to disable
@@ -112,6 +86,6 @@ n: 16
 # the content of the benchmark should be in a JSONL file
 benchmarks:
   - 'benchmarks/nacc_test/test_np'
-  # - 'benchmarks/nacc_test/test_etpr'
-  # - 'benchmarks/nacc_test/test_cog'
-  # - 'benchmarks/nacc_test/test_mci'
+  - 'benchmarks/nacc_test/test_mci'
+  - 'benchmarks/nacc_test/test_etpr'
+  - 'benchmarks/nacc_test/test_cog'

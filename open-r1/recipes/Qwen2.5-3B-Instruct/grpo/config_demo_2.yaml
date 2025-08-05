@@ -14,9 +14,9 @@ dataset_name:
 # - ../data/nacc/training_data/training_data_grpo/stage_wise/stage_3.csv
 # - ../data/nacc/training_data/training_data_grpo/stage_wise/stage_4.csv
 # - ../data/nacc/training_data/training_data_grpo/subset/all_train_sub.csv
-- ../data/nacc/training_data/training_data_grpo/subset/gs_8/train_filtered_sub.csv
-# - ../data/nacc/training_data/training_data_grpo/subset/stage_wise_sub.csv
-shuffle_dataset: true
+# - ../data/nacc/training_data/training_data_grpo/subset/train_filtered_sub.csv
+- ../data/nacc/training_data/training_data_grpo/subset/gs_8/stage_wise_sub.csv
+shuffle_dataset: false
 
 # system_prompt: "You are a helpful AI assistant that provides well-reasoned and detailed responses. First, think step by step through the reasoning process as an internal monologue, and then provide the user with the final answer within \\boxed{}. Respond using the following format: <think>\n...\n</think>\n<answer>\n...\n</answer>, i.e., the reasoning process should be enclosed within <think>...</think> tags, and the final answer within <answer>...</answer> tags. Reply in English only, do not use other languages."
 
@@ -51,7 +51,7 @@ weight_decay: 0.01
 optim : "adamw_torch"
 lr_scheduler_type : "cosine"
 max_prompt_length: 2000
-max_completion_length: 2000
+max_completion_length: 1500
 max_steps: -1
 num_generations: 8
 # num_iterations: 2
@@ -82,8 +82,8 @@ save_total_limit: 100
 save_steps : 500
 overwrite_output_dir: true
 log_completions_local: true
-output_dir : "ckpt_using_subset/qwen25_3B_drgrpo_gp8_train_filtered_sub"
-log_path: "logs_using_subset/train_completions/qwen25_3B_drgrpo_gp8_train_filtered_sub.csv"
+output_dir : "ckpt_using_subset/qwen25_3B_drgrpo_gp8_stage_wise_sub"
+log_path: "logs_using_subset/train_completions/qwen25_3B_drgrpo_gp8_stage_wise_sub.csv"
 seed: 42
 # temperature: 0.7
 # top_p: 0.8

@@ -1,7 +1,7 @@
 # benchmarks results will be saved in this directory,
 # in a directory with a unique name. The output will be one JSONL file per
 # benchmark, with filename [benchmarkname]_output.jsonl
-results_dir: 'results/train_results'
+results_dir: 'train_results'
 
 # Use guided decoding? If true, we expect an answer_schema.json file in the benchmark directory
 use_guided_decoding: false
@@ -20,7 +20,7 @@ model_name:
 # Number of GPUs used. Passed to vllm.LLM.tensor_parallel_size notice that SCC
 # will only give us single nodes with multiple GPUs, so we never need to do
 # multinode distributed inference
-n_gpus: 4
+n_gpus: 2
 
 # fraction of gpu memory reserved for model + attention.  higher values will
 # give higher throughput but risk giving out-of-memory errors when processing
@@ -53,7 +53,9 @@ enable_lora: false
 
 # system_prompt: "Please reason step by step, and put your final answer within \\boxed{}. Respond using the following format: <think>\n...\n</think>\n<answer>\n...\n</answer>, i.e., the reasoning process should be enclosed within <think>...</think> tags, and the final answer within <answer>...</answer> tags. Reply in English only, do not use other languages."
 
-system_prompt: "Please reason step by step, and put your final answer within \\boxed{}. The reasoning process should be enclosed within <think> </think> and the answer within <answer> </answer> tags, respectively, i.e., <think> reasoning process here </think> <answer> answer here </answer>. Reply in English only, do not use other languages."
+system_prompt: "Please reason step by step, and put your final answer within \\boxed{}."
+
+template_style: new_boxed
 
 
 # sampling parameters
@@ -70,7 +72,7 @@ max_new_tokens: 10000 # maximum number of tokens to generate
 max_questions: 1000000000
 
 # number of sequences to generate per prompt
-n: 32
+n: 16
 
 # each item should be the path to a benchmark folder
 # a benchmark folder must contain an answer schema if running with guided decoding

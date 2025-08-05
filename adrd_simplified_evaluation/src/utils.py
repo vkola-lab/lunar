@@ -11,7 +11,10 @@ def make_results_dir(config, benchmark, model_id):
     # inside the run directory make one dir per benchmark
 
     # run_name = "_".join((datetime.now().strftime("%FT%H%M%S"), uuid.uuid4().hex[:16]))
-    run_name = "_".join((datetime.now().strftime("%FT%H%M%S"), model_id.split('/')[-1]))
+    if "checkpoint" in model_id.split('/')[-1].lower():
+        run_name = "_".join((datetime.now().strftime("%FT%H%M%S"), model_id.split('/')[-2]))
+    else:
+        run_name = "_".join((datetime.now().strftime("%FT%H%M%S"), model_id.split('/')[-1]))
 
     benchmark_path = Path(benchmark)
     run_path = Path(config.results_dir) / benchmark_path.stem / run_name.replace("-", "_")

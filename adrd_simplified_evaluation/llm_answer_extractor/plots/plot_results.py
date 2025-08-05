@@ -3,6 +3,7 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
+import os
 
 
 def plot_comparison(df_scores, out_path="np.pdf", benchmark="Neuropath"):
@@ -61,4 +62,5 @@ def plot_comparison(df_scores, out_path="np.pdf", benchmark="Neuropath"):
     plt.legend(title='Model', loc='upper left', bbox_to_anchor=(-0.4, 1.15), frameon=False, fontsize=14, title_fontsize=16)
     plt.grid(axis='y', linestyle='--', alpha=0.6)
     plt.tight_layout()
+    os.makedirs("/".join(out_path.split("/")[:-1]), exist_ok=True)
     plt.savefig(out_path, format='pdf', bbox_inches='tight', dpi=300)
