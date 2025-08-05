@@ -55,8 +55,7 @@ enable_lora: false
 
 system_prompt: "Please reason step by step, and put your final answer within \\boxed{}."
 
-template_style: new_boxed
-
+template_style: grpo
 
 # sampling parameters
 temperature: 1.0
@@ -78,4 +77,5 @@ n: 16
 # a benchmark folder must contain an answer schema if running with guided decoding
 # the content of the benchmark should be in a JSONL file
 benchmarks:
-  - 'benchmarks/nacc_train'
+  # - 'benchmarks/nacc_train'
+  - 'benchmarks/medqa_train'

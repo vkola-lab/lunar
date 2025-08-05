@@ -59,12 +59,7 @@
 # {options}
 # </options>"""
 
-GRPO_TEMPLATE_THINK = """Below is the background of the patient.
-<patient_data>
-{patient}
-</patient_data>
-
-Below is the question and the corresponding answer options:
+TEMPLATE_THINK = """Below is the question and the corresponding answer options:
 <question>
 {question}
 </question>
@@ -79,25 +74,22 @@ Analyze each of the provided answer options through a structured differential di
 Provide your final answer by selecting the best option from the provided options, and then place your selected option letter within \\boxed{{}}. Please select only one option."""
 
 
-GRPO_TEMPLATE = """Question: {patient}
+# SFT_TEMPLATE = """Below is the background of the patient.
+# <patient_data>
+# {patient}
+# </patient_data>
 
-{question}
+# Below is the question and the corresponding answer options:
+# <question>
+# {question}
+# </question>
+
+# <options>
+# {options}
+# </options>"""
+
+TEMPLATE = """Question: {question}
 
 Answer Choices: 
 {options}
 """
-
-
-SFT_TEMPLATE = """Below is the background of the patient.
-<patient_data>
-{patient}
-</patient_data>
-
-Below is the question and the corresponding answer options:
-<question>
-{question}
-</question>
-
-<options>
-{options}
-</options>"""

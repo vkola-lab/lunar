@@ -5,7 +5,6 @@ torch_dtype: bfloat16
 attn_implementation: flash_attention_2
 
 # Data training arguments
-# dataset_name: ../data/nacc/training_data/training_data_grpo/train_summary_without_invalid.csv
 dataset_name: 
 # - ../data/nacc/training_data/training_data_grpo/train_summary.csv
 # - ../data/nacc/training_data/training_data_grpo/skywork_style/train_filtered.csv
@@ -13,16 +12,11 @@ dataset_name:
 # - ../data/nacc/training_data/training_data_grpo/stage_wise/stage_2.csv
 # - ../data/nacc/training_data/training_data_grpo/stage_wise/stage_3.csv
 # - ../data/nacc/training_data/training_data_grpo/stage_wise/stage_4.csv
+- ../data/other_medical_datasets/medqa/clean/medqa_train.jsonl
 # - ../data/nacc/training_data/training_data_grpo/subset/all_train_sub.csv
 - ../data/nacc/training_data/training_data_grpo/subset/gs_8/train_filtered_sub.csv
 # - ../data/nacc/training_data/training_data_grpo/subset/stage_wise_sub.csv
-shuffle_dataset: true
-
-# system_prompt: "You are a helpful AI assistant that provides well-reasoned and detailed responses. First, think step by step through the reasoning process as an internal monologue, and then provide the user with the final answer within \\boxed{}. Respond using the following format: <think>\n...\n</think>\n<answer>\n...\n</answer>, i.e., the reasoning process should be enclosed within <think>...</think> tags, and the final answer within <answer>...</answer> tags. Reply in English only, do not use other languages."
-
-# system_prompt: "Please reason step by step, and put your final answer within \\boxed{}. Respond using the following format: <think>\n...\n</think>\n<answer>\n...\n</answer>, i.e., the reasoning process should be enclosed within <think>...</think> tags, and the final answer within <answer>...</answer> tags. Reply in English only, do not use other languages."
-
-# system_prompt: "Please reason step by step, and put your final answer within \\boxed{}. The reasoning process should be enclosed within <think> </think> and the answer within <answer> </answer> tags, respectively, i.e., <think> reasoning process here </think> <answer> answer here </answer>. Reply in English only, do not use other languages."
+shuffle_dataset: false
 
 system_prompt: "Please reason step by step, and put your final answer within \\boxed{}."
 
@@ -82,16 +76,14 @@ save_total_limit: 100
 save_steps : 500
 overwrite_output_dir: true
 log_completions_local: true
-output_dir : "ckpt_using_subset/qwen25_3B_drgrpo_gp8_train_filtered_sub"
-log_path: "logs_using_subset/train_completions/qwen25_3B_drgrpo_gp8_train_filtered_sub.csv"
+output_dir : "ckpt_using_subset/qwen25_3B_drgrpo_gp8_medqa_train_filtered_sub"
+log_path: "logs_using_subset/train_completions/qwen25_3B_drgrpo_gp8_medqa_train_filtered_sub.csv"
 seed: 42
-# temperature: 0.7
-# top_p: 0.8
-# top_k: 20
 
 temperature: 1.0
 top_p: 1.0
 min_p: 0
+
 warmup_ratio: 0.1
 scale_rewards: false
 loss_type: dr_grpo
