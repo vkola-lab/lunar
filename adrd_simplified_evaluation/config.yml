@@ -82,10 +82,10 @@ max_new_tokens: 5000 # maximum number of tokens to generate
 # repetition_penalty: 1.0 # values larger than 1 discourage the use of tokens that have been already generated
 
 # read at most this many questions from the benchmark, so it's easy to run a subset
-max_questions: 10000000
+max_questions: 10
 
 # number of sequences to generate per prompt
-n: 16
+n: 1
 
 # each item should be the path to a benchmark folder
 # a benchmark folder must contain an answer schema if running with guided decoding
