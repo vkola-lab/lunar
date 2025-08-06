@@ -1,120 +1,35 @@
-##########
-# Models #
-##########
+# Make sure to set the environment variable HF_HOME to control
 
-# Model names to be passed to vllm.LLM, it should be either a local path or a
-# huggingface path, make sure to set the environment variable HF_HOME to control
-# where the model weights will be stored. If given multiple models, it the benchmarks
-# will be run on all models.
+run_readable_name: "Qwen3-4B" # will be used to name the results folder
 
-model_name:
-  # - 'Qwen/Qwen2.5-3B-Instruct'
-  # - 'Qwen/Qwen2.5-7B-Instruct'
-  # - 'Qwen/Qwen2.5-14B-Instruct'
-  # - 'Qwen/Qwen2.5-32B-Instruct'
-  # - 'Qwen/Qwen2.5-72B-Instruct'
-  - 'Qwen/Qwen3-4B'
-  # - "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt_using_subset/qwen25_3B_drgrpo_gp8_train_filtered_sub"
-  # - "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt_using_subset/qwen25_3B_drgrpo_gp8_train_filtered_sub_no_KL"
+# passed to vllm.LLM, you can use any accepted keyword argument
+LLM:
+  model: "Qwen/Qwen3-4B" # can be a path
+  tensor_parallel_size: 1 # Number of GPUs used. Passed to vllm.LLM.tensor_parallel_size. 
+  gpu_memory_utilization: 0.9 # Fraction of gpu memory reserved for model + attention
+  max_model_len: 10000
+  distributed_executor_backend: 'mp'
+  seed: 1 # seed to initialize RNG for sampling
+  enable_lora: false
+  # lora_path: # uncomment if want to use lora
 
-# Number of sequences to generate per prompt
-n: 1
+# passed to vllm.SamplingParams, you can use any accepted keyword argument
+sampling_params:
+  n: 2 # Number of sequences to generate per prompt
+  temperature: 1.0
+  top_p: 1.0 # consider candidate tokens until the cumulative sum of their probabilities is top_p
+  max_tokens: 5000 # maximum number of tokens to generate
 
-# Number of GPUs used. Passed to vllm.LLM.tensor_parallel_size. 
-n_gpus: 1
+prompt:
+  system_prompt: "Please reason step by step, and put your final answer within \\boxed{}."
+  template_style: grpo
 
-enable_lora: false
-
-###########
-# Prompts #
-###########
-
-system_prompt: "Please reason step by step, and put your final answer within \\boxed{}."
-
-template_style: grpo
-
-# OLD
-# system_prompt: "Please reason step by step, and put your final answer within
-# \\boxed{}. The reasoning process should be enclosed within <think> </think>
-# and the answer within <answer> </answer> tags, respectively, i.e., <think>
-# reasoning process here </think> <answer> answer here </answer>. Reply in
-# English only, do not use other languages."
-
-##############
-# Benchmarks #
-##############
-
-# Benchmarks outputs will be saved in this directory
-results_dir: 'results_sub'
-
-# Base directory for benchmarks
-benchmark_base_dir: "/projectnb/vkolagrp/projects/adrd_foundation_model/benchmarks"
-
-# Each item should be the path to a benchmark folder
-# a benchmark folder must contain an answer schema if running with guided decoding
-# the content of the benchmark should be in a JSONL file
 benchmarks:
-  - '${benchmark_base_dir}/nacc_test/test_np'
-  - '${benchmark_base_dir}/nacc_test/test_mci'
-  - '${benchmark_base_dir}/nacc_test/test_etpr'
-  - '${benchmark_base_dir}/nacc_test/test_cog'
-
-# Read at most this many questions from the benchmark, so it's easy to run a subset 
-max_questions: 10
-
-##########################
-# Other sampling options # 
-##########################
-
-# Use guided decoding? If true, we expect an answer_schema.json file in the benchmark directory
-use_guided_decoding: false
-
-# how to do guided decoding, either 'xgrammar' or 'outlines'
-# has no effect if use_guided_decoding is false
-# xgrammar has some issues, sometimes it repeats the same token endlessly
-# so it's recommended to use outlines, even if it's slower
-guided_decoding_backend: 'outlines'
-
-# Fraction of gpu memory reserved for model + attention. Higher values will
-# give higher throughput but risk giving out-of-memory errors when processing
-# large amounts of text
-gpu_memory_utilization: 0.9
-
-# max_model_len: 90000
-max_model_len: 10000
-
-# Memory amount to offload to cpu to simulate extra gpu memory. Slow but lets
-# you load models larger than your gpu
-cpu_offload_gb: 0
-
-# seed for random sampling during text generation
-llm_sampling_seed: 1
-
-# Enforce eager execution? With eager execution the CUDA graph is not built
-# beforehand, unclear which option has better performance
-enforce_eager: false
-
-# Chunked prefill improves inter-token latency and generation decode because #
-# decode requests are prioritized. It helps achieve better GPU utilization by
-# locating compute-bound (prefill) and memory-bound (decode) requests to the
-# same batch.
-enable_chunked_prefill: true
-
-temperature: 1.0
-
- # minimum probability for a token to be considered, relative to most probable token. Set to 0 to disable
-min_p: 0
-
-# consider candidate tokens until the cumulative sum of their probabilities is top_p
-top_p: 1.0 
-
-# only consider the top k most likely tokens when sampling
-# top_k: 20
-
-# minimum number of tokens to generate
-min_tokens: 0 
-
-# maximum number of tokens to generate
-max_new_tokens: 5000 
-
-# repetition_penalty: 1.0 # values larger than 1 discourage the use of tokens that have been already generated
+  results_dir: 'results_sub' # Benchmarks outputs will be saved in this directory
+  base_dir: "/projectnb/vkolagrp/projects/adrd_foundation_model/benchmarks" # Base directory for benchmarks
+  max_questions: 2 # Read at most this many questions from the benchmark, so it's easy to run a subset 
+  benchmark_list:
+    - '${benchmarks.base_dir}/nacc_test/test_np'
+    # - '${benchmarks.base_dir}/nacc_test/test_mci'
+    # - '${benchmarks.base_dir}/nacc_test/test_etpr'
+    # - '${benchmarks.base_dir}/nacc_test/test_cog'

@@ -1,10 +1,9 @@
 #!/bin/bash -l
 
 # This script is set up so that you can either qsub it or run it interactively.
-# It runs main.py with the specifiied configuration file.
 # Example usage:
 #   Interactive: $ ./run_benchmarks.sh config.yml
-#   Batch job: $ qsub ./run_benchmarks.sh config.yml
+#   Batch job:   $ qsub ./run_benchmarks.sh config.yml
 
 # Make sure you're logged in to huggingface before running, if you're not sure
 # you should login using "huggingface-cli login" before running this script
@@ -29,11 +28,9 @@ module load cuda
 export HF_HOME=/projectnb/vkolagrp/skowshik/.cache
 # export HF_HOME=/projectnb/vkolagrp/bellitti/hf_cache
 
+# If this env var is set to 1, vLLM will skip the peer-to-peer check,
+# and trust the driver's peer-to-peer capability report.
 export VLLM_SKIP_P2P_CHECK=1
-
-# Set to 1 to execute gpu operations synchronously. I suspect SCC enforces this
-# anyway, only one user can use each GPU at any time.
-# export CUDA_LAUNCH_BLOCKING=1 
 
 # We can probably do this using the -cwd option for qsub
 cd /projectnb/vkolagrp/bellitti/adrd-foundation-model/adrd_simplified_evaluation 
@@ -55,7 +52,7 @@ while true; do
         #     kill -9 "$pid"
         # done
 
-        python src/main.py config_file=$1
+        python src/run_benchmarks.py config_file=$1
 
         break
     else
