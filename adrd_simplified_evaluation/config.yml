@@ -1,21 +1,12 @@
-# benchmarks results will be saved in this directory,
-# in a directory with a unique name. The output will be one JSONL file per
-# benchmark, with filename [benchmarkname]_output.jsonl
-results_dir: 'results_sub'
-# results_dir: 'keep_busy'
+##########
+# Models #
+##########
 
-# Use guided decoding? If true, we expect an answer_schema.json file in the benchmark directory
-use_guided_decoding: false
-
-# how to do guided decoding, either 'xgrammar' or 'outlines'
-# has no effect if use_guided_decoding is false
-# xgrammar has some issues, sometimes it repeats the same token endlessly
-# so it's recommended to use outlines, even if it's slower
-guided_decoding_backend: 'outlines'
-
-# model name to be passed to vllm.LLM, it should be eithe a local path or a
+# Model names to be passed to vllm.LLM, it should be either a local path or a
 # huggingface path, make sure to set the environment variable HF_HOME to control
-# where the model weights will be stored 
+# where the model weights will be stored. If given multiple models, it the benchmarks
+# will be run on all models.
+
 model_name:
   # - 'Qwen/Qwen2.5-3B-Instruct'
   # - 'Qwen/Qwen2.5-7B-Instruct'
@@ -26,15 +17,69 @@ model_name:
   # - "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt_using_subset/qwen25_3B_drgrpo_gp8_train_filtered_sub"
   # - "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt_using_subset/qwen25_3B_drgrpo_gp8_train_filtered_sub_no_KL"
 
-# Number of GPUs used. Passed to vllm.LLM.tensor_parallel_size notice that SCC
-# will only give us single nodes with multiple GPUs, so we never need to do
-# multinode distributed inference
+# Number of sequences to generate per prompt
+n: 1
+
+# Number of GPUs used. Passed to vllm.LLM.tensor_parallel_size. 
 n_gpus: 1
 
-# fraction of gpu memory reserved for model + attention.  higher values will
+enable_lora: false
+
+###########
+# Prompts #
+###########
+
+system_prompt: "Please reason step by step, and put your final answer within \\boxed{}."
+
+template_style: grpo
+
+# OLD
+# system_prompt: "Please reason step by step, and put your final answer within
+# \\boxed{}. The reasoning process should be enclosed within <think> </think>
+# and the answer within <answer> </answer> tags, respectively, i.e., <think>
+# reasoning process here </think> <answer> answer here </answer>. Reply in
+# English only, do not use other languages."
+
+##############
+# Benchmarks #
+##############
+
+# Benchmarks outputs will be saved in this directory
+results_dir: 'results_sub'
+
+# Base directory for benchmarks
+benchmark_base_dir: "/projectnb/vkolagrp/projects/adrd_foundation_model/benchmarks"
+
+# Each item should be the path to a benchmark folder
+# a benchmark folder must contain an answer schema if running with guided decoding
+# the content of the benchmark should be in a JSONL file
+benchmarks:
+  - '${benchmark_base_dir}/nacc_test/test_np'
+  - '${benchmark_base_dir}/nacc_test/test_mci'
+  - '${benchmark_base_dir}/nacc_test/test_etpr'
+  - '${benchmark_base_dir}/nacc_test/test_cog'
+
+# Read at most this many questions from the benchmark, so it's easy to run a subset 
+max_questions: 10
+
+##########################
+# Other sampling options # 
+##########################
+
+# Use guided decoding? If true, we expect an answer_schema.json file in the benchmark directory
+use_guided_decoding: false
+
+# how to do guided decoding, either 'xgrammar' or 'outlines'
+# has no effect if use_guided_decoding is false
+# xgrammar has some issues, sometimes it repeats the same token endlessly
+# so it's recommended to use outlines, even if it's slower
+guided_decoding_backend: 'outlines'
+
+# Fraction of gpu memory reserved for model + attention. Higher values will
 # give higher throughput but risk giving out-of-memory errors when processing
 # large amounts of text
 gpu_memory_utilization: 0.9
+
 # max_model_len: 90000
 max_model_len: 10000
 
@@ -55,47 +100,21 @@ enforce_eager: false
 # same batch.
 enable_chunked_prefill: true
 
-# LoRA
-enable_lora: false
-
-# OLD
-# system_prompt: "Please reason step by step, and put your final answer within
-# \\boxed{}. The reasoning process should be enclosed within <think> </think>
-# and the answer within <answer> </answer> tags, respectively, i.e., <think>
-# reasoning process here </think> <answer> answer here </answer>. Reply in
-# English only, do not use other languages."
-
-# NEW
-system_prompt: "Please reason step by step, and put your final answer within \\boxed{}."
-
-template_style: grpo
-
-# sampling parameters
-
 temperature: 1.0
-min_p: 0 # minimum probability for a token to be considered, relative to most probable token. Set to 0 to disable
-top_p: 1.0 # consider candidate tokens until the cumulative sum of their probabilities is top_p
+
+ # minimum probability for a token to be considered, relative to most probable token. Set to 0 to disable
+min_p: 0
+
+# consider candidate tokens until the cumulative sum of their probabilities is top_p
+top_p: 1.0 
+
+# only consider the top k most likely tokens when sampling
 # top_k: 20
 
-min_tokens: 0 # minimum number of tokens to generate
-max_new_tokens: 5000 # maximum number of tokens to generate
+# minimum number of tokens to generate
+min_tokens: 0 
+
+# maximum number of tokens to generate
+max_new_tokens: 5000 
+
 # repetition_penalty: 1.0 # values larger than 1 discourage the use of tokens that have been already generated
-
-# read at most this many questions from the benchmark, so it's easy to run a subset
-max_questions: 10
-
-# number of sequences to generate per prompt
-n: 1
-
-# each item should be the path to a benchmark folder
-# a benchmark folder must contain an answer schema if running with guided decoding
-# the content of the benchmark should be in a JSONL file
-
-benchmark_dir: "/projectnb/vkolagrp/projects/adrd_foundation_model/benchmarks"
-
-benchmarks:
-  # - 'benchmarks/nacc_test/test_np'
-  # - 'benchmarks/nacc_test/test_mci'
-  # - 'benchmarks/nacc_test/test_etpr'
-  # - 'benchmarks/nacc_test/test_cog'
-  - '${benchmark_dir}/nacc_test/test_np'

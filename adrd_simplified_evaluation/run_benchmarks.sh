@@ -1,8 +1,15 @@
 #!/bin/bash -l
 
-# This script is set up so that you can either qsub it or run it interactively
-# Login using "huggingface-cli login" before running this script "huggingface-cli login"
+# This script is set up so that you can either qsub it or run it interactively.
+# It runs main.py with the specifiied configuration file.
+# Example usage:
+#   Interactive: $ ./run_benchmarks.sh config.yml
+#   Batch job: $ qsub ./run_benchmarks.sh config.yml
 
+# Make sure you're logged in to huggingface before running, if you're not sure
+# you should login using "huggingface-cli login" before running this script
+
+# Requesting resources from SCC
 #$ -P vkolagrp
 #$ -l h_rt=24:00:00
 #$ -pe omp 8
@@ -18,27 +25,29 @@
 module load miniconda
 module load cuda
 
+# Using Sahana's cache to save some space
 export HF_HOME=/projectnb/vkolagrp/skowshik/.cache
 # export HF_HOME=/projectnb/vkolagrp/bellitti/hf_cache
 
 export VLLM_SKIP_P2P_CHECK=1
 
-# set to 1 to execute gpu operations synchronously
+# Set to 1 to execute gpu operations synchronously. I suspect SCC enforces this
+# anyway, only one user can use each GPU at any time.
 # export CUDA_LAUNCH_BLOCKING=1 
 
+# We can probably do this using the -cwd option for qsub
 cd /projectnb/vkolagrp/bellitti/adrd-foundation-model/adrd_simplified_evaluation 
 
-# conda activate /projectnb/vkolagrp/projects/adrd_foundation_model/envs/fmadrd
 conda activate /projectnb/vkolagrp/skowshik/conda_envs/vllm_env
 
 python -V
 
-# python src/main.py config_file=config.yml
-
 while true; do
     count=$(nvidia-smi | grep -c python)
     if [ "$count" -lt 4 ]; then
+
         echo "GPU is idle with $count Python processes. Starting next script..."
+
         pids=$(nvidia-smi | grep python | awk '{print $5}')
 
         # for pid in $pids; do
@@ -46,19 +55,7 @@ while true; do
         #     kill -9 "$pid"
         # done
 
-        python src/main.py config_file=config.yml
-
-        # python src/main.py config_file=config.yml  \
-        # model_name='["/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt_using_subset/qwen25_3B_drgrpo_gp8_train_filtered_sub", "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt_using_subset/qwen25_3B_drgrpo_gp8_train_filtered_sub_no_KL"]' \
-        # benchmarks='["benchmarks/nacc_test/test_np", "benchmarks/nacc_test/test_mci", "benchmarks/nacc_test/test_cog"]' \
-        # template_style="grpo" \
-        # system_prompt="Please reason step by step, and put your final answer within \\boxed{}."
-
-        # python src/main.py config_file=config.yml  \
-        # model_name='["Qwen/Qwen2.5-3B-Instruct", "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt_using_subset/qwen25_3B_drgrpo_gp8_all_train_sub_old_prompt"]' \
-        # benchmarks='["benchmarks/nacc_test/test_cog"]' \
-        # template_style="grpo_think" \
-        # system_prompt="Please reason step by step, and put your final answer within \\boxed{}. The reasoning process should be enclosed within <think> </think> and the answer within <answer> </answer> tags, respectively, i.e., <think> reasoning process here </think> <answer> answer here </answer>. Reply in English only, do not use other languages."
+        python src/main.py config_file=$1
 
         break
     else
