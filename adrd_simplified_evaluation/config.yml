@@ -17,17 +17,19 @@ guided_decoding_backend: 'outlines'
 # huggingface path, make sure to set the environment variable HF_HOME to control
 # where the model weights will be stored 
 model_name:
-  - 'Qwen/Qwen2.5-3B-Instruct'
+  # - 'Qwen/Qwen2.5-3B-Instruct'
   # - 'Qwen/Qwen2.5-7B-Instruct'
   # - 'Qwen/Qwen2.5-14B-Instruct'
   # - 'Qwen/Qwen2.5-32B-Instruct'
   # - 'Qwen/Qwen2.5-72B-Instruct'
-  # - 'Qwen/Qwen3-4B'
+  - 'Qwen/Qwen3-4B'
+  # - "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt_using_subset/qwen25_3B_drgrpo_gp8_train_filtered_sub"
+  # - "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt_using_subset/qwen25_3B_drgrpo_gp8_train_filtered_sub_no_KL"
 
 # Number of GPUs used. Passed to vllm.LLM.tensor_parallel_size notice that SCC
 # will only give us single nodes with multiple GPUs, so we never need to do
 # multinode distributed inference
-n_gpus: 2
+n_gpus: 1
 
 # fraction of gpu memory reserved for model + attention.  higher values will
 # give higher throughput but risk giving out-of-memory errors when processing
@@ -57,7 +59,11 @@ enable_chunked_prefill: true
 enable_lora: false
 
 # OLD
-# system_prompt: "Please reason step by step, and put your final answer within \\boxed{}. The reasoning process should be enclosed within <think> </think> and the answer within <answer> </answer> tags, respectively, i.e., <think> reasoning process here </think> <answer> answer here </answer>. Reply in English only, do not use other languages."
+# system_prompt: "Please reason step by step, and put your final answer within
+# \\boxed{}. The reasoning process should be enclosed within <think> </think>
+# and the answer within <answer> </answer> tags, respectively, i.e., <think>
+# reasoning process here </think> <answer> answer here </answer>. Reply in
+# English only, do not use other languages."
 
 # NEW
 system_prompt: "Please reason step by step, and put your final answer within \\boxed{}."
@@ -76,16 +82,20 @@ max_new_tokens: 5000 # maximum number of tokens to generate
 # repetition_penalty: 1.0 # values larger than 1 discourage the use of tokens that have been already generated
 
 # read at most this many questions from the benchmark, so it's easy to run a subset
-max_questions: 10000000
+max_questions: 10
 
 # number of sequences to generate per prompt
-n: 16
+n: 1
 
 # each item should be the path to a benchmark folder
 # a benchmark folder must contain an answer schema if running with guided decoding
 # the content of the benchmark should be in a JSONL file
+
+benchmark_dir: "/projectnb/vkolagrp/projects/adrd_foundation_model/benchmarks"
+
 benchmarks:
-  - 'benchmarks/nacc_test/test_np'
-  - 'benchmarks/nacc_test/test_mci'
-  - 'benchmarks/nacc_test/test_etpr'
-  - 'benchmarks/nacc_test/test_cog'
+  # - 'benchmarks/nacc_test/test_np'
+  # - 'benchmarks/nacc_test/test_mci'
+  # - 'benchmarks/nacc_test/test_etpr'
+  # - 'benchmarks/nacc_test/test_cog'
+  - '${benchmark_dir}/nacc_test/test_np'
