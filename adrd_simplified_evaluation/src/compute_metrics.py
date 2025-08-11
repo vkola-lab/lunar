@@ -1,0 +1,85 @@
+from pathlib import Path
+import textwrap
+import seaborn as sns
+import pandas as pd
+from sklearn.metrics import (
+    accuracy_score,
+    balanced_accuracy_score,
+    precision_score,
+    recall_score,
+    f1_score,
+    classification_report,
+    confusion_matrix,
+    ConfusionMatrixDisplay
+)
+import matplotlib.pyplot as plt
+import yaml
+import re
+
+import json
+
+def option_string_to_dict(options):
+    pattern = r'([A-Z])\. ([^\n]+)'
+    matches = re.findall(pattern, options)
+    return {key: value for key, value in matches}
+
+def wrap_labels(labels, width):
+    return ['\n'.join(textwrap.wrap(label, width)) for label in labels]
+
+
+if __name__ == "__main__":
+
+    ans_dir = Path(
+        "/projectnb/vkolagrp/bellitti/adrd-foundation-model/adrd_simplified_evaluation/results_sub"
+    )
+
+    for ans_path in ans_dir.rglob("*_processed.parquet"):
+
+        ans_df = pd.read_parquet(ans_path)
+
+        benchmark_name = ans_path.parent.parent.stem
+
+        if benchmark_name in ['test_cog','test_etpr','test_mci','test_np']:
+            y_pred = ans_df.apply(lambda row: option_string_to_dict(row['options']).get(row['prediction'],'Invalid'), axis=1)
+            y_true = ans_df['ground_truth_text']
+            labels = sorted(ans_df['ground_truth_text'].unique())
+        else:
+            y_pred = ans_df["prediction"]
+            y_true = ans_df["ground_truth"]
+            labels = sorted(ans_df['ground_truth'].unique())
+
+        metrics = {
+            "benchmark_name": benchmark_name,
+            "accuracy": accuracy_score(y_true, y_pred),
+            "balanced_accuracy": balanced_accuracy_score(y_true, y_pred),
+            "precision_macro": precision_score( y_true, y_pred, average="macro", zero_division=0,labels=labels),
+            "recall_macro": recall_score( y_true, y_pred, average="macro", zero_division=0,labels=labels),
+            "f1_macro": f1_score(y_true, y_pred, average="macro", zero_division=0,labels=labels),
+            "precision_weighted": precision_score( y_true, y_pred, average="weighted", zero_division=0,labels=labels),
+            "recall_weighted": recall_score( y_true, y_pred, average="weighted", zero_division=0,labels=labels),
+            "f1_weighted": f1_score( y_true, y_pred, average="weighted", zero_division=0,labels=labels),
+        }
+
+        with open(ans_path.parent / "config.yml", "r") as f:
+            config = yaml.safe_load(f)
+            metrics['model'] = config['run_readable_name']
+
+
+        with open(ans_path.parent / "metrics.json", "w") as f:
+            json.dump(metrics, f, indent=4)
+
+        
+        fig,ax = plt.subplots(1,1,figsize=(len(labels),len(labels)),layout='tight')
+        ConfusionMatrixDisplay.from_predictions(y_true,y_pred,ax=ax,colorbar=False,labels=labels,cmap='Blues')
+
+        # Wrap x-axis labels
+        x_labels = [tick.get_text() for tick in ax.get_xticklabels()]
+        wrapped_x = wrap_labels(x_labels, width=30)
+        ax.set_xticklabels(wrapped_x, rotation=90, ha='right', va='center', rotation_mode='anchor',fontsize=7)
+
+        # Wrap y-axis labels
+        y_labels = [tick.get_text() for tick in ax.get_yticklabels()]
+        wrapped_y = wrap_labels(y_labels, width=30)
+        ax.set_yticklabels(wrapped_y,fontsize=7)   
+
+        fig.savefig(ans_path.parent / "confusion_matrix.pdf")

@@ -6,6 +6,7 @@ import pandas as pd
 import prompt_templates
 from omegaconf import OmegaConf
 from tqdm import tqdm
+import re
 
 
 def make_results_dir(config, benchmark_path):
@@ -149,3 +150,5 @@ def load_results(file_path):
     )
 
     return results_df
+
+

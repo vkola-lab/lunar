@@ -10,7 +10,7 @@
 
 # Requesting resources from SCC
 #$ -P vkolagrp
-#$ -l h_rt=2:00:00
+#$ -l h_rt=6:00:00
 #$ -pe omp 8
 #$ -l mem_per_core=2G
 #$ -l gpus=1

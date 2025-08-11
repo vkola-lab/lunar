@@ -57,7 +57,7 @@ class AnswerExtractor:
 
             results_df = self.extract_from_file(jsonl_file)
 
-            output_path = jsonl_file.parent / (jsonl_file.stem + "_extracted.parquet")
+            output_path = jsonl_file.parent / (jsonl_file.stem + "_processed.parquet")
 
             results_df.to_parquet(output_path, index=False)
 
