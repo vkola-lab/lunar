@@ -6,13 +6,14 @@ LLM:
   max_model_len: 10000
   distributed_executor_backend: 'mp'
   seed: 1 # seed to initialize RNG for sampling
+  enable_lora: false
 
 # passed to vllm.SamplingParams, you can use any accepted keyword argument
 sampling_params:
   n: 1 # Number of sequences to generate per prompt
   # temperature: 1.0
   # top_p: 1.0 # consider candidate tokens until the cumulative sum of their probabilities is top_p
-  max_tokens: 1 # maximum number of tokens to generate
+  max_tokens: 5000 # maximum number of tokens to generate
 
 prompt:
   system_prompt: "Please reason step by step, and put your final answer within \\boxed{}."
