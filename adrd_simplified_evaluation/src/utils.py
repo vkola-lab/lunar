@@ -1,6 +1,7 @@
 import json
 from datetime import datetime
 from pathlib import Path
+import pandas as pd
 
 import prompt_templates
 from omegaconf import OmegaConf
@@ -39,9 +40,7 @@ def outputs_to_dict(problems, outputs):
         output_dict = {}
 
         output_dict["problem"] = problems[i]
-        output_dict["prompt"] = outputs[i].prompt
         output_dict["generated_text"] = [_.text for _ in outputs[i].outputs]
-        # did the output reach the max number of tokens?
         output_dict["finish_reason"] = [_.finish_reason for _ in outputs[i].outputs]
 
         output_list.append(output_dict)
@@ -130,3 +129,23 @@ def run_benchmark(llm, benchmark_path, config):
     outputs = llm.generate(messages)
 
     return problems, outputs
+
+
+def load_results(file_path):
+    # Load JSONL files from the given path returns a pandas dataframe.
+    # The dataframe is in tall format, with one row per output generated.
+    # If the benchmark was run with LLM.n=5 and 100 questions, it will have
+    # 500 rows.
+
+    results = []
+    with open(file_path) as f:
+        for line in f:
+            results.append(json.loads(line))
+
+    results_df = (
+        pd.json_normalize(results)
+        .explode(["generated_text", "finish_reason"])
+        .rename(columns=lambda x: x.split(".")[-1]) # dangerous, does not check for duplicate columns
+    )
+
+    return results_df

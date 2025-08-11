@@ -1,0 +1,18 @@
+# passed to vllm.LLM, you can use any accepted keyword argument
+LLM:
+  model: "Qwen/Qwen3-4B" # can be a path
+  tensor_parallel_size: 1 # Number of GPUs used. Passed to vllm.LLM.tensor_parallel_size. 
+  gpu_memory_utilization: 0.9 # Fraction of gpu memory reserved for model + attention
+  max_model_len: 10000
+  distributed_executor_backend: 'mp'
+  seed: 1 # seed to initialize RNG for sampling
+
+# passed to vllm.SamplingParams, you can use any accepted keyword argument
+sampling_params:
+  n: 1 # Number of sequences to generate per prompt
+  # temperature: 1.0
+  # top_p: 1.0 # consider candidate tokens until the cumulative sum of their probabilities is top_p
+  max_tokens: 1 # maximum number of tokens to generate
+
+prompt:
+  system_prompt: "Please reason step by step, and put your final answer within \\boxed{}."

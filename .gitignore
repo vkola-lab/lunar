@@ -72,3 +72,4 @@ swift_grpo_trainer.py
 
 # environments
 venv/
+venv_jupyter
