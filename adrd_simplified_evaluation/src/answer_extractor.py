@@ -16,8 +16,10 @@ class AnswerExtractor:
         self.llm = llm_interface.LLMWrapper(self.extractor_config)
 
     def extract_boxed(self, text):
-
-        all_matches = re.findall(r"\\boxed\{.*\b(\S)\.?\b", text)
+        # The pattern after the opening bracket is lazy, it finds as few character as 
+        # possible until you hit a single letter (surrounded by word boundaries)
+        # this means that if the output is \boxed{A and B} it will pick out A
+        all_matches = re.findall(r"\\boxed\{.*?\b([A-Z0-9])\.?\b", text)
 
         # finding more than one match is ambiguous, mark that as invalid too
         if len(all_matches) == 0 or len(all_matches) > 1:
@@ -25,31 +27,36 @@ class AnswerExtractor:
 
         return all_matches[0].strip().upper()
 
-    def extract_llm(self, text, options_string):
+    def remove_think(self, text):
+        # Greedily remove all content between think tags. It removes 
+        # from the first think tags to the last, even if there are more tags in between
+        return re.sub(r"<think>.*</think>", "", text, flags=re.DOTALL).strip()
+
+    def extract_llm(self, ans_df):
+        # ans_df must have 'generated_text' and 'options' as keys
 
         messages = [
             [
                 {
                     "role": "user",
                     "content": prompt_templates.EXTRACT_ANSWER_PROMPT.format(
-                        answer=text, options=options_string
+                        answer=row.generated_text, options=row.options
                     ),
                 }
             ]
+            for row in ans_df.itertuples()
         ]
 
         completions = self.llm.generate(messages)
 
-        output = completions[0].outputs[0].text
+        # remove thinking text and extract boxed answer
+        # this will be a list of completions
+        output = [
+            self.extract_boxed(self.remove_think(completion.outputs[0].text))
+            for completion in completions
+        ]
 
-        # remove thinking part
-        cleaned = re.sub(r"<think>.*?</think>", "", output, flags=re.DOTALL).strip()
-
-        # extract the boxed answer
-        final = self.extract_boxed(cleaned)
-
-        return final
-
+        return output
 
     def extract_from_dir(self, dir_path):
 
@@ -68,16 +75,20 @@ class AnswerExtractor:
         results_df = utils.load_results(file_path)
 
         # extract with regex
-        results_df["extracted"] = results_df["generated_text"].apply(self.extract_boxed)
+        results_df["extracted"] = results_df["generated_text"].apply(lambda text: self.extract_boxed(self.remove_think(text)))
 
         # extract with LLM
         mask = results_df["extracted"] == "invalid"
 
+        # save invalid answers
+        # results_df.loc[mask].to_json(file_path.parent / "invalid_answers.jsonl",lines=True,orient='records')
+
+        # TODO pack all the invalid answers into one vllm request for speed
+
         results_df["prediction"] = results_df["extracted"]
 
-        results_df.loc[mask, "prediction"] = results_df.loc[mask, ["generated_text","options"]].apply(
-            lambda row: self.extract_llm(row["generated_text"], row["options"]),
-            axis=1,  # applies the function to each row
+        results_df.loc[mask, "prediction"] = self.extract_llm(
+            results_df.loc[mask, ["generated_text", "options"]]
         )
 
         return results_df

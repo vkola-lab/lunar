@@ -37,49 +37,59 @@ if __name__ == "__main__":
 
         ans_df = pd.read_parquet(ans_path)
 
+        ans_df['attempt'] = ans_df.groupby('full_question').cumcount()
+
         benchmark_name = ans_path.parent.parent.stem
 
-        if benchmark_name in ['test_cog','test_etpr','test_mci','test_np']:
-            y_pred = ans_df.apply(lambda row: option_string_to_dict(row['options']).get(row['prediction'],'Invalid'), axis=1)
-            y_true = ans_df['ground_truth_text']
-            labels = sorted(ans_df['ground_truth_text'].unique())
-        else:
-            y_pred = ans_df["prediction"]
-            y_true = ans_df["ground_truth"]
-            labels = sorted(ans_df['ground_truth'].unique())
+        metric_results = []
 
-        metrics = {
-            "benchmark_name": benchmark_name,
-            "accuracy": accuracy_score(y_true, y_pred),
-            "balanced_accuracy": balanced_accuracy_score(y_true, y_pred),
-            "precision_macro": precision_score( y_true, y_pred, average="macro", zero_division=0,labels=labels),
-            "recall_macro": recall_score( y_true, y_pred, average="macro", zero_division=0,labels=labels),
-            "f1_macro": f1_score(y_true, y_pred, average="macro", zero_division=0,labels=labels),
-            "precision_weighted": precision_score( y_true, y_pred, average="weighted", zero_division=0,labels=labels),
-            "recall_weighted": recall_score( y_true, y_pred, average="weighted", zero_division=0,labels=labels),
-            "f1_weighted": f1_score( y_true, y_pred, average="weighted", zero_division=0,labels=labels),
-        }
+        for attempt,group in ans_df.groupby('attempt'):
 
-        with open(ans_path.parent / "config.yml", "r") as f:
-            config = yaml.safe_load(f)
-            metrics['model'] = config['run_readable_name']
+            # NACC-based benchmarks are treated differently, we need to look at the ground_truth text
+            # if we want meaningful class-wise metrics: for example, in the NC/MCI/DE problem the answers are shuffled:
+            # sometimes 1=MCI and sometimes 2=MCI, so if we want a confusion matrix in terms of NC/MCI/DE instead of the
+            # non informative 1/2/3 we have to map the options back to text. This does not apply to the MCQ benchmarks
+            if benchmark_name in ['test_cog','test_etpr','test_mci','test_np']: 
+                y_pred = group.apply(lambda row: option_string_to_dict(row['options']).get(row['prediction'],'Invalid'), axis=1)
+                y_true = group['ground_truth_text']
+                labels = sorted(group['ground_truth_text'].unique().astype(str))
+            else:
+                y_pred = group["prediction"].astype(str)
+                y_true = group["ground_truth"].astype(str)
+                labels = sorted(group['ground_truth'].unique().astype(str))
 
+            metrics = {
+                "benchmark_name": benchmark_name,
+                "accuracy": accuracy_score(y_true, y_pred),
+                "balanced_accuracy": balanced_accuracy_score(y_true, y_pred),
+                "precision_macro": precision_score( y_true, y_pred, average="macro", zero_division=0,labels=labels),
+                "recall_macro": recall_score( y_true, y_pred, average="macro", zero_division=0,labels=labels),
+                "f1_macro": f1_score(y_true, y_pred, average="macro", zero_division=0,labels=labels),
+                "precision_weighted": precision_score( y_true, y_pred, average="weighted", zero_division=0,labels=labels),
+                "recall_weighted": recall_score( y_true, y_pred, average="weighted", zero_division=0,labels=labels),
+                "f1_weighted": f1_score( y_true, y_pred, average="weighted", zero_division=0,labels=labels),
+            }
+
+            with open(ans_path.parent / "config.yml", "r") as f:
+                config = yaml.safe_load(f)
+                metrics['model'] = config['run_readable_name']
+            
+            fig,ax = plt.subplots(1,1,figsize=(len(labels),len(labels)),layout='tight')
+            ConfusionMatrixDisplay.from_predictions(y_true,y_pred,ax=ax,colorbar=False,labels=labels,cmap='Blues')
+
+            # Wrap x-axis labels
+            x_labels = [tick.get_text() for tick in ax.get_xticklabels()]
+            wrapped_x = wrap_labels(x_labels, width=30)
+            ax.set_xticklabels(wrapped_x, rotation=90, ha='right', va='center', rotation_mode='anchor',fontsize=7)
+
+            # Wrap y-axis labels
+            y_labels = [tick.get_text() for tick in ax.get_yticklabels()]
+            wrapped_y = wrap_labels(y_labels, width=30)
+            ax.set_yticklabels(wrapped_y,fontsize=7)   
+
+            fig.savefig(ans_path.parent / f"confusion_matrix_attempt{attempt}.pdf")
+
+            metric_results.append(metrics)
 
         with open(ans_path.parent / "metrics.json", "w") as f:
-            json.dump(metrics, f, indent=4)
-
-        
-        fig,ax = plt.subplots(1,1,figsize=(len(labels),len(labels)),layout='tight')
-        ConfusionMatrixDisplay.from_predictions(y_true,y_pred,ax=ax,colorbar=False,labels=labels,cmap='Blues')
-
-        # Wrap x-axis labels
-        x_labels = [tick.get_text() for tick in ax.get_xticklabels()]
-        wrapped_x = wrap_labels(x_labels, width=30)
-        ax.set_xticklabels(wrapped_x, rotation=90, ha='right', va='center', rotation_mode='anchor',fontsize=7)
-
-        # Wrap y-axis labels
-        y_labels = [tick.get_text() for tick in ax.get_yticklabels()]
-        wrapped_y = wrap_labels(y_labels, width=30)
-        ax.set_yticklabels(wrapped_y,fontsize=7)   
-
-        fig.savefig(ans_path.parent / "confusion_matrix.pdf")
+            json.dump(metric_results, f, indent=4)
