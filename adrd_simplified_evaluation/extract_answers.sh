@@ -20,13 +20,7 @@
 #$ -e logs/$JOB_ID.stderr
 #$ -o logs/$JOB_ID.stdout
 
-# # Check that exactly one config file was passed
-# if [ "$#" -ne 1 ]; then
-#     echo "Usage: $0 config_file.yml"
-#     exit 1
-# fi
-
-module load miniconda
+module load python3
 module load cuda
 
 # Using Sahana's cache to save some space
@@ -37,8 +31,12 @@ export HF_HOME=/projectnb/vkolagrp/skowshik/.cache
 # and trust the driver's peer-to-peer capability report.
 export VLLM_SKIP_P2P_CHECK=1
 
-conda activate /projectnb/vkolagrp/skowshik/conda_envs/vllm_env
+# we need the gpu version to extract answers because we try to recover invalid answers via LLM
+source venvs/venv_gpu/bin/activate
 
 python -V
 
-python src/extract_answers.py 
+RESULTS_DIR="results"
+EXTRACTOR_CONFIG="src/extractor_config.yml"
+
+python src/extract_answers.py $RESULTS_DIR $EXTRACTOR_CONFIG

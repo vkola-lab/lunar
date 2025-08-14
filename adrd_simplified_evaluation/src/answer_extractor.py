@@ -62,11 +62,14 @@ class AnswerExtractor:
 
         for jsonl_file in dir_path.rglob("*_output.jsonl"):
 
-            results_df = self.extract_from_file(jsonl_file)
+            # if the directory already contains a processed file, skip the directory
+            if not any(jsonl_file.parent.glob('*_processed.parquet')):
 
-            output_path = jsonl_file.parent / (jsonl_file.stem + "_processed.parquet")
+                results_df = self.extract_from_file(jsonl_file)
 
-            results_df.to_parquet(output_path, index=False)
+                output_path = jsonl_file.parent / (jsonl_file.stem + "_processed.parquet")
+
+                results_df.to_parquet(output_path, index=False)
 
     def extract_from_file(self, file_path):
 
@@ -82,8 +85,6 @@ class AnswerExtractor:
 
         # save invalid answers
         # results_df.loc[mask].to_json(file_path.parent / "invalid_answers.jsonl",lines=True,orient='records')
-
-        # TODO pack all the invalid answers into one vllm request for speed
 
         results_df["prediction"] = results_df["extracted"]
 

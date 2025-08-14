@@ -15,21 +15,34 @@ LLM:
 
 # passed to vllm.SamplingParams, you can use any accepted keyword argument
 sampling_params:
-  n: 2 # Number of sequences to generate per prompt
+  n: 5 # Number of sequences to generate per prompt
   temperature: 1.0
   top_p: 1.0 # consider candidate tokens until the cumulative sum of their probabilities is top_p
-  max_tokens: 5000 # maximum number of tokens to generate
+  max_tokens: 10000 # maximum number of tokens to generate
 
 prompt:
   system_prompt: "Please reason step by step, and put your final answer within \\boxed{}."
   template_style: grpo
 
 benchmarks:
-  results_dir: 'results_sub' # Benchmarks outputs will be saved in this directory
+  results_dir: 'results' # Benchmarks outputs will be saved in this directory
   base_dir: "/projectnb/vkolagrp/projects/adrd_foundation_model/benchmarks" # Base directory for benchmarks
-  max_questions: 100 # Read at most this many questions from the benchmark, so it's easy to run a subset 
+  max_questions: 10000 # Read at most this many questions from the benchmark, so it's easy to run a subset 
   benchmark_list:
     - '${benchmarks.base_dir}/nacc_test/test_np'
     - '${benchmarks.base_dir}/nacc_test/test_mci'
-    - '${benchmarks.base_dir}/nacc_test/test_etpr'
+    # - '${benchmarks.base_dir}/nacc_test/test_etpr'
     - '${benchmarks.base_dir}/nacc_test/test_cog'
+    - '${benchmarks.base_dir}/medexpqa'
+    - '${benchmarks.base_dir}/medmcqa'
+    - '${benchmarks.base_dir}/medqa_test'
+    - '${benchmarks.base_dir}/mmlu_medicine/anatomy'
+    - '${benchmarks.base_dir}/mmlu_medicine/clinical_knowledge'
+    # - '${benchmarks.base_dir}/mmlu_medicine/college_medicine' # significant overlap with clinical_knowledge
+    - '${benchmarks.base_dir}/mmlu_medicine/professional_medicine'
+    - '${benchmarks.base_dir}/usmle/USMLE_ethics'
+    - '${benchmarks.base_dir}/usmle/USMLE_step1'
+    - '${benchmarks.base_dir}/usmle/USMLE_step2'
+    - '${benchmarks.base_dir}/usmle/USMLE_step3'
+
+

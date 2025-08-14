@@ -15,6 +15,7 @@ from sklearn.metrics import (
 import matplotlib.pyplot as plt
 import yaml
 import re
+import sys
 
 import json
 
@@ -29,13 +30,14 @@ def wrap_labels(labels, width):
 
 if __name__ == "__main__":
 
-    ans_dir = Path(
-        "/projectnb/vkolagrp/bellitti/adrd-foundation-model/adrd_simplified_evaluation/results_sub"
-    )
+    ans_dir = Path(sys.argv[1])
 
     for ans_path in ans_dir.rglob("*_processed.parquet"):
 
         ans_df = pd.read_parquet(ans_path)
+
+        if 'full_question' not in ans_df:
+            ans_df['full_question'] = ans_df['question'] + ans_df['options']
 
         ans_df['attempt'] = ans_df.groupby('full_question').cumcount()
 
@@ -68,6 +70,7 @@ if __name__ == "__main__":
                 "precision_weighted": precision_score( y_true, y_pred, average="weighted", zero_division=0,labels=labels),
                 "recall_weighted": recall_score( y_true, y_pred, average="weighted", zero_division=0,labels=labels),
                 "f1_weighted": f1_score( y_true, y_pred, average="weighted", zero_division=0,labels=labels),
+                "invalid_percent": 100*len(y_pred[~y_pred.isin(labels)])/(len(y_pred))
             }
 
             with open(ans_path.parent / "config.yml", "r") as f:
@@ -75,7 +78,8 @@ if __name__ == "__main__":
                 metrics['model'] = config['run_readable_name']
             
             fig,ax = plt.subplots(1,1,figsize=(len(labels),len(labels)),layout='tight')
-            ConfusionMatrixDisplay.from_predictions(y_true,y_pred,ax=ax,colorbar=False,labels=labels,cmap='Blues')
+
+            ConfusionMatrixDisplay.from_predictions(y_true,y_pred,colorbar=False,labels=labels,cmap='Blues',ax=ax)
 
             # Wrap x-axis labels
             x_labels = [tick.get_text() for tick in ax.get_xticklabels()]

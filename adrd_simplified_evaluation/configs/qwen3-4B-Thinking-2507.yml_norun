@@ -25,7 +25,7 @@ prompt:
   template_style: grpo
 
 benchmarks:
-  results_dir: 'results_sub' # Benchmarks outputs will be saved in this directory
+  results_dir: 'results' # Benchmarks outputs will be saved in this directory
   base_dir: "/projectnb/vkolagrp/projects/adrd_foundation_model/benchmarks" # Base directory for benchmarks
   max_questions: 100 # Read at most this many questions from the benchmark, so it's easy to run a subset 
   benchmark_list:
