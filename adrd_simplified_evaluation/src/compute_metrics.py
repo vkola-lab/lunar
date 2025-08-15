@@ -12,7 +12,7 @@ from sklearn.metrics import (
     confusion_matrix,
     ConfusionMatrixDisplay
 )
-import matplotlib.pyplot as plt
+import matplotlibpyplot as plt
 import yaml
 import re
 import sys
@@ -60,18 +60,23 @@ if __name__ == "__main__":
                 y_true = group["ground_truth"].astype(str)
                 labels = sorted(group['ground_truth'].unique().astype(str))
 
+
             metrics = {
                 "benchmark_name": benchmark_name,
+                "invalid_percent": 100*len(y_pred[~y_pred.isin(labels)])/(len(y_pred)),
                 "accuracy": accuracy_score(y_true, y_pred),
-                "balanced_accuracy": balanced_accuracy_score(y_true, y_pred),
-                "precision_macro": precision_score( y_true, y_pred, average="macro", zero_division=0,labels=labels),
-                "recall_macro": recall_score( y_true, y_pred, average="macro", zero_division=0,labels=labels),
-                "f1_macro": f1_score(y_true, y_pred, average="macro", zero_division=0,labels=labels),
-                "precision_weighted": precision_score( y_true, y_pred, average="weighted", zero_division=0,labels=labels),
-                "recall_weighted": recall_score( y_true, y_pred, average="weighted", zero_division=0,labels=labels),
-                "f1_weighted": f1_score( y_true, y_pred, average="weighted", zero_division=0,labels=labels),
-                "invalid_percent": 100*len(y_pred[~y_pred.isin(labels)])/(len(y_pred))
+                "precision_micro": precision_score( y_true, y_pred, average="micro", zero_division=0,labels=labels),
+                "recall_micro": recall_score( y_true, y_pred, average="micro", zero_division=0,labels=labels),
+                "f1_micro": f1_score( y_true, y_pred, average="micro", zero_division=0,labels=labels),
             }
+
+            # if the length of all labels is 1, they are multiple choice questions, it's not meaningful 
+            if any([len(label) != 1 for label in labels]):
+                # meaningful, compute the macro ones
+                metrics["balanced_accuracy"] = balanced_accuracy_score(y_true, y_pred),
+                metrics["precision_macro"] = precision_score( y_true, y_pred, average="macro", zero_division=0,labels=labels),
+                metrics["recall_macro"] = recall_score( y_true, y_pred, average="macro", zero_division=0,labels=labels),
+                metrics["f1_macro"] = f1_score(y_true, y_pred, average="macro", zero_division=0,labels=labels),
 
             with open(ans_path.parent / "config.yml", "r") as f:
                 config = yaml.safe_load(f)
