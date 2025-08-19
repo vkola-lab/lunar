@@ -10,10 +10,10 @@
 
 # Requesting resources from SCC
 #$ -P vkolagrp
-#$ -l h_rt=2:00:00
+#$ -l h_rt=24:00:00
 #$ -pe omp 8
 #$ -l mem_per_core=2G
-#$ -l gpus=1
+#$ -l gpus=2
 #$ -l gpu_c=8 # GPU capability, must be at least 8 for this project
 # -l gpu_type=H200
 # -m bea
@@ -24,8 +24,8 @@ module load python3
 module load cuda
 
 # Using Sahana's cache to save some space
-export HF_HOME=/projectnb/vkolagrp/skowshik/.cache
-# export HF_HOME=/projectnb/vkolagrp/bellitti/hf_cache
+# export HF_HOME=/projectnb/vkolagrp/skowshik/.cache
+export HF_HOME=/projectnb/vkolagrp/bellitti/hf_cache
 
 # If this env var is set to 1, vLLM will skip the peer-to-peer check,
 # and trust the driver's peer-to-peer capability report.

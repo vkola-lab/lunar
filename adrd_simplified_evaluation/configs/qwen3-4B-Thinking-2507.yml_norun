@@ -1,5 +1,3 @@
-# Make sure to set the environment variable HF_HOME to control
-
 run_readable_name: "Qwen3-4B-Thinking-2507" # will be used to name the results folder
 
 # passed to vllm.LLM, you can use any accepted keyword argument
@@ -15,7 +13,7 @@ LLM:
 
 # passed to vllm.SamplingParams, you can use any accepted keyword argument
 sampling_params:
-  n: 2 # Number of sequences to generate per prompt
+  n: 5 # Number of sequences to generate per prompt
   temperature: 1.0
   top_p: 1.0 # consider candidate tokens until the cumulative sum of their probabilities is top_p
   max_tokens: 5000 # maximum number of tokens to generate

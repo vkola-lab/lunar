@@ -21,12 +21,47 @@ Answer Choices:
 {options}
 """
 
-EXTRACT_ANSWER_PROMPT = """You will be given a text enclosed within <text> and </text> tags. 
+EXTRACT_ANSWER_BOXED_PROMPT = """You will be given a text enclosed within <text> and </text> tags. 
+Your task is to extract the final answer from the text and match it with one of the option letter (or number) listed between <options> and </options>. 
+Do not try to come up with a new answer, just identify what is in the text. Do not make assumptions beyond the provided content.
+Return only a single letter or number answer inside \\boxed{{}}.
+Do not output anything else. 
+
+Important: If you cannot identify the final answer symbol, output \\boxed{{-}}.
+
+Example 1: 
+
+Example 1 text: 
+"... the final answer is \\boxed{{\\text{{Dementia (DE)}}}}." 
+
+Example 1 options: "A. Normal Cognition B. Mild Cognitive Impairment C. Dementia"
+
+Example 1 output: "\\boxed{{C}}"
+
+Example 2:
+
+Example 2 text: 
+"... ANSWER: \\boxed{{\\text{{Alzheimer's Disease}}}}." 
+
+Example 2 options: "1. Alzheimer's Disease 2. Lewy Body Dementia 3. Vascular Dementia"
+
+Example 2 output: "\\boxed{{1}}"
+
+<text>
+{answer}
+</text>
+
+<options>
+{options}
+</options>"""
+
+EXTRACT_ANSWER_COLON_PROMPT = """You will be given a text enclosed within <text> and </text> tags. 
 Your task is to extract the "Final Answer" from the text and match it with one of the option letter or number listed between <options> and </options>. 
 Look at the provided text to identify the "Final Answer" (or "Best Answer") and match it to the correct letter or number.
-Do not try to come up with a new answer, just identify what is in the text.
-Output your answer inside \\boxed{{}}. 
-Do not output anything else.
+Do not try to come up with a new answer, just identify what is in the text. Do not make assumptions beyond the provided content.
+Return only the answer in this format: 'ANSWER: <option_letter>'. 
+Do not output anything else. 
+Make sure your extracted option_letter matches one of the provided options.
 
 Important: If you cannot identify the final answer symbol, output \\boxed{{0}}.
 

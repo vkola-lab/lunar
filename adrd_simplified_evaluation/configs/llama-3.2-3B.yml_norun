@@ -1,4 +1,5 @@
-# Make sure to set the environment variable HF_HOME to control
+# WARNING: This model is not trained for chat style tasks, it does not provide a chat template. 
+# Do not run this. Run the Instruct version instead.
 
 run_readable_name: "Llama-3.2-3B" # will be used to name the results folder
 

@@ -19,13 +19,13 @@ class AnswerExtractor:
         # The pattern after the opening bracket is lazy, it finds as few character as 
         # possible until you hit a single letter (surrounded by word boundaries)
         # this means that if the output is \boxed{A and B} it will pick out A
-        all_matches = re.findall(r"\\boxed\{.*?\b([A-Z0-9])\.?\b", text)
+        all_matches = re.findall(r"\\boxed\{.*?\b([A-Z0-9])\b", text)
 
         # finding more than one match is ambiguous, mark that as invalid too
-        if len(all_matches) == 0 or len(all_matches) > 1:
+        if len(all_matches) == 0: #or len(all_matches) > 1:
             return "invalid"
 
-        return all_matches[0].strip().upper()
+        return all_matches[-1].strip().upper()
 
     def remove_think(self, text):
         # Greedily remove all content between think tags. It removes 
@@ -39,7 +39,7 @@ class AnswerExtractor:
             [
                 {
                     "role": "user",
-                    "content": prompt_templates.EXTRACT_ANSWER_PROMPT.format(
+                    "content": prompt_templates.EXTRACT_ANSWER_BOXED_PROMPT.format(
                         answer=row.generated_text, options=row.options
                     ),
                 }
@@ -47,7 +47,7 @@ class AnswerExtractor:
             for row in ans_df.itertuples()
         ]
 
-        completions = self.llm.generate(messages)
+        completions = self.llm.generate(messages,enable_thinking=False)
 
         # remove thinking text and extract boxed answer
         # this will be a list of completions
@@ -63,11 +63,11 @@ class AnswerExtractor:
         for jsonl_file in dir_path.rglob("*_output.jsonl"):
 
             # if the directory already contains a processed file, skip the directory
-            if not any(jsonl_file.parent.glob('*_processed.parquet')):
+            if not any(jsonl_file.parent.glob('*_extracted_answers_last.parquet')):
 
                 results_df = self.extract_from_file(jsonl_file)
 
-                output_path = jsonl_file.parent / (jsonl_file.stem + "_processed.parquet")
+                output_path = jsonl_file.parent / (jsonl_file.stem + "_extracted_answers_last.parquet")
 
                 results_df.to_parquet(output_path, index=False)
 

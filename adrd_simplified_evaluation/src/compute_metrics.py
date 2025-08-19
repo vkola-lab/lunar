@@ -12,12 +12,17 @@ from sklearn.metrics import (
     confusion_matrix,
     ConfusionMatrixDisplay
 )
-import matplotlibpyplot as plt
+import matplotlib.pyplot as plt
 import yaml
 import re
 import sys
+from tqdm import tqdm
+import warnings
 
 import json
+
+# ignore warning about unseen classes in y_pred
+warnings.filterwarnings("ignore", category=UserWarning) 
 
 def option_string_to_dict(options):
     pattern = r'([A-Z])\. ([^\n]+)'
@@ -32,7 +37,7 @@ if __name__ == "__main__":
 
     ans_dir = Path(sys.argv[1])
 
-    for ans_path in ans_dir.rglob("*_processed.parquet"):
+    for ans_path in tqdm(list(ans_dir.rglob("*.parquet"))):
 
         ans_df = pd.read_parquet(ans_path)
 
@@ -63,40 +68,43 @@ if __name__ == "__main__":
 
             metrics = {
                 "benchmark_name": benchmark_name,
-                "invalid_percent": 100*len(y_pred[~y_pred.isin(labels)])/(len(y_pred)),
+                "invalid_frac": len(y_pred[~y_pred.isin(labels)])/(len(y_pred)),
+                "invalid_num": len(y_pred[~y_pred.isin(labels)]),
                 "accuracy": accuracy_score(y_true, y_pred),
-                "precision_micro": precision_score( y_true, y_pred, average="micro", zero_division=0,labels=labels),
-                "recall_micro": recall_score( y_true, y_pred, average="micro", zero_division=0,labels=labels),
-                "f1_micro": f1_score( y_true, y_pred, average="micro", zero_division=0,labels=labels),
             }
 
             # if the length of all labels is 1, they are multiple choice questions, it's not meaningful 
             if any([len(label) != 1 for label in labels]):
                 # meaningful, compute the macro ones
-                metrics["balanced_accuracy"] = balanced_accuracy_score(y_true, y_pred),
-                metrics["precision_macro"] = precision_score( y_true, y_pred, average="macro", zero_division=0,labels=labels),
-                metrics["recall_macro"] = recall_score( y_true, y_pred, average="macro", zero_division=0,labels=labels),
-                metrics["f1_macro"] = f1_score(y_true, y_pred, average="macro", zero_division=0,labels=labels),
+                metrics["precision_micro"] = precision_score( y_true, y_pred, average="micro", zero_division=0,labels=labels)
+                metrics["recall_micro"] = recall_score( y_true, y_pred, average="micro", zero_division=0,labels=labels)
+                metrics["f1_micro"] = f1_score( y_true, y_pred, average="micro", zero_division=0,labels=labels)
+                metrics["balanced_accuracy"] = balanced_accuracy_score(y_true, y_pred)
+                metrics["precision_macro"] = precision_score( y_true, y_pred, average="macro", zero_division=0,labels=labels)
+                metrics["recall_macro"] = recall_score( y_true, y_pred, average="macro", zero_division=0,labels=labels)
+                metrics["f1_macro"] = f1_score(y_true, y_pred, average="macro", zero_division=0,labels=labels)
 
+                # fig,ax = plt.subplots(1,1,figsize=(len(labels),len(labels)),layout='tight')
+
+                # ConfusionMatrixDisplay.from_predictions(y_true,y_pred,colorbar=False,labels=labels,cmap='Blues',ax=ax)
+
+                # # Wrap x-axis labels
+                # x_labels = [tick.get_text() for tick in ax.get_xticklabels()]
+                # wrapped_x = wrap_labels(x_labels, width=30)
+                # ax.set_xticklabels(wrapped_x, rotation=90, ha='right', va='center', rotation_mode='anchor',fontsize=7)
+
+                # # Wrap y-axis labels
+                # y_labels = [tick.get_text() for tick in ax.get_yticklabels()]
+                # wrapped_y = wrap_labels(y_labels, width=30)
+                # ax.set_yticklabels(wrapped_y,fontsize=7)   
+
+                # fig.savefig(ans_path.parent / f"confusion_matrix_attempt{attempt}.pdf")
+
+                # plt.close(fig=fig)
+ 
             with open(ans_path.parent / "config.yml", "r") as f:
                 config = yaml.safe_load(f)
                 metrics['model'] = config['run_readable_name']
-            
-            fig,ax = plt.subplots(1,1,figsize=(len(labels),len(labels)),layout='tight')
-
-            ConfusionMatrixDisplay.from_predictions(y_true,y_pred,colorbar=False,labels=labels,cmap='Blues',ax=ax)
-
-            # Wrap x-axis labels
-            x_labels = [tick.get_text() for tick in ax.get_xticklabels()]
-            wrapped_x = wrap_labels(x_labels, width=30)
-            ax.set_xticklabels(wrapped_x, rotation=90, ha='right', va='center', rotation_mode='anchor',fontsize=7)
-
-            # Wrap y-axis labels
-            y_labels = [tick.get_text() for tick in ax.get_yticklabels()]
-            wrapped_y = wrap_labels(y_labels, width=30)
-            ax.set_yticklabels(wrapped_y,fontsize=7)   
-
-            fig.savefig(ans_path.parent / f"confusion_matrix_attempt{attempt}.pdf")
 
             metric_results.append(metrics)
 
