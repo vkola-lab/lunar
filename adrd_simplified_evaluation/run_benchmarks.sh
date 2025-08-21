@@ -13,7 +13,7 @@
 #$ -l h_rt=24:00:00
 #$ -pe omp 8
 #$ -l mem_per_core=2G
-#$ -l gpus=1
+#$ -l gpus=2
 #$ -l gpu_c=8 # GPU capability, must be at least 8 for this project
 # -l gpu_type=H200
 # -m bea
