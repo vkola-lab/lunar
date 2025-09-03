@@ -61,6 +61,22 @@ $ ./submit.all configs
 ```
 where `configs` is a directory with YAML config files. This will submit a `run_benchmarks.sh` job for each config file. The advantage is that these get run in parallel, and you can specify different hardware for each model.
 
+This will create a bunch of JSONL files under `results`. We then need to extract the answers and try to recover them if the format is not right, using
+```
+$ qsub ./extract_answers.sh
+```
+which uses internally an LLM, so it's recommended to qsub it.
+
+Finally, we compute the metrics 
+```
+$ ./compute_metrics.sh
+```
+and plot everything 
+```
+$ ./make_figures.sh
+```
+
+
 ## How to write your own benchmark
 
 Each benchmark is a JSONL file: each line should be a valid JSON. Each line is expected to have at least the `question` and `option` keys. This will be configurable in the future.
