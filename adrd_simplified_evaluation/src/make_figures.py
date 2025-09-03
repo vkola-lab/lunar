@@ -34,8 +34,8 @@ tall = tall[
             "test_mci",
             "USMLE_ethics",
             "anatomy",
-            "clinical_knowledge",
-            "professional_medicine",
+            # "clinical_knowledge",
+            # "professional_medicine",
         ]
     )
 ]
@@ -45,10 +45,15 @@ tall = tall[~tall["model"].isin(["Qwen3-0.6B"])]
 
 cat_order = [
     # "Qwen3-0.6B",
-    "Llama-3.2-3B-Instruct",
+    # "Llama-3.2-3B-Instruct",
     "Qwen2.5-3B-Instruct",
-    "Qwen2.5-3B-DrGRPO",
+    "Qwen2.5-3B-DrGRPO-subset",
     "Qwen2.5-3B-DrGRPO-Stratified",
+    "Qwen2.5-3B-DrGRPO-Strat-NACC",
+    "Qwen2.5-3B-DrGRPO-Strat-MedQA-NACC",
+    "Qwen2.5-3B-DrGRPO-Strat-MedQA-NACC-filtered",
+    "Qwen2.5-3B-DrGRPO-Strat-MedQA-NACC-sce",
+    "Qwen2.5-3B-DrGRPO-Strat-MedQA-NACC-sce-scaled",
     "Qwen3-4B",
     "Qwen2.5-7B-Instruct",
     "HuatuoGPT-o1-8B",
@@ -57,8 +62,10 @@ cat_order = [
 # Accuracy
 
 usmle_df = tall[
-    (tall["metric"] == "accuracy") & (tall["benchmark_name"].str.contains("USMLE"))
+    # (tall["metric"] == "accuracy") & (tall["benchmark_name"].str.contains("USMLE"))
+    (tall["metric"] == "accuracy") & (tall["benchmark_name"].isin(["medqa_test","medexpqa","professional_medicine",'clinical_knowledge' ]))
 ]
+
 
 g = sns.catplot(
     usmle_df,
@@ -67,9 +74,9 @@ g = sns.catplot(
     # col="metric",
     y="model",
     hue="model",
-    col_wrap=3,
+    col_wrap=4,
     height=2.5,
-    width=0.75,
+    width=0.95,
     kind="bar",
     order=cat_order,
     hue_order=cat_order,
@@ -101,7 +108,7 @@ for ax in g.axes:
             size=10,
         )
 
-g.savefig("figures/accuracy_usmle.pdf")
+g.savefig("figures/accuracy_mcq.pdf")
 
 
 # Invalid num
@@ -152,7 +159,7 @@ g.savefig("figures/invalid_frac.pdf")
 
 # make plot of macro metrics for NACC test_ benchmarks
 
-nacc = tall[tall["benchmark_name"].isin(["test_cog", "test_np", "test_etpr"])]
+nacc = tall[tall["benchmark_name"].isin(["test_cog", "test_np", "test_etpr","test_np_one",'test_np_mixed','test_pet'])]
 
 nacc = nacc[~nacc["metric"].isin(["invalid_num", "invalid_frac"])]
 
@@ -169,7 +176,7 @@ g = sns.catplot(
     height=2,
     sharex='col',
     sharey=True,
-    width=0.75,
+    width=0.95,
     kind="bar",
     order=cat_order,
     hue_order=cat_order,
@@ -203,11 +210,39 @@ for ax in g.axes.flat:
     
 plt.tight_layout()
 
-g.savefig("figures/nacc_macro.pdf")
+g.savefig("figures/nacc_macro_bars.pdf")
+
+# pointplot to focus on small differences
+
+g = sns.catplot(
+    nacc,
+    x="value",
+    y="model",
+    row="benchmark_name",
+    col="metric",
+    hue="model",
+    # col_wrap=3,
+    height=2,
+    aspect=2,
+    sharex=False,
+    sharey=True,
+    kind="point",
+    order=cat_order,
+    hue_order=cat_order,
+)
+
+g.set_titles(template="{col_name}\n{row_name}", size=10)
+
+g.set_ylabels("")
+g.set_xlabels("")
+    
+plt.tight_layout()
+
+g.savefig("figures/nacc_macro_points.pdf")
 
 # make plot of weighted metrics for NACC test_ benchmarks
 
-nacc = tall[tall["benchmark_name"].isin(["test_cog", "test_np", "test_etpr"])]
+nacc = tall[tall["benchmark_name"].isin(["test_cog", "test_np", "test_etpr", 'test_np_one','test_np_mixed','test_pet'])]
 
 nacc = nacc[~nacc["metric"].isin(["invalid_num", "invalid_frac"])]
 
@@ -224,7 +259,7 @@ g = sns.catplot(
     height=2,
     sharex='col',
     sharey=True,
-    width=0.75,
+    width=0.95,
     kind="bar",
     order=cat_order,
     hue_order=cat_order,
@@ -258,4 +293,39 @@ for ax in g.axes.flat:
     
 plt.tight_layout()
 
-g.savefig("figures/nacc_weighted.pdf")
+g.savefig("figures/nacc_weighted_bars.pdf")
+
+# pointplot to focus on small differences and error bars
+
+g = sns.catplot(
+    nacc,
+    x="value",
+    y="model",
+    row="benchmark_name",
+    col="metric",
+    hue="model",
+    # col_wrap=3,
+    height=2,
+    aspect=2,
+    sharex=False,
+    sharey=True,
+    kind="point",
+    order=cat_order,
+    hue_order=cat_order,
+)
+
+g.set_titles(template="{col_name}\n{row_name}", size=10)
+# g.set_titles("")
+
+g.set_ylabels("")
+g.set_xlabels("")
+
+# for ax, title in zip(g.axes[0], g.col_names):
+    # ax.set_title(label.replace('_',' ').title(),size=10)
+
+# for ax, label in zip(g.axes[:,0], g.row_names):
+    # ax.set_ylabel(title.split('_')[-1].upper(),size=10)
+    
+plt.tight_layout()
+
+g.savefig("figures/nacc_weighted_points.pdf")

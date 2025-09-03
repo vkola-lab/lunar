@@ -25,7 +25,7 @@ module load cuda
 
 # Using Sahana's cache to save some space
 # export HF_HOME=/projectnb/vkolagrp/skowshik/.cache
-export HF_HOME=/projectnb/vkolagrp/bellitti/hf_cache
+export HF_HOME=/projectnb/vkolagrp/bellitti/.cache/huggingface
 
 # If this env var is set to 1, vLLM will skip the peer-to-peer check,
 # and trust the driver's peer-to-peer capability report.

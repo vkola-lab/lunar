@@ -7,6 +7,6 @@ source venvs/venv_cpu/bin/activate
 
 python -V
 
-RESULTS_DIR="results"
+RESULTS_DIR="results/comparison"
 
 python src/make_figures.py $RESULTS_DIR

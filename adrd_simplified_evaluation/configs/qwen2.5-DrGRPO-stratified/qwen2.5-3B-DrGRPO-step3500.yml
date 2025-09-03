@@ -1,13 +1,18 @@
 # Make sure to set the environment variable HF_HOME to control
 
-run_readable_name: "Qwen3-0.6B" # will be used to name the results folder
+# This model was trained using stratified samping in NACC, and including neruopath cases in training set
+# after separating out single and mixed pathology cases: If a case has only one pathology, I removed mixed pathology choices from the options
+# In NACC the training questions are nc vs mci, nc vs de, and mci vs de
+
+run_readable_name: "Qwen2.5-3B-DrGRPO-Stratified-3500" # will be used to name the results folder
+step: 3500
 
 # passed to vllm.LLM, you can use any accepted keyword argument
 LLM:
-  model: "Qwen/Qwen3-0.6B" # can be a path
+  model: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/ckpt_modifed_cog_np_subset/qwen25_3B_drgrpo_gp16_medqa_nacc_filtered/checkpoint-3500" # can be a path
   tensor_parallel_size: 2 # Number of GPUs used. Passed to vllm.LLM.tensor_parallel_size. 
   gpu_memory_utilization: 0.9 # Fraction of gpu memory reserved for model + attention
-  max_model_len: 10000
+  max_model_len: 30000
   distributed_executor_backend: 'mp'
   seed: 1 # seed to initialize RNG for sampling
   enable_lora: false
@@ -16,8 +21,8 @@ LLM:
 # passed to vllm.SamplingParams, you can use any accepted keyword argument
 sampling_params:
   n: 5 # Number of sequences to generate per prompt
-  temperature: 0.9 # recommended
-  top_p: 0.95 # consider candidate tokens until the cumulative sum of their probabilities is top_p
+  temperature: 1 # recommended
+  top_p: 1 # consider candidate tokens until the cumulative sum of their probabilities is top_p
   max_tokens: 10000 # maximum number of tokens to generate
 
 prompt:
@@ -32,13 +37,13 @@ benchmarks:
     # - '${benchmarks.base_dir}/nacc_test/test_np'
     # - '${benchmarks.base_dir}/nacc_test/test_mci'
     # - '${benchmarks.base_dir}/nacc_test/test_etpr'
-    # - '${benchmarks.base_dir}/nacc_test/test_cog'
+    - '${benchmarks.base_dir}/nacc_test/test_cog'
     - '${benchmarks.base_dir}/nacc_test/test_np_mixed'
     - '${benchmarks.base_dir}/nacc_test/test_np_one'
-    - '${benchmarks.base_dir}/nacc_test/test_pet'
+    # - '${benchmarks.base_dir}/nacc_test/test_pet'
     # - '${benchmarks.base_dir}/medexpqa'
     # - '${benchmarks.base_dir}/medmcqa'
-    # - '${benchmarks.base_dir}/medqa_test'
+    - '${benchmarks.base_dir}/medqa_test'
     # - '${benchmarks.base_dir}/mmlu_medicine/anatomy'
     # - '${benchmarks.base_dir}/mmlu_medicine/clinical_knowledge'
     # - '${benchmarks.base_dir}/mmlu_medicine/college_medicine' # significant overlap with clinical_knowledge

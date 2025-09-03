@@ -5,7 +5,7 @@ run_readable_name: "Qwen2.5-7B-Instruct" # will be used to name the results fold
 # passed to vllm.LLM, you can use any accepted keyword argument
 LLM:
   model: "Qwen/Qwen2.5-7B-Instruct" # can be a path
-  tensor_parallel_size: 1 # Number of GPUs used. Passed to vllm.LLM.tensor_parallel_size. 
+  tensor_parallel_size: 2 # Number of GPUs used. Passed to vllm.LLM.tensor_parallel_size. 
   gpu_memory_utilization: 0.9 # Fraction of gpu memory reserved for model + attention
   max_model_len: 10000
   distributed_executor_backend: 'mp'
@@ -31,7 +31,10 @@ benchmarks:
   benchmark_list:
     # - '${benchmarks.base_dir}/nacc_test/test_np'
     # - '${benchmarks.base_dir}/nacc_test/test_mci'
-    - '${benchmarks.base_dir}/nacc_test/test_etpr'
+    # - '${benchmarks.base_dir}/nacc_test/test_etpr'
+    - '${benchmarks.base_dir}/nacc_test/test_np_mixed'
+    - '${benchmarks.base_dir}/nacc_test/test_np_one'
+    - '${benchmarks.base_dir}/nacc_test/test_pet'
     # - '${benchmarks.base_dir}/nacc_test/test_cog'
     # - '${benchmarks.base_dir}/medexpqa'
     # - '${benchmarks.base_dir}/medmcqa'

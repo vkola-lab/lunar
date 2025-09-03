@@ -6,7 +6,7 @@ run_readable_name: "Llama-3.2-3B" # will be used to name the results folder
 # passed to vllm.LLM, you can use any accepted keyword argument
 LLM:
   model: "meta-llama/Llama-3.2-3B" # can be a path
-  tensor_parallel_size: 1 # Number of GPUs used. Passed to vllm.LLM.tensor_parallel_size. 
+  tensor_parallel_size: 2 # Number of GPUs used. Passed to vllm.LLM.tensor_parallel_size. 
   gpu_memory_utilization: 0.9 # Fraction of gpu memory reserved for model + attention
   max_model_len: 10000
   distributed_executor_backend: 'mp'

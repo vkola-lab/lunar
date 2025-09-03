@@ -64,7 +64,7 @@ if __name__ == "__main__":
                 # if we want meaningful class-wise metrics: for example, in the NC/MCI/DE problem the answers are shuffled:
                 # sometimes 1=MCI and sometimes 2=MCI, so if we want a confusion matrix in terms of NC/MCI/DE instead of the
                 # non informative 1/2/3 we have to map the options back to text. This does not apply to the MCQ benchmarks
-                if benchmark_name in ['test_cog','test_etpr','test_mci','test_np']: 
+                if benchmark_name in ['test_cog','test_etpr','test_mci','test_np','test_np_one','test_np_mixed','test_pet']: 
                     y_pred = group.apply(lambda row: option_string_to_dict(row['options']).get(row['prediction'],'Invalid'), axis=1)
                     y_true = group['ground_truth_text']
                     labels = sorted(group['ground_truth_text'].unique().astype(str))
