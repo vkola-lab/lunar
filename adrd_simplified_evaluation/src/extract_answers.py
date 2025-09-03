@@ -1,13 +1,14 @@
 from omegaconf import OmegaConf
-
-
+from pathlib import Path
+from answer_extractor import AnswerExtractor
+import sys
 
 if __name__ == "__main__":
 
-    # load configuration for judge model
-    cli_config = OmegaConf.from_cli()
-    file_config = OmegaConf.load(cli_config.config_file)
-    config = OmegaConf.merge(file_config, cli_config) 
+    llm_extractor_config_path = sys.argv[2]
 
-    # load judge model (will extract answers)
-    llm = model.load_model(config, model_id)
+    extractor = AnswerExtractor(llm_extractor_config_path=llm_extractor_config_path)
+
+    ans_path = Path(sys.argv[1])
+
+    extractor.extract_from_dir(ans_path)

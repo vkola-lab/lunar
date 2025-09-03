@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -l 
 
 # Run benchmarks on multiple models. This script will read all config files (*.yml)
 # in the specified directories, and pass them one by one to run_benchmarks.sh

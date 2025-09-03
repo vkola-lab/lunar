@@ -14,7 +14,7 @@ class LLMWrapper:
         else:
             self.lora_request = None
 
-    def generate(self, messages):
+    def generate(self, messages, enable_thinking=None):
         # Generate completions from a set of messages using vllm.LLM.chat.
         #
         # `messages` should be a list of dictionaries. This function uses
@@ -24,11 +24,19 @@ class LLMWrapper:
 
         print("Processing prompts... ")
 
-        completions = self.llm.chat(
-            messages=messages, 
-            sampling_params=self.sampling_params,
-            lora_request=self.lora_request
-        )
+        if enable_thinking is not None:
+            completions = self.llm.chat(
+                messages=messages, 
+                sampling_params=self.sampling_params,
+                lora_request=self.lora_request,
+                chat_template_kwargs={"enable_thinking": enable_thinking},  
+            )
+        else:
+            completions = self.llm.chat(
+                messages=messages, 
+                sampling_params=self.sampling_params,
+                lora_request=self.lora_request
+            )
 
         return completions
     
