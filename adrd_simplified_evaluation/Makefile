@@ -6,7 +6,7 @@ LOGS_DIR = logs
 STAMP_DIR = logs/timestamps
 
 # Declare phony targets
-.PHONY: all help run_benchmark submit_all extract_answers compute_metrics figures clean
+.PHONY: all help run_benchmark submit_all extract_answers compute_metrics figures clean_logs clean_figures clean_metrics clean
 
 
 
@@ -46,17 +46,27 @@ compute_metrics: $(STAMP_DIR)/extract_answers.stamp
 # Meta-target to build all figures
 # break over multiple lines with backslash, make sure there is no trailing whitespace
 figures: $(FIGURES_DIR)/accuracy_mcq.pdf \
-         $(FIGURES_DIR)/invalid_num.pdf \
-         $(FIGURES_DIR)/invalid_frac.pdf \
-         $(FIGURES_DIR)/nacc_macro_bars.pdf \
-         $(FIGURES_DIR)/nacc_weighted_bars.pdf \
-        #   $(FIGURES_DIR)/figure7.pdf
+		$(FIGURES_DIR)/invalid_num.pdf \
+		$(FIGURES_DIR)/invalid_frac.pdf \
+		$(FIGURES_DIR)/nacc_macro_bars.pdf \
+		$(FIGURES_DIR)/nacc_weighted_bars.pdf \
+		$(STAMP_DIR)/class_metrics_figures.stamp
+
+$(STAMP_DIR)/class_metrics_figures.stamp: $(STAMP_DIR)/compute_metrics.stamp 
+	python src/figures/plot_nacc_class_metrics.py $(RESULTS_DIR) $(FIGURES_DIR)  
+	touch $@
 
 # Rule for generating the figures, the python script must start with plot
 # The plotting scripts load all metrics available in RESULTS_DIR
 $(FIGURES_DIR)/%.pdf: $(STAMP_DIR)/compute_metrics.stamp
 	@mkdir -p $(FIGURES_DIR)
 	python src/figures/plot_$*.py $(RESULTS_DIR) $@
+
+clean:
+	@echo "Choose what to clean:"
+	@echo "make clean_logs     # delete logs in the logs directory, i.e. *.stderr and *.stdout" 
+	@echo "make clean_figures  # delete all figures, i.e. figures/*.pdf" 
+	@echo "make clean_metrics  # delete all metrics from the results directory, i.e. metrics.json" 
 
 # Clean logs
 clean_logs:
@@ -67,3 +77,11 @@ clean_logs:
 clean_figures:
 	@echo "Removing figures:"
 	rm -f $(FIGURES_DIR)/*.pdf
+	rm -f $(STAMP_DIR)/class_metrics_figures.stamp
+
+# The logic is not cleanly separated, the python file creating the metrics will check if they exist
+# and skip if they do. This should probably be handled by make instead
+clean_metrics:
+	@echo "Removing computed metrics:"
+	@find $(RESULTS_DIR) -type f \( -name "metrics.json" -o -name "class_metrics.json" \) -exec rm -f {} +
+	@rm -f $(STAMP_DIR)/compute_metrics.stamp
