@@ -27,6 +27,7 @@ save_folder/
 __pycache__/
 *logs*/
 wandb/
+.DS_Store # for macos
 
 # Checkpoint
 *ckpt*/

@@ -1,0 +1,115 @@
+{
+    "Neurological History": 
+    {
+        "prompt": "Provide a detailed neurological history for this individual, including onset, progression, and characteristics of symptoms, past medical and surgical history, family history of neurological conditions, medications, social history, and any other relevant factors that could inform a neurological assessment.",
+        "ACGME": 
+        [
+            {
+                "label": "PC1_History",
+                "levels":
+                {
+                    "1": "Obtains a basic neurologic history",
+                    "2": "Obtains a complete and relevant neurologic history",
+                    "3": "Obtains an organized neurologic history, including collateral information as appropriate",
+                    "4": "Efficiently obtains an organized, hypothesis-driven neurologic history",
+                    "5": "Serves as a role model in obtaining a hypothesis-driven neurologic history"
+                }
+            }
+        ]
+    },
+    "Imaging":
+    {
+        "prompt": "Imaging Studies: Interpret any provided imaging studies (CT or MRI), including identification of any abnormalities, assessment of brain structures, signs of pathology, and potential etiologies.",
+        "ACGME": 
+        [
+            {
+                "label": "PC8_Interpretation_of_Neuroimaging",
+                "levels": {
+                    "1": "Identifies basic neuroanatomy on brain and vascular anatomy of the head and neck magnetic resonance (MR) and computed tomography (CT)",
+                    "2": "Identifies major abnormalities of the brain and cerebrovascular system on MR and CT; Identifies basic anatomy of the spine and spinal cord on MR and CT",
+                    "3": "Identifies typical abnormalities of the brain and cerbrovascular system on MR and CT; Identifies abnormalities of the spine and spinal cord on MR and CT",
+                    "4": "Identifies subtle abnormalities of brain and cerbrovascular system on MR and CT; Interprets MR and CT of the spine",
+                    "5": "Interprets advanced neuroimaging"
+                }
+            }
+        ]
+    },
+    "EEG":
+    {
+        "prompt": "Interpret the provided EEG studies, noting any significant findings and their possible clinical implications.",
+        "ACGME": 
+        [
+            {
+                "label": "PC9_EEG",
+                "levels": {
+                    "1": "Identifies patients for whom EEG is appropriate",
+                    "2": "Recognizes normal EEG features, including common artifacts, in children and adults",
+                    "3": "Recognizes patterns of status epilepticus, normal EEG variants, and common abnormalities in children and adults",
+                    "4": "Interprets common EEG abnormalities and patterns that could represent status epilepticus",
+                    "5": "Interprets uncommon EEG abnormalities and creates a report"
+                }
+            }            
+        ]
+    },
+    "Differential Diagnosis":
+    {
+        "prompt": "Provide an assessment of this individual's cognitive status, including the degree of impairment, potential contributing etiologies (if applicable), a complete differential diagnosis, and any relevant contributing factors.",
+        "ACGME": 
+        [
+            {
+                "label": "PC4_Diagnosis_and_Management_of_Neurologic_Disorders_in_Outpatient_Setting",
+                "levels": {
+                    "1": "Identifies typical presentations of commonly encountered neurologic conditions",
+                    "2": "Diagnoses commonly encountered neurologic conditions; Develops an initial treatment plan for commonly encountered neurologic disorders",
+                    "3": "Identifies atypical presentations of commonly encountered neurologic conditions; Individualizes management and follow-up plan for commonly encountered neurologic disorders, considering risks, benefits, and non-pharmacologic strategies",
+                    "4": "Diagnoses uncommon neurologic conditions; Adapts management plan based upon patient response and complications of therapy; Identifies when to change acuity of care",
+                    "5": "Identifies atypical presentations of uncommon neurologic conditions; Longitudinally manages uncommon neurologic conditions"
+                }
+            },
+            {
+                "label": "PC5_Diagnosis_and_Management_of_Neurologic_Disorders_in_Inpatient_Setting",
+                "levels": {
+                    "1": "Identifies typical presentations of commonly encountered neurologic conditions",
+                    "2": "Diagnoses commonly encountered neurologic conditions; Develops an initial treatment plan for commonly encountered neurologic disorders",
+                    "3": "Identifies atypical presentations of commonly encountered neurologic conditions; Individualizes management plan, ensuring the appropriate level of care throughout hospitalization and upon discharge",
+                    "4": "Diagnoses uncommon neurologic conditions; Adapts management plan based upon treatment response, disease progression, and complications of therapy",
+                    "5": "Identifies atypical presentations of uncommon neurologic conditions; Leads the management of patients with complex and uncommon neurologic conditions"
+                }
+            },
+            {
+                "label": "MK2_Diagnostic_Investigation",
+                "levels": {
+                    "1": "Discusses a general diagnostic approach appropriate to clinical presentation",
+                    "2": "Lists indications, contraindications, risks, and benefits of diagnostic testing",
+                    "3": "Prioritizes and interprets diagnostic tests appropriate to clinical urgency and complexity",
+                    "4": "Uses complex diagnostic approaches in uncommon situations",
+                    "5": "Demonstrates sophisticated knowledge of diagnostic testing and controversies"
+                }
+            },
+            {
+                "label": "PC12_Psychiatric_and_Functional_Aspects_of_Neurology",
+                "levels": {
+                    "1": "Recognizes contributions of common psychiatric disorders and their treatment to neurologic diseases",
+                    "2": "Develops a treatment plan that considers psychiatric comorbidities and side effects of psychiatric medications",
+                    "3": "Accurately differentiates psychiatric or functional contributions to neurologic symptoms",
+                    "4": "Leads a discussion with a patient and/or caregiver that explains the psychiatric or functional contribution to the patient’s neurologic symptoms",
+                    "5": "Develops a shared management plan that addresses the psychiatric or functional contribution to neurologic symptoms"
+                }
+            }
+        ]
+    }
+}
+            
+
+            
+
+            
+
+            
+            
+
+            
+            
+
+            
+            
