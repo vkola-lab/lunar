@@ -9,6 +9,7 @@ benchmarks/
 data_preparation_old/
 other/
 old_data/
+redcap_data_dict.csv
 
 # Test scripts
 *.sh.*
@@ -27,7 +28,8 @@ save_folder/
 __pycache__/
 *logs*/
 wandb/
-.DS_Store # for macos
+.DS_Store
+**/.DS_Store
 
 # Checkpoint
 *ckpt*/

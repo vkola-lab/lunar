@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
 # In[9]:
 
 
@@ -48,7 +45,7 @@ new_row = {
     "Form Name": "llama_vs_qwen",
     "Field Type": "text",
     "Field Label": "Record ID",
-    "Section Header": "<h>Identification<\h>",
+    "Section Header": "<h1>Identification</h1>",
 }
 df.loc[len(df)] = new_row
 # name
@@ -172,8 +169,13 @@ def generate_panels(patient_data, summary_1, summary_2):
       box-sizing: border-box;
     }}
 
-    /* (Optional) Just to show visible scroll area with background color */
-    .panel:nth-child(odd) {{
+    /* Left panel (Patient Data) gets different background color */
+    .panel:nth-child(1) {{
+      background-color: #f0f8ff;
+    }}
+    
+    /* Right two panels (Summary 1 and 2) get same background color */
+    .panel:nth-child(2), .panel:nth-child(3) {{
       background-color: #f9f9f9;
     }}
   </style>
@@ -196,10 +198,12 @@ def generate_panels(patient_data, summary_1, summary_2):
 
 def add_redcap_field(df, case_num, patient_data, question, summary_1, summary_2, choices):
   '''
-  This function adds a new field to the ongoing REDCap dataframe.
+  This function adds fields to the ongoing REDCap dataframe for a single question.
+  Creates: 1 descriptive field (panels) + 2 radio button fields (one for each summary)
   
   input:
     df: pd.DataFrame, the ongoing REDCap dataframe
+    case_num: int, the case number
     patient_data: dict, a dictionary containing the patient data
     question: str, the question to be added
     summary_1: str, the first summary
@@ -220,18 +224,36 @@ def add_redcap_field(df, case_num, patient_data, question, summary_1, summary_2,
   # generate the panels
   panels_html = generate_panels(patient_data_html, summary_1_html, summary_2_html)
 
-  # add the new field to the dataframe
-  new_row = {
-      "Variable / Field Name": f"field_{len(df)}",
+  # Add descriptive field with the panels
+  descriptive_row = {
+      "Variable / Field Name": f"panels_{len(df)}",
+      "Form Name": "llama_vs_qwen",
+      "Field Type": "descriptive",
+      "Field Label": panels_html
+  }
+  df.loc[len(df)] = descriptive_row
+
+  # Add radio button for Summary 1 rating
+  radio_row_1 = {
+      "Variable / Field Name": f"rating_{len(df)}_summary1",
       "Form Name": "llama_vs_qwen",
       "Field Type": "radio",
-      "Field Label": question,
+      "Field Label": f"{question} - Rate Summary 1",
       "Choices, Calculations, OR Slider Labels": choices,
-      "Field Note": panels_html,
-      "Required Field?": "y",
-      "Section Header": f"<h>Case {case_num}<\h>"
+      "Required Field?": "y"
   }
-  df.loc[len(df)] = new_row
+  df.loc[len(df)] = radio_row_1
+
+  # Add radio button for Summary 2 rating
+  radio_row_2 = {
+      "Variable / Field Name": f"rating_{len(df)}_summary2",
+      "Form Name": "llama_vs_qwen",
+      "Field Type": "radio",
+      "Field Label": f"{question} - Rate Summary 2",
+      "Choices, Calculations, OR Slider Labels": choices,
+      "Required Field?": "y"
+  }
+  df.loc[len(df)] = radio_row_2
 
   return df
   
@@ -287,18 +309,23 @@ filler_patient_data = json.loads('{"Subject Demographics": {"Living situation": 
 
 for case_num in range(1, 11):
     patient_data = filler_patient_data
+    first_question_in_case = True
 
     for section, data in acgme_neurology.items():
         prompt = data['prompt']
         acgme_data = data['ACGME']
         # add the section header and prompt
         new_row = {
-            "Variable / Field Name": f"section_{section}",
+            "Variable / Field Name": f"section_{section}_{case_num}",
             "Form Name": "llama_vs_qwen",
             "Field Type": "descriptive",
-            "Field Label": f"<h>{section}</h>",
-            "Field Note": f"<p>{prompt}</p>"
+            "Field Label": f"<h2>{section}</h2><p><i>{prompt}</i></p>"
         }
+        # Only add section header if this is the first question in the case
+        if first_question_in_case:
+            new_row["Section Header"] = f"<h1>Case {case_num}</h1>"
+            first_question_in_case = False
+        
         df.loc[len(df)] = new_row
 
         for response_data in acgme_data:
@@ -307,6 +334,38 @@ for case_num in range(1, 11):
             criterion_str = criterion_dict_to_choices_str(criterion_dict)
             # add the new field
             df = add_redcap_field(df, case_num, patient_data, label, filler_text, filler_text, criterion_str)
+    
+    # Add "All responses" section with comparative questions at the end of each case
+    all_responses_section = {
+        "Variable / Field Name": f"all_responses_section_{case_num}",
+        "Form Name": "llama_vs_qwen",
+        "Field Type": "descriptive",
+        "Field Label": "<h2>All responses</h2>"
+    }
+    df.loc[len(df)] = all_responses_section
+    
+    # Define the comparative questions and likert-style choices
+    comparative_questions = [
+        "Which summary more accurately condenses the patient information?",
+        "Which summary demonstrates better internal consistency?",
+        "Which summary is more relevant to the central question (regarding neurological history, imaging studies, EEG studies, or differential diagnosis)?",
+        "Which summary is more complete in addressing the central question?",
+        "Which summary do you prefer overall?"
+    ]
+    
+    # Likert-style choices for comparison
+    likert_choices = "1, Summary 1 much better | 2, Summary 1 somewhat better | 3, About the same | 4, Summary 2 somewhat better | 5, Summary 2 much better"
+    
+    for i, question in enumerate(comparative_questions, 1):
+        comparative_field = {
+            "Variable / Field Name": f"comparative_{case_num}_q{i}",
+            "Form Name": "llama_vs_qwen",
+            "Field Type": "radio",
+            "Field Label": f"{i}. {question}",
+            "Choices, Calculations, OR Slider Labels": likert_choices,
+            "Required Field?": "y"
+        }
+        df.loc[len(df)] = comparative_field
         
 df    
 
@@ -314,5 +373,5 @@ df
 # In[20]:
 
 
-df.to_csv('/projectnb/vkolagrp/spuduch/fmADRD/recap_v2.csv', index=False)
+df.to_csv('redcap_data_dict.csv', index=False)
 
