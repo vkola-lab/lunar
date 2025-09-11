@@ -22,7 +22,7 @@ class AnswerExtractor:
         all_matches = re.findall(r"\\boxed\{.*?\b([A-Z0-9])\b", text)
 
         # finding more than one match is ambiguous, mark that as invalid too
-        if len(all_matches) == 0: #or len(all_matches) > 1:
+        if len(all_matches) == 0 or len(set(all_matches)) > 1:
             return "invalid"
 
         return all_matches[-1].strip().upper()
