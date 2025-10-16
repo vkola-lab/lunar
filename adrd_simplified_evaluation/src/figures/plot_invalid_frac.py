@@ -17,25 +17,27 @@ output_file = sys.argv[2]
 tall = load_metrics(results_dir)
 cat_order = get_cat_order()
 
-g = sns.catplot(
-    tall[tall["metric"] == "invalid_frac"],
-    x="value",
-    y="model",
-    col="benchmark_name",
-    hue="model",
-    col_wrap=5,
-    height=2,
-    sharex=False,
-    sharey=True,
-    order=cat_order,
-    hue_order=cat_order,
-)
+if len(tall) > 0:
 
-g.set_titles(col_template="{col_name}")
+    g = sns.catplot(
+        tall[tall["metric"] == "invalid_frac"],
+        x="value",
+        y="model",
+        col="benchmark_name",
+        hue="model",
+        col_wrap=5,
+        height=4,
+        sharex=False,
+        sharey=False,
+        order=cat_order,
+        hue_order=cat_order,
+    )
 
-g.set_ylabels("")
-g.set_xlabels("Invalid Num.")
+    g.set_titles(col_template="{col_name}")
 
-plt.tight_layout()
+    g.set_ylabels("")
+    g.set_xlabels("Invalid Num.")
 
-g.savefig(output_file)
+    plt.tight_layout()
+
+    g.savefig(output_file)

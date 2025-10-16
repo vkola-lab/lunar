@@ -20,49 +20,51 @@ nacc = tall[tall["benchmark_name"].isin(["test_cog", "test_np", "test_etpr","tes
 
 nacc = nacc[nacc["metric"].isin(["accuracy", "precision_weighted"])]
 
-g = sns.catplot(
-    nacc,
-    x="value",
-    y="model",
-    col="benchmark_name",
-    row="metric",
-    hue="model",
-    # col_wrap=3,
-    height=2,
-    sharex='col',
-    sharey=True,
-    width=0.95,
-    kind="bar",
-    order=cat_order,
-    hue_order=cat_order,
-)
+if len(nacc) > 0:
 
-# g.set_titles(template="{col_name}", size=8)
-g.set_titles("")
+    g = sns.catplot(
+        nacc,
+        x="value",
+        y="model",
+        col="benchmark_name",
+        row="metric",
+        hue="model",
+        # col_wrap=3,
+        height=3,
+        sharex='col',
+        sharey=True,
+        width=0.95,
+        kind="bar",
+        order=cat_order,
+        hue_order=cat_order,
+    )
 
-g.set_ylabels("")
-g.set_xlabels("")
+    # g.set_titles(template="{col_name}", size=8)
+    g.set_titles("")
 
-for ax, title in zip(g.axes[0], g.col_names):
-    ax.set_title(title.split('_')[-1].upper(),size=10)
+    g.set_ylabels("")
+    g.set_xlabels("")
 
-for ax, label in zip(g.axes[:,0], g.row_names):
-    ax.set_ylabel(label.replace('_',' ').title(),size=10)
-    # ax.yaxis.set_label_position('right')
+    for ax, title in zip(g.axes[0], g.col_names):
+        ax.set_title(title.split('_')[-1].upper(),size=10)
+
+    for ax, label in zip(g.axes[:,0], g.row_names):
+        ax.set_ylabel(label.replace('_',' ').title(),size=10)
+        # ax.yaxis.set_label_position('right')
 
 
-for ax in g.axes.flat:
-    for p in ax.patches:
-        ax.text(
-            p.get_x() + 0.02,  # left edge of the bar
-            p.get_y() + p.get_height() / 2.0,  # vertical center of the bar
-            f"{p.get_width():.2f}",  # width is the bar value
-            ha="left",
-            va="center",
-            color="white",
-            size=8,
-        )
-    
-plt.tight_layout()
+    for ax in g.axes.flat:
+        for p in ax.patches:
+            ax.text(
+                p.get_x() + 0.02,  # left edge of the bar
+                p.get_y() + p.get_height() / 2.0,  # vertical center of the bar
+                f"{p.get_width():.2f}",  # width is the bar value
+                ha="left",
+                va="center",
+                color="white",
+                size=8,
+            )
+        
+    plt.tight_layout()
 
-g.savefig(output_file)
+    g.savefig(output_file)

@@ -1,14 +1,12 @@
 # Directories
 CONFIG_DIR = configs
-RESULTS_DIR = results
-FIGURES_DIR = figures
+RESULTS_DIR = results/comparison_inc
+FIGURES_DIR = figures_inc
 LOGS_DIR = logs
 STAMP_DIR = logs/timestamps
 
 # Declare phony targets
 .PHONY: all help run_benchmark submit_all extract_answers compute_metrics figures clean_logs clean_figures clean_metrics clean
-
-
 
 # Default target: usage message
 all:

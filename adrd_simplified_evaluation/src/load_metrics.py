@@ -3,7 +3,7 @@ from pathlib import Path
 import pandas as pd
 
 readable_model_names = {
-        "Qwen2.5-3B-Instruct": "Baseline",
+        "Qwen2.5-3B-Instruct": "Qwen2.5-3B",
         # "Qwen2.5-3B-DrGRPO-subset",
         # "Qwen2.5-3B-DrGRPO-Stratified",
         "Qwen2.5-3B-DrGRPO-Strat-NACC": "NACC",
@@ -14,25 +14,33 @@ readable_model_names = {
         "Qwen3-4B": "Qwen3-4B",
         "Qwen2.5-7B-Instruct": "Qwen2.5-7B",
         "HuatuoGPT-o1-8B": "HuatuoGPT-o1-8B",
+        "NACC_Inc-sce-tanh-1000": "Ours+SCE",
+        "NACC_Inc-1000": "Ours",
+        "NACC-inc-os-sce": "Ours-SCE-OS",
+        "NACC-inc-os": "Ours-OS",
     }
 
 cat_order = [
         "Qwen2.5-3B-Instruct",
         # "Qwen2.5-3B-DrGRPO-subset",
         # "Qwen2.5-3B-DrGRPO-Stratified",
-        "Qwen2.5-3B-DrGRPO-Strat-NACC",
-        "Qwen2.5-3B-DrGRPO-Strat-MedQA-NACC",
-        "Qwen2.5-3B-DrGRPO-Strat-MedQA-NACC-filtered",
-        "Qwen2.5-3B-DrGRPO-Strat-MedQA-NACC-sce",
-        "Qwen2.5-3B-DrGRPO-Strat-MedQA-NACC-sce-scaled",
-        "Qwen3-4B",
+        # "Qwen2.5-3B-DrGRPO-Strat-NACC",
+        # "Qwen2.5-3B-DrGRPO-Strat-MedQA-NACC",
+        # "Qwen2.5-3B-DrGRPO-Strat-MedQA-NACC-filtered",
+        # "Qwen2.5-3B-DrGRPO-Strat-MedQA-NACC-sce",
+        # "Qwen2.5-3B-DrGRPO-Strat-MedQA-NACC-sce-scaled",
+        "NACC_Inc-1000",
+        "NACC_Inc-sce-tanh-1000",
+        "NACC-inc-os",
+        "NACC-inc-os-sce",
         "Qwen2.5-7B-Instruct",
         "HuatuoGPT-o1-8B",
+        "Qwen3-4B",
     ]
 
 cat_order_readable = [readable_model_names[model] for model in cat_order]
 
-def load_metrics(results_dir):
+def load_metrics(results_dir, readable_names=True):
     """
     Load metrics JSON files from a directory, concatenate them into a single DataFrame,
     and return a "tall" format DataFrame ready for plotting.
@@ -59,7 +67,8 @@ def load_metrics(results_dir):
     # Convert to tall format
     tall = summary.stack().to_frame(name="value").reset_index()
 
-    tall['model'] = tall['model'].replace(readable_model_names)
+    if readable_names:
+        tall['model'] = tall['model'].replace(readable_model_names)
     
     return tall
 
