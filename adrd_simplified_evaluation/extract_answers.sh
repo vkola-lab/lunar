@@ -37,7 +37,7 @@ source venvs/venv_gpu/bin/activate
 
 python -V
 
-RESULTS_DIR="results/brainlat"
+# RESULTS_DIR="results/brainlat"
 EXTRACTOR_CONFIG="src/extractor_config.yml"
 
-python src/extract_answers.py $RESULTS_DIR $EXTRACTOR_CONFIG
+python src/extract_answers.py $1 $EXTRACTOR_CONFIG

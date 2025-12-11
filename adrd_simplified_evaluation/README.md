@@ -1,15 +1,49 @@
 # Benchmark Evaluation Suite for LLMs
 
-The scripts in this directory are designed to automatically run benchmarks (multiple choice questions) on multiple LLMs using vLLM, extract the answers, compute metrics, and plot the results.
+This directory contains a collection of scripts to evaluate LLMs on 'tasks'. A task is defined for the purposes of this project as a collection of multiple choice questions. For example, 'determine the primary etiology given patient data' is a task (which we refer to as the ETPR task). 
 
-## Basic Usage
 
-A single "run" of a benchmark suite consists of running *one* model on (possibly) *multiple* benchmarks. The model and the benchmarks are specified via YAML configuration files, which by convention should be kept in `configs/`. 
+# Creating the python environments
+
+Before doing anything else, you should create the necessary python environments, using the `create_environments.sh` script. This should create two environments:
+- `venvs/venv_gpu`, containing the GPU-capable version of PyTorch, vLLM, transformers, and everything else necessary to run an LLM in inference mode on a given task.
+- `venvs/venv_cpu`, containing the cpu-only version of PyTorch, and all the libraries necessary for analysis and plotting (e.g. pandas, numpy, matplotlib, seaborn).
+
+If this fails, manually create the environments using your favorite environment manager and make sure that all `.sh` scripts are aware of them.
+
+# Running a task
+
+A single "run" of a task consists of running *one* model on (possibly) *multiple* benchmarks. The model, its options, the task, and output directories are specified via YAML configuration files, which by convention should be kept in `configs/`.  
+
+To run a task, submit the `run_benchmarks.sh` script to SCC, specifying a configuration file. For example,
+```
+$ qsub run_benchmarks.sh configs/NACC/qwen2.5-3B-Instruct.yml
+```
+will run the tasks specified in that `.yml` file. To request resources (i.e. GPUs), and associate the run with the correct SCC project, edit the corresponding section in `run_benchmarks.sh`.
+
+
+The results of a task will be saved in the directory specified by the `results_dir` key in the configuration `.yml` file. The result directory will contain:
+- a copy of the configuration file used for this run, for reproducibility purposes
+- a newline-delimited JSON file (also known as JSONL) with the model responses. If you asked the model to generate more than one output for each question (using the `sampling_params.n` configuratoin key), they will be collected as an array in the corresponding JSONL key. In other words, if the task has N questions, you will have N lines in the output JSONL file. If you want one line per output generation, use something like `pd.explode` on the JSONL file.
+
+All tasks are assumed to comprise multiple choice questions, but the model output is in natural language. To extract the answer, we look for the pattern `\boxed{...}` in the output, and extract the letter within braces. To automate this, use the `extract_answers.sh` script. This will use a regular expression to attempt to extract a letter answer from the model output (e.g. "the answer is \boxed{A}" -> "A"). If this fails, either because the model did not produce the answer in this format, or multiple valid answers are found, the script falls back to using anoher LLM to resolve the ambiguity. This means that `extract_answers.sh` should also be submitted to SCC requesting GPUs. The `extract_answers.sh` script will recursively look at all JSONL files in the specified directory, and run them through the extractor. It will then produce a parquet file with the ground truth and predicted answers. The parquet file will be in the same directory as each procesed JSONL file.
+
+Example:
+'''
+$ qsub extract_answers.sh results/NACC
+'''
+
+If you also want to compute metrics from these answers (precision, recall, etc.) use 
+```
+$ ./compute_metrics.sh
+```
+Notice that it it not necessary to `qsub` this, as it does not use an LLM internally. It is a very lightweight operation. If you are going to make figures straight from the parquet files, you can skip this step.
+
+# Modifying the configuration files
 
 The configuration is hierarchical. All options under `LLM` will be passed to the `vllm.LLM` constructor (documentation [here](https://docs.vllm.ai/en/stable/api/vllm/index.html#vllm.LLM)), so you can use any of the allowed keyword arguments. The same applies to `sampling_params`, whose elements will be passed to `vllm.SamplingParams` (documentation [here](https://docs.vllm.ai/en/stable/api/vllm/index.html?h=samplingparams#vllm.SamplingParams)). 
 
-Expand the following block for an example. Templates are also available under `configs/`.
-
+Expand the following block for an example. 
 <details>
 <summary>Example configuration file</summary>
 
@@ -33,9 +67,9 @@ prompt:
   template_style: grpo # see src/prompt_templates.py
 
 benchmarks:
-  results_dir: 'results_sub' # Benchmarks outputs will be saved in this directory
+  results_dir: 'results_sub' # outputs will be saved in this directory
   base_dir: "/projectnb/vkolagrp/projects/adrd_foundation_model/benchmarks" # Base directory for benchmarks
-  max_questions: 2 # Read at most this many questions from the benchmark, so it's easy to run a subset 
+  max_questions: 100 # Read at most this many questions from the benchmark, so it's easy to run a subset 
   benchmark_list:
     - '${benchmarks.base_dir}/nacc_test/test_mci'
     - '${benchmarks.base_dir}/nacc_test/test_etpr'
@@ -44,119 +78,7 @@ benchmarks:
 
 </details>
 
-To run the benchmarks navigate to the folder containing `run_benchmark.sh` and use 
-```bash
-$ ./run_benchmarks.sh configs/config.yml
-```
-This will run all benchmarks specified under `benchmarks.benchmark_list`, in that order. The results will be saved to `benchmarks.results_dir`.
-
-If you're on SCC, edit the resources requests at the top of `run_benchmarks.sh` and submit it as a batch job instead:
-```bash
-$ qsub ./run_benchmarks.sh configs/config.yml
-```
-
-To run multiple models on multiple benchmarks, use 
-```bash
-$ ./submit.all configs
-```
-where `configs` is a directory with YAML config files. This will submit a `run_benchmarks.sh` job for each config file. The advantage is that these get run in parallel, and you can specify different hardware for each model.
-
-This will create a bunch of JSONL files under `results`. We then need to extract the answers and try to recover them if the format is not right, using
-```
-$ qsub ./extract_answers.sh
-```
-which uses internally an LLM, so it's recommended to qsub it.
-
-Finally, we compute the metrics 
-```
-$ ./compute_metrics.sh
-```
-and plot everything 
-```
-$ ./make_figures.sh
-```
-
 
 ## How to write your own benchmark
 
 Each benchmark is a JSONL file: each line should be a valid JSON. Each line is expected to have at least the `question` and `option` keys. This will be configurable in the future.
-
-# LLM Answer Extractor
-
-## Overview
-
-- Use regular expression to extract the answers.
-- If regex failed, use an LLM to extract answers from responses
-- Compare model performance against clinician ground truth (for Neuropath)
-- Evaluate multiple models across different medical benchmarks
-- Generate pass@1 and cons@k metrics and save the final plots
-
-## Project Structure
-
-```bash
-llm_answer_extractor/
-│
-├── config.yml                  # Main configuration for LLM models and benchmarks
-├── main.py                     # Pipeline entry
-├── extract_answers.sh          # Batch script for running evaluations on SCC
-│
-├── utils/                      # Core utilities and data processing
-│   ├── config_loader.py        # Configuration management and loading
-│   ├── data_utils.py           # Data loading, preprocessing, and clinician label processing
-│   └── prompts.py              # LLM prompts for answer extraction
-│
-├── models/                     # LLM interface and answer extraction logic
-│   ├── llm_interface.py        # Load the model used to extract answers
-│   └── answer_extractor.py     # Answer extraction (regex + LLM)
-│
-├── pipeline/                   # Evaluation and scoring pipeline
-│   └── evaluator.py            # Performance metrics calculation (pass@k, cons@k)
-│
-├── plots/                      # Visualization and reporting
-│   └── plot_results.py         # Seaborn plot for model comparison
-│
-├── config/                     # Benchmark-specific configurations
-│   ├── config_np.yml           # Neuropathology benchmark configuration
-│   ├── config_mci.yml          # MCI benchmark configuration
-│   ├── config_cog_stat.yml     # Cognitive Status benchmark configuration
-│   ├── config_etpr.yml         # ETPR benchmark configuration
-│   ├── config_train.yml        # Training data configuration
-│
-├── outputs/                    # Generated plots and visualizations
-│   ├── full/                   # Full dataset results
-│   └── subgroups/              # Subgroup analysis results
-│
-└── extracted_results/          # Extracted answer results by benchmark
-    ├── Neuropath/              # Neuropathology results
-    ├── MCI/                    # MCI results
-    ├── COGSTAT/                # Cognitive Status results
-    ├── ETPR/                   # ETPR results
-    ├── Train/                  # Training data results
-    └── result_csv/             # CSV summary files
- 
-```
-
-
-## Usage
-
-Update config.yml and the config files under config/
-```bash
-qsub -N run_name extract_answers.sh
-```
-
-
-## Outputs
-
-### 1. **extracted_results/**
-- CSV files with extracted answers for each model
-- Each file has a column to indicate the extraction method used (regex vs LLM)
-
-### 2. **extracted_results/result_csv**
-- CSV summaries with all metrics
-- Organized by benchmark type
-
-### 3. **Outputs/**
-- Bar plots comparing model performance
-- Red - Baseline models, Blue - trained model
-
----
