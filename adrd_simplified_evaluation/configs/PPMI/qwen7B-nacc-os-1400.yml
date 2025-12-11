@@ -1,8 +1,3 @@
-# Make sure to set the environment variable HF_HOME to control
-
-# This model was trained using stratified samping in NACC 
-# In NACC the training questions are nc vs mci, nc vs de, and mci vs de
-
 run_readable_name: "NACC-7B-OS" # will be used to name the results folder
 
 # passed to vllm.LLM, you can use any accepted keyword argument

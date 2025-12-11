@@ -19,7 +19,9 @@ class AnswerExtractor:
         # The pattern after the opening bracket is lazy, it finds as few character as 
         # possible until you hit a single letter (surrounded by word boundaries)
         # this means that if the output is \boxed{A and B} it will pick out A
-        all_matches = re.findall(r"\\boxed\{.*?\b([A-Z0-9])\b", text)
+        # all_matches = re.findall(r"\\boxed\{.*?\b([A-Z0-9])\b", text)
+        # The following is the one used in training, notice it does not support
+        all_matches = re.findall(r'\\boxed{([A-Z])(?:\.\s*[^}]*)?}', text, re.DOTALL)
 
         # finding more than one match is ambiguous, mark that as invalid too
         if len(all_matches) == 0 or len(set(all_matches)) > 1:
