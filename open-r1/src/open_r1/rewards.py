@@ -118,17 +118,11 @@ def correctness_within_answer_reward(completions, ground_truth, STAGE=None, retu
         
     return rewards
 
-def correctness_reward(completions, ground_truth, STAGE=None, return_answers=False, **kwargs) -> list[float]:
+def correctness_MCI_reward(completions, ground_truth, options, STAGE=None, return_answers=False, **kwargs) -> list[float]:
     """Reward function that checks if the completion has the answer."""
     
     # epsilon = 0.1
     def extract_answer(text):
-        # boxed_match = re.search(r'<answer>.*\\boxed{(.*?)}.*</answer>', text, re.DOTALL)
-        # boxed_match = re.search(r'.*\\boxed{(.*?)}.*', text, re.DOTALL)
-        # boxed_match = re.search(r'\\boxed{([A-Z])(?:\.\s*[^}]*)?}', text, re.DOTALL)
-        # if not boxed_match:
-        #     return None
-        # return boxed_match.group(1).strip().lower()
     
         boxed_match = re.findall(r'\\boxed{([A-Z])(?:\.\s*[^}]*)?}', text, re.DOTALL)
         if len(boxed_match) == 0:
@@ -139,18 +133,43 @@ def correctness_reward(completions, ground_truth, STAGE=None, return_answers=Fal
     contents = [completion[0]["content"] for completion in completions]
     answers = [extract_answer(content) for content in contents]
     
-    # if STAGE:
-    #     print("Using stage wise rewards")
-    #     rewards = [
-    #         1.0 + epsilon * stage if ans == gt.lower() else 0.0 - epsilon * stage
-    #         for ans, gt, stage in zip(answers, ground_truth, STAGE)
     #     ]
-    # else:
-    #     print("NOT using stage wise rewards")
-    #     rewards = [
-    #         1.0 if ans == gt.lower() else 0.0 
-    #         for ans, gt in zip(answers, ground_truth)
-    #     ]
+    print("NOT using stage wise rewards")
+    
+    # Apply rewards based on whether each individual option contains MCI
+    rewards = []
+    for ans, gt, option in zip(answers, ground_truth, options):
+        if ans == gt.lower():
+            rewards.append(1.0)  # Correct answer always gets 1.0
+        else:
+            # For incorrect answers, check if this specific option has MCI
+            if "MCI" in option:
+                rewards.append(0.2)  # MCI option gets 0.2 for wrong answer
+            else:
+                rewards.append(0.0)  # Non-MCI option gets 0.0 for wrong answer
+        
+    print(rewards)
+    
+    if return_answers:
+        return rewards, answers
+        
+    return rewards
+
+def correctness_reward(completions, ground_truth, STAGE=None, return_answers=False, **kwargs) -> list[float]:
+    """Reward function that checks if the completion has the answer."""
+    
+    # epsilon = 0.1
+    def extract_answer(text):
+    
+        boxed_match = re.findall(r'\\boxed{([A-Z])(?:\.\s*[^}]*)?}', text, re.DOTALL)
+        if len(boxed_match) == 0:
+            return None
+        return boxed_match[-1].strip().lower()
+
+    # Extract answers
+    contents = [completion[0]["content"] for completion in completions]
+    answers = [extract_answer(content) for content in contents]
+    
     print("NOT using stage wise rewards")
     rewards = [
         1.0 if ans == gt.lower() else 0.0 
@@ -165,35 +184,85 @@ def correctness_reward(completions, ground_truth, STAGE=None, return_answers=Fal
     return rewards
 
 
-def majority_voting_reward(completions, ID, **kwargs) -> list[float]:
-    """Reward function that checks if each completion has the majority-voted answer in its own ID group."""
-
+def correctness_unsure_reward(completions, ground_truth, STAGE=None, return_answers=False, **kwargs) -> list[float]:
+    """Reward function that checks if the completion has the answer."""
+    
+    # epsilon = 0.1
     def extract_answer(text):
-        answer_match = re.search(r'<answer>\n(Answer:\s*)([a-zA-Z])\n</answer>', text, re.DOTALL)
-        if not answer_match:
-            return None
-        return answer_match.group(2).strip().lower()
+    
+        boxed_match = re.findall(r'\\boxed{([A-Z])(?:\.\s*[^}]*)?}', text, re.DOTALL)
+        if len(boxed_match) == 0:
+            # Try to capture "Cannot determine" in boxed
+            boxed_cannot_determine = re.findall(r'\\boxed{["\']?Cannot determine["\']?}', text, re.IGNORECASE)
+            if boxed_cannot_determine:
+                return "cannot determine"
+            else:
+                return None
+        return boxed_match[-1].strip().lower()
 
     # Extract answers
     contents = [completion[0]["content"] for completion in completions]
     answers = [extract_answer(content) for content in contents]
+    
+    print("NOT using stage wise rewards")
+    
+    rewards = []
+    
+    for ans, gt in zip(answers, ground_truth):
+        if ans == gt.lower():
+            rewards.append(1.0)
+        elif ans == "cannot determine":
+            rewards.append(0.2)
+        else:
+            rewards.append(0.0)
+        
+    print(rewards)
+    
+    if return_answers:
+        return rewards, answers
+        
+    return rewards
 
+
+
+def majority_voting_reward(completions, ground_truth, ID, **kwargs) -> list[float]:
+    """Reward function that checks if each completion has the majority-voted answer in its own ID group."""
+
+    def extract_answer(text):
+        boxed_match = re.findall(r'\\boxed{([A-Z])(?:\.\s*[^}]*)?}', text, re.DOTALL)
+        if len(boxed_match) == 0:
+            return None
+        return boxed_match[-1].strip().lower()
+
+    # Extract answers
+    contents = [completion[0]["content"] for completion in completions]
+    answers = [extract_answer(content) for content in contents]
+    
     # Group answers by ID
     id_to_answers = defaultdict(list)
     for idx, id_val in enumerate(ID):
         id_to_answers[id_val].append(answers[idx])
         
-    print(id_to_answers)
+    print("ID to answers: ", id_to_answers)
 
     # Compute majority answer per ID
     id_to_majority = {}
     for id_val, group_answers in id_to_answers.items():
         filtered_group_answers = [ans for ans in group_answers if ans is not None]
         counts = Counter(filtered_group_answers)
-        majority_answer, _ = counts.most_common(1)[0]
+        if len(counts) > 0:
+            majority_answer, _ = counts.most_common(1)[0]
+        else:
+            majority_answer = "none"
         id_to_majority[id_val] = majority_answer
         
-    print(id_to_majority)
+    print("ID to majority: ", id_to_majority)
+    
+    id_to_gt_answers = defaultdict(list)
+    for ans, id_val in zip(ground_truth, ID):
+        id_to_gt_answers[id_val] = ans
+        
+    print("ID to ground truth: ", id_to_gt_answers)
 
     # Assign rewards based on each completion's ID group majority
     rewards = [
@@ -791,6 +860,8 @@ async def run_script(script: str, language: str, semaphore: asyncio.Semaphore) -
 def get_reward_funcs(script_args) -> list[Callable]:
     REWARD_FUNCS_REGISTRY = {
         "correctness": correctness_reward,
+        "correctness_unsure": correctness_unsure_reward,
+        "correctness_MCI": correctness_MCI_reward,
         "correctness_within_answer": correctness_within_answer_reward,
         "format": format_reward,
         "tag_count": tag_count_reward,

@@ -66,6 +66,16 @@ class ScriptArguments(trl.ScriptArguments):
                 seed: 42
                 test_split_size: 0.1
     """
+    
+    # Override the dataset_name to make it optional
+    dataset_name: Optional[str] = field(
+        default=None, metadata={"help": "Dataset name. Can be omitted if using dataset_mixture."}
+    )
+    dataset_mixture: Optional[dict[str, Any]] = field(
+        default=None,
+        metadata={"help": "Configuration for creating dataset mixtures with advanced options like shuffling."},
+    )
+    
     # --------------------------------------------------------------------------------
     # NEW ARGUMENTS
     data_split: bool = field(
@@ -82,15 +92,6 @@ class ScriptArguments(trl.ScriptArguments):
         },
     )
     # --------------------------------------------------------------------------------
-    
-    # Override the dataset_name to make it optional
-    dataset_name: Optional[str] = field(
-        default=None, metadata={"help": "Dataset name. Can be omitted if using dataset_mixture."}
-    )
-    dataset_mixture: Optional[dict[str, Any]] = field(
-        default=None,
-        metadata={"help": "Configuration for creating dataset mixtures with advanced options like shuffling."},
-    )
 
     def __post_init__(self):
         if self.dataset_name is None and self.dataset_mixture is None:
@@ -220,14 +221,6 @@ class SFTConfig(trl.SFTConfig):
     args for callbacks, benchmarks etc
     """
 
-    # --------------------------------------------------------------------------------
-    # NEW ARGUMENTS
-    shuffle_dataset: Optional[bool] = field(
-        default=True,
-        metadata={"help": "Whether to shuffle the training dataset."},
-    )
-    # --------------------------------------------------------------------------------
-
     benchmarks: list[str] = field(
         default_factory=lambda: [],
         metadata={"help": "The benchmarks to run after training."},
@@ -259,6 +252,14 @@ class SFTConfig(trl.SFTConfig):
         default=None,
         metadata={"help": ("The group to store runs under.")},
     )
+
+    # --------------------------------------------------------------------------------
+    # NEW ARGUMENTS
+    shuffle_dataset: Optional[bool] = field(
+        default=True,
+        metadata={"help": "Whether to shuffle the training dataset."},
+    )
+    # --------------------------------------------------------------------------------
 
 
 @dataclass

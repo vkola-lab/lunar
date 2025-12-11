@@ -4,7 +4,7 @@ Version: 0.1.0.dev0
 Summary: Open R1
 Home-page: https://github.com/huggingface/open-r1
 Author: The Hugging Face team (past and future)
-Author-email: skowshik@bu.edu
+Author-email: lewis@huggingface.co
 License: Apache
 Keywords: llm inference-time compute reasoning
 Classifier: Development Status :: 3 - Alpha
@@ -23,24 +23,23 @@ Requires-Dist: accelerate==1.4.0
 Requires-Dist: bitsandbytes>=0.43.0
 Requires-Dist: einops>=0.8.0
 Requires-Dist: datasets>=3.2.0
-Requires-Dist: deepspeed==0.16.7
+Requires-Dist: deepspeed==0.16.8
 Requires-Dist: hf_transfer>=0.1.4
 Requires-Dist: huggingface-hub[cli,hf_xet]<1.0,>=0.30.2
 Requires-Dist: langdetect
 Requires-Dist: latex2sympy2_extended>=1.0.6
 Requires-Dist: math-verify==0.5.2
-Requires-Dist: liger-kernel>=0.5.6
 Requires-Dist: packaging>=23.0
 Requires-Dist: safetensors>=0.3.3
 Requires-Dist: sentencepiece>=0.1.99
-Requires-Dist: transformers==4.51.3
+Requires-Dist: trl==0.19.0
 Requires-Dist: wandb>=0.19.1
+Requires-Dist: async-lru>=2.0.5
 Provides-Extra: tests
 Requires-Dist: pytest; extra == "tests"
 Requires-Dist: parameterized>=0.9.0; extra == "tests"
 Requires-Dist: math-verify==0.5.2; extra == "tests"
-Provides-Extra: torch
-Requires-Dist: torch==2.6.0; extra == "torch"
+Requires-Dist: jieba; extra == "tests"
 Provides-Extra: quality
 Requires-Dist: ruff>=0.9.0; extra == "quality"
 Requires-Dist: isort>=5.12.0; extra == "quality"
@@ -48,8 +47,12 @@ Requires-Dist: flake8>=6.0.0; extra == "quality"
 Provides-Extra: code
 Requires-Dist: e2b-code-interpreter>=1.0.5; extra == "code"
 Requires-Dist: python-dotenv; extra == "code"
+Requires-Dist: morphcloud==0.1.67; extra == "code"
+Requires-Dist: jieba; extra == "code"
+Requires-Dist: pandas>=2.2.3; extra == "code"
+Requires-Dist: aiofiles>=24.1.0; extra == "code"
 Provides-Extra: eval
-Requires-Dist: lighteval@ git+https://github.com/huggingface/lighteval.git@989f5f5586de1ddfeceb0dfa5076bd0740d376fa ; extra == "eval"
+Requires-Dist: lighteval@ git+https://github.com/huggingface/lighteval.git@d3da6b9bbf38104c8b5e1acc86f83541f9a502d1 ; extra == "eval"
 Requires-Dist: math-verify==0.5.2; extra == "eval"
 Provides-Extra: dev
 Requires-Dist: ruff>=0.9.0; extra == "dev"
@@ -58,10 +61,15 @@ Requires-Dist: flake8>=6.0.0; extra == "dev"
 Requires-Dist: pytest; extra == "dev"
 Requires-Dist: parameterized>=0.9.0; extra == "dev"
 Requires-Dist: math-verify==0.5.2; extra == "dev"
-Requires-Dist: lighteval@ git+https://github.com/huggingface/lighteval.git@989f5f5586de1ddfeceb0dfa5076bd0740d376fa ; extra == "dev"
+Requires-Dist: jieba; extra == "dev"
+Requires-Dist: lighteval@ git+https://github.com/huggingface/lighteval.git@d3da6b9bbf38104c8b5e1acc86f83541f9a502d1 ; extra == "dev"
 Requires-Dist: math-verify==0.5.2; extra == "dev"
 Requires-Dist: e2b-code-interpreter>=1.0.5; extra == "dev"
 Requires-Dist: python-dotenv; extra == "dev"
+Requires-Dist: morphcloud==0.1.67; extra == "dev"
+Requires-Dist: jieba; extra == "dev"
+Requires-Dist: pandas>=2.2.3; extra == "dev"
+Requires-Dist: aiofiles>=24.1.0; extra == "dev"
 Dynamic: author
 Dynamic: author-email
 Dynamic: classifier

@@ -93,3 +93,11 @@ TEMPLATE = """Question: {question}
 Answer Choices: 
 {options}
 """
+
+# TEMPLATE = """Question: {question}
+
+# Answer Choices: 
+# {options}
+
+# If you cannot determine the answer, please output \\boxed{{"Cannot determine"}}.
+# """
