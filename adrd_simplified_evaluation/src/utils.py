@@ -6,7 +6,6 @@ import pandas as pd
 import prompt_templates
 from omegaconf import OmegaConf
 from tqdm import tqdm
-import re
 
 
 def make_results_dir(config, benchmark_path):
@@ -79,6 +78,8 @@ def get_template(template_style):
         template = prompt_templates.TEMPLATE
     elif template_style == "grpo_think":
         template = prompt_templates.TEMPLATE_THINK
+    elif template_style == "multilabel":
+        template = prompt_templates.MULTILABEL
     else:
         raise ValueError(f"Invalid template style: {template_style}")
 
@@ -96,16 +97,20 @@ def make_prompts_from_template(problems, config):
 
     for problem in tqdm(problems):
 
-        # FIXME we can probably modify the benchmark to have the visit summary as part of the question
+        # should we modify the benchmark to have the visit summary as part of the question?
         if "visit_summary" in problem:
             question = f'{problem["visit_summary"]}\n\n{problem["question"]}'
-        else:
-            question = problem["question"]
+        # else:
+            # this is for traditional benchamrks without patient data 
+            # question = problem["question"]
 
         # Format the prompt
-        prompt = get_template(config.prompt.template_style).format(
-            question=question, options=problem["options"]
-        )
+        if 'options' in problem:
+            prompt = get_template(config.prompt.template_style).format(
+                question=question, options=problem["options"]
+            )
+        else:
+            prompt = get_template(config.prompt.template_style).format(question=question)
 
         # Add system prompt if config requests it
         if config.prompt.system_prompt:

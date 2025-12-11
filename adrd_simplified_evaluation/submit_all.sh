@@ -5,6 +5,9 @@
 #
 # Usage: ./submit_all.sh dir1 dir2 ...
 
+export VLLM_SKIP_P2P_CHECK=1
+export HF_HOME=/projectnb/vkolagrp/bellitti/.cache/huggingface
+
 # Check if at least one directory is passed
 if [ "$#" -lt 1 ]; then
     echo "Usage: $0 dir1 [dir2 ...]"

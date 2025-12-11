@@ -1,0 +1,36 @@
+# Make sure to set the environment variable HF_HOME to control
+
+# This model was trained using stratified samping in NACC 
+# In NACC the training questions are nc vs mci, nc vs de, and mci vs de
+
+run_readable_name: "NACC-7B-OS-SCE" # will be used to name the results folder
+
+# passed to vllm.LLM, you can use any accepted keyword argument
+LLM:
+  model: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/ckpt_access/qwen25_7B_drgrpo_gp8_nacc_inc_oversample_sce_tanh/checkpoint-1400" # can be a path
+  tensor_parallel_size: 2 # Number of GPUs used. Passed to vllm.LLM.tensor_parallel_size. 
+  gpu_memory_utilization: 0.9 # Fraction of gpu memory reserved for model + attention
+  max_model_len: 30000
+  distributed_executor_backend: 'mp'
+  seed: 1 # seed to initialize RNG for sampling
+  enable_lora: false
+  # lora_path: # uncomment if want to use lora
+
+# passed to vllm.SamplingParams, you can use any accepted keyword argument
+sampling_params:
+  n: 5 # Number of sequences to generate per prompt
+  temperature: 1 # recommended
+  top_p: 1 # consider candidate tokens until the cumulative sum of their probabilities is top_p
+  max_tokens: 10000 # maximum number of tokens to generate
+
+prompt:
+  system_prompt: "Please reason step by step, and put your final answer within \boxed{}."
+  template_style: grpo
+
+benchmarks:
+  results_dir: 'results/brainlat' # Benchmarks outputs will be saved in this directory
+  base_dir: "/projectnb/vkolagrp/projects/adrd_foundation_model/benchmarks" # Base directory for benchmarks
+  max_questions: 100000 # Read at most this many questions from the benchmark
+  benchmark_list:
+    - '${benchmarks.base_dir}/brainlat_test/test_cog'
+    - '${benchmarks.base_dir}/brainlat_test/test_etpr'
