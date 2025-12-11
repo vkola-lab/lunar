@@ -44,7 +44,7 @@ _deps = [
     "accelerate==1.4.0",
     "bitsandbytes>=0.43.0",
     "datasets>=3.2.0",
-    "deepspeed==0.16.7",
+    "deepspeed==0.16.8",
     "distilabel[vllm,ray,openai]>=1.5.2",
     "e2b-code-interpreter>=1.0.5",
     "einops>=0.8.0",
@@ -52,11 +52,13 @@ _deps = [
     "hf_transfer>=0.1.4",
     "huggingface-hub[cli,hf_xet]>=0.30.2,<1.0",
     "isort>=5.12.0",
+    "jieba",  # Needed for Chinese language support
     "langdetect",  # Needed for LightEval's extended tasks
     "latex2sympy2_extended>=1.0.6",
-    "liger-kernel>=0.5.6",
-    "lighteval @ git+https://github.com/huggingface/lighteval.git@989f5f5586de1ddfeceb0dfa5076bd0740d376fa",
+    # "liger-kernel",
+    "lighteval @ git+https://github.com/huggingface/lighteval.git@d3da6b9bbf38104c8b5e1acc86f83541f9a502d1",  # Critical bug fix for tokenizer revisions: https://github.com/huggingface/lighteval/pull/721
     "math-verify==0.5.2",  # Used for math verification in grpo
+    "morphcloud==0.1.67",
     "packaging>=23.0",
     "parameterized>=0.9.0",
     "peft>=0.14.0",
@@ -65,13 +67,15 @@ _deps = [
     "ruff>=0.9.0",
     "safetensors>=0.3.3",
     "sentencepiece>=0.1.99",
-    "torch==2.6.0",
-    # "transformers @ git+https://github.com/huggingface/transformers.git@acdbe627e323dbc822f21499fead789b439cf45b",  # Fix DeepSpeed x vLLM conflict: https://github.com/huggingface/transformers/pull/37755
-    # "trl[vllm] @ git+https://github.com/huggingface/trl.git@1bca49515ecd5b85d16e68c42c76670e252e19f1",  # Fix DeepSpeed x vLLM conflict: https://github.com/huggingface/trl/pull/3351
+    # "torch==2.6.0",
+    "transformers==4.52.3",
+    "trl",
+    # "trl[vllm]==0.18.0",
     "wandb>=0.19.1",
-    "transformers==4.51.3",
+    "async-lru>=2.0.5",
+    "aiofiles>=24.1.0",
+    "pandas>=2.2.3",
     "trl==0.19.0",
-    # "trl[vllm]==0.18.0"
 ]
 
 # this is a lookup table with items like:
@@ -88,10 +92,10 @@ def deps_list(*pkgs):
 
 
 extras = {}
-extras["tests"] = deps_list("pytest", "parameterized", "math-verify")
-extras["torch"] = deps_list("torch")
+extras["tests"] = deps_list("pytest", "parameterized", "math-verify", "jieba")
+# extras["torch"] = deps_list("torch")
 extras["quality"] = deps_list("ruff", "isort", "flake8")
-extras["code"] = deps_list("e2b-code-interpreter", "python-dotenv")
+extras["code"] = deps_list("e2b-code-interpreter", "python-dotenv", "morphcloud", "jieba", "pandas", "aiofiles")
 extras["eval"] = deps_list("lighteval", "math-verify")
 extras["dev"] = extras["quality"] + extras["tests"] + extras["eval"] + extras["code"]
 
@@ -107,20 +111,21 @@ install_requires = [
     deps["langdetect"],
     deps["latex2sympy2_extended"],
     deps["math-verify"],
-    deps["liger-kernel"],
+    # deps["liger-kernel"],
     deps["packaging"],  # utilities from PyPA to e.g., compare versions
     deps["safetensors"],
     deps["sentencepiece"],
-    deps["transformers"],
-    # deps["trl"],
+    # deps["transformers"],
+    deps["trl"],
     deps["wandb"],
+    deps["async-lru"],
 ]
 
 setup(
     name="open-r1",
     version="0.1.0.dev0",  # expected format is one of x.y.z.dev0, or x.y.z.rc1 or x.y.z (no to dashes, yes to dots)
     author="The Hugging Face team (past and future)",
-    author_email="skowshik@bu.edu",
+    author_email="lewis@huggingface.co",
     description="Open R1",
     long_description=open("README.md", "r", encoding="utf-8").read(),
     long_description_content_type="text/markdown",

@@ -66,6 +66,16 @@ class ScriptArguments(trl.ScriptArguments):
                 seed: 42
                 test_split_size: 0.1
     """
+    
+    # Override the dataset_name to make it optional
+    dataset_name: Optional[str] = field(
+        default=None, metadata={"help": "Dataset name. Can be omitted if using dataset_mixture."}
+    )
+    dataset_mixture: Optional[dict[str, Any]] = field(
+        default=None,
+        metadata={"help": "Configuration for creating dataset mixtures with advanced options like shuffling."},
+    )
+    
     # --------------------------------------------------------------------------------
     # NEW ARGUMENTS
     data_split: bool = field(
@@ -82,15 +92,6 @@ class ScriptArguments(trl.ScriptArguments):
         },
     )
     # --------------------------------------------------------------------------------
-    
-    # Override the dataset_name to make it optional
-    dataset_name: Optional[str] = field(
-        default=None, metadata={"help": "Dataset name. Can be omitted if using dataset_mixture."}
-    )
-    dataset_mixture: Optional[dict[str, Any]] = field(
-        default=None,
-        metadata={"help": "Configuration for creating dataset mixtures with advanced options like shuffling."},
-    )
 
     def __post_init__(self):
         if self.dataset_name is None and self.dataset_mixture is None:
@@ -199,9 +200,19 @@ class GRPOConfig(open_r1.grpo_config.GRPOConfig):
         },
     )
     
-    over_generation_factor: int = field(
-        default=1,
-        metadata={"help": "Multiplication factor for oversampling. The rollout is set to num_generations * over_generation_factor."},
+    # over_generation_factor: int = field(
+    #     default=1,
+    #     metadata={"help": "Multiplication factor for oversampling. The rollout is set to num_generations * over_generation_factor."},
+    # )
+    
+    add_sce: int = field(
+        default=0,
+        metadata={"help": "Flag to add self-certainty advantage http://arxiv.org/abs/2505.12346."},
+    )
+    
+    lambda_sce: int = field(
+        default=0.0,
+        metadata={"help": "Multiplicative factor to combine SCE with reward advantage."},
     )
     
     entropy_coeff: float = field(
@@ -219,14 +230,6 @@ class SFTConfig(trl.SFTConfig):
     """
     args for callbacks, benchmarks etc
     """
-
-    # --------------------------------------------------------------------------------
-    # NEW ARGUMENTS
-    shuffle_dataset: Optional[bool] = field(
-        default=True,
-        metadata={"help": "Whether to shuffle the training dataset."},
-    )
-    # --------------------------------------------------------------------------------
 
     benchmarks: list[str] = field(
         default_factory=lambda: [],
@@ -259,6 +262,14 @@ class SFTConfig(trl.SFTConfig):
         default=None,
         metadata={"help": ("The group to store runs under.")},
     )
+
+    # --------------------------------------------------------------------------------
+    # NEW ARGUMENTS
+    shuffle_dataset: Optional[bool] = field(
+        default=True,
+        metadata={"help": "Whether to shuffle the training dataset."},
+    )
+    # --------------------------------------------------------------------------------
 
 
 @dataclass

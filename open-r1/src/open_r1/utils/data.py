@@ -82,17 +82,17 @@ def get_dataset(args: ScriptArguments, training_args):
             # data_df = pd.DataFrame(data)[:min(n, len(data))]
             sub_data_df = pd.DataFrame.from_dict(data, orient='index').reset_index(drop=True)
             sub_data_df = sub_data_df.rename(columns={'level_0': 'ID'})
-            sub_data_df.drop("index", axis=1, inplace=True)
-            # if training_args.shuffle_dataset:
-            #     sub_data_df = sub_data_df.sample(frac=1, random_state=0).reset_index(drop=True)  
+            sub_data_df.drop("index", axis=1, inplace=True)  
             
         elif dataset.endswith("csv"):
             sub_data_df = pd.read_csv(dataset).reset_index(drop=True)
-            # if training_args.shuffle_dataset:
-            #     sub_data_df = sub_data_df.sample(frac=1, random_state=0).reset_index(drop=True)  
             
         elif dataset.endswith("jsonl"):
             sub_data_df = pd.read_json(dataset, lines=True).reset_index(drop=True)
+            
+        if "stage" not in dataset:
+            print(f"Shuffling {dataset}")
+            sub_data_df = sub_data_df.sample(frac=1, random_state=0).reset_index(drop=True) 
             
         # elif "/" in dataset:  # likely a Hugging Face Hub name
         #     hf_data = load_dataset(dataset)
@@ -108,9 +108,18 @@ def get_dataset(args: ScriptArguments, training_args):
         
         data_df = pd.concat([data_df, sub_data_df], axis=0).reset_index(drop=True)
         
+        # if "STAGE" in data_df:
+        #     data_df = pd.concat(
+        #         [pd.concat([data_df[data_df['STAGE'] == stage].sample(frac=1, random_state=0), sub_data_df[sub_data_df['STAGE'] == stage].sample(frac=1, random_state=0)], axis=0, ignore_index=True) for stage in range(4)],
+        #         axis=0,
+        #         ignore_index=True
+        #     )
+        # else:
+        #     data_df = pd.concat([data_df, sub_data_df], axis=0).reset_index(drop=True)
+        
     if training_args.shuffle_dataset:
-        print("Shuffling dataset")
-        data_df = data_df.sample(frac=1, random_state=0).reset_index(drop=True)  
+        print("Shuffling concatenated dataset")
+        data_df = data_df.sample(frac=1, random_state=0).reset_index(drop=True) 
         
     dataset = {}
 

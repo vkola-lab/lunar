@@ -89,22 +89,17 @@ def print_parameters(model):
     )
     
 def get_template(train_type):
-    if train_type == "sft":
-        template = SFT_TEMPLATE
+    if train_type == "grpo_think":
+        template = TEMPLATE_THINK
     
-    elif train_type == "grpo_think":
-        template = GRPO_TEMPLATE_THINK
-    
-    elif train_type == "grpo":
-        template = GRPO_TEMPLATE
+    elif train_type in ["sft", "grpo"]:
+        template = TEMPLATE
         
     else:
         raise ValueError(f"Invalid train_type {train_type}")
     
     return template
 
-def get_sysmsg():
-    return SYSMSG
 
 class CustomStream:
     """
