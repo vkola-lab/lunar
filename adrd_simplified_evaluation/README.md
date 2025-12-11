@@ -29,15 +29,25 @@ The results of a task will be saved in the directory specified by the `results_d
 All tasks are assumed to comprise multiple choice questions, but the model output is in natural language. To extract the answer, we look for the pattern `\boxed{...}` in the output, and extract the letter within braces. To automate this, use the `extract_answers.sh` script. This will use a regular expression to attempt to extract a letter answer from the model output (e.g. "the answer is \boxed{A}" -> "A"). If this fails, either because the model did not produce the answer in this format, or multiple valid answers are found, the script falls back to using anoher LLM to resolve the ambiguity. This means that `extract_answers.sh` should also be submitted to SCC requesting GPUs. The `extract_answers.sh` script will recursively look at all JSONL files in the specified directory, and run them through the extractor. It will then produce a parquet file with the ground truth and predicted answers. The parquet file will be in the same directory as each procesed JSONL file.
 
 Example:
+
 '''
 $ qsub extract_answers.sh results/NACC
 '''
 
 If you also want to compute metrics from these answers (precision, recall, etc.) use 
+
 ```
 $ ./compute_metrics.sh
 ```
 Notice that it it not necessary to `qsub` this, as it does not use an LLM internally. It is a very lightweight operation. If you are going to make figures straight from the parquet files, you can skip this step.
+
+Most of the figures are designed to have their own dedicated jupyter notebooks (each notebook makes one figure). For reproducibility purposes, that same code is encapsulated in a series of small scripts in `src/figures` (one script per figure). You can run all of them at the same time using 
+
+```
+$ ./make_figures.sh
+```
+
+which also does not require `qsub`.
 
 # Modifying the configuration files
 
@@ -79,6 +89,6 @@ benchmarks:
 </details>
 
 
-## How to write your own benchmark
+# How to write your own benchmark
 
-Each benchmark is a JSONL file: each line should be a valid JSON. Each line is expected to have at least the `question` and `option` keys. This will be configurable in the future.
+Each benchmark is a JSONL file: each line should be a valid JSON. Each line is expected to have at least the `ID`, `question`, and `options` keys. 
