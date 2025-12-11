@@ -18,6 +18,12 @@ readable_model_names = {
         "NACC_Inc-1000": "Ours",
         "NACC-inc-os-sce": "Ours-SCE-OS",
         "NACC-inc-os": "Ours-OS",
+        "NACC-3B-OS": "NACC-3B-OS",
+        "NACC-3B-OS-SCE": "NACC-3B-OS-SCE",
+        "NACC-3B-SCE": "NACC-3B-SCE",
+        "NACC-3B": "NACC-3B",
+        "NACC-7B-OS": "NACC-7B-OS",
+        "NACC-7B-OS-SCE": "NACC-7B-OS-SCE",
     }
 
 cat_order = [
@@ -29,13 +35,19 @@ cat_order = [
         # "Qwen2.5-3B-DrGRPO-Strat-MedQA-NACC-filtered",
         # "Qwen2.5-3B-DrGRPO-Strat-MedQA-NACC-sce",
         # "Qwen2.5-3B-DrGRPO-Strat-MedQA-NACC-sce-scaled",
-        "NACC_Inc-1000",
-        "NACC_Inc-sce-tanh-1000",
-        "NACC-inc-os",
-        "NACC-inc-os-sce",
+        # "NACC_Inc-1000",
+        # "NACC_Inc-sce-tanh-1000",
+        # "NACC-inc-os",
+        # "NACC-inc-os-sce",
+        "NACC-3B",
+        "NACC-3B-SCE",
+        "NACC-3B-OS",
+        "NACC-3B-OS-SCE",
         "Qwen2.5-7B-Instruct",
-        "HuatuoGPT-o1-8B",
-        "Qwen3-4B",
+        "NACC-7B-OS",
+        "NACC-7B-OS-SCE",
+        # "HuatuoGPT-o1-8B",
+        # "Qwen3-4B",
     ]
 
 cat_order_readable = [readable_model_names[model] for model in cat_order]

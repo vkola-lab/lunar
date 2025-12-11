@@ -14,8 +14,9 @@
 #$ -pe omp 8
 #$ -l mem_per_core=2G
 #$ -l gpus=2
-#$ -l gpu_c=8 # GPU capability, must be at least 8 for this project
+# -l gpu_c=8 # GPU capability, must be at least 8 for this project
 # -l gpu_type=H200
+#$ -l gpu_type=L40S
 # -m bea
 #$ -e logs/$JOB_ID.stderr
 #$ -o logs/$JOB_ID.stdout
@@ -36,7 +37,7 @@ source venvs/venv_gpu/bin/activate
 
 python -V
 
-RESULTS_DIR="results"
+RESULTS_DIR="results/brainlat"
 EXTRACTOR_CONFIG="src/extractor_config.yml"
 
 python src/extract_answers.py $RESULTS_DIR $EXTRACTOR_CONFIG

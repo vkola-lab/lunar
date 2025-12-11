@@ -1,7 +1,7 @@
 # Directories
 CONFIG_DIR = configs
-RESULTS_DIR = results/comparison_inc
-FIGURES_DIR = figures_inc
+RESULTS_DIR = results/nacc_test_updated
+FIGURES_DIR = figures_nacc_test
 LOGS_DIR = logs
 STAMP_DIR = logs/timestamps
 

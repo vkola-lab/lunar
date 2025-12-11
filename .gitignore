@@ -10,6 +10,8 @@ data_preparation_old/
 other/
 old_data/
 
+*.pdf
+
 # Test scripts
 *.sh.*
 check.ipynb

@@ -1,4 +1,3 @@
-from omegaconf import OmegaConf
 from pathlib import Path
 from answer_extractor import AnswerExtractor
 import sys

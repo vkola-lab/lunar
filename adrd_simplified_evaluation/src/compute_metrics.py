@@ -66,11 +66,13 @@ if __name__ == "__main__":
                 # non informative 1/2/3 we have to map the options back to text. This does not apply to the MCQ benchmarks
                 if benchmark_name in [
                     "test_cog",
+                    "test_csf",
+                    "test_dat",
                     "test_etpr",
                     "test_mci",
                     "test_np",
-                    "test_np_one",
                     "test_np_mixed",
+                    "test_np_one",
                     "test_pet",
                 ]:
                     class_metrics_path = ans_path.parent / "class_metrics.json"

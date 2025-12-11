@@ -16,7 +16,19 @@ output_file = sys.argv[2]
 tall = load_metrics(results_dir)
 cat_order = get_cat_order()
 
-nacc = tall[tall["benchmark_name"].isin(["test_cog", "test_np", "test_etpr","test_np_one",'test_np_mixed','test_pet'])]
+nacc = tall[
+    tall["benchmark_name"].isin(
+        ["test_cog", 
+        "test_csf", 
+        "test_dat", 
+        "test_etpr", 
+        "test_mci", 
+        "test_np", 
+        "test_np_one", 
+        "test_np_mixed", 
+        "test_pet"]
+    )
+]
 
 nacc = nacc[nacc["metric"].isin(["accuracy", "precision_weighted"])]
 

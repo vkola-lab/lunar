@@ -6,7 +6,6 @@ import pandas as pd
 import prompt_templates
 from omegaconf import OmegaConf
 from tqdm import tqdm
-import re
 
 
 def make_results_dir(config, benchmark_path):
@@ -98,12 +97,12 @@ def make_prompts_from_template(problems, config):
 
     for problem in tqdm(problems):
 
-        # TODO should we modify the benchmark to have the visit summary as part of the question?
+        # should we modify the benchmark to have the visit summary as part of the question?
         if "visit_summary" in problem:
-            # question = f'{problem["visit_summary"]}\n\n{problem["question"]}'
-            question = f'{problem["question"]}\n{problem["visit_summary"]}'
-        else:
-            question = problem["question"]
+            question = f'{problem["visit_summary"]}\n\n{problem["question"]}'
+        # else:
+            # this is for traditional benchamrks without patient data 
+            # question = problem["question"]
 
         # Format the prompt
         if 'options' in problem:
