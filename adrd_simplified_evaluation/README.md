@@ -30,15 +30,16 @@ All tasks are assumed to comprise multiple choice questions, but the model outpu
 
 Example:
 
-'''
+```
 $ qsub extract_answers.sh results/NACC
-'''
+```
 
 If you also want to compute metrics from these answers (precision, recall, etc.) use 
 
 ```
 $ ./compute_metrics.sh
 ```
+
 Notice that it it not necessary to `qsub` this, as it does not use an LLM internally. It is a very lightweight operation. If you are going to make figures straight from the parquet files, you can skip this step.
 
 Most of the figures are designed to have their own dedicated jupyter notebooks (each notebook makes one figure). For reproducibility purposes, that same code is encapsulated in a series of small scripts in `src/figures` (one script per figure). You can run all of them at the same time using 
