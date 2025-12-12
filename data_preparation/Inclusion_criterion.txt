@@ -1,0 +1,33 @@
+NACC: 
+Inclusion:
+Has NC, MCI or DE
+Latest Visits
+Type of questions:
+COG, ETPR, PET, CSF, NP, Datscan
+Train and test
+
+
+NIFD:
+Inclusion:
+Latest Visits
+Has control, BV, PNFA, SV
+Type of questions:
+Type of FTLD
+
+ADNI:
+Inclusion:
+Anyone with amyloid scan and MRI. Gap < 1yr
+Type of questions:
+Amyloid status
+Cogstat: NC, MCI, DE
+
+PPMI:
+Inclusion:
+Latest Visits
+NC, MCI, DE
+Has diagnosis
+Type of questions:
+Stage of parkinsons disease: Idiopathic PD, Prodromal Synucleinopathy, No PD nor other neurological disorder
+Cogstat: NC, MCI, DE
+Datscan: Exclude Forms I
+
