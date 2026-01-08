@@ -7,6 +7,6 @@ source venvs/venv_cpu/bin/activate
 
 python -V
 
-RESULTS_DIR="results/nacc_test_updated"
+# RESULTS_DIR="results"
 
-python src/compute_metrics.py $RESULTS_DIR
+python src/compute_metrics.py $1

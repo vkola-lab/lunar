@@ -50,6 +50,8 @@ if __name__ == "__main__":
 
             if "ID" in ans_df:
                 ans_df["attempt"] = ans_df.groupby("ID").cumcount()
+            elif "NACCID" in ans_df:
+                ans_df["attempt"] = ans_df.groupby("ID").cumcount()
             else:
                 ans_df["attempt"] = ans_df.groupby("full_question").cumcount()
 

@@ -36,7 +36,7 @@ source venvs/venv_gpu/bin/activate
 
 python -V
 
-RESULTS_DIR="results/mixed_dementia"
+RESULTS_DIR="results/mixed_dementia/fixed_labels"
 EXTRACTOR_CONFIG="src/extractor_config.yml"
 
 python src/extract_multianswers.py $RESULTS_DIR $EXTRACTOR_CONFIG

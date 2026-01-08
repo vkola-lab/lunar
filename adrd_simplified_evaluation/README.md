@@ -34,6 +34,8 @@ Example:
 $ qsub extract_answers.sh results/NACC
 ```
 
+This script will only extract answers if there is no parquet file in the current directory, to avoid unnecesary work. If you want to re-extract the answers for whatever reason, delete the parquet files and rerun the script.
+
 If you also want to compute metrics from these answers (precision, recall, etc.) use 
 
 ```

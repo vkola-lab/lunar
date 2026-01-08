@@ -1,11 +1,11 @@
-run_readable_name: "NACC-3B" # will be used to name the results folder
+run_readable_name: "Qwen2.5-7B-Instruct" # will be used to name the results folder
 
 # passed to vllm.LLM, you can use any accepted keyword argument
 LLM:
-  model: "/projectnb/vkolagrp/skowshik/foundation_adrd/adrd-foundation-model/open-r1/ckpt/ckpt_access/qwen25_3B_drgrpo_gp16_nacc_inc/checkpoint-1000" # can be a path
+  model: "Qwen/Qwen2.5-7B-Instruct" # can be a path
   tensor_parallel_size: 2 # Number of GPUs used. Passed to vllm.LLM.tensor_parallel_size. 
   gpu_memory_utilization: 0.9 # Fraction of gpu memory reserved for model + attention
-  max_model_len: 30000
+  max_model_len: 10000
   distributed_executor_backend: 'mp'
   seed: 1 # seed to initialize RNG for sampling
   enable_lora: false
@@ -14,17 +14,23 @@ LLM:
 # passed to vllm.SamplingParams, you can use any accepted keyword argument
 sampling_params:
   n: 5 # Number of sequences to generate per prompt
-  temperature: 1 # recommended
+  temperature: 1
   top_p: 1 # consider candidate tokens until the cumulative sum of their probabilities is top_p
   max_tokens: 10000 # maximum number of tokens to generate
 
 prompt:
   system_prompt: "Please reason step by step, and put your final answer within \\boxed{}."
-  template_style: multilabel
+  template_style: grpo
 
 benchmarks:
-  results_dir: 'results/mixed_dementia/fixed_labels' # Benchmarks outputs will be saved in this directory
+  results_dir: 'results/standard_benchmarks' # Benchmarks outputs will be saved in this directory
   base_dir: "/projectnb/vkolagrp/projects/adrd_foundation_model/benchmarks" # Base directory for benchmarks
-  max_questions: 100000 # Read at most this many questions from the benchmark
+  max_questions: 1000000 # Read at most this many questions from the benchmark, so it's easy to run a subset 
   benchmark_list:
-    - '${benchmarks.base_dir}/nacc_multilabel'
+    - '${benchmarks.base_dir}/medexpqa'
+    - '${benchmarks.base_dir}/medmcqa'
+    - '${benchmarks.base_dir}/medqa_test'
+    - '${benchmarks.base_dir}/mmlu_medicine/anatomy'
+    - '${benchmarks.base_dir}/mmlu_medicine/clinical_knowledge'
+    # - '${benchmarks.base_dir}/mmlu_medicine/college_medicine' # significant overlap with clinical_knowledge
+    - '${benchmarks.base_dir}/mmlu_medicine/professional_medicine'

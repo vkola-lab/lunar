@@ -100,9 +100,9 @@ def make_prompts_from_template(problems, config):
         # should we modify the benchmark to have the visit summary as part of the question?
         if "visit_summary" in problem:
             question = f'{problem["visit_summary"]}\n\n{problem["question"]}'
-        # else:
+        else:
             # this is for traditional benchamrks without patient data 
-            # question = problem["question"]
+            question = problem["question"]
 
         # Format the prompt
         if 'options' in problem:
