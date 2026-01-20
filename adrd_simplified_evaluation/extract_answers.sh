@@ -2,8 +2,8 @@
 
 # This script is set up so that you can either qsub it or run it interactively.
 # Example usage:
-#   Interactive: $ ./extract_answers.sh 
-#   Batch job:   $ qsub ./extract_answers.sh 
+#   Interactive: $ ./extract_answers.sh results/
+#   Batch job:   $ qsub ./extract_answers.sh results/
 
 # Make sure you're logged in to huggingface before running, if you're not sure
 # you should login using "huggingface-cli login" before running this script
