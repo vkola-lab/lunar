@@ -16,6 +16,7 @@ import logging
 import os
 import sys
 import wandb
+import yaml
 
 import datasets
 import transformers
@@ -71,6 +72,18 @@ def main(script_args, training_args, model_args):
 
     if "wandb" in training_args.report_to:
         init_wandb_training(training_args)
+
+    # Dump configuration arguments to output directory
+    os.makedirs(training_args.output_dir, exist_ok=True)
+    config_dict = {
+        "script_args": script_args.__dict__,
+        "training_args": training_args.__dict__,
+        "model_args": model_args.__dict__
+    }
+    config_path = os.path.join(training_args.output_dir, "config_demo.yaml")
+    with open(config_path, 'w') as f:
+        yaml.dump(config_dict, f, default_flow_style=False, indent=2)
+    logger.info(f"Configuration saved to {config_path}")
 
     # Load the dataset
     dataset = get_dataset(script_args, training_args)
@@ -182,7 +195,7 @@ if __name__ == "__main__":
     script_args, training_args, model_args = parser.parse_args_and_config()
     wandb.init(
         # set the wandb project where this run will be logged
-        project="open_r1_sub",
+        project="open_r1_access",
         
         # track hyperparameters and run metadata
         # config=training_args

@@ -65,7 +65,6 @@ from trl.trainer.utils import (
     selective_log_softmax,
 )
 
-
 if is_peft_available():
     from peft import PeftConfig, get_peft_model
 
@@ -616,6 +615,8 @@ class GRPOTrainer(Trainer):
             "prompt": deque(maxlen=maxlen),
             "completion": deque(maxlen=maxlen),
             "rewards": defaultdict(lambda: deque(maxlen=maxlen)),
+            "reward advantages": deque(maxlen=maxlen),
+            "sce advantages": deque(maxlen=maxlen),
             "advantages": deque(maxlen=maxlen),
         }
 
@@ -668,7 +669,7 @@ class GRPOTrainer(Trainer):
                     max_model_len=self.max_prompt_length + self.max_completion_length,
                     distributed_executor_backend="external_launcher",
                     # Feed identical seed for tp groups to ensure sampling results are the same across workers
-                    seed=self.accelerator.process_index // self.vllm_tensor_parallel_size,
+                    seed=self.accelerator.process_index // self.vllm_tensor_parallel_size, #+ 1, # change this back
                     # Latest vLLM v1 memory profiler is misled by the high default value (i.e., 32768) - thinking there's not enough memory
                     max_num_batched_tokens=4096,
                 )
@@ -728,10 +729,10 @@ class GRPOTrainer(Trainer):
                     self.reward_funcs[i] = self.accelerator.prepare_model(
                         reward_func, evaluation_mode=True, device_placement=True
                     )
-        # NEW ----------------------------------------------
-        # To overgenerate and then sample num_generations
-        self.over_gen = args.over_generation_factor
-        # NEW ----------------------------------------------
+        # SCE ----------------------------------------------
+        self.add_sce = args.add_sce
+        self.lambda_sce = args.lambda_sce
+        # SCE ----------------------------------------------
 
     def _set_signature_columns_if_needed(self):
         # If `self.args.remove_unused_columns` is True, non-signature columns are removed.
@@ -882,6 +883,70 @@ class GRPOTrainer(Trainer):
             all_logps.append(logps)
             all_logits.append(logits)
         return torch.cat(all_logps, dim=0), torch.cat(all_logits, dim=0)
+    
+    @profiling_decorator
+    def _get_per_token_self_certainty(
+        self, model, input_ids, attention_mask, logits_to_keep, batch_size=None
+    ) -> torch.Tensor:
+        """
+        https://github.com/sunblaze-ucb/Intuitor/blob/main/open-r1-intuitor/src/open_r1/intuitor_trainer.py
+        Computes per-token self-certainty in batches. We add constnat logV, which is equivalent to the original
+        formula as we are going to normalize it in batch.
+        """
+        batch_size = batch_size or input_ids.size(0)
+        all_sce = []
+        # Process inputs in chunks
+        for i in range(0, input_ids.size(0), batch_size):
+            input_ids_batch = input_ids[i : i + batch_size]
+            attention_mask_batch = attention_mask[i : i + batch_size]
+
+            # Get logits: shape (B, seq_len, V)
+            logits = model(
+                input_ids=input_ids_batch, attention_mask=attention_mask_batch, logits_to_keep=logits_to_keep + 1
+            ).logits
+            
+            logits = logits[:, :-1, :]  # (B, L-1, V), exclude the last logit: it corresponds to the next token pred
+            logits = logits / self.temperature
+
+            
+            # Keep only the last `logits_to_keep` positions
+            sce_chunk = logits[:, -logits_to_keep:, :]  # (B, L_keep, V)
+            # Compute log-sum-exp across vocabulary and subtract mean logit
+            # logsumexp - mean gives a measure of dispersion (self-certainty)
+            sce_values = torch.logsumexp(sce_chunk, dim=-1) - sce_chunk.mean(dim=-1)
+            all_sce.append(sce_values)
+
+        # Concatenate over batch dimension
+        return torch.cat(all_sce, dim=0)
+    
+    @profiling_decorator
+    @torch.no_grad()
+    def _get_advantage_from_sce(
+        self,
+        SCe: torch.Tensor,
+        completion_mask: torch.Tensor,          
+    ) -> torch.Tensor:
+        """
+        https://github.com/sunblaze-ucb/Intuitor/blob/main/open-r1-intuitor/src/open_r1/intuitor_trainer.py
+        Calculates advantage scores from SCe values and returns a 1D tensor with a single advantage per sample.
+
+        Args
+        ----
+        SCe : (B, L) tensor
+            Per-token score.
+        completion_mask : (B, L) bool / 0-1 tensor
+            1 for valid tokens, 0 for padding.
+        Returns
+        -------
+        advantage : (B,) tensor 
+        """
+        output_lengths = completion_mask.sum(dim=1, dtype=torch.long) # (B,)
+        advantage = torch.zeros(SCe.size(0), device=SCe.device, dtype=SCe.dtype)
+        valid_mask = output_lengths > 0
+        if valid_mask.any():
+            sce_sum = (SCe * completion_mask).sum(dim=1)
+            advantage[valid_mask] = sce_sum[valid_mask] / output_lengths[valid_mask].to(SCe.dtype)
+        return advantage.detach()
 
     def _sync_fsdp_params_to_vllm(self, module: nn.Module, prefix: str = "", visited=None):
         """Memory-efficient post-order traversal of FSDP modules to extract full parameters and sync with vLLM."""
@@ -1015,14 +1080,6 @@ class GRPOTrainer(Trainer):
         # Repeat all input columns (but "prompt", "completion", and "completion_ids") to match the num of generations
         keys = [key for key in inputs[0] if key not in ["prompt", "completion", "completion_ids"]]
         reward_kwargs = {key: [example[key] for example in inputs] for key in keys}
-        
-        # NEW ----------------------------------------------
-        
-        if self.over_gen > 1:
-            for k, v in reward_kwargs.items():
-                reward_kwargs[k] = [item for item in v for _ in range(self.over_gen)]
-            
-        # NEW ----------------------------------------------
 
         for i, (reward_func, reward_processing_class, reward_func_name) in enumerate(
             zip(self.reward_funcs, self.reward_processing_classes, self.reward_func_names)
@@ -1079,13 +1136,6 @@ class GRPOTrainer(Trainer):
         ground_truths = [x["ground_truth"] for x in inputs]
         ground_truth_texts = [x["ground_truth_text"] for x in inputs]
         
-        if self.over_gen > 1:
-            row_ids = [i for i in row_ids for _ in range(self.over_gen)] # use self.num_generations * self.over_gen group size
-            ground_truths = [gt for gt in ground_truths for _ in range(self.over_gen)] # use self.num_generations * self.over_gen group size
-            ground_truth_texts = [gt_t for gt_t in ground_truth_texts for _ in range(self.over_gen)] # use self.num_generations * self.over_gen group size
-            prompts = [p for p in prompts for _ in range(self.over_gen)] # use self.num_generations * self.over_gen group size
-            prompts_text  = [t for t in prompts_text  for _ in range(self.over_gen)]
-        
         # NEW ----------------------------------------------
         
         prompt_inputs = self.processing_class(
@@ -1123,11 +1173,11 @@ class GRPOTrainer(Trainer):
                     # Since 'prompts' contains 'num_generations' duplicates, we first take unique prompts, and generate
                     # num_generations outputs for each one. This is faster than generating outputs for each duplicate
                     # prompt individually.
-                    ordered_set_of_prompts = all_prompts_text[:: self.num_generations * self.over_gen]
+                    ordered_set_of_prompts = all_prompts_text[:: self.num_generations]
                     with profiling_context(self, "vLLM.generate"):
                         completion_ids = self.vllm_client.generate(
                             prompts=ordered_set_of_prompts,
-                            n=self.num_generations * self.over_gen,
+                            n=self.num_generations,
                             repetition_penalty=self.repetition_penalty,
                             temperature=self.temperature,
                             top_p=self.top_p,
@@ -1251,6 +1301,17 @@ class GRPOTrainer(Trainer):
                 )
             else:
                 old_per_token_logps = None
+            
+            # -------------------------------------SCE-------------------------------------
+            if self.add_sce:
+                per_token_sce = self._get_per_token_self_certainty(
+                    self.model, prompt_completion_ids, attention_mask, logits_to_keep, batch_size
+                )
+                
+                per_seq_sce  = self._get_advantage_from_sce(
+                    per_token_sce, completion_mask
+                )
+            # -------------------------------------SCE-------------------------------------
 
             # Compute the per-token log probabilities for the reference model
             if self.beta != 0.0:
@@ -1275,85 +1336,6 @@ class GRPOTrainer(Trainer):
                 completions.append([{"role": "assistant", "content": bootstrap + completion}])
         else:
             completions = completions_text
-            
-            
-        # NEW ----------------------------------------------
-        # Code to overgenerate the completions and then sample the "best" num_generations from the list such that the advantage is not 0
-        # ------------------------------------------------------------
-        if self.over_gen > 1:
-
-            full_rewards = (
-                rewards_per_func * self.reward_weights.to(device).unsqueeze(0)
-            ).nansum(dim=1)
-            
-            # print(full_rewards.shape)
-
-            total_G = self.num_generations * self.over_gen   # 2 × G
-            target_G = self.num_generations                  # G
-
-            keep_mask = torch.zeros_like(full_rewards, dtype=torch.bool)
-            grouped = full_rewards.view(-1, total_G)
-
-            # rng = torch.Generator(device=device)                   ### <<< CPU generator
-            # rng.manual_seed(                         ### optional – keeps runs reproducible
-            #     int(self.state.global_step + self.accelerator.process_index)
-            # )
-
-            for p_idx, rewards_row in enumerate(grouped):
-                print("p_idx:", p_idx)
-                print(f"All rewards: {rewards_row}")
-
-                if rewards_row.std().item() == 0:
-                    # all identical → pick any random G
-                    perm = torch.randperm(total_G, device=device)
-                    # print(perm)
-                    chosen = perm[:target_G]
-                    print("random chosen")
-                else:
-                    for _ in range(20):
-                        print(f"Trial {_}")
-                        perm = torch.randperm(total_G, device=device)
-                        # print(perm)
-                        subset = rewards_row[perm[:target_G]]
-                        if subset.std().item() > 0:
-                            print("Standard deviation", subset.std().item())
-                            print("subset chosen")
-                            chosen = perm[:target_G]
-                            break
-                    else:  # extremely rare fall-back
-                        chosen = perm[:target_G]
-
-                base = p_idx * total_G
-                keep_mask[base + chosen] = True
-                
-            # slice every first-dim tensor created so far
-            # slice_ = lambda t: None if t is None else t[keep_mask]
-            def slice_(t, mask):
-                if t is None:
-                    return None
-                if torch.is_tensor(t):
-                    return t[mask]                       # tensor → fancy-indexing
-                # else assume Sequence-like
-                mask_list = mask.tolist()               # convert once
-                return [item for item, keep in zip(t, mask_list) if keep]
-            
-            row_ids = slice_(row_ids, keep_mask)
-            ground_truths = slice_(ground_truths, keep_mask)
-            ground_truth_texts = slice_(ground_truth_texts, keep_mask)
-            prompts = slice_(prompts, keep_mask)
-            prompt_ids = slice_(prompt_ids, keep_mask)
-            prompt_mask = slice_(prompt_mask, keep_mask)
-            prompts_text = slice_(prompts_text, keep_mask)
-            completion_ids = slice_(completion_ids, keep_mask)
-            completion_mask = slice_(completion_mask, keep_mask)
-            completions_text = slice_(completions_text, keep_mask)
-            rewards_per_func = slice_(rewards_per_func, keep_mask)
-            prompt_completion_ids = slice_(prompt_completion_ids, keep_mask)
-            old_per_token_logps = slice_(old_per_token_logps, keep_mask)
-            completion_lengths = slice_(completion_lengths, keep_mask)
-            is_eos = slice_(is_eos, keep_mask)
-            
-        # NEW ----------------------------------------------
         
     
         # Calculate rewards for each reward function. rewards_per_func aggregates rewards across all processes. This is
@@ -1375,7 +1357,7 @@ class GRPOTrainer(Trainer):
         advantages = rewards - mean_grouped_rewards
         if self.scale_rewards:
             advantages = advantages / (std_grouped_rewards + 1e-4)
-
+            
         # Slice to keep only the local part of the data
         process_slice = slice(
             self.accelerator.process_index * len(prompts),
@@ -1383,6 +1365,34 @@ class GRPOTrainer(Trainer):
         )
         all_process_advantages = advantages.clone()  # keep the aggregated advantages for logging
         advantages = advantages[process_slice]
+        print(f"Reward advantage: {advantages}")
+            
+        # -------------------------------------SCE-------------------------------------
+        if self.add_sce:
+            per_seq_sce = gather(per_seq_sce)
+            mean_per_seq_sce = per_seq_sce.view(-1, self.num_generations).mean(dim=1)
+            std_per_seq_sce = per_seq_sce.view(-1, self.num_generations).std(dim=1)
+            
+            mean_per_seq_sce_record = mean_per_seq_sce.mean().item()
+            std_per_seq_sce_record = std_per_seq_sce.mean().item()
+            
+            mean_per_seq_sce = mean_per_seq_sce.repeat_interleave(self.num_generations, dim=0)
+            std_per_seq_sce = std_per_seq_sce.repeat_interleave(self.num_generations, dim=0)
+            
+            sce_advantage = (per_seq_sce - mean_per_seq_sce)
+            sce_advantage = sce_advantage / (std_per_seq_sce + 1e-4)
+            sce_advantage = sce_advantage[process_slice]
+            sce_advantage_tanh = torch.tanh(sce_advantage)
+            print(f"SCE advantage: {sce_advantage}")
+            print(f"SCE advantage tanh: {sce_advantage_tanh}")
+            
+            sign = (2 * rewards[process_slice] - 1.0)
+            
+            advantages = (1 - self.lambda_sce) * advantages + self.lambda_sce * sign * sce_advantage_tanh
+            
+            print(f"Reward + SCE advantage: {advantages}")
+        
+        # -------------------------------------SCE-------------------------------------
 
         # Log the metrics
         if mode == "train":
@@ -1415,6 +1425,9 @@ class GRPOTrainer(Trainer):
         self._metrics[mode]["reward"].append(mean_grouped_rewards.mean().item())
         self._metrics[mode]["reward_std"].append(std_grouped_rewards.mean().item())
         self._metrics[mode]["frac_reward_zero_std"].append(is_std_zero.float().mean().item())
+        if self.add_sce:
+            self._metrics[mode]["sce_advantage"].append(mean_per_seq_sce_record)
+            self._metrics[mode]["sce_advantage_std"].append(std_per_seq_sce_record)
 
         # Log prompt and completion texts
         self._textual_logs["ID"].extend(gather_object(row_ids))
@@ -1424,7 +1437,10 @@ class GRPOTrainer(Trainer):
         self._textual_logs["completion"].extend(gather_object(completions_text))
         for i, name in enumerate(self.reward_func_names):
             self._textual_logs["rewards"][name].extend(rewards_per_func[:, i].tolist())
-        self._textual_logs["advantages"].extend(all_process_advantages.tolist())
+        self._textual_logs["reward advantages"].extend(all_process_advantages.tolist())
+        if self.add_sce:
+            self._textual_logs["sce advantages"].extend(gather(sce_advantage_tanh.detach()).cpu().tolist())
+        self._textual_logs["advantages"].extend(gather(advantages.detach()).cpu().tolist())
 
         return {
             "prompt_ids": prompt_ids,
@@ -1591,17 +1607,33 @@ class GRPOTrainer(Trainer):
         
         # Log the completions
         import pandas as pd
+        
+        if self.add_sce:
 
-        table = {
-            "step": [str(self.state.global_step)] * len(self._textual_logs["prompt"]),
-            "ID": self._textual_logs["ID"],
-            "ground_truth": self._textual_logs["ground_truth"], 
-            "ground_truth_text": self._textual_logs["ground_truth_text"],
-            "prompt": self._textual_logs["prompt"],
-            "completion": self._textual_logs["completion"],
-            **self._textual_logs["rewards"],
-            "advantage": self._textual_logs["advantages"],
-        }
+            table = {
+                "step": [str(self.state.global_step)] * len(self._textual_logs["prompt"]),
+                "ID": self._textual_logs["ID"],
+                "ground_truth": self._textual_logs["ground_truth"], 
+                "ground_truth_text": self._textual_logs["ground_truth_text"],
+                "prompt": self._textual_logs["prompt"],
+                "completion": self._textual_logs["completion"],
+                **self._textual_logs["rewards"],
+                "reward advantage": self._textual_logs["reward advantages"],
+                "sce advantage": self._textual_logs["sce advantages"],
+                "advantage": self._textual_logs["advantages"],
+            }
+        else:
+            table = {
+                "step": [str(self.state.global_step)] * len(self._textual_logs["prompt"]),
+                "ID": self._textual_logs["ID"],
+                "ground_truth": self._textual_logs["ground_truth"], 
+                "ground_truth_text": self._textual_logs["ground_truth_text"],
+                "prompt": self._textual_logs["prompt"],
+                "completion": self._textual_logs["completion"],
+                **self._textual_logs["rewards"],
+                "reward advantage": self._textual_logs["reward advantages"],
+                "advantage": self._textual_logs["advantages"],
+            }
         
         df = pd.DataFrame(table)
         

@@ -65,7 +65,6 @@ from trl.trainer.utils import (
     selective_log_softmax,
 )
 
-
 if is_peft_available():
     from peft import PeftConfig, get_peft_model
 
@@ -668,7 +667,7 @@ class GRPOTrainer(Trainer):
                     max_model_len=self.max_prompt_length + self.max_completion_length,
                     distributed_executor_backend="external_launcher",
                     # Feed identical seed for tp groups to ensure sampling results are the same across workers
-                    seed=self.accelerator.process_index // self.vllm_tensor_parallel_size,
+                    seed=self.accelerator.process_index // self.vllm_tensor_parallel_size, #+ 1, # change this back
                     # Latest vLLM v1 memory profiler is misled by the high default value (i.e., 32768) - thinking there's not enough memory
                     max_num_batched_tokens=4096,
                 )

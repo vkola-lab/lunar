@@ -1,10 +1,14 @@
-# Model arguments
+# =============================================================================
+# MODEL CONFIGURATION
+# =============================================================================
 model_name_or_path: Qwen/Qwen2.5-7B-Instruct
 model_revision: main
 torch_dtype: bfloat16
 attn_implementation: flash_attention_2
 
-# Data training arguments
+# =============================================================================
+# DATA CONFIGURATION
+# =============================================================================
 dataset_name: 
 # - ../data/nacc/training_data/training_data_grpo/train_summary.csv
 # - ../data/nacc/training_data/training_data_grpo/skywork_style/train_filtered.csv
@@ -18,44 +22,56 @@ dataset_name:
 # - ../data/nacc/training_data/training_data_grpo/subset/stage_wise_sub.csv
 shuffle_dataset: true
 
+# =============================================================================
+# PROMPT CONFIGURATION
+# =============================================================================
 system_prompt: "Please reason step by step, and put your final answer within \\boxed{}."
+max_prompt_length: 2000
+max_completion_length: 2000
 
-# GRPO trainer config
-bf16: true
-use_vllm: true
-vllm_mode: colocate
-vllm_gpu_memory_utilization: 0.18
-do_eval: false
+# =============================================================================
+# TRAINING CONFIGURATION
+# =============================================================================
+# Basic training settings
+num_train_epochs: 1
+max_steps: -1
+per_device_train_batch_size: 1
+# per_device_eval_batch_size: 2
 gradient_accumulation_steps: 16
 # steps_per_generation: 32
-# gradient_accumulation_steps: 10
-# steps_per_generation: 20
 gradient_checkpointing: true
-# gradient_checkpointing_kwargs:
 gradient_checkpointing_kwargs:
   use_reentrant: false
-hub_model_id: Qwen25-7B-filtered-Open-R1-GRPO
-hub_strategy: every_save
+
+# Learning rate and optimization
 learning_rate: 1.0e-06
+optim: "adamw_torch"
+lr_scheduler_type: "cosine"
+weight_decay: 0.01
+warmup_ratio: 0.1
+
+# =============================================================================
+# GRPO SPECIFIC CONFIGURATION
+# =============================================================================
+train_type: grpo
+loss_type: dr_grpo
 beta: 0.001
 # beta: 0.0
 # entropy_coeff: 0.00001
-weight_decay: 0.01
-# wandb_log_unique_prompts: true
-optim : "adamw_torch"
-lr_scheduler_type : "cosine"
-max_prompt_length: 2000
-max_completion_length: 2000
-max_steps: -1
+scale_rewards: false
+mask_truncated_completions: true
+over_generation_factor: 1
+use_liger_loss: false
+use_liger_kernel: false
+
+# Generation settings
 num_generations: 8
 # num_iterations: 2
-num_train_epochs: 1
-# per_device_eval_batch_size: 2
-per_device_train_batch_size: 1
-push_to_hub: false
-hub_private_repo: true
-report_to:
-- wandb
+temperature: 1.0
+top_p: 1.0
+min_p: 0
+
+# Reward configuration
 reward_funcs:
 - correctness
 # - majority_voting
@@ -66,35 +82,57 @@ reward_weights:
 - 1.0
 # - 1.0
 # - 1.0
+
+# =============================================================================
+# VLLM CONFIGURATION
+# =============================================================================
+use_vllm: true
+vllm_mode: colocate
+vllm_gpu_memory_utilization: 0.2
+bf16: true
+
+# =============================================================================
+# EVALUATION CONFIGURATION
+# =============================================================================
+do_eval: false
+# data_split: true
+# eval_strategy: 'no'
+# eval_strategy: "steps"
+# eval_steps: 50
+# load_best_model_at_end: true
+
+# =============================================================================
+# LOGGING AND MONITORING
+# =============================================================================
+report_to:
+- wandb
+# wandb_log_unique_prompts: true
 log_completions: false
+log_completions_local: true
 log_level: info
 logging_first_step: true
 logging_strategy: steps
 logging_steps: 1
-save_strategy: "steps"
-save_total_limit: 100
-save_steps : 500
-overwrite_output_dir: true
-log_completions_local: true
-output_dir : "ckpt_using_subset/qwen25_7B_drgrpo_gp8_train_filtered_sub"
+
+# =============================================================================
+# MODEL SAVING AND OUTPUT
+# =============================================================================
+output_dir: "ckpt_using_subset/qwen25_7B_drgrpo_gp8_train_filtered_sub"
 log_path: "logs_using_subset/train_completions/qwen25_7B_drgrpo_gp8_train_filtered_sub.csv"
+save_strategy: "steps"
+save_steps: 500
+save_total_limit: 100
+overwrite_output_dir: true
+
+# =============================================================================
+# HUB CONFIGURATION
+# =============================================================================
+hub_model_id: Qwen25-7B-filtered-Open-R1-GRPO
+hub_strategy: every_save
+push_to_hub: false
+hub_private_repo: true
+
+# =============================================================================
+# MISCELLANEOUS
+# =============================================================================
 seed: 42
-
-temperature: 1.0
-top_p: 1.0
-min_p: 0
-
-warmup_ratio: 0.1
-scale_rewards: false
-loss_type: dr_grpo
-mask_truncated_completions: true
-over_generation_factor: 1
-train_type: grpo
-use_liger_loss: false
-use_liger_kernel: false
-
-# data_split: true
-# # eval_strategy: 'no'
-# eval_strategy: "steps"
-# eval_steps: 50
-# load_best_model_at_end: true
