@@ -17,7 +17,8 @@ def make_results_dir(config, benchmark_path):
     )
 
     run_path = (
-        Path(config.benchmarks.results_dir) / Path(benchmark_path).stem / run_name
+        # Path(config.benchmarks.results_dir) / Path(benchmark_path).stem / run_name
+        Path(config.benchmarks.results_dir) / Path(benchmark_path).parent.stem / Path(benchmark_path).stem / run_name
     )
 
     run_path.mkdir(parents=True, exist_ok=False)
