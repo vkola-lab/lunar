@@ -33,6 +33,7 @@ create_env "$CPU_ENV" "$REQ_CPU"
 # Create GPU environment only if GPU is present
 if command -v nvidia-smi &>/dev/null && nvidia-smi -L &>/dev/null; then
     echo "=== GPU detected ==="
+    module load cuda # vllm needs some libraries from here, it compiles something internally while installing
     create_env "$GPU_ENV" "$REQ_GPU"
 else
     echo "=== No GPU detected, skipping GPU environment creation ==="
