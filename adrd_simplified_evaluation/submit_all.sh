@@ -6,7 +6,7 @@
 # Usage: ./submit_all.sh dir1 dir2 ...
 
 export VLLM_SKIP_P2P_CHECK=1
-export HF_HOME=/projectnb/vkolagrp/bellitti/.cache/huggingface
+export HF_HOME=/projectnb/vkolagrp/skowshik/.cache
 
 # Check if at least one directory is passed
 if [ "$#" -lt 1 ]; then
@@ -22,6 +22,7 @@ for DIR in "$@"; do
         if [ -e "$FILE" ]; then
             echo "Submitting: $FILE"
             qsub run_benchmarks.sh "$FILE"
+            # bash run_benchmarks.sh "$FILE"
         fi
     done
 done

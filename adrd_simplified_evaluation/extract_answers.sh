@@ -13,7 +13,7 @@
 #$ -l h_rt=24:00:00
 #$ -pe omp 8
 #$ -l mem_per_core=2G
-#$ -l gpus=2
+#$ -l gpus=1
 #$ -l gpu_c=8 # GPU capability, must be at least 8 for this project
 # -l gpu_type=H200
 # -l gpu_type=L40S
@@ -21,19 +21,19 @@
 #$ -e logs/$JOB_ID.stderr
 #$ -o logs/$JOB_ID.stdout
 
-module load python3
-module load cuda
+# module load python3
+# module load cuda
 
 # Using Sahana's cache to save some space
-# export HF_HOME=/projectnb/vkolagrp/skowshik/.cache
-export HF_HOME=/projectnb/vkolagrp/bellitti/.cache/huggingface
+export HF_HOME=/projectnb/vkolagrp/skowshik/.cache
+# export HF_HOME=/projectnb/vkolagrp/bellitti/.cache/huggingface
 
 # If this env var is set to 1, vLLM will skip the peer-to-peer check,
 # and trust the driver's peer-to-peer capability report.
 export VLLM_SKIP_P2P_CHECK=1
 
 # we need the gpu version to extract answers because we try to recover invalid answers via LLM
-source venvs/venv_gpu/bin/activate
+# source venvs/venv_gpu/bin/activate
 
 python -V
 

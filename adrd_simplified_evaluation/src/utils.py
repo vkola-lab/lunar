@@ -18,7 +18,7 @@ def make_results_dir(config, benchmark_path):
 
     run_path = (
         # Path(config.benchmarks.results_dir) / Path(benchmark_path).stem / run_name
-        Path(config.benchmarks.results_dir) / Path(benchmark_path).parent.stem / Path(benchmark_path).stem / run_name
+        Path(config.benchmarks.results_dir) / Path(benchmark_path).parent.stem / Path(benchmark_path).stem / Path(config.benchmarks.run_dir) / run_name
     )
 
     run_path.mkdir(parents=True, exist_ok=False)
@@ -114,13 +114,17 @@ def make_prompts_from_template(problems, config):
             prompt = get_template(config.prompt.template_style).format(question=question)
 
         # Add system prompt if config requests it
-        if config.prompt.system_prompt:
-            message = [
-                {"role": "system", "content": config.prompt.system_prompt},
-                {"role": "user", "content": prompt},
-            ]
-        else:
-            message = [{"role": "user", "content": prompt}]
+        # if config.prompt.template_style == "sft":
+        #     message = [{"role": "user", "content": prompt}]
+        # else:
+        #     message = [
+        #         {"role": "system", "content": config.prompt.system_prompt},
+        #         {"role": "user", "content": prompt},
+        #     ]
+        message = [
+            {"role": "system", "content": config.prompt.system_prompt},
+            {"role": "user", "content": prompt},
+        ]
 
         messages.append(message)
 

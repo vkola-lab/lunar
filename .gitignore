@@ -29,12 +29,19 @@ save_folder/
 __pycache__/
 *logs*/
 wandb/
+results/
+figures_all/
+entropies/
+figure4_np_one_lingyi.py
+random_test_data.csv
+token_counts.csv
+*.csv
+*.json
 
 # Checkpoint
 *ckpt*/
 llama3-8b-adrd/
 *.pth
-results/
 
 # old code
 fm_adrd/

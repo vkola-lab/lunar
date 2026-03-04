@@ -13,10 +13,11 @@
 #$ -l h_rt=24:00:00
 #$ -pe omp 8
 #$ -l mem_per_core=2G
-#$ -l gpus=2
+#$ -l gpus=1
 #$ -l gpu_c=8 # GPU capability, must be at least 8 for this project
+#$ -l h=!scc-504
+#$ -m bea
 # -l gpu_type=H200
-# -m bea
 #$ -e logs/$JOB_ID.stderr
 #$ -o logs/$JOB_ID.stdout
 # We can in theory request a minimum amount of GPU memory, but setting
@@ -29,14 +30,14 @@ if [ "$#" -ne 1 ]; then
     exit 1
 fi
 
-module load python3
-module load cuda
+# module load python3
+# module load cuda
 
 source venvs/venv_gpu/bin/activate
 
 # Using Sahana's cache to save some space
-# export HF_HOME=/projectnb/vkolagrp/skowshik/.cache
-export HF_HOME=/projectnb/vkolagrp/bellitti/.cache/huggingface
+export HF_HOME=/projectnb/vkolagrp/skowshik/.cache
+# export HF_HOME=/projectnb/vkolagrp/bellitti/.cache/huggingface
 
 # If this env var is set to 1, vLLM will skip the peer-to-peer check,
 # and trust the driver's peer-to-peer capability report.
