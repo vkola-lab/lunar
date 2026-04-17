@@ -7,7 +7,7 @@
 #SBATCH --job-name=test_run
 #SBATCH --account=beze-delta-gpu
 ### GPU options ###
-#SBATCH --gpus-per-node=4
+#SBATCH --gpus-per-node=2
 #SBATCH --gpu-bind=verbose,closest
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=skowshik@bu.edu
@@ -28,7 +28,7 @@ if [[ "$*" == *"--help"* ]]; then
 fi
 
 # Specific configuration optimized for the Hugging Face Compute Cluster
-module load cuda/12.4.0
+# module load cuda/12.4.0
 
 echo $CONDA_DEFAULT_ENV
 python -V
@@ -183,6 +183,20 @@ SRUN_ARGS=" \
     "
 srun $SRUN_ARGS bash -c "$LAUNCHER $CMD" 2>&1
 
+# srun $SRUN_ARGS --export=ALL,ACCELERATE_LOG_LEVEL=info,TRANSFORMERS_VERBOSITY=info \
+#   accelerate launch \
+#     --config_file "recipes/accelerate_configs/$ACCELERATOR.yaml" \
+#     --gradient_accumulation_steps "$GRAD_ACC_STEPS" \
+#     --num_machines "$NUM_NODES" \
+#     --num_processes "$WORLD_SIZE" \
+#     --main_process_ip "$MASTER_ADDR" \
+#     --main_process_port "$MASTER_PORT" \
+#     --machine_rank "$SLURM_PROCID" \
+#     --rdzv_backend c10d \
+#     --max_restarts 0 \
+#     --tee 3 \
+#     "src/open_r1/${TASK}.py" --config "$CONFIG_FILE" $OPTIONAL_ARGS
+
 END_TIME=$(date +%s)
 echo "END TIME: $(date)"
 ELAPSED_SECONDS=$((END_TIME - START_TIME))
@@ -193,30 +207,24 @@ echo "TOTAL JOB TIME: ${HOURS}h ${MINUTES}m ${SECONDS}s (${ELAPSED_SECONDS} seco
 
 
 # How to run this
-# conda activate /projects/beze/skowshik/conds_envs_dt/open_r1
+# conda activate conds_envs_dt/open_r1
 # cd reasoning_framework/adrd-foundation-model/open-r1/logs/
-# sbatch --job-name=qwen3b_medqa --nodes=1 --time=00:30:00 ../slurm/train.slurm --model Qwen2.5-3B-Instruct --task grpo --config medqa --accelerator zero2
-
-# sbatch --job-name=qwen3b_nacc --nodes=1 --time=10:00:00 ../slurm/train.slurm --model Qwen2.5-3B-Instruct --task grpo --config nacc --accelerator zero2
-
-# sbatch --job-name=qwen3b_nacc_sce_tanh_no_scale --nodes=1 --time=10:00:00 ../slurm/train.slurm --model Qwen2.5-3B-Instruct --task grpo --config nacc_sce_tanh --accelerator zero2
-
-# sbatch --job-name=qwen3b_nacc_inc --nodes=1 --time=10:00:00 ../slurm/train.slurm --model Qwen2.5-3B-Instruct --task grpo --config nacc_inc --accelerator zero2
-
-# sbatch --job-name=qwen3b_nacc_inc_sce_tanh --nodes=1 --time=10:00:00 ../slurm/train.slurm --model Qwen2.5-3B-Instruct --task grpo --config nacc_inc_sce_tanh --accelerator zero2
 
 # sbatch --job-name=qwen3b_nacc_inc_oversample --nodes=1 --time=16:00:00 ../slurm/train.slurm --model Qwen2.5-3B-Instruct --task grpo --config nacc_inc_oversample --accelerator zero2
 
-# sbatch --job-name=qwen3b_nacc_inc_oversample_sce_tanh_01 --nodes=1 --time=16:00:00 ../slurm/train.slurm --model Qwen2.5-3B-Instruct --task grpo --config nacc_inc_oversample_sce_tanh --accelerator zero2
+# sbatch --job-name=qwen3b_nacc_inc_oversample_sce_tanh --nodes=1 --time=16:00:00 ../slurm/train.slurm --model Qwen2.5-3B-Instruct --task grpo --config nacc_inc_oversample_sce_tanh --accelerator zero2
 
-# sbatch --job-name=qwen3b_nacc_inc_oversample_sce_tanh_001 --nodes=1 --time=16:00:00 ../slurm/train.slurm --model Qwen2.5-3B-Instruct --task grpo --config nacc_inc_oversample_sce_tanh --accelerator zero2
+# sbatch --job-name=qwen3b_nacc_inc_oversample_dedup --nodes=1 --time=16:00:00 ../slurm/train.slurm --model Qwen2.5-3B-Instruct --task grpo --config nacc_inc_oversample_dedup --accelerator zero2
 
-# sbatch --job-name=qwen25_3B_drgrpo_gp16_nacc_inc_oversample_shuffle --nodes=1 --time=24:00:00 ../slurm/train.slurm --model Qwen2.5-3B-Instruct --task grpo --config nacc_inc_oversample_shuffle --accelerator zero2
-
-# sbatch --job-name=qwen3b_nacc_inc_oversample_unsure --nodes=1 --time=16:00:00 ../slurm/train.slurm --model Qwen2.5-3B-Instruct --task grpo --config nacc_inc_oversample_unsure --accelerator zero2
+# sbatch --job-name=qwen3b_nacc_inc_oversample_dedup_sce_tanh --nodes=1 --time=16:00:00 ../slurm/train.slurm --model Qwen2.5-3B-Instruct --task grpo --config nacc_inc_oversample_dedup_sce_tanh --accelerator zero2
 
 
 # 7B
 # sbatch --job-name=qwen7b_nacc_inc_oversample --nodes=1 --time=24:00:00 --mem=200g ../slurm/train.slurm --model Qwen2.5-7B-Instruct --task grpo --config nacc_inc_oversample --accelerator zero2
 
 # sbatch --job-name=qwen7b_nacc_inc_oversample_sce_tanh --nodes=1 --time=24:00:00 --mem=200g ../slurm/train.slurm --model Qwen2.5-7B-Instruct --task grpo --config nacc_inc_oversample_sce_tanh --accelerator zero2
+
+
+# SFT
+
+# sbatch --job-name=qwen3b_nacc_inc_oversample_sft --nodes=1 --time=24:00:00 ../slurm/train.slurm --model Qwen2.5-3B-Instruct --task sft --config nacc_inc_oversample --accelerator zero2

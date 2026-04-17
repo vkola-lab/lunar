@@ -1,0 +1,64 @@
+# Model arguments
+model_name_or_path: Qwen/Qwen2.5-3B-Instruct 
+model_revision: main
+torch_dtype: bfloat16
+attn_implementation: flash_attention_2
+
+# Data training arguments
+dataset_name: 
+- ../data/training_data/subset/all_train_inc_oversample_sub_SFT.csv
+dataset_num_proc: 40
+shuffle_dataset: true
+
+#SFT hyperparam
+system_prompt: "Provide only the final answer in the format: The answer is \\boxed{option_letter}: option_text, with no reasoning."
+max_length: 4000
+weight_decay: 0.01
+optim: adamw_torch
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+learning_rate: 1.0e-05
+per_device_train_batch_size: 4
+gradient_accumulation_steps: 32
+per_device_eval_batch_size: 1
+
+# SFT trainer config
+max_steps: -1
+num_train_epochs: 50
+bf16: true
+# do_eval: false
+use_liger_kernel: false
+
+data_split: true
+
+gradient_checkpointing: true
+gradient_checkpointing_kwargs:
+  use_reentrant: false
+hub_model_id: OpenR1-Qwen-3B-SFT
+hub_strategy: every_save
+log_level: info
+logging_steps: 5
+logging_strategy: steps
+packing: true
+output_dir: /work/hdd/beze/skowshik/ckpt/ckpt_access/ckpt_sft/qwen25_3B_sft_nacc_inc_oversample_with_earlystopping
+# overwrite_output_dir: true
+push_to_hub: false
+report_to:
+- wandb
+save_strategy: "epoch"
+# save_steps: 500
+save_total_limit: 100
+# eval_strategy: 'no'
+eval_strategy: "epoch"
+# eval_steps: 20
+load_best_model_at_end: true
+seed: 42
+train_type: sft
+completion_only_loss: true
+# ---- early stopping ----
+early_stopping: true
+early_stopping_patience: 3
+# optional, but recommended so it's unambiguous:
+metric_for_best_model: eval_loss
+greater_is_better: false
+# ------------------------------

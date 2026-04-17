@@ -118,43 +118,6 @@ def correctness_within_answer_reward(completions, ground_truth, STAGE=None, retu
         
     return rewards
 
-def correctness_MCI_reward(completions, ground_truth, options, STAGE=None, return_answers=False, **kwargs) -> list[float]:
-    """Reward function that checks if the completion has the answer."""
-    
-    # epsilon = 0.1
-    def extract_answer(text):
-    
-        boxed_match = re.findall(r'\\boxed{([A-Z])(?:\.\s*[^}]*)?}', text, re.DOTALL)
-        if len(boxed_match) == 0:
-            return None
-        return boxed_match[-1].strip().lower()
-
-    # Extract answers
-    contents = [completion[0]["content"] for completion in completions]
-    answers = [extract_answer(content) for content in contents]
-    
-    #     ]
-    print("NOT using stage wise rewards")
-    
-    # Apply rewards based on whether each individual option contains MCI
-    rewards = []
-    for ans, gt, option in zip(answers, ground_truth, options):
-        if ans == gt.lower():
-            rewards.append(1.0)  # Correct answer always gets 1.0
-        else:
-            # For incorrect answers, check if this specific option has MCI
-            if "MCI" in option:
-                rewards.append(0.2)  # MCI option gets 0.2 for wrong answer
-            else:
-                rewards.append(0.0)  # Non-MCI option gets 0.0 for wrong answer
-        
-    print(rewards)
-    
-    if return_answers:
-        return rewards, answers
-        
-    return rewards
-
 def correctness_reward(completions, ground_truth, STAGE=None, return_answers=False, **kwargs) -> list[float]:
     """Reward function that checks if the completion has the answer."""
     
@@ -170,51 +133,10 @@ def correctness_reward(completions, ground_truth, STAGE=None, return_answers=Fal
     contents = [completion[0]["content"] for completion in completions]
     answers = [extract_answer(content) for content in contents]
     
-    print("NOT using stage wise rewards")
     rewards = [
         1.0 if ans == gt.lower() else 0.0 
         for ans, gt in zip(answers, ground_truth)
     ]
-        
-    print(rewards)
-    
-    if return_answers:
-        return rewards, answers
-        
-    return rewards
-
-
-def correctness_unsure_reward(completions, ground_truth, STAGE=None, return_answers=False, **kwargs) -> list[float]:
-    """Reward function that checks if the completion has the answer."""
-    
-    # epsilon = 0.1
-    def extract_answer(text):
-    
-        boxed_match = re.findall(r'\\boxed{([A-Z])(?:\.\s*[^}]*)?}', text, re.DOTALL)
-        if len(boxed_match) == 0:
-            # Try to capture "Cannot determine" in boxed
-            boxed_cannot_determine = re.findall(r'\\boxed{["\']?Cannot determine["\']?}', text, re.IGNORECASE)
-            if boxed_cannot_determine:
-                return "cannot determine"
-            else:
-                return None
-        return boxed_match[-1].strip().lower()
-
-    # Extract answers
-    contents = [completion[0]["content"] for completion in completions]
-    answers = [extract_answer(content) for content in contents]
-    
-    print("NOT using stage wise rewards")
-    
-    rewards = []
-    
-    for ans, gt in zip(answers, ground_truth):
-        if ans == gt.lower():
-            rewards.append(1.0)
-        elif ans == "cannot determine":
-            rewards.append(0.2)
-        else:
-            rewards.append(0.0)
         
     print(rewards)
     
@@ -860,8 +782,6 @@ async def run_script(script: str, language: str, semaphore: asyncio.Semaphore) -
 def get_reward_funcs(script_args) -> list[Callable]:
     REWARD_FUNCS_REGISTRY = {
         "correctness": correctness_reward,
-        "correctness_unsure": correctness_unsure_reward,
-        "correctness_MCI": correctness_MCI_reward,
         "correctness_within_answer": correctness_within_answer_reward,
         "format": format_reward,
         "tag_count": tag_count_reward,

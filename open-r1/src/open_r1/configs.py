@@ -269,6 +269,16 @@ class SFTConfig(trl.SFTConfig):
         default=True,
         metadata={"help": "Whether to shuffle the training dataset."},
     )
+    
+    early_stopping: Optional[bool] = field(
+        default=True,
+        metadata={"help": "Whether early stopping has to be used."},
+    )
+    
+    early_stopping_patience: Optional[int] = field(
+        default=3,
+        metadata={"help": "Early stopping patience used with early_stopping=True."},
+    )
     # --------------------------------------------------------------------------------
 
 

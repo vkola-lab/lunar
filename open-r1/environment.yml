@@ -1,4 +1,4 @@
-name: /projectnb/vkolagrp/skowshik/conda_envs/open_r1
+name: conda_envs/open_r1
 channels:
   - conda-forge
   - defaults
