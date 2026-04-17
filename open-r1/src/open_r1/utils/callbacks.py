@@ -17,7 +17,7 @@
 import subprocess
 from typing import List
 
-from transformers import TrainerCallback
+from transformers import TrainerCallback, EarlyStoppingCallback
 from transformers.trainer_callback import TrainerControl, TrainerState
 from transformers.training_args import TrainingArguments
 
@@ -82,5 +82,10 @@ def get_callbacks(train_config, model_config) -> List[TrainerCallback]:
         if callback_name not in CALLBACKS:
             raise ValueError(f"Callback {callback_name} not found in CALLBACKS.")
         callbacks.append(CALLBACKS[callback_name](model_config))
+        
+    if getattr(train_config, "early_stopping", False):
+        print("Using early stopping")
+        patience = getattr(train_config, "early_stopping_patience", 3)
+        callbacks.append(EarlyStoppingCallback(early_stopping_patience=patience))
 
     return callbacks

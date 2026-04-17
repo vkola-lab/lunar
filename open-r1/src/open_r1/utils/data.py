@@ -138,6 +138,7 @@ def get_dataset(args: ScriptArguments, training_args):
             
         elif "sft" in args.train_type.lower():
             row["prompt"] = [
+                {"role": "system", "content": training_args.system_prompt},
                 {"role": "user", "content": utils.get_template(train_type=args.train_type).format(question=question, options=row['options'])},
             ]
             row["completion"] = [

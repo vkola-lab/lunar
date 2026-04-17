@@ -31,7 +31,7 @@ pytest
 parameterized>=0.9.0
 math-verify==0.5.2
 jieba
-lighteval@ git+https://github.com/huggingface/lighteval.git@d3da6b9bbf38104c8b5e1acc86f83541f9a502d1
+lighteval @ git+https://github.com/huggingface/lighteval.git@d3da6b9bbf38104c8b5e1acc86f83541f9a502d1
 e2b-code-interpreter>=1.0.5
 python-dotenv
 morphcloud==0.1.67
@@ -39,7 +39,7 @@ pandas>=2.2.3
 aiofiles>=24.1.0
 
 [eval]
-lighteval@ git+https://github.com/huggingface/lighteval.git@d3da6b9bbf38104c8b5e1acc86f83541f9a502d1
+lighteval @ git+https://github.com/huggingface/lighteval.git@d3da6b9bbf38104c8b5e1acc86f83541f9a502d1
 math-verify==0.5.2
 
 [quality]

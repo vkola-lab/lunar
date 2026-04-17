@@ -10,7 +10,7 @@ attn_implementation: flash_attention_2
 # DATA CONFIGURATION
 # =============================================================================
 dataset_name: 
-- ../data/training_data/subset/all_train_sub.csv
+- ../data/training_data/subset/all_train_inc_oversample_dedup_sub.csv
 shuffle_dataset: true
 
 # =============================================================================
@@ -24,7 +24,7 @@ max_completion_length: 2000
 # TRAINING CONFIGURATION
 # =============================================================================
 # Basic training settings
-num_train_epochs: 2
+num_train_epochs: 1
 max_steps: -1
 per_device_train_batch_size: 2
 # per_device_eval_batch_size: 2
@@ -50,9 +50,9 @@ beta: 0.001
 # beta: 0.0
 # entropy_coeff: 0.00001
 scale_rewards: false
+mask_truncated_completions: false
 add_sce: 1
 lambda_sce: 0.05
-mask_truncated_completions: false
 # over_generation_factor: 1
 use_liger_loss: false
 use_liger_kernel: false
@@ -104,8 +104,8 @@ logging_steps: 1
 # =============================================================================
 # MODEL SAVING AND OUTPUT
 # =============================================================================
-output_dir: "/work/hdd/beze/skowshik/ckpt/ckpt_access/qwen25_3B_drgrpo_gp16_nacc_sce_tanh_no_scale"
-log_path: "/work/hdd/beze/skowshik/logs/logs_modifed_cog_np_subset/train_completions/qwen25_3B_drgrpo_gp16_nacc_sce_tanh_no_scale.csv"
+output_dir: "/work/hdd/beze/skowshik/ckpt/ckpt_access/qwen25_3B_drgrpo_gp16_nacc_inc_oversample_dedup_sce_tanh"
+log_path: "/work/hdd/beze/skowshik/logs/logs_modifed_cog_np_subset/train_completions/qwen25_3B_drgrpo_gp16_nacc_inc_oversample_dedup_sce_tanh.csv"
 save_strategy: "steps"
 save_steps: 200
 save_total_limit: 100
