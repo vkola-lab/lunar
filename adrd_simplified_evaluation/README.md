@@ -1,6 +1,6 @@
 # Benchmark Evaluation Suite for LLMs
 
-This directory contains a collection of scripts to evaluate LLMs on 'tasks'. A task is defined for the purposes of this project as a collection of multiple choice questions. For example, 'determine the primary etiology given patient data' is a task (which we refer to as the ETPR task). 
+This directory contains a collection of scripts to evaluate LLMs on 'tasks'. A task is defined for the purposes of this project as a collection of multiple choice questions. For example, 'determine the primary etiology given patient data' is a task (which we refer to as the ETPR task).  We also provide scripts to submit jobs in a High-Performance Computing (HPC) clusters, specifically for PBS (Portable Batch System).
 
 
 # Creating the python environments
@@ -24,9 +24,11 @@ will run the tasks specified in that `.yml` file. To request resources (i.e. GPU
 
 The results of a task will be saved in the directory specified by the `results_dir` key in the configuration `.yml` file. The result directory will contain:
 - a copy of the configuration file used for this run, for reproducibility purposes
-- a newline-delimited JSON file (also known as JSONL) with the model responses. If you asked the model to generate more than one output for each question (using the `sampling_params.n` configuratoin key), they will be collected as an array in the corresponding JSONL key. In other words, if the task has N questions, you will have N lines in the output JSONL file. If you want one line per output generation, use something like `pd.explode` on the JSONL file.
+- a newline-delimited JSON file (also known as JSONL) with the model responses. If you asked the model to generate more than one output for each question (using the `sampling_params.n` configuratoin key), they will be collected as an array in the corresponding JSONL key. In other words, if the task has N questions, you will have N lines in the output JSONL file. If you want one line per output generation, use something like `pd.explode` on the JSONL file. All tasks are assumed to comprise multiple choice questions, but the model output is in natural language. 
 
-All tasks are assumed to comprise multiple choice questions, but the model output is in natural language. To extract the answer, we look for the pattern `\boxed{...}` in the output, and extract the letter within braces. To automate this, use the `extract_answers.sh` script. This will use a regular expression to attempt to extract a letter answer from the model output (e.g. "the answer is \boxed{A}" -> "A"). If this fails, either because the model did not produce the answer in this format, or multiple valid answers are found, the script falls back to using anoher LLM to resolve the ambiguity. This means that `extract_answers.sh` should also be submitted to SCC requesting GPUs. The `extract_answers.sh` script will recursively look at all JSONL files in the specified directory, and run them through the extractor. It will then produce a parquet file with the ground truth and predicted answers. The parquet file will be in the same directory as each procesed JSONL file.
+# Answer extraction
+
+To extract the answer, we look for the pattern `\boxed{...}` in the output, and extract the letter within braces. To automate this, use the `extract_answers.sh` script. This will use a regular expression to attempt to extract a letter answer from the model output (e.g. "the answer is \boxed{A}" -> "A"). If this fails, either because the model did not produce the answer in this format, or multiple valid answers are found, the script falls back to using anoher LLM to resolve the ambiguity. This means that `extract_answers.sh` should also be submitted to SCC requesting GPUs. The `extract_answers.sh` script will recursively look at all JSONL files in the specified directory, and run them through the extractor. It will then produce a parquet file with the ground truth and predicted answers. The parquet file will be in the same directory as each procesed JSONL file.
 
 Example:
 
@@ -36,21 +38,26 @@ $ qsub extract_answers.sh results/NACC
 
 This script will only extract answers if there is no parquet file in the current directory, to avoid unnecesary work. If you want to re-extract the answers for whatever reason, delete the parquet files and rerun the script.
 
-If you also want to compute metrics from these answers (precision, recall, etc.) use 
+# Plots
+
+
+<!-- If you also want to compute metrics from these answers (precision, recall, etc.) use 
 
 ```
 $ ./compute_metrics.sh
 ```
 
-Notice that it it not necessary to `qsub` this, as it does not use an LLM internally. It is a very lightweight operation. If you are going to make figures straight from the parquet files, you can skip this step.
+Notice that it it not necessary to `qsub` this, as it does not use an LLM internally. It is a very lightweight operation. If you are going to make figures straight from the parquet files, you can skip this step. -->
 
-Most of the figures are designed to have their own dedicated jupyter notebooks (each notebook makes one figure). For reproducibility purposes, that same code is encapsulated in a series of small scripts in `src/figures` (one script per figure). You can run all of them at the same time using 
+Most of the figures are designed to have their own dedicated plot file in `plots` (one script per figure). The results will be saved under `figures`.
+
+<!-- You can run all of them at the same time using 
 
 ```
 $ ./make_figures.sh
 ```
 
-which also does not require `qsub`.
+which also does not require `qsub`. -->
 
 # Modifying the configuration files
 

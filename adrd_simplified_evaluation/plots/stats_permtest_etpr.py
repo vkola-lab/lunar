@@ -14,9 +14,7 @@ from tqdm import tqdm
 plt.rcParams["font.family"] = "Arial"
 sns.set_style("whitegrid")
 
-# -----------------
 # Configuration
-# -----------------
 
 MODEL_MAP = {
     "Qwen2.5-3B-Instruct": "Q3B",
@@ -55,9 +53,7 @@ SAVE_LATEX = True
 LATEX_OUTPUT_PATH = "../tables/fig3_etpr_macro_table.tex"
 
 
-# -----------------
 # Data loading
-# -----------------
 
 def option_string_to_dict(options: str) -> dict[str, str]:
     pattern = r"([A-Z])\. ([^\n]+)"
@@ -152,9 +148,7 @@ def check_alignment(df: pd.DataFrame) -> bool:
     return issues_found
 
 
-# -----------------
 # Metric utilities
-# -----------------
 
 def _vectorized_metric_calc(y_true, y_pred, label_code, metric: str):
     tp = np.sum((y_pred == label_code) & (y_true == label_code), axis=-1)
@@ -219,9 +213,7 @@ def _vectorized_macro_metric_calc(y_true, y_pred, label_codes, metric: str):
     return acc / float(len(used))
 
 
-# -----------------
 # Bootstrap (macro metrics)
-# -----------------
 
 def _single_bootstrap_task_macro(group_info, y_true_b, y_pred_b, label_codes, m_type):
     boot_values = _vectorized_macro_metric_calc(y_true_b, y_pred_b, label_codes, m_type)
@@ -313,9 +305,7 @@ def optimized_bootstrap_parallel_macro(
     return pd.DataFrame(results)
 
 
-# -----------------
 # Permutation tests (macro metrics)
-# -----------------
 
 def _permutation_worker_macro(task, n_perms: int, seed: int):
     rng = np.random.default_rng(seed)
@@ -415,7 +405,8 @@ def compute_pairwise_comparisons_macro(
             )
             if len(d1) != len(d2):
                 continue
-
+            
+            assert np.array_equal(d1["y_true"].to_numpy(), d2["y_true"].to_numpy())
             yt = d1["y_true"].to_numpy()
             yp1 = d1["y_pred"].to_numpy()
             yp2 = d2["y_pred"].to_numpy()
@@ -461,9 +452,7 @@ def compute_pairwise_comparisons_macro(
     return res_df
 
 
-# -----------------
 # LaTeX table (macro)
-# -----------------
 
 def generate_latex_table_macro(
     all_metric: pd.DataFrame,
@@ -555,9 +544,7 @@ def generate_latex_table_macro(
     return "\n".join(latex_lines)
 
 
-# -----------------
 # Circular bar plot
-# -----------------
 
 table_positions = {
     "macro_precision": {
@@ -854,9 +841,7 @@ def plot_macro_circular(
     print(f"Saved {out_path}")
 
 
-# -----------------
 # Main
-# -----------------
 
 def main() -> None:
     print("Loading ETPR results...")

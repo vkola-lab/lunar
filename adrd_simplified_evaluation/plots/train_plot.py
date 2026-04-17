@@ -23,13 +23,13 @@ REWARD_STD_KEY = "train/reward_std"
 
 
 COLUMN_MAPPING = {
-    "qwen2.5 3B nacc inc oversample dedup": "LUNAR - OS - SCe",
-    "qwen2.5 3B nacc inc oversample dedup sce tanh": "LUNAR - OS",
-    "qwen2.5 3B nacc inc oversample": "LUNAR - SCe",
+    "qwen2.5 3B nacc inc oversample dedup": "LUNAR-OS-SCe",
+    "qwen2.5 3B nacc inc oversample dedup sce tanh": "LUNAR-OS",
+    "qwen2.5 3B nacc inc oversample": "LUNAR-SCe",
     "qwen2.5 3B nacc inc oversample sce tanh cont": "LUNAR",
 }
 
-ORDER = ["LUNAR - OS - SCe", "LUNAR - OS", "LUNAR - SCe", "LUNAR"]
+ORDER = ["LUNAR-OS-SCe", "LUNAR-OS", "LUNAR-SCe", "LUNAR"]
 
 FONTSIZE = 7
 LINEWIDTH = 1
@@ -37,16 +37,16 @@ MARKERSIZE = 4
 
 DASHES = {
     "LUNAR": "",
-    "LUNAR - SCe": (2, 2),
-    "LUNAR - OS": (5, 2),
-    "LUNAR - OS - SCe": (2, 1, 1, 1),
+    "LUNAR-SCe": (2, 2),
+    "LUNAR-OS": (5, 2),
+    "LUNAR-OS-SCe": (2, 1, 1, 1),
 }
 
 MARKERS = {
     "LUNAR": "o",
-    "LUNAR - SCe": "s",
-    "LUNAR - OS": "^",
-    "LUNAR - OS - SCe": "D",
+    "LUNAR-SCe": "s",
+    "LUNAR-OS": "^",
+    "LUNAR-OS-SCe": "D",
 }
 
 
@@ -114,7 +114,7 @@ def smooth_long_ema_stop_at_end(
             if np.isnan(values[i]):
                 out[i] = np.nan
                 continue
-            ema = (1.0 - alpha) * ema + alpha * values[i]
+            ema = (1.0-alpha) * ema + alpha * values[i]
             out[i] = ema
 
         return pd.Series(out, index=g.index)
@@ -197,7 +197,7 @@ def make_figure(
     handles, labels = axes[0, 0].get_legend_handles_labels()
     if axes[0, 0].legend_ is not None:
         axes[0, 0].legend_.remove()
-    axes[0, 0].set_ylabel("Group rewards", fontsize=FONTSIZE)
+    axes[0, 0].set_ylabel("Mean group\nrewards", fontsize=FONTSIZE)
 
     sns.lineplot(
         data=reward_std_long,
@@ -235,7 +235,7 @@ def make_figure(
         ax=axes[1, 0],
         legend=False,
     )
-    axes[1, 0].set_ylabel("Entropy", fontsize=FONTSIZE)
+    axes[1, 0].set_ylabel("Mean token\nentropy", fontsize=FONTSIZE)
 
     sns.lineplot(
         data=length_long,
@@ -254,7 +254,7 @@ def make_figure(
         ax=axes[1, 1],
         legend=False,
     )
-    axes[1, 1].set_ylabel("Mean response\nlength", fontsize=FONTSIZE)
+    axes[1, 1].set_ylabel("Mean response\nlength (tokens)", fontsize=FONTSIZE)
 
     axes[1, 0].set_xlabel("Training steps", fontsize=FONTSIZE)
     axes[1, 1].set_xlabel("Training steps", fontsize=FONTSIZE)

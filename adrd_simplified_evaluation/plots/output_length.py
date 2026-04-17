@@ -16,9 +16,7 @@ plt.rcParams["font.family"] = "Arial"
 mpl.rcParams["hatch.linewidth"] = 0.5
 sns.set_style("whitegrid")
 
-# -----------------
 # Configuration
-# -----------------
 
 COMPUTE_TOKEN_COUNTS = False  # True = compute and save; False = load from CSV
 TOKEN_COUNTS_CSV = "token_counts.csv"
@@ -61,9 +59,7 @@ os.environ["TOKENIZERS_PARALLELISM"] = "true"
 TOKENIZER = AutoTokenizer.from_pretrained("Qwen/Qwen2.5-3B-Instruct")
 
 
-# -----------------
 # Data loading / token counting
-# -----------------
 
 def load_answers(dir_path: Path, dataset_name: str) -> pd.DataFrame:
     """
@@ -134,9 +130,7 @@ def count_tokens_fast(
     return token_counts
 
 
-# -----------------
 # Stats utilities
-# -----------------
 
 def map_values(value):
     if isinstance(value, str):
@@ -234,9 +228,7 @@ def pairwise_tests_matrix(df, model_order, model_to_letter, value_col="token_cou
     return mat, pairs, p_adjusted, median_diffs
 
 
-# -----------------
 # Plotting
-# -----------------
 
 # def plot_token_distribution(
 #     df: pd.DataFrame,
@@ -495,9 +487,7 @@ def plot_token_distribution(
     return fig, [ax, ax_legend]
 
 
-# -----------------
 # Main
-# -----------------
 
 def main() -> None:
     if COMPUTE_TOKEN_COUNTS:
