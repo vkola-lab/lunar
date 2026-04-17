@@ -1,4 +1,4 @@
-# data_preparation
+# Data Preparation
 
 This directory contains all scripts for processing raw cohort data into training and testing datasets for LUNAR. Each cohort (`nacc`, `adni`, `brainlat`, `nifd`, `ppmi`) has its own subfolder with a `data_preparation.ipynb` notebook that handles cohort-specific harmonization. Shared utilities and summary generation scripts live at the top level and in `create_summary/`.
 
