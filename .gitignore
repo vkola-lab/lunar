@@ -21,6 +21,8 @@ diagnostic_summary_test.ipynb
 mri_qc.ipynb
 get_progression_cases.ipynb
 llama32_test.ipynb
+notebooks/
+tables/
 
 # Intermediate folders
 wandb/
@@ -78,6 +80,14 @@ check_tensor.ipynb
 run_benchmarks_1.sh
 grpo_trainer_with_dynamic_sampling.py
 swift_grpo_trainer.py
+figure_benchmarks_including_qwen3_macro.py
+output_length_standard_benchmarks.py
+training_curve_macro_id_level_polars.py
+figure_benchmarks.py
+figures/
+archive/
+training_curve_files/
+old/
 
 # environments
 venv/

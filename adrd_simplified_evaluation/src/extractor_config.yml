@@ -3,7 +3,7 @@ LLM:
   model: "Qwen/Qwen3-14B" # can be a path
   tensor_parallel_size: 1 # Number of GPUs used. Passed to vllm.LLM.tensor_parallel_size. 
   gpu_memory_utilization: 0.9 # Fraction of gpu memory reserved for model + attention
-  max_model_len: 32000
+  max_model_len: 40000
   distributed_executor_backend: 'mp'
   seed: 1 # seed to initialize RNG for sampling
   enable_lora: false

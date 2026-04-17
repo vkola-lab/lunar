@@ -15,11 +15,15 @@ def make_results_dir(config, benchmark_path):
     run_name = "-".join(
         (datetime.now().replace(microsecond=0).isoformat(), config.run_readable_name)
     )
-
-    run_path = (
-        # Path(config.benchmarks.results_dir) / Path(benchmark_path).stem / run_name
-        Path(config.benchmarks.results_dir) / Path(benchmark_path).parent.stem / Path(benchmark_path).stem / Path(config.benchmarks.run_dir) / run_name
-    )
+    
+    if "training_curve" in config.benchmarks.results_dir:
+        run_path = (
+            Path(config.benchmarks.results_dir) / Path(benchmark_path).parent.stem / Path(benchmark_path).stem / Path(config.benchmarks.run_dir) / run_name
+        )
+    else:
+        run_path = (
+            Path(config.benchmarks.results_dir) / Path(benchmark_path).stem / run_name
+        )
 
     run_path.mkdir(parents=True, exist_ok=False)
 
@@ -77,8 +81,8 @@ def get_template(template_style):
 
     if template_style in ["grpo", "sft"]:
         template = prompt_templates.TEMPLATE
-    elif template_style == "grpo_think":
-        template = prompt_templates.TEMPLATE_THINK
+    # elif template_style == "grpo_think":
+    #     template = prompt_templates.TEMPLATE_THINK
     elif template_style == "multilabel":
         template = prompt_templates.MULTILABEL
     else:
@@ -121,10 +125,15 @@ def make_prompts_from_template(problems, config):
         #         {"role": "system", "content": config.prompt.system_prompt},
         #         {"role": "user", "content": prompt},
         #     ]
-        message = [
-            {"role": "system", "content": config.prompt.system_prompt},
-            {"role": "user", "content": prompt},
-        ]
+        if "system_prompt" in config.prompt:
+            message = [
+                {"role": "system", "content": config.prompt.system_prompt},
+                {"role": "user", "content": prompt},
+            ]
+        else:
+            message = [
+                {"role": "user", "content": prompt},
+            ]
 
         messages.append(message)
 
@@ -136,8 +145,10 @@ def run_benchmark(llm, benchmark_path, config):
     problems = load_problems(Path(benchmark_path), config)
 
     messages = make_prompts_from_template(problems, config)
+    
+    enable_thinking = True if config.enable_thinking is True else None
 
-    outputs = llm.generate(messages)
+    outputs = llm.generate(messages, enable_thinking=enable_thinking)
 
     return problems, outputs
 

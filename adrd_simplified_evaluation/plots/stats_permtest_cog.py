@@ -15,9 +15,7 @@ plt.rcParams["font.family"] = "Arial"
 sns.set_style("whitegrid")
 
 
-# -----------------
 # Configuration
-# -----------------
 
 MODEL_MAP = {
     "Qwen2.5-3B-Instruct": "Q3B",
@@ -83,9 +81,7 @@ SAVE_LATEX = True
 LATEX_OUTPUT_PATH = "../figures/fig3_cog_table.tex"
 
 
-# -----------------
 # Data loading
-# -----------------
 
 def option_string_to_dict(options: str) -> dict[str, str]:
     """
@@ -182,9 +178,7 @@ def build_results_df() -> pd.DataFrame:
     return results_df
 
 
-# -----------------
 # Metric utilities
-# -----------------
 
 def _vectorized_metric_calc(y_true, y_pred, label_code, metric: str):
     """Core vectorized math for both bootstrap and permutation."""
@@ -228,9 +222,7 @@ def _vectorized_metric_calc(y_true, y_pred, label_code, metric: str):
     )
 
 
-# -----------------
 # Bootstrap
-# -----------------
 
 def _single_bootstrap_task(group_info, y_true_b, y_pred_b, lbl_code, m_type):
     """Worker for individual bootstrap metric tasks."""
@@ -348,9 +340,7 @@ def optimized_bootstrap_parallel(
     return res_df.drop(columns=["class_code"])
 
 
-# -----------------
 # Permutation tests
-# -----------------
 
 def _permutation_worker(task, n_perms: int, seed: int):
     """Worker for individual permutation tasks."""
@@ -510,9 +500,7 @@ def compute_pairwise_comparisons_optimized(
     return res_df.drop(columns=["class_code"])
 
 
-# -----------------
 # LaTeX table
-# -----------------
 
 def generate_latex_table(
     all_metric: pd.DataFrame,
@@ -615,9 +603,7 @@ def generate_latex_table(
     return "\n".join(latex_lines)
 
 
-# -----------------
 # Plotting
-# -----------------
 
 def get_significance_marker(p_value):
     if isinstance(p_value, str):
@@ -894,9 +880,7 @@ def plot_classwise_with_pvalues(
     print(f"Saved {filename}")
 
 
-# -----------------
 # Main
-# -----------------
 
 def main() -> None:
     print("Loading COG results...")

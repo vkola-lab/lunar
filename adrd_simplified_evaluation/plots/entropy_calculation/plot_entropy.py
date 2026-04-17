@@ -14,19 +14,17 @@ plt.rcParams["font.family"] = "Arial"
 mpl.rcParams["hatch.linewidth"] = 0.5
 sns.set_style("whitegrid")
 
-# -----------------
 # Configuration
-# -----------------
 
 DATA_DIR = "./entropies"  # directory with your JSON files
 
 # Map filenames to display names
 key_name_dict = {
     "q3b": "Q3B",
-    "oversample": "LUNAR-SCe",
     "oversample_dedup": "LUNAR-OS-SCe",
-    "oversample_sce_tanh": "LUNAR",
     "oversample_dedup_sce_tanh": "LUNAR-OS",
+    "oversample": "LUNAR-SCe",
+    "oversample_sce_tanh": "LUNAR",
     "q7b": "Q7B",
 }
 
@@ -39,9 +37,7 @@ key_order = [
     "Q7B",
 ]
 
-# -----------------
 # Data loading
-# -----------------
 
 def load_entropy_data(data_dir: str) -> pd.DataFrame:
     """Load all JSON entropy files into a long-form DataFrame."""
@@ -64,9 +60,7 @@ def load_entropy_data(data_dir: str) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-# -----------------
 # Stats utilities  (identical pattern to your existing code)
-# -----------------
 
 def map_values(value):
     if isinstance(value, str):
@@ -155,9 +149,7 @@ def pairwise_tests_matrix(df, key_order, key_to_letter, value_col="mean_entropy"
     return mat, pairs, p_adjusted, median_diffs
 
 
-# -----------------
 # Plotting
-# -----------------
 
 def plot_entropy_distribution(
     df: pd.DataFrame,
@@ -253,9 +245,7 @@ def plot_entropy_distribution(
     return fig, [ax, ax_legend]
 
 
-# -----------------
 # Main
-# -----------------
 
 def main():
     df = load_entropy_data(DATA_DIR)
@@ -266,7 +256,7 @@ def main():
         value_col="mean_entropy",
         figsize=(2.3, 1.8),
         fontsize=7,
-        ylabel="Mean Entropy",
+        ylabel="Mean token entropy",
         palette="colorblind",
         ylim=(0, 2.5)
     )
